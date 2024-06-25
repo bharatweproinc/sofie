@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact-us', [LandingController::class, 'contactUs']);
     Route::get('/login-page', [LandingController::class, 'login']);
     Route::get('/signup', [LandingController::class, 'signup']);
+    Route::get('/company-detail', [LandingController::class, 'companydetail']);
 // });
 
 require __DIR__.'/auth.php';
