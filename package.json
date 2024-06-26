@@ -25,6 +25,8 @@
         "@mui/icons-material": "^5.15.20",
         "@mui/material": "^5.15.20",
         "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+        "react-swipeable-views": "^0.14.0",
+        "react-swipeable-views-utils": "^0.14.0",
         "sass": "^1.77.6",
         "styled-components": "^6.1.11"
     }

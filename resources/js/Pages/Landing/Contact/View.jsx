@@ -6,10 +6,10 @@ import { Landing } from '@/Layouts/Landing';
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  backgroundPosition: 'center',
-//   width: '100vh',
-  height: '100vh',
-  display: 'flex',
+  // backgroundPosition: 'center',
+  // width: '100%',
+   height: '896px',
+  display: 'flex',  
   justifyContent: 'center',
   alignItems: 'center',
   backgroundPosition:'right top !important'
@@ -20,14 +20,18 @@ const CenteredPaper = styled(Paper)({
   borderRadius: "12px",
 });
 
-function Test() {
+function Test() { 
   return (
 	<Landing>
 	<Typography sx={{height:'65px'}}></Typography>
     <BackgroundImageContainer sx={{paddingToo:'65px'}}>
-    <CenteredPaper elevation={4}>
-	<Grid container spacing={2} width="650px" height="616px">
-        <Grid item xs={12} gap={2}>
+    <CenteredPaper elevation={4} 
+    sx={{
+      margin:'60px',
+      width:'650px !important'
+    }}>
+	  <Grid container spacing={2} width="100%">
+        <Grid item xs={12}  gap={2}>
           <Typography fontWeight={700} sx={{fontSize:"28px"}}>Contact Us</Typography>
         </Grid>
         <Grid item lg={6} sm={12} md={6} xs={12}>

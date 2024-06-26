@@ -20,4 +20,8 @@ class LandingController extends Controller
         // dd(12);
         return Inertia::render('Landing/Login/View',[]);
     }
+
+    public function signup() {
+        return Inertia::render('Landing/SignUp/View',[]);
+    }
 }

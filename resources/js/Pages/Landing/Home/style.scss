@@ -1,0 +1,16 @@
+.dashed-border::after{
+    content: "----------------------";
+    color: #ffff;
+    letter-spacing: 12px;
+    font-size: 90px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+@media screen and (max-width: 1487px) {
+    .dashed-border::after {
+        content: "----------------";
+        letter-spacing: 0px !important;
+    }
+  }

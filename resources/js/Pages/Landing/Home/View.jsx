@@ -9,7 +9,7 @@ import turtle from '../../../Assets/Images/turtle.png'
 import nuevocar from '../../../Assets/Images/nuevocar.png'
 import joinCommunityMember1 from '../../../Assets/Images/join-community-member1.png'
 import joinCommunityMember2 from '../../../Assets/Images/join-community-member2.png'
-import { Card, Grid, MobileStepper, Paper } from '@mui/material';
+import { Card, Grid, MobileStepper, Paper,useMediaQuery,useTheme } from '@mui/material';
 import Button from '@/Components/Singleton/Button';
 import { Landing } from '@/Layouts/Landing';
 import theme from '@/Themes/Color';
@@ -20,9 +20,20 @@ import Constants from './Constants';
 import Guide from './Components/Guide';
 import FeatureCard from './Components/FeatureCard';
 import Testimonial from './Components/Testimonial';
+import { autoPlay } from 'react-swipeable-views-utils';
+import SwipeableViews from 'react-swipeable-views';
+import "./style.scss"
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar(props) {
+	const themes = useTheme()
+	const isMobile = useMediaQuery(themes.breakpoints.down('sm'));
 	const [activeStep, setActiveStep] = React.useState(0);
+  
+	const handleStepChange = (step) => {
+	  setActiveStep(step);
+	};
+
 	return (
 		<>
 			<Landing>
@@ -37,7 +48,7 @@ function DrawerAppBar(props) {
 								variant="body1"
 								color="initial"
 							>
-								Find the Perfect Business Mentor for Your Success
+							Find the Perfect Business Mentor for Your Success
 							</Typography>
 							<Typography className='leading-3' sx={{
 								fontSize: '16px',
@@ -53,20 +64,34 @@ function DrawerAppBar(props) {
 									Sign Up to be SME
 								</Button>
 								<Button variant="outlined" className="w-full">
-									Sign Up to be Mentor
+									Sign Up to be Mentor	
 								</Button>
 							</Box>
 
 						</Box>
 					</Grid>
-					<Grid item sm={6} sx={{ height: {lg: '693px', md: '500px', sm:'400px'} }}>
+					<Grid item sm={6} sx={{ position:'relative', height: {lg: '693px', md: '500px', sm:'400px'} }}>
 						<img className='w-full h-full object-cover' style={{
 							maxWidth: '100',
-						}} src={headerRight} alt="description" />
-					</Grid>
+						}} src={headerRight} alt="description"/>
+						<Box 
+						sx={{
+							position:"absolute",
+							height:'100%',
+							width:'30px',
+							backgroundColor:'#ffff',
+							top:'0',
+							left:'11px',
+							boxShadow:'20px -1px 20px 20px #ffff',
+							boxShadow: {sm:'-1px 20px 20px 20px #ffff;', xs:'-1px 20px 20px 20px #ffff'},
+							width: {lg:'30px', md:'30px', sm:'30px', xs:'-webkit-fill-available'},
+							height: {lg:'100%', md:'100%', sm:'100%', xs:'30px'}
+						}}
+						></Box>
+					</Grid>	
 				</Grid>
 
-				<Box bgcolor={theme.color[import.meta.env.VITE_SELECTED_THEME].primary}
+				<Box className="relative" bgcolor={theme.color[import.meta.env.VITE_SELECTED_THEME].primary}
 					p={{lg:10, md:5, sm:2}} mt={{sm:4, md:0}}
 				>
 					<Grid container spacing={{lg:4, md:2, sm:1, xs:2}} px={{lg:5, sm:2, xs:3}} py={6}>
@@ -77,7 +102,7 @@ function DrawerAppBar(props) {
 										borderRadius: '15px',
 									}}
 								>
-									<Bulb />
+									<Bulb/>
 									<Typography
 										variant="body1"
 										mt={2}
@@ -90,7 +115,7 @@ function DrawerAppBar(props) {
 										mt={1}
 										variant="body1"
 										color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
-									>
+										>
 										We strive to empower entrepreneurs by offering them the tools, resources, and mentorship
 									</Typography>
 								</Card>
@@ -99,12 +124,12 @@ function DrawerAppBar(props) {
 					</Grid>
 				</Box>
 
-				<Grid container py={{lg:8, md:5, sm: 2, xs:2}} px={{lg:15, md:6, sm: 3, xs:2}}
+				<Grid container py={{lg:10, md:5, sm: 2, xs:2}} px={{lg:15, md:6, sm: 3, xs:2}}
 					sx={{
 						bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].greyBackground
 					}}>
 					<Grid item xs={12} sm={6} >
-						<img className='w-full h-96 object-cover rounded-lg' src={roundedImage} alt="description" />
+						<img className='w-full h-100 object-cover rounded-lg' src={roundedImage} alt="description" />
 					</Grid>
 
 					<Grid container p={{lg:4, xs:1}} item xs={12} sm={6}>
@@ -141,7 +166,7 @@ function DrawerAppBar(props) {
 						</Button>
 					</Grid>
 				</Grid>
-				<Grid container pb={2} px={{lg:12, md:4}} >
+				<Grid container py={10} px={{lg:12, md:4}} >
 					<Grid item xs={12}>
 						<Typography sx={{
 								fontSize: { xs: '32px', sm: '24px', md: '32px' },
@@ -173,7 +198,7 @@ function DrawerAppBar(props) {
 					py={{lg:10, md:5, xs:2}}
 					px={{lg:15, md:6, xs:3}}
 					textAlign={"center"}>
-					<Grid item xs={12}>
+					<Grid item xs={12} pb={10}>
 						<Typography textAlign={'center'} variant="body1" color={theme.color[import.meta.env.VITE_SELECTED_THEME].white}>
 							How It Works
 						</Typography>
@@ -182,25 +207,31 @@ function DrawerAppBar(props) {
 						</Typography>
 					</Grid>
 
+                    <Grid container sx={{position:'relative'}}>
 					{Constants.guide.map((item, key) => (
 						<Grid item sm={3} key={key}>
-							<Guide item={item} />
+							<Guide item={item}/>
 						</Grid>
 					))}
+					<Box className="dashed-border" sx={{
+					}}></Box>
+					</Grid>
+
 				</Grid>
 
-				<Grid container py={{lg:2, sm:1}} px={{lg:7, md:3, sm:1}}>
+				<Grid container py={{lg:10, sm:1}} px={{lg:7, md:3, sm:1}}>
 					<Grid item xs={12}>
-						<Typography sx={{
+						<Typography 
+						    sx={{
 								fontSize: { xs: '32px', sm: '24px', md: '32px' },
 								fontWeight: '700 !important',
 							}}
 							textAlign={'center'}
 							variant="body1"
-							color="initial"
+							color="initial" 
 						>
 						Featured SME
-						</Typography>
+						</Typography>	
 					</Grid>
 					<Grid item xs={12} py={2}>
 						<Typography textAlign={'center'} color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} variant="subtitle1">
@@ -217,12 +248,13 @@ function DrawerAppBar(props) {
 					))}
 				</Grid>
 
-				<Box>
+				<Box className="relative">
 					<img
 						style={{
 							position: 'absolute',
 							zIndex: '-1',
 							width:'100%',
+							height:'100%'
 						}}
 						src={joinCommunity}
 					></img>
@@ -248,7 +280,7 @@ function DrawerAppBar(props) {
 						<Grid container spacing={2} py={{lg:10, md:5, sm:2}} sx={{ justifyContent: 'space-between' }}>
 							<Grid item xs={12} sm={4} >
 								<Box className="flex justify-center px-16 sm:px-0">
-									<img className='w-full' src={joinCommunityMember1} alt="description" />
+									<img className='w-full' src={joinCommunityMember1} alt="description"/>
 								</Box>
 							</Grid>
 							<Grid item xs={12} sm={7}>
@@ -284,47 +316,63 @@ function DrawerAppBar(props) {
 								</Box>
 							</Grid>
 						</Grid>
+						
 
-						<Grid container sx={{ justifyContent: 'space-between' }}>
-							<Grid item xs={12} sm={7}>
-								<Typography
-									sx={{
-										fontSize: { xs: '32px', sm: '18px', md: '28px' },
-										fontWeight: '700 !important',
-									}}
-									variant="body1"
-									color="initial"
-								>
-									Partner with Us and Empower Your Business
-								</Typography>
-								<Typography
-									mt={3}
-									color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
-									variant="body1"
-								>
-									Collaborate with our platform to gain access to expert mentors who can help your business thrive.Our mentors provide personalized guidance and strategic advice tailored to your specific needs and challenges.
-								</Typography>
-								<Typography
-									mt={3}
-									color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
-									variant="body1"
-								>
-									By partnering with us, you'll be equipped with the tools and knowledge necessary to drive growth and innovation within your company.
-								</Typography>
-								<Box mt={3}>
-									<Button variant="contained">
-										Be A Mentor
-									</Button>
-								</Box>
-							</Grid>
-							<Grid item xs={12} sm={4} >
-								<img className='w-full' src={joinCommunityMember2} alt="description" />
-							</Grid>
+						<Grid
+						container
+						spacing={2}
+						mt={{ sm: 2, xs: 2 }}
+						flexDirection={{ xs: 'column-reverse', sm: 'row' }}
+						display={{ sm: "flex",xs:"contents" }}
+						height={{ sm: "100%", xs: "auto" }}
+						py={{ lg: 10, md: 5, sm: 2 }}
+						sx={{
+							justifyContent: 'space-between',
+						}}
+						>
+						<Grid item xs={12} sm={7} order={{ xs: 2, sm: 1 }}>
+							<Typography
+							textAlign={{ xs: 'center', sm: 'left' }}
+							sx={{
+								fontSize: { xs: '18px', md: '28px' },
+								fontWeight: '700',
+							}}
+							variant="body1"
+							>
+							Partner with Us and Empower Your Business
+							</Typography>
+							<Typography
+							textAlign={{ xs: 'center', sm: 'left' }}
+							mt={3}
+							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
+							variant="body1"
+							>
+							Collaborate with our platform to gain access to expert mentors who can help your business thrive. Our mentors provide personalized guidance and strategic advice tailored to your specific needs and challenges.
+							</Typography>
+							<Typography
+							textAlign={{ xs: 'center', sm: 'left' }}
+							mt={3}
+							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
+							variant="body1"
+							>
+							By partnering with us, you'll be equipped with the tools and knowledge necessary to drive growth and innovation within your company.
+							</Typography>
+							<Box mt={3} display={{xs:'flex', sm: 'block'}} justifyContent={`center`}>
+							<Button variant="contained">
+								Improve Your Business
+							</Button>
+							</Box>
+						</Grid>
+						<Grid item xs={12} sm={4} order={{ xs: 1, sm: 2 }}>
+							<Box className="flex justify-center px-16 sm:px-0">
+							<img className='w-full' src={joinCommunityMember2} alt="description" />
+							</Box>
+						</Grid>
 						</Grid>
 					</Grid>
 				</Box>
 
-				<Grid container mt={2}>
+				<Grid container pt={10}>
 					<Grid item xs={12} sm={12} md={12} lg={12}>
 						<Typography sx={{
 								fontSize: { xs: '32px', sm: '24px', md: '32px' },
@@ -343,7 +391,7 @@ function DrawerAppBar(props) {
 					<Grid item xs={12} sm={4}>
 						<Paper elevation={2} sx={{height:'100%', width:'100%', pb:2}} >
 							<Box p={{sm:2, xs:2}}>
-								<Box sx={{ height:"90px" }}>
+								<Box sx={{ height:"90px"}}>
 									<img src={voloplay}></img>
 								</Box>
 								<Box pt={5}>
@@ -394,41 +442,74 @@ function DrawerAppBar(props) {
 						gap: 4,
 					}}
 				>
-					<Grid container spacing={2} pl={{lg:5, md:2, sm:1}}>
-						<Grid item xs={12}>
-							<Typography textAlign={'center'} variant="body1" color={theme.color[import.meta.env.VITE_SELECTED_THEME].white}>
-								Testimonials
-							</Typography>
-							<Typography textAlign={'center'} variant="h5" color={theme.color[import.meta.env.VITE_SELECTED_THEME].white} fontWeight={'bold'}>
-								What People Are Saying
-							</Typography>
-						</Grid>
-						{Constants.Testimonials.map((item, key) => (
-							<Grid item sm={4} key={key}>
-								<Testimonial item={item} />
-        					</Grid>
-						))}
-						<Box className="flex justify-center w-full mt-9">
-							<MobileStepper
-								variant="dots"
-								steps={4}
-								position="static"
-								activeStep={activeStep}
-								sx={{
-									maxWidth: 400,
-									flexGrow: 1,
-									bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].primary,
-									'&.MuiPaper-root': {
-										display: 'flex',
-										justifyContent: 'center',
-									},
-									'&.MuiPaper-root .MuiMobileStepper-dots .MuiMobileStepper-dotActive': {
-										bgcolor:theme.color[import.meta.env.VITE_SELECTED_THEME].white,
-									}
-								}}
-							/>
+				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+					<Grid item xs={12} pb={10}>
+						<Typography textAlign="center" variant="body1" color={theme.color[import.meta.env.VITE_SELECTED_THEME].white}>
+						Testimonials
+						</Typography>
+						<Typography textAlign="center" variant="h5" color={theme.color[import.meta.env.VITE_SELECTED_THEME].white} fontWeight="bold">
+						What People Are Saying
+					</Typography>
+				</Grid>
+
+				{isMobile ? (
+					<Box sx={{ width: '100%',pl:2,py:4 }}>
+					<AutoPlaySwipeableViews
+						index={activeStep}
+						onChangeIndex={handleStepChange}
+						enableMouseEvents
+					>
+						{Constants.Testimonials.map((item, index) => (
+						<Box key={index} sx={{ px: 2}} py={{sm:2}}>
+							<Testimonial item={item} />
 						</Box>
-					</Grid>
+						))}
+					</AutoPlaySwipeableViews>
+					<MobileStepper
+						variant="dots"
+						steps={Constants.Testimonials.length}
+						position="static"
+						activeStep={activeStep}
+						sx={{
+						maxWidth: 400,
+						mt:2,
+						justifyContent:"center",
+						flexGrow: 1,
+						bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].primary,
+						'& .MuiMobileStepper-dotActive': {
+							bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].white,
+						},
+						mx: 'auto', // Center the stepper
+						}}
+					/>
+					</Box>
+				) : (
+					<>
+					{Constants.Testimonials.map((item, key) => (
+						<Grid item sm={4} key={key}>
+						<Testimonial item={item} />
+						</Grid>
+					))}
+					<Box className="flex justify-center w-full mt-9" >
+						<MobileStepper
+						variant="dots"
+						steps={Constants.Testimonials.length}
+						position="static"
+						activeStep={activeStep}
+						sx={{
+							maxWidth: 400,
+							justifyContent:"center",
+							flexGrow: 1,
+							bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].primary,
+							'& .MuiMobileStepper-dotActive': {
+							bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].white,
+							},
+						}}
+						/>
+					</Box>
+					</>
+				)}
+				</Grid>
 				</Box>
 			</Landing>
 		</>

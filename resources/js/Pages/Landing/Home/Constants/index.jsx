@@ -52,73 +52,26 @@ const ImageCard = [
 
 const guide = [
     {
-        counter: (
-            <Badge
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                    
-                }}
-                sx={{height:'35px !important', width:'35px'}}
-                border="rounded"
-                color="secondary"
-                badgeContent={<Signup/>}
-                overlap="circular"
-            >
-                01
-            </Badge>
-        ),
+        icon: <Signup/>,
+        counter: "01",
         title: 'Sign Up / Register',
         caption: 'Create your free account by providing your basic information and setting up a profile.',
     },
     {
-        counter: (
-            <Badge
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                badgeContent={<Create/>}
-                overlap="circular"
-
-            >
-                02
-            </Badge>
-        ),
+        icon: <Create/>,
+        counter: "02",
         title: 'Create Business Profile',
         caption: 'Fill in details about your business, including your industry, goals, and the challenges you face.',
     },
     {
-        counter: (
-            <Badge
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-            badgeContent={<Mentor/>}
-            overlap="circular"
-
-        >
-            03
-        </Badge>
-        ),
+        icon: <Mentor/>,
+        counter: "03",
         title: 'Get Matched with a Mentor',
         caption: 'Our AI algorithm will match you with the best mentor based on your profile and needs. This ensures you get the most suitable guidance and support.',
     },
     {
-        counter: (
-            <Badge
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-            badgeContent={<ConnectSchedule/>}
-            overlap="circular"
-
-        >
-            04
-        </Badge>
-        ),
+        icon: <ConnectSchedule/>,
+        counter: "04",
         title: 'Connect and Schedule',
         caption: 'Reach out to your chosen mentor and schedule a meeting or consultation session at a convenient time.',
     },

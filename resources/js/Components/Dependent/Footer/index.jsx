@@ -7,12 +7,12 @@ import linkedin from '../../../Assets/Images/icon-linkedin@2x.png'
 export const Footer = () => {
     return (
         <Box sx={{backgroundColor:'#E8EAEC'}} p={5}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={3}>
+            <Grid container spacing={2} sx={{borderBottom:' 1px solid #BEBEC0'}}>
+                <Grid mb={5} item xs={12} sm={3}>
                     <Typography
                         textAlign={{xs:'center', sm:'left'}} sx={{
-                            fontWeight: "bold !important",
-                            fontSize: "18px !important",
+                        fontWeight: "bold !important",
+                        fontSize: "18px !important",
                         }}
                         color="black"
                         variant="h6"
@@ -111,6 +111,7 @@ export const Footer = () => {
                     </Box>
                 </Grid>
             </Grid>
+            <hr sx={{}}></hr>
         </Box>
     );
 };
