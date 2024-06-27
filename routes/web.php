@@ -42,7 +42,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact-us', [LandingController::class, 'contactUs']);
     Route::get('/login-page', [LandingController::class, 'login']);
     Route::get('/signup', [LandingController::class, 'signup']);
-    Route::get('/company-detail', [LandingController::class, 'companydetail']);
+
+    Route::get('/company-detail', [LandingController::class, 'comapnyDetails']);
+    Route::get('/user-detail', [LandingController::class, 'profile']);
+    Route::get('/privacy', [LandingController::class, 'privacy']);
+    Route::get('/terminology', [LandingController::class, 'terminology']);
+    Route::get('/dashboard', [LandingController::class, 'dashBoard']);
 // });
 
 require __DIR__.'/auth.php';

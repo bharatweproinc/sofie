@@ -1,0 +1,23 @@
+.rounded-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+}
+
+.serach-every input .MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+    // border: 0 !important;
+    border-width: 0px !important;
+}
+
+.serach-every input:focus{
+    box-shadow: none !important;
+}
+
+.serach-every .search-icon{
+    position: absolute;
+    top: 50%;
+    left: 43px;
+}

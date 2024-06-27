@@ -24,7 +24,24 @@ class LandingController extends Controller
     public function signup() {
         return Inertia::render('Landing/SignUp/View',[]);
     }
-    public function companydetail() {
-        return Inertia::render('Landing/CompanyDetail/View',[]);
+
+    public function comapnyDetails() {
+        return Inertia::render('Landing/CompanyDetails/View',[]);
+    }
+    
+    public function profile() {
+        return Inertia::render('Landing/Profile/View',[]);
+    }
+
+    public function privacy() {
+        return Inertia::render('Landing/Privacy/View',[]);
+    }
+
+    public function terminology() {
+        return Inertia::render('Landing/Terminology/View',[]);
+    }
+
+    public function dashBoard() {
+        return Inertia::render('Landing/Dashboard/View',[]);
     }
 }
