@@ -20,7 +20,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Constants from './Constant';
 import TextField from '@mui/material/TextField'
-import { Grid, Button, Link } from '@mui/material';
+import { Grid, Button, Link, useMediaQuery, Collapse } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -32,6 +32,8 @@ import Men from '../../../Assets/Images/men-rounded.png'
 import Sofie from '../../../Assets/Images/Sofie-logo.png'
 import "./style.scss"
 import { blue } from '@mui/material/colors';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const drawerWidth = 240;
 
@@ -95,7 +97,10 @@ function createData(company_name, calories, fat, carbs, protein, uen_number, nam
 
 function dashboard() {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = React.useState(true);
+  const [openItems, setOpenItems] = React.useState({});
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,6 +109,18 @@ function dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleClick = (id) => {
+    setOpenItems((prevOpenItems) => ({
+      ...prevOpenItems,
+      [id]: !prevOpenItems[id],
+    }));
+  };
+
+  React.useEffect(() => {
+    setOpen(!isMobile);
+  }, [isMobile]);
+
 
   return (
     <Box sx={{ display: 'flex', backgroundColor: '#FAFAFA' }}>
@@ -114,6 +131,20 @@ function dashboard() {
 
         </Toolbar>
       </AppBar> */}
+      {isMobile && (
+        <AppBar position="fixed" className='mobile_hamburger_header'>
+          <Toolbar>
+            <IconButton
+              color="black"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      )}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -127,14 +158,16 @@ function dashboard() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <DrawerHeader sx={{justifyContent:'flex-start'}}>
           <img src={Sofie} />
+          {isMobile && (
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
+          )}
         </DrawerHeader>
         <Divider />
-        <List>
+        {/* <List>
           {Constants.menuItem.map((item, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton>
@@ -145,7 +178,34 @@ function dashboard() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
+        <List>
+        {Constants.menuItem.map((item, index) => (
+          <React.Fragment key={index}>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => item.subItems ? handleClick(item.id) : null}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.label} />
+                {item.subItems ? (openItems[item.id] ? <ExpandLess /> : <ExpandMore />) : null}
+              </ListItemButton>
+            </ListItem>
+            {item.subItems && (
+              <Collapse in={openItems[item.id]} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.subItems.map((subItem) => (
+                    <ListItemButton key={subItem.id} sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <CircleIcon sx={{ fontSize: 8 }}/>
+                        </ListItemIcon>
+                      <ListItemText primary={subItem.label} />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </React.Fragment>
+        ))}
+      </List>
       </Drawer>
 
       <Main open={open}>
@@ -190,15 +250,12 @@ function dashboard() {
 
           <Grid className='serach-every' container spacing={4} px={8}>
             <Grid className='flex justify-between align-middle gap-10 relative' item lg={12}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 search-icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
               <TextField
                 startIcon="<SearchSharpIcon/>"
                 size='small'
                 sx={{ '& legend': { display: 'none' }, mt: 1, width: '100%', height: '100%', borderWidth: '0 !important' }}
                 //  variant='outlined'
-                placeholder='        Search everything here'
+                placeholder='Search everything here'
               />
               <Box className="flex align-middle justify-end">
                 <Button variant="text" color="primary">
