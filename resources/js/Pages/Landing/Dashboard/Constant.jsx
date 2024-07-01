@@ -33,7 +33,7 @@ const menuItem = [
       { id: 2, label: 'Matched', link: '/matched' },
     ],
   },
-  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/mentors' },
+  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/profile-page' },
   {
     id: 4,
     label: 'Settings',
@@ -61,8 +61,8 @@ const menuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'Profile Settings', link: '/settings/profile' },
-      { id: 2, label: 'Account Settings', link: '/settings/account' },
+      { id: 1, label: 'Profile Settings', link: 'profile-setting' },
+      { id: 2, label: 'Account Settings', link: 'account-setting' },
     ],
   },
 ];

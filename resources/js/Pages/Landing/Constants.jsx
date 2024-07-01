@@ -44,11 +44,16 @@ const initCompanyDetailForm = {
 const initProfileForm = {
     'name' : '',
     'mobile_number' : 0,
+    'email_contact' : '',
+    'user_name' : '',
+    'password' : '',
+    'confirm_password' : '',
     'mentored_compnay' : 'no',
     'qualifications' : '',
     'industry_sector' : '',
     'functional' : '',
     'hear_about_us' : '',
+    'number_of_companies' : '',
     'additional_information' : ''
 }
 
@@ -70,11 +75,16 @@ const loginSchema = Joi.object({
 const profileSchema = Joi.object({
     name : Joi.string().label("Contact Name").required(),
     mobile_number : Joi.number().min(10).label("Mobile Number").required(),
+    email_contact : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
+    user_name : Joi.string().label("User Name").required(),
+    password : Joi.string().min(6).label("Password").required(),
+    confirm_password : Joi.string().min(6).label("Confirm Password").required(),
     mentored_compnay : Joi.required(),
     qualifications : Joi.optional(),
     industry_sector : Joi.optional(),
     functional : Joi.optional(),
     hear_about_us : Joi.optional(),
+    number_of_companies : Joi.string().label("Number of Companies").required(),
     additional_information : Joi.optional()
  });
 

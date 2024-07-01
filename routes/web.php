@@ -43,11 +43,14 @@ Route::name('landing.')->group(function() {
     Route::get('/login-page', [LandingController::class, 'login'])->name('login');
     Route::get('/profile-page', [LandingController::class, 'profile'])->name('profile');
     Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
+    Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched'); 
+    Route::get('/matched', [LandingController::class, 'matched'])->name('matched'); 
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
     Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
-    Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('dashBoard');
+    Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('dashboard');
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
-
+    Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting'); 
+    Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting'); 
 });
 
 require __DIR__.'/auth.php';

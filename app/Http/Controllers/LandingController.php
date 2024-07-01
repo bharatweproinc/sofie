@@ -28,7 +28,12 @@ class LandingController extends Controller
     public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
     }
-    
+    public function partialMatched() {
+        return Inertia::render('Landing/Dashboard/PartialMatched/View');
+    }
+    public function matched() {
+        return Inertia::render('Landing/Dashboard/Matched/View');
+    }
     public function profile() {
         return Inertia::render('Landing/Profile/View',[]);
     }
@@ -43,5 +48,11 @@ class LandingController extends Controller
 
     public function dashBoard() {
         return Inertia::render('Landing/Dashboard/View',[]);
+    }
+    public function profileSetting() {
+        return Inertia::render(('Landing/Dashboard/Settings/ProfileSettings/View'));
+    }
+    public function accountSetting() {
+        return Inertia::render(('Landing/Dashboard/Settings/AccountSettings/View'));
     }
 }

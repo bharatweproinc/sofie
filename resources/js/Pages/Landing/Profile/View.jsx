@@ -126,10 +126,65 @@ function Profile() {
                                 value={data.mobile_number || ''}  
                                 placeholder='Please fill your company mobile number'
                                 onChange={(e) => handleChange("mobile_number", e.target.value.replace(/\D/, '').slice(0, 10))}
-                                error={!!validationErrors.mobile_number}
-                                helperText={validationErrors.mobile_number}            
                             />
                         </Grid>
+                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Email Contact</Typography>
+                            <TextField
+                                size='small'
+                                sx={{ mt: 1, width: '100%' }}
+                                fullWidth
+                                variant='outlined'
+                                type='email'  
+                                placeholder='Email Contact'
+                                onChange={(e) => handleChange("email_contact", e.target.value)}
+                                error={!!validationErrors.email_contact}
+                                helperText={validationErrors.email_contact}
+                            />
+                        </Grid>
+                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>User Name</Typography>
+                            <TextField
+                                size='small'
+                                sx={{ mt: 1, width: '100%' }}
+                                fullWidth
+                                variant='outlined'
+                                type='text'  
+                                placeholder='User Name'
+                                onChange={(e) => handleChange("user_name", e.target.value)}
+                                error={!!validationErrors.user_name}
+                                helperText={validationErrors.user_name}
+                            />
+                        </Grid>
+                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Password</Typography>
+                            <TextField
+                                size='small'
+                                sx={{ mt: 1, width: '100%' }}
+                                fullWidth
+                                variant='outlined'
+                                type='text'  
+                                placeholder='Password'
+                                onChange={(e) => handleChange("password", e.target.value)}
+                                error={!!validationErrors.password}
+                                helperText={validationErrors.password}
+                            />
+                        </Grid>
+                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Confirm Password</Typography>
+                            <TextField
+                                size='small'
+                                sx={{ mt: 1, width: '100%' }}
+                                fullWidth
+                                variant='outlined'
+                                type='text'  
+                                placeholder='Confirm Password'
+                                onChange={(e) => handleChange("confirm_password", e.target.value)}
+                                error={!!validationErrors.confirm_password}
+                                helperText={validationErrors.confirm_password}
+                            />
+                        </Grid>
+
                         <Grid item="true" xs={12}>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Have you mentored companies before?</Typography>
                             <FormControl sx={{marginLeft : '10px'}}>
@@ -181,9 +236,8 @@ function Profile() {
                                 placeholder='Please select your company  Functional Area '
                                 onChange={(e) => handleChange("functional", e.target.value)}
                             >
-                                <MenuItem value="ten">Ten</MenuItem>
-                                <MenuItem value="twenty">Twenty</MenuItem>
-                                <MenuItem value="thirty">Thirty</MenuItem>
+                                <MenuItem value="ten">Marketing</MenuItem>
+                                <MenuItem value="twenty">Finance</MenuItem>
                             </Select>
                         </Grid>
                         <Grid item="true" xs={12} md={6} className='profile_select_box'>
@@ -201,6 +255,17 @@ function Profile() {
                                 <MenuItem value="twenty">Twenty</MenuItem>
                                 <MenuItem value="thirty">Thirty</MenuItem>
                             </Select>
+                        </Grid>
+                        <Grid item="true" xs={12} className="profile_input_fields">
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How Many Companies are the mentors willing to mentor ?</Typography>
+                            <TextField
+                                size='small'
+                                sx={{  mt:1, width: '100%' }}
+                                fullWidth
+                                variant='outlined'
+                                placeholder='No. of Companies'
+                                onChange={(e) => handleChange("number_of_companies", e.target.value)}
+                            />
                         </Grid>
                         <Grid item="true" xs={12} className="profile_message_field">
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Additional Information about You?Your skills</Typography>
