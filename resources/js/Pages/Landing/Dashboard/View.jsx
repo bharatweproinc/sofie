@@ -277,10 +277,10 @@ function dashboard() {
             </Grid>
 
             <Grid className='flex flex-wrap justify-between' sx={{ rowGap: '10px' }} item lg={5} md={5}>
-              <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+              <Grid className='flex justify-between rounded-lg border p-4 bg-white' item lg={5} md={5}>
                 <div>
                   <p variant="body1" color="initial">To Review</p>
-                  <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>10</Typography>
+                  <Typography variant="h3" color="initial" sx={{ fontWeight: 'bold' }}>10</Typography>
                   <Box className="flex text-xs items-center pt-2">
                     <svg width="14" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3.99986 6.00019H2.66485C1.00984 6.00019 0.329837 4.82518 1.15984 3.39017L1.82984 2.23517L2.49985 1.08016C3.32985 -0.354846 4.68486 -0.354846 5.51486 1.08016L6.18487 2.23517L6.85487 3.39017C7.68487 4.82518 7.00487 6.00019 5.34986 6.00019H3.99986Z" fill="#0ECB81" />
@@ -297,10 +297,10 @@ function dashboard() {
                   </svg>
                 </div>
               </Grid>
-              <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+              <Grid className='flex justify-between rounded-lg border p-4 bg-white' item lg={5} md={5}>
                 <div>
                   <p variant="body1" color="initial">To Review</p>
-                  <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>50</Typography>
+                  <Typography variant="h3" color="initial" sx={{ fontWeight: 'bold' }}>50</Typography>
                   <Box className="flex text-xs items-center pt-2">
                     <svg width="14" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4.00014 -0.000186443H5.33515C6.99016 -0.000186443 7.67016 1.17482 6.84016 2.60983L6.17016 3.76483L5.50015 4.91984C4.67015 6.35485 3.31514 6.35485 2.48514 4.91984L1.81513 3.76483L1.14513 2.60983C0.315127 1.17482 0.995131 -0.000186443 2.65014 -0.000186443L4.00014 -0.000186443Z" fill="#DB1E2A" />
@@ -315,10 +315,10 @@ function dashboard() {
                   </svg>
                 </div>
               </Grid>
-              <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+              <Grid className='flex justify-between rounded-lg border p-4 bg-white' item lg={5} md={5}>
                 <div>
                   <p variant="body1" color="initial">To Review</p>
-                  <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>20</Typography>
+                  <Typography variant="h3" color="initial" sx={{ fontWeight: 'bold' }}>20</Typography>
                   <Box className="flex text-xs items-center pt-2">
                     <svg width="14" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4.00014 -0.000186443H5.33515C6.99016 -0.000186443 7.67016 1.17482 6.84016 2.60983L6.17016 3.76483L5.50015 4.91984C4.67015 6.35485 3.31514 6.35485 2.48514 4.91984L1.81513 3.76483L1.14513 2.60983C0.315127 1.17482 0.995131 -0.000186443 2.65014 -0.000186443L4.00014 -0.000186443Z" fill="#DB1E2A" />
@@ -333,10 +333,10 @@ function dashboard() {
                   </svg>
                 </div>
               </Grid>
-              <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+              <Grid className='flex justify-between rounded-lg border p-4 bg-white' item lg={5} md={5}>
                 <div>
                   <p variant="body1" color="initial">To Review</p>
-                  <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>5</Typography>
+                  <Typography variant="h3" color="initial" sx={{ fontWeight: 'bold' }}>5</Typography>
                   <Box className="flex text-xs items-center pt-2">
                     <svg width="14" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3.99986 6.00019H2.66485C1.00984 6.00019 0.329837 4.82518 1.15984 3.39017L1.82984 2.23517L2.49985 1.08016C3.32985 -0.354846 4.68486 -0.354846 5.51486 1.08016L6.18487 2.23517L6.85487 3.39017C7.68487 4.82518 7.00487 6.00019 5.34986 6.00019H3.99986Z" fill="#0ECB81" />
@@ -351,10 +351,10 @@ function dashboard() {
                   </svg>
                 </div>
               </Grid>
-              <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+              <Grid className='flex justify-between rounded-lg border p-4 bg-white' item lg={5} md={5}>
                 <div>
                   <p variant="body1" color="initial">To Review</p>
-                  <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>30</Typography>
+                  <Typography variant="h3" color="initial" sx={{ fontWeight: 'bold' }}>30</Typography>
                   <Box className="flex text-xs items-center pt-2">
                     <svg width="14" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3.99986 6.00019H2.66485C1.00984 6.00019 0.329837 4.82518 1.15984 3.39017L1.82984 2.23517L2.49985 1.08016C3.32985 -0.354846 4.68486 -0.354846 5.51486 1.08016L6.18487 2.23517L6.85487 3.39017C7.68487 4.82518 7.00487 6.00019 5.34986 6.00019H3.99986Z" fill="#0ECB81" />
@@ -370,10 +370,10 @@ function dashboard() {
                   </svg>
                 </div>
               </Grid>
-              <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+              <Grid className='flex justify-between rounded-lg border p-4 bg-white' item lg={5} md={5}>
                 <div>
                   <p variant="body1" color="initial">To Review</p>
-                  <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>15</Typography>
+                  <Typography variant="h3" color="initial" sx={{ fontWeight: 'bold' }}>15</Typography>
                   <Box className="flex text-xs items-center pt-2">
                     <svg width="14" height="12" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4.00014 -0.000186443H5.33515C6.99016 -0.000186443 7.67016 1.17482 6.84016 2.60983L6.17016 3.76483L5.50015 4.91984C4.67015 6.35485 3.31514 6.35485 2.48514 4.91984L1.81513 3.76483L1.14513 2.60983C0.315127 1.17482 0.995131 -0.000186443 2.65014 -0.000186443L4.00014 -0.000186443Z" fill="#DB1E2A" />
@@ -390,7 +390,7 @@ function dashboard() {
               </Grid>
             </Grid>
 
-            <Grid className='flex' item lg={7} md={7}>
+            <Grid className='flex w-full' item lg={7} md={7}>
               <TableContainer component={Paper}>
                 <Box p={2} className="flex justify-between">
                   <Typography variant="h5" color="initial">Matching Status</Typography>
@@ -401,7 +401,6 @@ function dashboard() {
                     underline="hover"
                     target="_blank"
                     rel="noopener noreferrer"
-
                   >
                     View all
                   </Link>
@@ -596,9 +595,9 @@ function dashboard() {
                         <TableCell align="left">{row.name}</TableCell>
                         <TableCell align="left">{row.email}</TableCell>
                         <TableCell align="left">
-                          <Box sx={{gap:'10px'}} className="flex">
+                          <Box sx={{ gap: '10px' }} className="flex">
                             {
-                              Constants.icons.map((item)=>{
+                              Constants.icons.map((item) => {
                                 return (
                                   item.icon
                                 )

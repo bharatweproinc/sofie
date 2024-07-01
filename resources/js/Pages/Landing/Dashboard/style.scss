@@ -1,4 +1,4 @@
-.rounded-icon{
+.rounded-icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,8 +7,16 @@
     border-radius: 100%;
 }
 
-.serach-every input .MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
-    // border: 0 !important;
+
+.serach-every input:focus {
+    box-shadow: none !important;
+}
+.serach-every input {
+    // box-shadow: none !important;
+    border: 1px solid #e5e7eb;
+    background-color: #ffff;
+}
+.serach-every .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-width: 0px !important;
 }
 
@@ -25,4 +33,7 @@
 .mobile_hamburger_header{
     background-color: transparent !important;
     box-shadow: none !important;  
+}
+.serach-every .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-width: 0px !important;
 }
