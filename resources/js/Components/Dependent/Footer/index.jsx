@@ -3,6 +3,13 @@ import { Box, Grid, Typography } from "@mui/material";
 import facebook from '../../../Assets/Images/icon-facebook@2x.png'
 import twitter from '../../../Assets/Images/icon-twitter@2x.png'
 import linkedin from '../../../Assets/Images/icon-linkedin@2x.png'
+import { Link } from "@inertiajs/react";
+
+const linkStyle = {
+    color: "#4E596D",
+    fontSize: "14px",
+    lineHeight: "2",
+};
 
 export const Footer = () => {
     return (
@@ -26,15 +33,11 @@ export const Footer = () => {
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         mt={1}
-                        sx={{
-                            color: "#4E596D",
-                            fontSize: "14px",
-                            lineHeight: "2",
-                        }}
+                        sx={linkStyle}
                     >
                         Funding Resources
                         <br />
-                        Funding Terminology
+                        <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
                         <br />
                         FAQs
                         <br />
@@ -55,15 +58,13 @@ export const Footer = () => {
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         mt={1}
-                        sx={{
-                            color: "#4E596D",
-                            fontSize: "14px",
-                            lineHeight: "2",
-                        }}
+                        sx={linkStyle}
                     >
                         How Shophie’s Works
                         <br />
-                        Contact Us
+                        <Link style={linkStyle} href={route('landing.privacy')}>Privacy</Link>
+                        <br />
+                        <Link style={linkStyle} href={route('landing.contactus')}>Contact Us</Link>
                         <br />
                         Press
                         <br />
@@ -84,18 +85,14 @@ export const Footer = () => {
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         mt={1}
-                        sx={{
-                            color: "#4E596D",
-                            fontSize: "14px",
-                            lineHeight: "2",
-                        }}
+                        sx={linkStyle}
                         color="black"
                     >
                         Browse Companies
                         <br />
                         Find a Mentor
                         <br />
-                        Sign up
+                        <Link style={linkStyle} href={route('landing.login')}>Sign up</Link>
                         <br />
                     </Typography>
                 </Grid>

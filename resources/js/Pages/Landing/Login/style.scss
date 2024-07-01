@@ -29,3 +29,24 @@
 	}
 
     
+.login_page{
+    .login_input_fields{
+        .MuiInputBase-input{
+            padding: 12px !important;
+        }
+        .MuiInputBase-input:focus{
+            box-shadow: none !important;
+        }
+    }
+    .login_btn{
+        .MuiButton-root {
+            padding: 8px 16px;
+        }
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 4px;
+        margin-left: -10px;
+    }
+}

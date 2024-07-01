@@ -1,6 +1,5 @@
-const terminologyHead = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V']
 
-const headerDetails = {
+const terminologyHeaders = {
     'A' : [
         'Accredited Investor',
         'Angel Investor'
@@ -96,8 +95,5 @@ const headerDetails = {
     ]
 }
 
-const terminologyHeaders = {
-    terminologyHead, headerDetails
-}
 
 export default terminologyHeaders

@@ -1,5 +1,27 @@
-.profile_update_btn{
-    button {
-        border-radius: 6px !important;
+
+.profile_page{
+    .profile_input_fields{
+        .MuiInputBase-input{
+            padding: 12px !important;
+        }
+        .MuiInputBase-input:focus{
+            box-shadow: none !important;
+        }
+    }
+    .profile_message_field{
+        textarea:focus{
+            box-shadow: none !important;
+          }
+    }
+    .profile_select_box{
+        .MuiInputBase-input{
+            padding: 12px !important;
+        }
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 4px;
+        margin-left: -10px;
     }
 }

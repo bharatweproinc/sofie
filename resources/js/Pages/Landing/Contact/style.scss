@@ -27,5 +27,25 @@
 		height: 170px;
 	  }
 	}
-
-    
+.contact_page{
+    .contact_input_fields{
+        .MuiInputBase-input{
+          padding: 12px !important;
+        }
+        .MuiInputBase-input:focus{
+          box-shadow: none !important;
+          
+        }
+    }
+    .contact_message_field{
+        textarea:focus{
+          box-shadow: none !important;
+        }
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 4px;
+        margin-left: -10px;
+  }
+}

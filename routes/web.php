@@ -37,17 +37,17 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Route::group(function() {
-    Route::get('/', [LandingController::class, 'home']);
-    Route::get('/contact-us', [LandingController::class, 'contactUs']);
-    Route::get('/login-page', [LandingController::class, 'login']);
-    Route::get('/signup', [LandingController::class, 'signup']);
+Route::name('landing.')->group(function() {
+    Route::get('/', [LandingController::class, 'home'])->name('home');
+    Route::get('/contact-us', [LandingController::class, 'contactUs'])->name('contactus');
+    Route::get('/login-page', [LandingController::class, 'login'])->name('login');
+    Route::get('/profile-page', [LandingController::class, 'profile'])->name('profile');
+    Route::get('/company-detail', [LandingController::class, 'companyDetail'])->name('company.detail');
+    Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
+    Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
+    Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('dashBoard');
+    Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
 
-    Route::get('/company-detail', [LandingController::class, 'comapnyDetails']);
-    Route::get('/user-detail', [LandingController::class, 'profile']);
-    Route::get('/privacy', [LandingController::class, 'privacy']);
-    Route::get('/terminology', [LandingController::class, 'terminology']);
-    Route::get('/dashboard', [LandingController::class, 'dashBoard']);
-// });
+});
 
 require __DIR__.'/auth.php';

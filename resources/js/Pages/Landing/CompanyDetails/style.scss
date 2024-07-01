@@ -1,4 +1,14 @@
 .company_detail{
+    .base-NumberInput-root{
+        .base-NumberInput-input
+        {
+          width: 100% !important;
+          border-radius: 4px;
+          margin-top: -5px;
+          padding: 9px 10px;
+          border-color: #babcbf
+        }
+      }
     .company_detail_title{
         border: solid 2px #7C7C7C;
         border-radius: 8px;
@@ -8,11 +18,35 @@
         border: 1px solid #7C7C7C;
         border-radius: 8px;
         padding: 12px 20px 12px 20px;
-        margin : 30px 0px;
+        margin : 30px 0px 0px 0px;
     }
     .industry_sector_select{
         .MuiSelect-select{
             padding: 30px 14px;
         }
+    }
+    .company_input_field{
+        .MuiInputBase-input{
+            padding: 12px !important;
+        }
+        .MuiInputBase-input:focus{
+            box-shadow: none !important;
+        }
+    }
+    .company_message_field{
+        textarea:focus{
+            box-shadow: none !important;
+          }
+    }
+    .company_select_box{
+        .MuiInputBase-input{
+            padding: 10px !important;
+        }
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 4px;
+        margin-left: -10px;
     }
 }
