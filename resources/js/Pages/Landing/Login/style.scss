@@ -38,15 +38,17 @@
             box-shadow: none !important;
         }
     }
-    .login_btn{
-        .MuiButton-root {
-            padding: 8px 16px;
-        }
+    .MuiFormHelperText-root{
+      margin-left: 0px !important;
     }
-    .error-message {
-        color: red;
-        font-size: 0.875rem;
-        margin-top: 4px;
-        margin-left: -10px;
-    }
+    .submit_btn{
+      .MuiButtonBase-root{
+          padding: 10px 32px;
+          background-color  : #117B9E;
+          text-transform : capitalize;
+      }
+      .MuiButtonBase-root:hover{
+          background-color: #117B9E;
+      }
+  }
 }

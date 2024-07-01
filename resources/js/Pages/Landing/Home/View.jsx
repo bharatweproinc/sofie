@@ -73,20 +73,17 @@ function DrawerAppBar(props) {
 					<Grid item sm={6} sx={{ position: 'relative', height: { lg: '693px', md: '500px', sm: '400px' } }}>
 						<img className='w-full h-full object-cover' style={{
 							maxWidth: '100',
-						}} src={headerRight} alt="description" />
-						<Box
-							sx={{
-								position: "absolute",
-								height: '100%',
-								width: '30px',
-								backgroundColor: '#ffff',
-								top: '0',
-								left: '11px',
-								boxShadow: '20px -1px 20px 20px #ffff',
-								boxShadow: { sm: '-1px 20px 20px 20px #ffff;', xs: '-1px 20px 20px 20px #ffff' },
-								width: { lg: '30px', md: '30px', sm: '30px', xs: '-webkit-fill-available' },
-								height: { lg: '100%', md: '100%', sm: '100%', xs: '30px' }
-							}}
+						}} src={headerRight} alt="description"/>
+						<Box 
+						sx={{
+							position:"absolute",
+							backgroundColor:'#ffff',
+							top:'0',
+							left:'11px',
+							boxShadow: {sm:'-1px 20px 20px 20px #ffff;', xs:'-1px 20px 20px 20px #ffff'},
+							width: {lg:'30px', md:'30px', sm:'30px', xs:'-webkit-fill-available'},
+							height: {lg:'100%', md:'100%', sm:'100%', xs:'30px'}
+						}}
 						></Box>
 					</Grid>
 				</Grid>

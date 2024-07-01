@@ -1,19 +1,12 @@
 import React, {useState} from 'react';
-import Joi from 'joi';
-import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Button, Grid, Input, Paper, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import { useForm } from '@inertiajs/react'
 import Constants from '../Constants';
 import './style.scss'
 
-const contactSchema = Joi.object({
-  name : Joi.string().label("Name").required(),
-  email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
-  phone_number: Joi.number().min(14).label("Phone Number").required(),
-  company : Joi.optional(),
-  message : Joi.string().label("Message").required()
-});
+const contactSchema = Constants.contactSchema
 
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
@@ -91,7 +84,7 @@ function Contact() {
                       placeholder='Name'
                       onChange={(e) => handleChange("name", e.target.value)}
                       error={!!validationErrors.name}
-                      helperText={validationErrors.name && <span className="error-message">{validationErrors.name}</span>}
+                      helperText={validationErrors.name}
                     />
                 </Grid>
                 <Grid item lg={6} sm={12} md={6} xs={12} className='contact_input_fields'>
@@ -105,7 +98,7 @@ function Contact() {
                       placeholder='Your Email Address'
                       onChange={(e) => handleChange("email", e.target.value)}
                       error={!!validationErrors.email}
-                      helperText={validationErrors.email && <span className="error-message">{validationErrors.email}</span>}
+                      helperText={validationErrors.email}
                     />
                 </Grid>
                 <Grid item lg={6} sm={12} md={12} xs={12} className='contact_input_fields'>
@@ -114,12 +107,13 @@ function Contact() {
                       size='small'
                       sx={{ mb: 1, width: '100%' }}
                       fullWidth
-                      type='number'
+                      type='text'
                       variant='outlined'
+                      value={data.phone_number || ''}
                       placeholder='Your Phone Number'
-                      onChange={(e) => handleChange('phone_number', e.target.value)}
+                      onChange={(e) => handleChange('phone_number', e.target.value.replace(/\D/, '').slice(0, 10))}
                       error={!!validationErrors.phone_number}
-                      helperText={validationErrors.phone_number && <span className="error-message">{validationErrors.phone_number}</span>}
+                      helperText={validationErrors.phone_number}
                     />
                 </Grid>
                 <Grid item lg={6} sm={12} md={6} xs={12} className='contact_input_fields'>
@@ -147,11 +141,10 @@ function Contact() {
                       placeholder='Your Message'
                       onChange={(e) => handleChange("message", e.target.value)}
                       error={!!validationErrors.message}
-                      helperText={validationErrors.message && <span className="error-message">{validationErrors.message}</span>}
+                      helperText={validationErrors.message}
                     />
                 </Grid>
-              
-                <Grid item xs={12}>
+                <Grid item xs={12} className="submit_btn">
                   <Button variant="contained" type="submit" disabled={processing}>Submit</Button>
                 </Grid>
             </Grid>

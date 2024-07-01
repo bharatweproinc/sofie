@@ -25,7 +25,7 @@ class LandingController extends Controller
         return Inertia::render('Landing/SignUp/View',[]);
     }
 
-    public function comapnyDetails() {
+    public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
     }
     

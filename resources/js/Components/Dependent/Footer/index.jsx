@@ -92,7 +92,7 @@ export const Footer = () => {
                         <br />
                         Find a Mentor
                         <br />
-                        <Link style={linkStyle} href={route('landing.login')}>Sign up</Link>
+                        <Link style={linkStyle} href={route('landing.signup')}>Sign up</Link>
                         <br />
                     </Typography>
                 </Grid>

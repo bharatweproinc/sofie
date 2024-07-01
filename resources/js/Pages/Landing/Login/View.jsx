@@ -7,16 +7,16 @@ import Constants from '../Constants';
 import './style.scss';
 import Joi from 'joi';
 
-const loginSchema = Joi.object({
-  email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
-  password: Joi.string().min(6).label("Password").required(),
+const loginSchema = Constants.loginSchema
+
+const CenteredPaper = styled(Paper)({
+  padding: '40px',
+  borderRadius: "12px",
 });
 
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  // backgroundPosition: 'center',
-  // width: '100%',
   height: '896px',
   display: 'flex',
   justifyContent: 'center',
@@ -66,11 +66,11 @@ function Login() {
 
   return (
     <Landing>
-      <div style={{ position: 'relative', minHeight: '100vh' }} className='login_page'>
         <Typography sx={{ height: '120px' }}></Typography>
-        <BackgroundImage />
+        <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
+         <div style={{ position: 'relative', minHeight: '100vh' }} className='login_page'>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 200px)', paddingTop: '100px', paddingBottom: '100px' }}>
-            <CenteredPaper elevation={4}>
+            <CenteredPaper elevation={4} sx={{ margin: '60px', width: '650px !important'}}>
                 <form onSubmit={handleSubmit}>
                   <Grid container spacing={4}>
                       <Grid item xs={12}>
@@ -86,7 +86,7 @@ function Login() {
                             placeholder='Email Address'
                             onChange={(e) => handleChange("email", e.target.value)}
                             error={!!validationErrors.email}
-                            helperText={validationErrors.email && <span className="error-message">{validationErrors.email}</span>}
+                            helperText={validationErrors.email}
                           />
                       </Grid>
                       <Grid item xs={12} className='login_input_fields'>
@@ -100,21 +100,22 @@ function Login() {
                             placeholder='Password'
                             onChange={(e) => handleChange("password", e.target.value)}
                             error={!!validationErrors.password}
-                            helperText={validationErrors.password && <span className='error-message'>{validationErrors.password}</span>}
+                            helperText={validationErrors.password}
                           />
                       </Grid>
                       <Grid item xs={12}>
                           <Typography>Forgot Password</Typography>
                       </Grid>
-                      <Grid item xs={12} className='login_btn'>
+                      <Grid item xs={12} className='submit_btn'>
                           <Button variant="contained" fullWidth type="submit" disabled={processing}>Log In</Button>
-                          <Typography textAlign="center" mt={4}>Need an account? <Link>Sign up here.</Link> </Typography>
+                          <Typography textAlign="center" mt={4}>Need an account? <Link href={route('landing.signup')}>Sign up here.</Link> </Typography>
                       </Grid>
                     </Grid>
                 </form>
             </CenteredPaper>
           </div>
-      </div>
+          </div>
+        </BackgroundImageContainer>
     </Landing>
   );
 }

@@ -9,7 +9,7 @@ const navItems = [
      {name :'Browse Companies', link:'home'},
      {name : 'Find A Mentor', link : 'home'},
      {name : "Login", link : 'login'},
-     {name : 'Get Started Now', link : 'home'}
+     {name : 'Get Started Now', link : 'signup'}
     ];
 
 const Header = () => {
@@ -30,10 +30,8 @@ const Header = () => {
                 <List>
                     {navItems.map((item, key) => (
                         <ListItem key={key} disablePadding>
-                            <ListItemButton sx={{ textAlign: 'center' }}>
-                                <ListItemText primary={
-                                    <Link href={route(`landing.${item.link}`)}>{Object.values(item.name)}</Link>
-                                    }/>
+                            <ListItemButton sx={{ textAlign: 'center' }} component={Link} href={route(`landing.${item.link}`)}>
+                                <ListItemText primary={item.name}/>
                             </ListItemButton>
                         </ListItem>
                     ))}
@@ -68,8 +66,10 @@ const Header = () => {
                                 key={key}
                                 variant={key === 3 ? 'contained' : 'text'}
                                 color={key !== 3 ? 'textBlack' : 'primary'}
+                                component={Link}
+                                href={route(`landing.${item.link}`)}
                             >
-                              <Link href={route(`landing.${item.link}`)}>{Object.values(item.name)}</Link>
+                              {item.name}
                             </Button> //signup
                         ))}
                     </Box>

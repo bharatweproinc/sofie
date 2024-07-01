@@ -42,7 +42,7 @@ Route::name('landing.')->group(function() {
     Route::get('/contact-us', [LandingController::class, 'contactUs'])->name('contactus');
     Route::get('/login-page', [LandingController::class, 'login'])->name('login');
     Route::get('/profile-page', [LandingController::class, 'profile'])->name('profile');
-    Route::get('/company-detail', [LandingController::class, 'companyDetail'])->name('company.detail');
+    Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
     Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
     Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('dashBoard');

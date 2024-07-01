@@ -5,7 +5,6 @@ import styled from '@mui/system/styled';
 import { useForm } from '@inertiajs/react'
 import { Landing } from '@/Layouts/Landing';
 import { Avatar, FormControl, MenuItem,Button, Radio, RadioGroup, Select, TextField, Typography, FormControlLabel } from '@mui/material';
-import Joi from 'joi';
 import "./style.scss"
 import Constants from '../Constants';
 import { useState } from 'react';
@@ -22,16 +21,7 @@ const DetailBox = styled('div')(() => ({
     borderRadius: '4px',
 }));
 
-const profileSchema = Joi.object({
-   name : Joi.string().label("Contact Name").required(),
-   mobile_number : Joi.number().min(14).label("Mobile Number").required(),
-   mentored_compnay : Joi.required(),
-   qualifications : Joi.optional(),
-   industry_sector : Joi.optional(),
-   functional : Joi.optional(),
-   hear_about_us : Joi.optional(),
-   additional_information : Joi.optional()
-});
+const profileSchema = Constants.profileSchema
 
 function Profile() {
     const { data, setData, post, processing} = useForm(Constants.initProfileForm);
@@ -122,21 +112,22 @@ function Profile() {
                                 placeholder='Please Fill your contact Name'
                                 onChange={(e) => handleChange("name", e.target.value)}
                                 error={!!validationErrors.name}
-                                helperText={validationErrors.name && <span className="error-message">{validationErrors.name}</span>}            
+                                helperText={validationErrors.name}            
                             />
                         </Grid>
                         <Grid item="true" md={6} xs={12} className='profile_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Mobile Number</Typography>
                             <TextField
                                 size='small'
-                                sx={{  mt: 1, width: '100%' }}
+                                sx={{ mt: 1, width: '100%' }}
                                 fullWidth
                                 variant='outlined'
-                                type='number'
+                                type='text'  
+                                value={data.mobile_number || ''}  
                                 placeholder='Please fill your company mobile number'
-                                onChange={(e) => handleChange("mobile_number", e.target.value)}
+                                onChange={(e) => handleChange("mobile_number", e.target.value.replace(/\D/, '').slice(0, 10))}
                                 error={!!validationErrors.mobile_number}
-                                helperText={validationErrors.mobile_number && <span className="error-message">{validationErrors.mobile_number}</span>}            
+                                helperText={validationErrors.mobile_number}            
                             />
                         </Grid>
                         <Grid item="true" xs={12}>
@@ -225,8 +216,8 @@ function Profile() {
                             />
                         </Grid>
                     </Grid>
-                    <Grid item="true" xs={12} mb={4} textAlign={"center"}>
-                        <Button type='submit' variant="contained" disabled={processing} sx={{ padding: "10px 32px"}}> Update</Button>
+                    <Grid item="true" xs={12} mb={4} textAlign={"center"} className='submit_btn'>
+                        <Button type='submit' variant="contained" disabled={processing} > Update</Button>
                     </Grid>
                 </Grid>
             </form>
