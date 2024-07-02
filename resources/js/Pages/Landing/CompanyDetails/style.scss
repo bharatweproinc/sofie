@@ -39,6 +39,13 @@
           }
     }
     .company_select_box{
+        .MuiFormControl-root {
+            .MuiInputBase-root {
+                margin-bottom: 0px !important;
+            }
+        }
+
+
         .MuiInputBase-input{
             padding: 10px !important;
         }
@@ -49,7 +56,6 @@
         .date_picker{
             .MuiInputBase-inputAdornedEnd:focus {
                 box-shadow: none !important;
-
             }
     }
     .MuiFormHelperText-root{

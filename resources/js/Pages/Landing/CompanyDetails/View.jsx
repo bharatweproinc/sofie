@@ -33,7 +33,7 @@ function CompanyDetail() {
             } else {
               setpasswordError(false);
             }
-          }
+        }
 
 
         const fieldSchema = companySchema.extract(key);
@@ -195,7 +195,7 @@ function CompanyDetail() {
                                     />
                             </Grid>
 
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Company UEN</Typography>
                                     <TextField
                                         size='small'
@@ -208,7 +208,7 @@ function CompanyDetail() {
                                         helperText={validationErrors.company_uen}
                                     />
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field'>
+                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Mobile Number</Typography>
                                     <TextField
                                         size='small'
@@ -222,7 +222,7 @@ function CompanyDetail() {
 
                                     />
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6} xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1.5} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Position In Company</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.position}>
                                     <Select
@@ -241,12 +241,12 @@ function CompanyDetail() {
                                     <FormHelperText>{validationErrors.position}</FormHelperText>
                                 </FormControl>
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box date_picker'>
+                            <Grid item lg={6}  xs={12} className='company_select_box date_picker ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Year Founded</Typography>
-                                    <FormControl sx={{ width:"100%" }} error={!!validationErrors.founded_year}>
+                                    <FormControl sx={{ width:"100%",}} error={!!validationErrors.founded_year}>
                                     <LocalizationProvider   dateAdapter={AdapterDayjs} >
                                     <DatePicker
-                                      sx={{ width:"100%"   }}
+                                      sx={{ width:"100%",    }}
                                       views={['year']}
                                       label={''}
                                       openTo="year"
@@ -261,7 +261,7 @@ function CompanyDetail() {
                                    </LocalizationProvider>
                                     </FormControl>
                                </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6}  xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Team Size, Number Of Employees</Typography>
                                     <FormControl sx={{width : "100%"}} error={!!validationErrors.team_size}>
                                     <Select
@@ -280,7 +280,7 @@ function CompanyDetail() {
                                     <FormHelperText>{validationErrors.team_size}</FormHelperText>
                                     </FormControl>
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6}  xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Revenue Size</Typography>
                                 <FormControl  sx={{width : "100%"}} error={!!validationErrors.current_revenue}>
                                 <Select
@@ -301,7 +301,7 @@ function CompanyDetail() {
 
 
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6}  xs={12} className='company_select_box ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Customers Base Size</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.current_customers_base_size}>
                                 <Select
@@ -321,7 +321,7 @@ function CompanyDetail() {
                                 </FormControl>
 
                             </Grid>
-                            <Grid item lg={12} sm={12} md={12} xs={12}>
+                            <Grid item lg={12}  xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Industry sector your company is in Please choose the most suitable one</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.industry_sector}>
                                 <Select
@@ -343,11 +343,11 @@ function CompanyDetail() {
 
 
                             </Grid>
-                            <Grid item xs={12} className='company_message_field'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Please describe what your company does in less than 100 words</Typography>
+                            <Grid item xs={12} className='company_message_field' sx={{ mb:1 }}>
+                                <Typography sx={{ mb:1 }} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Please describe what your company does in less than 100 words</Typography>
                                     <TextField
                                         size='small'
-                                        sx={{ '& legend': { display: 'none' }, mt:1, width: '100%' }}
+                                        sx={{ width: '100%' }}
                                         fullWidth
                                         multiline
                                         rows={4}
@@ -359,7 +359,7 @@ function CompanyDetail() {
                                     />
                             </Grid>
 
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6}  xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 1)</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.function_area_1}>
                                 <Select
@@ -379,7 +379,7 @@ function CompanyDetail() {
                                   </FormControl>
 
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6} xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 2)</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.function_area_2}>
                                 <Select
@@ -399,7 +399,7 @@ function CompanyDetail() {
                                  </FormControl>
 
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6}  xs={12} className='company_select_box ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 3)</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.function_area_3}>
                                 <Select
@@ -419,7 +419,7 @@ function CompanyDetail() {
                                  </FormControl>
 
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6}  xs={12} className='company_select_box' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>How did you hear about us?</Typography>
                                 <FormControl sx={{width : "100%"}} error={!!validationErrors.hear_about_us}>
                                 <Select
@@ -439,11 +439,11 @@ function CompanyDetail() {
                                  </FormControl>
 
                             </Grid>
-                            <Grid item xs={12} className='company_message_field'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>What is the current problem (relating to the functional area of help that has been selected) that you need a mentor to help with? (maximum 50 words)</Typography>
+                            <Grid item xs={12} className='company_message_field  ' sx={{mb:1}}>
+                                <Typography sx={{ mb:1 }} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>What is the current problem (relating to the functional area of help that has been selected) that you need a mentor to help with? (maximum 50 words)</Typography>
                                     <TextField
                                         size='small'
-                                        sx={{ '& legend': { display: 'none' }, mt:1, width: '100%' }}
+                                        sx={{   width: '100%' }}
                                         fullWidth
                                         multiline
                                         rows={4}
@@ -454,12 +454,12 @@ function CompanyDetail() {
                                         helperText={validationErrors.current_problem}
                                     />
                             </Grid>
-                            <Grid item xs={12} className='company_message_field'>
+                            <Grid item xs={12} className='company_message_field'  sx={{mb:1}}>
                                 <Typography fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Additional Information/Brand Websites</Typography>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>eg. Website,Instagram,Facebook, etc</Typography>
                                     <TextField
                                         size='small'
-                                        sx={{ '& legend': { display: 'none' }, mt:1, width: '100%' }}
+                                        sx={{ mt:0, width: '100%' }}
                                         fullWidth
                                         multiline
                                         rows={4}

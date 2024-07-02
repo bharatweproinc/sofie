@@ -13,7 +13,7 @@ const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
   height: '896px',
-  display: 'flex',  
+  display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   backgroundPosition:'right top !important'
@@ -28,6 +28,7 @@ function Signup() {
 
   const { data, setData, post, processing } = useForm(Constants.initSignUpForm);
   const [validationErrors, setValidationErrors] = useState({});
+  const [passwordError, setpasswordError] = useState(false);
 
   const handleChange = (key, value) => {
       const updatedData = {
@@ -37,6 +38,14 @@ function Signup() {
 
       const fieldSchema = signupSchema.extract(key);
       const { error } = fieldSchema.validate(value);
+
+      if (key === 'confirm_password' || key === 'password' ) {
+        if (data.password !== value && data.confirm_password !== value) {
+          setpasswordError(true);
+        } else {
+          setpasswordError(false);
+        }
+      }
 
       if (error) {
         setValidationErrors({
@@ -50,26 +59,36 @@ function Signup() {
       setData(updatedData);
     };
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      const { error, value } = signupSchema.validate(data, { abortEarly: false });
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-      if (error) {
         const validationErrors = {};
-        error.details.forEach(detail => {
-          validationErrors[detail.path[0]] = detail.message;
+
+        Object.keys(data).forEach(key => {
+          const fieldSchema = signupSchema.extract(key);
+          const { error } = fieldSchema.validate(data[key]);
+          if (error) {
+            validationErrors[key] = error.message;
+          }
         });
-        setValidationErrors(validationErrors);
-      } else {
-        console.log('data', value)
-      }
-    }; 
+
+        if (data.confirm_password !== data.password) {
+          validationErrors.confirm_password = 'Passwords does not match';
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+          setValidationErrors(validationErrors);
+        } else {
+          console.log('Data', data);
+        }
+      };
+
   return (
 
     <Landing>
     <Typography sx={{height:'65px'}}></Typography>
         <BackgroundImageContainer sx={{paddingTop:'65px'}}>
-            <CenteredPaper elevation={4} 
+            <CenteredPaper elevation={4}
               sx={{
               margin:'60px',
               width:'650px !important'
@@ -104,9 +123,9 @@ function Signup() {
                             fullWidth
                             variant='outlined'
                             placeholder='Phone'
-                            type='text'  
-                            value={data.phone || ''}  
-                            onChange={(e) => handleChange("phone", e.target.value.replace(/\D/, '').slice(0, 10))}  
+                            type='text'
+                            value={data.phone || ''}
+                            onChange={(e) => handleChange("phone", e.target.value.replace(/\D/, '').slice(0, 10))}
                             error={!!validationErrors.phone}
                             helperText={validationErrors.phone}
                           />
@@ -130,9 +149,9 @@ function Signup() {
                             sx={{ width: '100%' }}
                             size='small'
                             fullWidth
+                            type='password'
                             variant='outlined'
                             placeholder='Password'
-                            value={data.password}
                             onChange={(e) => handleChange("password", e.target.value)}
                             error={!!validationErrors.password}
                             helperText={validationErrors.password}
@@ -144,16 +163,16 @@ function Signup() {
                             sx={{ width: '100%' }}
                             size='small'
                             fullWidth
-                            value={data.confirm_password}
+                            type='password'
                             variant='outlined'
                             placeholder='Confirm Password'
                             onChange={(e) => handleChange("confirm_password", e.target.value)}
-                            error={!!validationErrors.confirm_password}
-                            helperText={validationErrors.confirm_password}
+                            error={!!validationErrors.confirm_password || passwordError}
+                            helperText={validationErrors.confirm_password || (passwordError ? 'Passwords does not match' : '')}
                           />
                     </Grid>
                     <Grid  item lg={6} sm={12} md={6} xs={12} textAlign={"start"}>
-                      <FormControl sx={{marginLeft : '-10px'}}>  
+                      <FormControl sx={{marginLeft : '-10px'}}>
                           <RadioGroup value={data.enterpreneur_or_mentor} name="radio-buttons-group" sx={{flexDirection:"row", alignItems:"center"}}
                               onChange={(e) => handleChange("enterpreneur_or_mentor", e.target.value)}
                             >

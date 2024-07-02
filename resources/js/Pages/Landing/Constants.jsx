@@ -48,9 +48,9 @@ const initCompanyDetailForm = {
 
 const initProfileForm = {
     'name' : '',
-    'mobile_number' : 0,
-    'email_contact' : '',
-    'user_name' : '',
+    'phone' : 0,
+    'email' : '',
+    'username' : '',
     'password' : '',
     'confirm_password' : '',
     'mentored_compnay' : 'no',
@@ -68,7 +68,6 @@ const signupSchema = Joi.object({
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     password: Joi.string().min(6).label("Password").required(),
     confirm_password: Joi.string().min(6).label("Confirm Password").required(),
-    // confirm_password : Joi.any().valid(Joi.ref('password')).required(),
     enterpreneur_or_mentor : Joi.required()
 })
 
@@ -79,16 +78,16 @@ const loginSchema = Joi.object({
 
 const profileSchema = Joi.object({
     name : Joi.string().label("Contact Name").required(),
-    mobile_number : Joi.number().min(10).label("Mobile Number").required(),
-    email_contact : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
-    user_name : Joi.string().label("User Name").required(),
+    phone : Joi.optional(),
+    email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
+    username : Joi.string().label("User Name").required(),
     password : Joi.string().min(6).label("Password").required(),
     confirm_password : Joi.string().min(6).label("Confirm Password").required(),
     mentored_compnay : Joi.required(),
-    qualifications : Joi.optional(),
-    industry_sector : Joi.optional(),
-    functional : Joi.optional(),
-    hear_about_us : Joi.optional(),
+    qualifications : Joi.string().label("Qulaifications").required(),
+    industry_sector : Joi.string().label("Industry Sector").required(),
+    functional : Joi.string().label("Functional").required(),
+    hear_about_us : Joi.string().label("Hear About Us").required(),
     number_of_companies : Joi.string().label("Number of Companies").required(),
     additional_information : Joi.optional()
  });
@@ -99,7 +98,7 @@ const profileSchema = Joi.object({
     user_name : Joi.string().label("User Name").required(),
     password: Joi.string().min(6).label("Password").required(),
     confirm_password: Joi.string().min(6).label("Confirm Password").required(),
-    email : Joi.string().label("Email").required(),
+    email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
     company_uen : Joi.string().label("Company UEN").required(),
     mobile_number : Joi.number().min(10).label("Mobile Number").optional(),
     position : Joi.string().label('Position in Company').required(),
