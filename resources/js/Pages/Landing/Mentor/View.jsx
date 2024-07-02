@@ -8,6 +8,8 @@ import { Avatar, FormControl, MenuItem,Button, Radio, RadioGroup, Select, TextFi
 import "./style.scss"
 import Constants from '../Constants';
 import { useState } from 'react';
+import profileImage from '../../../Assets/Images/profileImage.png'
+import ProfilePhotoUpload from '@/Components/FileUpload';
 
 const HeadingBox = styled('div')(() => ({
   border: '1px solid black',
@@ -21,19 +23,18 @@ const DetailBox = styled('div')(() => ({
     borderRadius: '4px',
 }));
 
-const profileSchema = Constants.profileSchema
+const mentorSchema = Constants.mentorSchema
 
-function Profile() {
-    const { data, setData, post, processing} = useForm(Constants.initProfileForm);
+function Mentor() {
+    const { data, setData, post, processing} = useForm(Constants.initMentorForm);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
 
     const handleChange = (key, value) => {
         const updatedData = {
-        ...data,
-        [key]: value,
+            ...data,
+            [key]: value,
         };
-
         if (key === 'confirm_password' || key === 'password') {
             if (data.password !== value && data.confirm_password !== value) {
               setpasswordError(true);
@@ -41,46 +42,56 @@ function Profile() {
               setpasswordError(false);
             }
         }
-
-        const fieldSchema = profileSchema.extract(key);
+        const fieldSchema = mentorSchema.extract(key);
         const { error } = fieldSchema.validate(value);
 
         if (error) {
-        setValidationErrors({
-            ...validationErrors,
-            [key]: error.message,
-        });
+            setValidationErrors({
+                ...validationErrors,
+                [key]: error.message,
+            });
         } else {
-        const { [key]: removedError, ...rest } = validationErrors;
-        setValidationErrors(rest);
+            const { [key]: removedError, ...rest } = validationErrors;
+            setValidationErrors(rest);
         }
-
         setData(updatedData);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const validationErrors = {};
-
         Object.keys(data).forEach(key => {
-            const fieldSchema = profileSchema.extract(key);
-            const { error } = fieldSchema.validate(data[key]);
-            if (error) {
-                validationErrors[key] = error.message;
-            }
-            });
-
-            if (data.confirm_password !== data.password) {
-            validationErrors.confirm_password = 'Passwords does not match';
-            }
-
-            if (Object.keys(validationErrors).length > 0) {
-                setValidationErrors(validationErrors);
-            } else {
-                console.log('Data', data);
-            }
+          const fieldSchema = mentorSchema.extract(key);
+          const { error } = fieldSchema.validate(data[key]);
+          if (error) {
+            validationErrors[key] = error.message;
+          }
+        });
+        if (data.confirm_password !== data.password) {
+          validationErrors.confirm_password = 'Passwords does not match';
+        }
+        if (Object.keys(validationErrors).length > 0) {
+          setValidationErrors(validationErrors);
+        } else {
+            console.log(data)
+            // post(route('mentor.user.store',data),{
+            //     onSuccess:(success) => {
+            //        console.log(success, "sucesss")
+            //     },
+            //     onError:(error) => {
+            //       console.log(error,"error")
+            //     },
+            // })}
+            // post(route('mentor.user.update',data),{
+            //     onSuccess:(success) => {
+            //        console.log(success, "sucesss")
+            //     },
+            //     onError:(error) => {
+            //       console.log(error,"error")
+            //     },
+            // })}
       };
+    }
 
   return (
     <Landing>
@@ -97,11 +108,11 @@ function Profile() {
                     <Grid item="true" xs={12} px={8}>
                         <DetailBox>
                             <Grid container gap={5} alignItems={"center"}>
-                                <Avatar
-                                    xs={3}
-                                    alt="Remy Sharp"
-                                    src="../Assets/Images/header-right.png"
-                                    sx={{ width: {lg:'160px',md:"152px", xs:"152px", sm:"152px"},height: {lg:'160px',md:"152px", xs:"152px", sm:"152px"}  }}
+                            <ProfilePhotoUpload
+                                name={'profile_photo'}
+                                setData={setData}
+                                data={data}
+                                defaultImg ={profileImage}
                                 />
                                 <Grid item="true" xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
@@ -128,6 +139,7 @@ function Profile() {
                                 fullWidth
                                 variant='outlined'
                                 placeholder='Please Fill your contact Name'
+                                value={data.name}
                                 onChange={(e) => handleChange("name", e.target.value)}
                                 error={!!validationErrors.name}
                                 helperText={validationErrors.name}
@@ -157,6 +169,7 @@ function Profile() {
                                 variant='outlined'
                                 type='email'
                                 placeholder='Please Fill your Email'
+                                value={data.email}
                                 onChange={(e) => handleChange("email", e.target.value)}
                                 error={!!validationErrors.email}
                                 helperText={validationErrors.email}
@@ -171,6 +184,7 @@ function Profile() {
                                 variant='outlined'
                                 type='text'
                                 placeholder='Please Fill User Name'
+                                value={data.username}
                                 onChange={(e) => handleChange("username", e.target.value)}
                                 error={!!validationErrors.username}
                                 helperText={validationErrors.username}
@@ -228,6 +242,7 @@ function Profile() {
                                 rows={4}
                                 variant='outlined'
                                 placeholder='Please Fill your Qualifications'
+                                value={data.qualifications}
                                 onChange={(e) => handleChange("qualifications", e.target.value)}
                                 error={!!validationErrors.qualifications}
                                 helperText={validationErrors.qualifications}
@@ -243,6 +258,7 @@ function Profile() {
                                 rows={4}
                                 variant='outlined'
                                 placeholder='Please Fill your Qualifications'
+                                value={data.industry_sector}
                                 onChange={(e) => handleChange("industry_sector", e.target.value)}
                                 error={!!validationErrors.industry_sector}
                                 helperText={validationErrors.industry_sector}
@@ -257,6 +273,7 @@ function Profile() {
                                     fullWidth
                                     variant='outlined'
                                     defaultValue={""}
+                                    value={data.functional}
                                     placeholder='Please select your company  Functional Area '
                                     onChange={(e) => handleChange("functional", e.target.value)}
                                 >
@@ -275,6 +292,7 @@ function Profile() {
                                     fullWidth
                                     defaultValue={""}
                                     variant='outlined'
+                                    value={data.hear_about_us}
                                     placeholder='Please select your company  Functional Area '
                                     onChange={(e) => handleChange("hear_about_us", e.target.value)}
                                 >
@@ -293,6 +311,7 @@ function Profile() {
                                 fullWidth
                                 variant='outlined'
                                 placeholder='No. of Companies'
+                                value={data.number_of_companies}
                                 onChange={(e) => handleChange("number_of_companies", e.target.value)}
                                 error={!!validationErrors.number_of_companies}
                                 helperText={validationErrors.number_of_companies}
@@ -308,6 +327,7 @@ function Profile() {
                                 fullWidth
                                 multiline
                                 rows={4}
+                                value={data.additional_information}
                                 variant='outlined'
                                 placeholder='Please Fill your Additional Information'
                                 onChange={(e) => handleChange("additional_information", e.target.value)}
@@ -324,4 +344,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Mentor;

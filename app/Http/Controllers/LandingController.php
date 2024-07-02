@@ -28,16 +28,19 @@ class LandingController extends Controller
     public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
     }
+
     public function partialMatched() {
-        return Inertia::render('Landing/Dashboard/PartialMatched/View');
+        return Inertia::render('Landing/Dashboard/PartialMatched/View' , []);
     }
     public function matched() {
-        return Inertia::render('Landing/Dashboard/Matched/View');
+        return Inertia::render('Landing/Dashboard/Matched/View', []);
     }
-    public function profile() {
-        return Inertia::render('Landing/Profile/View',[]);
+    public function mentor() {
+        return Inertia::render('Landing/Mentor/View',[]);
     }
-
+    public function mentorReview(){
+        return Inertia::render('Landing/Mentor/Review',[]);
+    }
     public function privacy() {
         return Inertia::render('Landing/Privacy/View',[]);
     }
@@ -50,9 +53,12 @@ class LandingController extends Controller
         return Inertia::render('Landing/Dashboard/View',[]);
     }
     public function profileSetting() {
-        return Inertia::render(('Landing/Dashboard/Settings/ProfileSettings/View'));
+        return Inertia::render('Landing/Dashboard/Settings/ProfileSettings/View',[]);
     }
     public function accountSetting() {
-        return Inertia::render(('Landing/Dashboard/Settings/AccountSettings/View'));
+        return Inertia::render('Landing/Dashboard/Settings/AccountSettings/View',[]);
+    }
+    public function companyReview(){
+        return Inertia::render('Landing/CompanyDetails/Review',[]);
     }
 }

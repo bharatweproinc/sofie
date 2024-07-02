@@ -5,11 +5,11 @@ import { Landing } from '@/Layouts/Landing';
 import './style.scss'
 import Constants from '../Constants';
 import { useState } from 'react';
-import { YearCalendar } from '@mui/x-date-pickers';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import ProfilePhotoUpload from '@/Components/FileUpload';
+import profileImage from '../../../Assets/Images/profileImage.png'
 
 
 
@@ -68,18 +68,44 @@ function CompanyDetail() {
 
         if (data.confirm_password !== data.password) {
           validationErrors.confirm_password = 'Passwords does not match';
+          return;
         }
 
         if (Object.keys(validationErrors).length > 0) {
           setValidationErrors(validationErrors);
+
+          return;
         } else {
           console.log('Data', data);
+           // post(route('company.details.store',data),{
+            //     onSuccess:(success) => {
+            //        console.log(success, "sucesss")
+            //     },
+            //     onError:(error) => {
+            //       console.log(error,"error")
+            //     },
+            // })}
+            // post(route('company.details.update',data),{
+            //     onSuccess:(success) => {
+            //        console.log(success, "sucesss")
+            //     },
+            //     onError:(error) => {
+            //       console.log(error,"error")
+            //     },
+            // })}
         }
       };
+
 
     console.log(data,"dataaa");
     return (
         <Landing>
+         {/* <Notifier
+                open={open}
+                setOpen={setOpen}
+                message={notification.message}
+                severity={notification.severity}
+            /> */}
             <div className='company_detail'>
                 <Typography sx={{ height: '65px' }}></Typography>
                     <Grid container px={8} py={4} sx={{padding : "24px"}}>
@@ -89,11 +115,12 @@ function CompanyDetail() {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container  gap={5} alignItems={"center"} className='upload_image_section' sx={{border:'2px solid #7C7C7C !important'}}>
-                                <Avatar xs={3}
-                                    alt="Remy Sharp"
-                                    src="https://s3-alpha-sig.figma.com/img/7d26/f12d/c9ef78ed454aee26b7314c1775c9aee2?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lDuz3IKfyKIHO73haUiB3hVIxn-cpwgeF7CSbHhnFciYE8i2LRI2b2l4UFjC6W~GtnMNBQ~gXqJ8XwnEOskQxXLxdeqXYd77vuhNJo1ZwjeP1dMJ5HWF7aZB4iGs59BLUKNfbs3dtKLAH2v6mHgL2xAfeOfmOTlVM-l-5FQXpTRUYmbWDEDUK1jgHfMgWNpql-X727CwEvvxR~LT0L90OoTOq3mJglPxIubQPlVoLfOR5k-SScEpNbrxh3rl1IZux6zrlrLF~UcZ~-zJqx~hL9dRY7gTg8QYQA-FxerOyCFeJDyVNtaKnC2cn2aD6Ee1EMU8vWJL8tKZHGpZHKoLnw__"
-                                    sx={{ width: {lg:'160px',md:"152px", xs:"152px", sm:"152px"},height: {lg:'160px',md:"152px", xs:"152px", sm:"152px"}, borderRadius : "50%", border : "2px solid black" }}
-                                />
+                                      <ProfilePhotoUpload
+                                        name={'profile_photo'}
+                                        setData={setData}
+                                        data={data}
+                                        defaultImg={profileImage}
+                                        />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
                                     <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
@@ -158,7 +185,6 @@ function CompanyDetail() {
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
-                                        type='email'
                                         variant='outlined'
                                         placeholder='Please Fill Your User Name'
                                         onChange={(e)=> handleChange("user_name", e.target.value)}
@@ -172,7 +198,6 @@ function CompanyDetail() {
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
-                                        type='email'
                                         variant='outlined'
                                         placeholder='Please Fill Your Password'
                                         onChange={(e)=> handleChange("password", e.target.value)}
@@ -186,7 +211,6 @@ function CompanyDetail() {
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
-                                        type='email'
                                         variant='outlined'
                                         placeholder='Please Fill Your Email'
                                         onChange={(e)=> handleChange("confirm_password", e.target.value)}
@@ -209,7 +233,9 @@ function CompanyDetail() {
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field  ' sx={{mb:1}}>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Mobile Number</Typography>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Mobile Number
+                                <span style={{color:"#7C7C7C", fontWeight : "400", marginLeft:"4px"}}>(Optional)</span>
+                                </Typography>
                                     <TextField
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
@@ -254,6 +280,7 @@ function CompanyDetail() {
                                         textField: {
                                         size: "small",
                                         error: !!validationErrors.founded_year,
+                                        placeholder:"Year Founded"
                                         },
                                     }}
                                       onChange={(value) => handleChange('founded_year', value.$y)}/>
@@ -456,7 +483,9 @@ function CompanyDetail() {
                             </Grid>
                             <Grid item xs={12} className='company_message_field'  sx={{mb:1}}>
                                 <Typography fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Additional Information/Brand Websites</Typography>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>eg. Website,Instagram,Facebook, etc</Typography>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>eg. Website,Instagram,Facebook, etc
+                                <span style={{color:"#7C7C7C", fontWeight : "400", marginLeft:"4px"}}>(Optional)</span>
+                                </Typography>
                                     <TextField
                                         size='small'
                                         sx={{ mt:0, width: '100%' }}

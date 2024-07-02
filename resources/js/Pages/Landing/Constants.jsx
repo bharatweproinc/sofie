@@ -43,10 +43,11 @@ const initCompanyDetailForm = {
     'function_area_3' : '',
     'hear_about_us' : '',
     'current_problem' : '',
-    'additional_information' : ''
+    'additional_information' : '',
+    'profile_photo' : ''
 }
 
-const initProfileForm = {
+const initMentorForm = {
     'name' : '',
     'phone' : 0,
     'email' : '',
@@ -59,7 +60,8 @@ const initProfileForm = {
     'functional' : '',
     'hear_about_us' : '',
     'number_of_companies' : '',
-    'additional_information' : ''
+    'additional_information' : '',
+    'profile_photo':''
 }
 
 const signupSchema = Joi.object({
@@ -76,7 +78,7 @@ const loginSchema = Joi.object({
     password: Joi.string().min(6).label("Password").required(),
 });
 
-const profileSchema = Joi.object({
+const mentorSchema = Joi.object({
     name : Joi.string().label("Contact Name").required(),
     phone : Joi.optional(),
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
@@ -89,7 +91,8 @@ const profileSchema = Joi.object({
     functional : Joi.string().label("Functional").required(),
     hear_about_us : Joi.string().label("Hear About Us").required(),
     number_of_companies : Joi.string().label("Number of Companies").required(),
-    additional_information : Joi.optional()
+    additional_information : Joi.optional(),
+    profile_photo:Joi.optional()
  });
 
  const companySchema = Joi.object({
@@ -114,6 +117,8 @@ const profileSchema = Joi.object({
     hear_about_us:  Joi.string().label("Hear About Us").required(),
     current_problem:  Joi.string().label("Current Problem ").required(),
     additional_information : Joi.optional(),
+    profile_photo:Joi.optional()
+
   });
 
 const contactSchema = Joi.object({
@@ -124,9 +129,31 @@ const contactSchema = Joi.object({
     message : Joi.string().label("Message").required()
 });
 
+const dummy_company_data = {
+    'company_name' : 'Testing Company Name',
+    'contact_name':' Test Contact 666',
+    'email':'user78655@gmail.com',
+    'company_uen' : 'Test Company',
+    'user_name':'Test User',
+    'mobile_number' : 9787657654,
+    'position' : '1234',
+    'founded_year' : 2023,
+    'team_size' : 6,
+    'current_revenue' : 5675,
+    'current_customers_base_size': 54,
+    'industry_sector': "54 sector",
+    'description': '',
+    'function_area_1' : 'Function Area Test 1',
+    'function_area_2' : ' Function Area Test 2',
+    'function_area_3' : 'Function Area Test 3',
+    'hear_about_us' : 'Ipsum is simply dummy text',
+    'current_problem' : 'No Issues',
+    'additional_information' : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into e'
+}
+
 const Constants = {
-    initLoginForm, initContactForm, initCompanyDetailForm, initProfileForm, initSignUpForm,
-    signupSchema, loginSchema, profileSchema, companySchema, contactSchema
+    initLoginForm, initContactForm, initCompanyDetailForm, initMentorForm, initSignUpForm,
+    signupSchema, loginSchema, mentorSchema, companySchema, contactSchema, dummy_company_data
 }
 
 export default Constants;

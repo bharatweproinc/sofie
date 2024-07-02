@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
-import facebook from '../../../Assets/Images/icon-facebook@2x.png'
-import twitter from '../../../Assets/Images/icon-twitter@2x.png'
-import linkedin from '../../../Assets/Images/icon-linkedin@2x.png'
+import { Box, Grid, Tooltip, Typography } from "@mui/material";
+import facebook from "../../../Assets/Images/icon-facebook@2x.png"
+import twitter from "../../../Assets/Images/icon-twitter@2x.png"
+import linkedin from "../../../Assets/Images/icon-linkedin@2x.png"
+
 import { Link } from "@inertiajs/react";
 
 const linkStyle = {
@@ -14,7 +15,7 @@ const linkStyle = {
 export const Footer = () => {
     return (
         <Box sx={{backgroundColor:'#E8EAEC'}} p={5}>
-            <Grid container spacing={2} 
+            <Grid container spacing={2}
             sx={{
                 borderBottom:' 1px solid #BEBEC0',
                 paddingBottom: { sm:'20px', xs:'20px'}
@@ -37,7 +38,9 @@ export const Footer = () => {
                     >
                         Funding Resources
                         <br />
-                        <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
+                        <Tooltip title="Funding Terminology" placement="right-start">
+                            <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
+                        </Tooltip>
                         <br />
                         FAQs
                         <br />
@@ -62,9 +65,13 @@ export const Footer = () => {
                     >
                         How Shophie’s Works
                         <br />
-                        <Link style={linkStyle} href={route('landing.privacy')}>Privacy</Link>
+                        <Tooltip title="Privacy" placement="right-start">
+                            <Link style={linkStyle} href={route('landing.privacy')}>Privacy</Link>
+                        </Tooltip>
                         <br />
-                        <Link style={linkStyle} href={route('landing.contactus')}>Contact Us</Link>
+                        <Tooltip title="Contact Us" placement="right-start">
+                            <Link style={linkStyle} href={route('landing.contactus')}>Contact Us</Link>
+                        </Tooltip>
                         <br />
                         Press
                         <br />
@@ -92,7 +99,9 @@ export const Footer = () => {
                         <br />
                         Find a Mentor
                         <br />
+                        <Tooltip title="Sign up" placement="right-start">
                         <Link style={linkStyle} href={route('landing.signup')}>Sign up</Link>
+                        </Tooltip>
                         <br />
                     </Typography>
                 </Grid>
@@ -112,7 +121,6 @@ export const Footer = () => {
                     </Box>
                 </Grid>
             </Grid>
-            {/* <hr sx={{}}></hr> */}
         </Box>
     );
 };
