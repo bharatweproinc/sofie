@@ -24,11 +24,16 @@ const initContactForm = {
 
 const initCompanyDetailForm = {
     'company_name' : '',
+    'contact_name':'',
+    'email':'',
     'company_uen' : '',
+    'user_name':'',
+    'password' : '',
+    'confirm_password' : '',
     'mobile_number' : 0,
     'position' : '',
-    'founded_year' : '',
-    'time_size' : '',
+    'founded_year' : {},
+    'team_size' : '',
     'current_revenue' : 0,
     'current_customers_base_size': 0,
     'industry_sector': '',
@@ -90,21 +95,26 @@ const profileSchema = Joi.object({
 
  const companySchema = Joi.object({
     company_name : Joi.string().label("Company Name").required(),
+    contact_name : Joi.string().label("Contact Name").required(),
+    user_name : Joi.string().label("User Name").required(),
+    password: Joi.string().min(6).label("Password").required(),
+    confirm_password: Joi.string().min(6).label("Confirm Password").required(),
+    email : Joi.string().label("Email").required(),
     company_uen : Joi.string().label("Company UEN").required(),
-    mobile_number : Joi.number().min(10).label("Mobile Number").required(),
+    mobile_number : Joi.number().min(10).label("Mobile Number").optional(),
     position : Joi.string().label('Position in Company').required(),
-    founded_year : Joi.string().label("Year Founded").required(),
-    time_size : Joi.string().label("Time size, Number Of Employees").required(),
-    current_revenue : Joi.optional(),
-    current_customers_base_size : Joi.optional(),
-    industry_sector: Joi.optional(),
-    description: Joi.optional(),
-    function_area_1: Joi.optional(),
-    function_area_2: Joi.optional(),
-    function_area_3: Joi.optional(),
-    hear_about_us: Joi.optional(),
-    current_problem: Joi.optional(),
-    additional_information :Joi.optional()
+    founded_year : Joi.number().label("Year Founded").required(),
+    team_size : Joi.string().label("Time size, Number Of Employees").required(),
+    current_revenue :Joi.string().label("Current Revenue").required(),
+    current_customers_base_size : Joi.string().label("Current Customers Base Size").required(),
+    industry_sector:  Joi.string().label("Industry Sector").required(),
+    description:  Joi.string().label("Description").required(),
+    function_area_1:  Joi.string().label("Function Area 1").required(),
+    function_area_2:  Joi.string().label("Function Area 2").required(),
+    function_area_3:  Joi.string().label("Function Area 3").required(),
+    hear_about_us:  Joi.string().label("Hear About Us").required(),
+    current_problem:  Joi.string().label("Current Problem ").required(),
+    additional_information : Joi.optional(),
   });
 
 const contactSchema = Joi.object({
@@ -114,7 +124,7 @@ const contactSchema = Joi.object({
     company : Joi.optional(),
     message : Joi.string().label("Message").required()
 });
-  
+
 const Constants = {
     initLoginForm, initContactForm, initCompanyDetailForm, initProfileForm, initSignUpForm,
     signupSchema, loginSchema, profileSchema, companySchema, contactSchema

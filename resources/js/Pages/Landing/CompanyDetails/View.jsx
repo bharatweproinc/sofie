@@ -5,18 +5,36 @@ import { Landing } from '@/Layouts/Landing';
 import './style.scss'
 import Constants from '../Constants';
 import { useState } from 'react';
+import { YearCalendar } from '@mui/x-date-pickers';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+
+
 
 const companySchema = Constants.companySchema
-  
+
 function CompanyDetail() {
     const { data, setData, post, processing} = useForm(Constants.initCompanyDetailForm);
     const [validationErrors, setValidationErrors] = useState({});
+    const [passwordError, setpasswordError] = useState(false);
+
 
     const handleChange = (key, value) => {
         const updatedData = {
         ...data,
         [key]: value,
         };
+
+        if (key === 'confirm_password' || key === 'password') {
+            if (data.password !== value && data.confirm_password !== value) {
+              setpasswordError(true);
+            } else {
+              setpasswordError(false);
+            }
+          }
+
 
         const fieldSchema = companySchema.extract(key);
         const { error } = fieldSchema.validate(value);
@@ -36,18 +54,30 @@ function CompanyDetail() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { error, value } = companySchema.validate(data, { abortEarly: false });
 
-        if (error) {
-            const validationErrors = {};
-            error.details.forEach(detail => {
-                validationErrors[detail.path[0]] = detail.message;
+        const validationErrors = {};
+
+        Object.keys(data).forEach(key => {
+          const fieldSchema = companySchema.extract(key)
+    ;
+          const { error } = fieldSchema.validate(data[key]);
+          if (error) {
+            validationErrors[key] = error.message;
+          }
         });
-        setValidationErrors(validationErrors);
-        } else {
-            console.log('data', value)
+
+        if (data.confirm_password !== data.password) {
+          validationErrors.confirm_password = 'Passwords does not match';
         }
-    };
+
+        if (Object.keys(validationErrors).length > 0) {
+          setValidationErrors(validationErrors);
+        } else {
+          console.log('Data', data);
+        }
+      };
+
+    console.log(data,"dataaa");
     return (
         <Landing>
             <div className='company_detail'>
@@ -92,9 +122,79 @@ function CompanyDetail() {
                                         placeholder='Please Fill Your Company Name'
                                         onChange={(e)=> handleChange("company_name", e.target.value)}
                                         error={!!validationErrors.company_name}
-                                        helperText={validationErrors.company_name}                
+                                        helperText={validationErrors.company_name}
                                     />
                             </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Contact Name</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        variant='outlined'
+                                        placeholder='Please Fill Your Contact Name'
+                                        onChange={(e)=> handleChange("contact_name", e.target.value)}
+                                        error={!!validationErrors.contact_name}
+                                        helperText={validationErrors.contact_name}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Email</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        type='email'
+                                        variant='outlined'
+                                        placeholder='Please Fill Your Email'
+                                        onChange={(e)=> handleChange("email", e.target.value)}
+                                        error={!!validationErrors.email}
+                                        helperText={validationErrors.email}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>User Name</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        type='email'
+                                        variant='outlined'
+                                        placeholder='Please Fill Your User Name'
+                                        onChange={(e)=> handleChange("user_name", e.target.value)}
+                                        error={!!validationErrors.user_name}
+                                        helperText={validationErrors.user_name}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Password</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        type='email'
+                                        variant='outlined'
+                                        placeholder='Please Fill Your Password'
+                                        onChange={(e)=> handleChange("password", e.target.value)}
+                                        error={!!validationErrors.password}
+                                        helperText={validationErrors.password}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Confirm Password</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        type='email'
+                                        variant='outlined'
+                                        placeholder='Please Fill Your Email'
+                                        onChange={(e)=> handleChange("confirm_password", e.target.value)}
+                                        error={!!validationErrors.confirm_password || passwordError}
+                                        helperText={validationErrors.confirm_password || (passwordError ? 'Passwords does not match' : '')}
+                                    />
+                            </Grid>
+
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Company UEN</Typography>
                                     <TextField
@@ -105,7 +205,7 @@ function CompanyDetail() {
                                         placeholder='Please Fill Your Company UEN'
                                         onChange={(e)=> handleChange("company_uen", e.target.value)}
                                         error={!!validationErrors.company_uen}
-                                        helperText={validationErrors.company_uen}                
+                                        helperText={validationErrors.company_uen}
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field'>
@@ -119,8 +219,7 @@ function CompanyDetail() {
                                         value={data.mobile_number || ''}
                                         placeholder='Please Fill Your Company Mobile Number'
                                         onChange={(e)=> handleChange("mobile_number", e.target.value.replace(/\D/, '').slice(0, 10))}
-                                        error={!!validationErrors.mobile_number}
-                                        helperText={validationErrors.mobile_number}                
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
@@ -142,28 +241,29 @@ function CompanyDetail() {
                                     <FormHelperText>{validationErrors.position}</FormHelperText>
                                 </FormControl>
                             </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
+                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box date_picker'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Year Founded</Typography>
-                                    <FormControl sx={{width : "100%"}} error={!!validationErrors.founded_year}>
-                                    <Select
-                                        size='small'
-                                        sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, width: '100%' }}
-                                        fullWidth
-                                        defaultValue={""}
-                                        variant='outlined'
-                                        label='Select Your Company Year Founded'
-                                        onChange={(e) => handleChange('founded_year', e.target.value)}
-                                    >
-                                        <MenuItem value="ten">Ten</MenuItem>
-                                        <MenuItem value="twenty">Twenty</MenuItem>
-                                        <MenuItem value="thirty">Thirty</MenuItem>
-                                    </Select>
+                                    <FormControl sx={{ width:"100%" }} error={!!validationErrors.founded_year}>
+                                    <LocalizationProvider   dateAdapter={AdapterDayjs} >
+                                    <DatePicker
+                                      sx={{ width:"100%"   }}
+                                      views={['year']}
+                                      label={''}
+                                      openTo="year"
+                                      slotProps={{
+                                        textField: {
+                                        size: "small",
+                                        error: !!validationErrors.founded_year,
+                                        },
+                                    }}
+                                      onChange={(value) => handleChange('founded_year', value.$y)}/>
                                     <FormHelperText>{validationErrors.founded_year}</FormHelperText>
+                                   </LocalizationProvider>
                                     </FormControl>
-                            </Grid>
+                               </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Time Size, Number Of Employees</Typography>
-                                    <FormControl sx={{width : "100%"}} error={!!validationErrors.time_size}>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Team Size, Number Of Employees</Typography>
+                                    <FormControl sx={{width : "100%"}} error={!!validationErrors.team_size}>
                                     <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, width: '100%' }}
@@ -171,18 +271,19 @@ function CompanyDetail() {
                                         variant='outlined'
                                         defaultValue={""}
                                         label='Select Your Company Time Size'
-                                        onChange={(e) => handleChange('time_size', e.target.value)}
+                                        onChange={(e) => handleChange('team_size', e.target.value)}
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
-                                    <FormHelperText>{validationErrors.time_size}</FormHelperText>
+                                    <FormHelperText>{validationErrors.team_size}</FormHelperText>
                                     </FormControl>
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Revenue Size</Typography>
-                                    <Select
+                                <FormControl  sx={{width : "100%"}} error={!!validationErrors.current_revenue}>
+                                <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, mb: 1, width: '100%' }}
                                         fullWidth
@@ -195,10 +296,15 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.current_revenue}</FormHelperText>
+                                  </FormControl>
+
+
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Customers Base Size</Typography>
-                                    <Select
+                                <FormControl sx={{width : "100%"}} error={!!validationErrors.current_customers_base_size}>
+                                <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, mb: 1, width: '100%' }}
                                         fullWidth
@@ -211,10 +317,14 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.current_customers_base_size}</FormHelperText>
+                                </FormControl>
+
                             </Grid>
                             <Grid item lg={12} sm={12} md={12} xs={12}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Industry sector your company is in Please choose the most suitable one</Typography>
-                                    <Select
+                                <FormControl sx={{width : "100%"}} error={!!validationErrors.industry_sector}>
+                                <Select
                                         size='small'
                                         className='industry_sector_select'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px', padding:'16px 32px 16px 32px' }, mb: 1, width: '100%' }}
@@ -228,6 +338,10 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
+                                 </FormControl>
+
+
                             </Grid>
                             <Grid item xs={12} className='company_message_field'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Please describe what your company does in less than 100 words</Typography>
@@ -240,12 +354,15 @@ function CompanyDetail() {
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
                                         onChange={(e) => handleChange('description', e.target.value)}
+                                        error={!!validationErrors.description}
+                                        helperText={validationErrors.description}
                                     />
                             </Grid>
 
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 1)</Typography>
-                                    <Select
+                                <FormControl sx={{width : "100%"}} error={!!validationErrors.function_area_1}>
+                                <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, mb: 1, width: '100%' }}
                                         fullWidth
@@ -258,10 +375,14 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.function_area_1}</FormHelperText>
+                                  </FormControl>
+
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 2)</Typography>
-                                    <Select
+                                <FormControl sx={{width : "100%"}} error={!!validationErrors.function_area_2}>
+                                <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, mb: 1, width: '100%' }}
                                         fullWidth
@@ -274,10 +395,14 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.function_area_2}</FormHelperText>
+                                 </FormControl>
+
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 3)</Typography>
-                                    <Select
+                                <FormControl sx={{width : "100%"}} error={!!validationErrors.function_area_3}>
+                                <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, mb: 1, width: '100%' }}
                                         fullWidth
@@ -290,10 +415,14 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.function_area_3}</FormHelperText>
+                                 </FormControl>
+
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_select_box'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>How did you hear about us?</Typography>
-                                    <Select
+                                <FormControl sx={{width : "100%"}} error={!!validationErrors.hear_about_us}>
+                                <Select
                                         size='small'
                                         sx={{ '& legend': { display: 'none', border:'1px solid #7C7C7C', borderRadius:'6px' }, mb: 1, width: '100%' }}
                                         fullWidth
@@ -306,6 +435,9 @@ function CompanyDetail() {
                                         <MenuItem value="twenty">Twenty</MenuItem>
                                         <MenuItem value="thirty">Thirty</MenuItem>
                                     </Select>
+                                    <FormHelperText>{validationErrors.hear_about_us}</FormHelperText>
+                                 </FormControl>
+
                             </Grid>
                             <Grid item xs={12} className='company_message_field'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>What is the current problem (relating to the functional area of help that has been selected) that you need a mentor to help with? (maximum 50 words)</Typography>
@@ -318,6 +450,8 @@ function CompanyDetail() {
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
                                         onChange={(e) => handleChange('current_problem', e.target.value)}
+                                        error={!!validationErrors.current_problem}
+                                        helperText={validationErrors.current_problem}
                                     />
                             </Grid>
                             <Grid item xs={12} className='company_message_field'>
@@ -332,6 +466,7 @@ function CompanyDetail() {
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
                                         onChange={(e) => handleChange('additional_information', e.target.value)}
+
                                     />
                             </Grid>
                             <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='submit_btn'>
