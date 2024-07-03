@@ -37,7 +37,7 @@ const Reviewdata = () => {
                         fontSize={"28px"}
                         color={"#223049"}
                     >
-                        Company Detail
+                        Company Details
                     </Typography>
                 </Grid>
                 <Box
