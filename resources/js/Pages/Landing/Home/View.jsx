@@ -23,6 +23,7 @@ import Testimonial from './Components/Testimonial';
 import { autoPlay } from 'react-swipeable-views-utils';
 import SwipeableViews from 'react-swipeable-views';
 import "./style.scss"
+import { Link } from '@inertiajs/react';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar(props) {
@@ -60,12 +61,16 @@ function DrawerAppBar(props) {
 								Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals.
 							</Typography>
 							<Box className="flex gap-5 mt-10">
-								<Button variant="contained" className="w-full">
-									Sign Up to be SME
-								</Button>
-								<Button variant="outlined" className="w-full">
-									Sign Up to be Mentor
-								</Button>
+                            <Link href='company-detail' className='w-full'>
+									<Button variant="contained" className="w-full">
+										Sign Up to be SME
+									</Button>
+								</Link>
+								<Link href="/mentor-detail" className='w-full'>
+									<Button variant="outlined" className="w-full">
+										Sign Up to be Mentor
+									</Button>
+								</Link>
 							</Box>
 
 						</Box>
@@ -74,7 +79,7 @@ function DrawerAppBar(props) {
 						<img className='w-full h-full object-cover' style={{
 							maxWidth: '100',
 						}} src={headerRight} alt="description"/>
-						<Box 
+						<Box
 						sx={{
 							position:"absolute",
 							backgroundColor:'#ffff',

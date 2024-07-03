@@ -1,21 +1,12 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Constants from './Constant';
 import TextField from '@mui/material/TextField'
 import { Grid, Button, useMediaQuery, Collapse } from '@mui/material';
@@ -29,10 +20,15 @@ import Paper from '@mui/material/Paper';
 import Men from '../../../Assets/Images/men-rounded.png'
 import Sofie from '../../../Assets/Images/Sofie-logo.png'
 import "./style.scss"
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import CircleIcon from '@mui/icons-material/Circle';
 import { Link } from '@inertiajs/react';
 import SearchIcon from '@mui/icons-material/Search';
+import SideBar from '@/Components/Dependent/SideBar/index.jsx';
+import Navbar from '@/Components/Dependent/Navbar';
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
+import MatchingStatus from './MatchingStatus';
+import { useState } from 'react';
+import Companies from './Companies';
+
 
 const drawerWidth = 240;
 
@@ -72,14 +68,6 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
 
 const rows = [
   createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm",),
@@ -88,6 +76,10 @@ const rows = [
   createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm",),
   createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
   createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
+  createData('Company 8', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
+  createData('Company 9', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
+  createData('Company 10', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
+
 ];
 
 function createData(company_name, calories, fat, carbs, protein, uen_number, name, email) {
@@ -96,145 +88,30 @@ function createData(company_name, calories, fat, carbs, protein, uen_number, nam
 
 function dashboard() {
   const theme = useTheme();
+
+    // const [isViewAll , setIsViewAll] = useState(false);
+    const [viewSection , setViewSection] = useState('')
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [open, setOpen] = React.useState(true);
-  const [openItems, setOpenItems] = React.useState({});
 
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const handleClick = (id) => {
-    setOpenItems((prevOpenItems) => ({
-      ...prevOpenItems,
-      [id]: !prevOpenItems[id],
-    }));
-  };
-
-  React.useEffect(() => {
-    setOpen(!isMobile);
-  }, [isMobile]);
-
+  const handleViewAll = (section)=>{
+    setViewSection(section)
+  }
+  console.log(viewSection,"::viewSection")
 
   return (
     <Box sx={{ display: 'flex', backgroundColor: '#FAFAFA' }}>
       <CssBaseline />
-      {isMobile && (
-        <AppBar position="fixed" className='mobile_hamburger_header'>
-          <Toolbar>
-            <IconButton
-              color="black"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerOpen}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      )}
-
-      <Drawer
-          sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              '& .MuiDrawer-paper': {
-                width: drawerWidth,
-                boxSizing: 'border-box',
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={open}
-        >
-        <DrawerHeader sx={{display : 'flex', justifyContent : 'space-between'}}>
-            <img src={Sofie} />
-            {isMobile && (
-              <IconButton sx={{height : '30px', width : '30px', color : 'white', backgroundColor : "black" }} 
-                onClick={handleDrawerClose}>
-                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-              </IconButton>
-            )}
-        </DrawerHeader>
-
-        <Divider />
-       
-        <List>
-          {Constants.menuItem.map((item, index) => (
-            <React.Fragment key={index}>
-                <ListItem disablePadding>
-                  <ListItemButton component={item.subItems ? 'button' : Link} href={item.subItems ? undefined : `${item.link}`} onClick={() => item.subItems ? handleClick(item.id) : null}>
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <ListItemText primary={item.label} />
-                        {item.subItems ? (openItems[item.id] ? <ExpandLess /> : <ExpandMore />) : null}
-                  </ListItemButton>
-              </ListItem>
-              {item.subItems && (
-                <Collapse in={openItems[item.id]} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {item.subItems.map((subItem) => (
-                      <ListItemButton component={Link} href={`${subItem.link}`} key={subItem.id} sx={{ pl: 4 }}>
-                          <ListItemIcon>
-                            <CircleIcon sx={{ fontSize: 8 }}/>
-                          </ListItemIcon>
-                        <ListItemText primary={subItem.label} />
-                      </ListItemButton>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-            </React.Fragment>
-          ))}
-        </List>
-      </Drawer>
-
-
+      <SideBar/>
       {/* Content Box   */}
 
       <Main open={open} sx={{display : 'flex', flexDirection : 'column'}}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
             <Grid className='serach-every' container spacing={4} px={2}>
-              <Grid className='flex justify-between align-middle gap-10 relative' item xs={12} lg={12}>
-                <TextField
-                  startIcon="<SearchSharpIcon/>"
-                  size='small'
-                  sx={{ '& legend': { display: 'none' }, mt: 1, width: '100%', height: '100%', borderWidth: '0 !important' }}
-                  //  variant='outlined'
-                  placeholder='Search everything here'
-                />
-                <Box className="flex align-middle justify-end">
-                  {
-                    isMobile ? 
-                    <Button variant='text' sx={{color : 'black'}}>
-                      <SearchIcon/>
-                    </Button> :
-                    <Button variant="text" color="primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="9" stroke="#434343" stroke-width="2" />
-                      <circle cx="12" cy="18" r="0.5" fill="#434343" stroke="#434343" />
-                      <path d="M12 16V14.5811C12 13.6369 12.6042 12.7986 13.5 12.5V12.5C14.3958 12.2014 15 11.3631 15 10.4189V9.90569C15 8.30092 13.6991 7 12.0943 7H12C10.3431 7 9 8.34315 9 10V10" stroke="#434343" stroke-width="2" />
-                    </svg>
-                  </Button>
-                  }
-                  <Button variant="text" color="primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="27" viewBox="0 0 26 27" fill="none">
-                      <path d="M6.44784 10.9694C6.76219 8.14032 9.15349 6 12 6V6C14.8465 6 17.2378 8.14032 17.5522 10.9694L17.804 13.2356C17.8072 13.2645 17.8088 13.279 17.8104 13.2933C17.9394 14.4169 18.3051 15.5005 18.8836 16.4725C18.8909 16.4849 18.8984 16.4973 18.9133 16.5222L19.4914 17.4856C20.0159 18.3599 20.2782 18.797 20.2216 19.1559C20.1839 19.3946 20.061 19.6117 19.8757 19.7668C19.5971 20 19.0873 20 18.0678 20H5.93223C4.91268 20 4.40291 20 4.12434 19.7668C3.93897 19.6117 3.81609 19.3946 3.77841 19.1559C3.72179 18.797 3.98407 18.3599 4.50862 17.4856L5.08665 16.5222C5.10161 16.4973 5.10909 16.4849 5.11644 16.4725C5.69488 15.5005 6.06064 14.4169 6.18959 13.2933C6.19123 13.279 6.19283 13.2645 6.19604 13.2356L6.44784 10.9694Z" stroke="#434343" stroke-width="2" />
-                      <path d="M8 20C8 20.5253 8.10346 21.0454 8.30448 21.5307C8.5055 22.016 8.80014 22.457 9.17157 22.8284C9.54301 23.1999 9.98396 23.4945 10.4693 23.6955C10.9546 23.8965 11.4747 24 12 24C12.5253 24 13.0454 23.8965 13.5307 23.6955C14.016 23.4945 14.457 23.1999 14.8284 22.8284C15.1999 22.457 15.4945 22.016 15.6955 21.5307C15.8965 21.0454 16 20.5253 16 20" stroke="#434343" stroke-width="2" stroke-linecap="round" />
-                      <circle cx="22.5" cy="3.5" r="3.5" fill="#FF0000" />
-                    </svg>
-                  </Button>
-                  <img style={{ maxWidth: '32px !important', padding: '12px' }} src={Men} alt="" />
-                </Box>
-              </Grid>
-
+             <Navbar/>
+            {viewSection !== "matching_status" && viewSection !== "companies" &&
               <Grid className='flex flex-wrap justify-between' sx={{ rowGap: '10px' }} item md={5} xs={12}>
-                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5} xs={6}>
                   <div>
                     <p variant="body1" color="initial">To Review</p>
                     <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>10</Typography>
@@ -254,7 +131,7 @@ function dashboard() {
                     </svg>
                   </div>
                 </Grid>
-                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}  xs={6} >
                   <div>
                     <p variant="body1" color="initial">To Review</p>
                     <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>50</Typography>
@@ -272,7 +149,7 @@ function dashboard() {
                     </svg>
                   </div>
                 </Grid>
-                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}  xs={6}>
                   <div>
                     <p variant="body1" color="initial">To Review</p>
                     <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>20</Typography>
@@ -290,7 +167,7 @@ function dashboard() {
                     </svg>
                   </div>
                 </Grid>
-                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}  xs={6}>
                   <div>
                     <p variant="body1" color="initial">To Review</p>
                     <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>5</Typography>
@@ -308,7 +185,7 @@ function dashboard() {
                     </svg>
                   </div>
                 </Grid>
-                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}  xs={6}>
                   <div>
                     <p variant="body1" color="initial">To Review</p>
                     <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>30</Typography>
@@ -327,7 +204,7 @@ function dashboard() {
                     </svg>
                   </div>
                 </Grid>
-                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}>
+                <Grid className='flex rounded-lg border p-4 bg-white' item lg={5} md={5}  xs={6}>
                   <div>
                     <p variant="body1" color="initial">To Review</p>
                     <Typography variant="h3" color="initial" sx={{fontWeight:'bold'}}>15</Typography>
@@ -345,231 +222,11 @@ function dashboard() {
                     </svg>
                   </div>
                 </Grid>
-              </Grid>
+              </Grid> }
 
-              <Grid className='flex' item md={7} xs={12}>
-                <TableContainer component={Paper}>
-                  <Box p={2} className="flex justify-between">
-                    <Typography variant="h5" color="initial">Matching Status</Typography>
-                    <Link
-                      href="/"
-                      color={"blue"}
-                      variant="body1"
-                      underline="hover"
-                      target="_blank"
-                      rel="noopener noreferrer"
+            {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll} />}
 
-                    >
-                      View all
-                    </Link>
-                  </Box>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow sx={{ backgroundColor: '#F8F9FB' }}>
-                        <TableCell>
-                          <Box className="flex gap-3">
-                            Company Name
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Area 1
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Area 2
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Area 3
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Area 4
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow
-                          key={row.name}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {row.company_name}
-                          </TableCell>
-                          <TableCell align="left">{row.calories}</TableCell>
-                          <TableCell align="left">{row.fat}</TableCell>
-                          <TableCell align="left">{row.carbs}</TableCell>
-                          <TableCell align="left">{row.protein}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
-
-              {/* companies-veiw all-------- */}
-              <Grid className='flex' item xs={12} md={12}>
-                <TableContainer component={Paper}>
-                  <Box p={2} className="flex justify-between">
-                    <Typography variant="h5" color="initial">Companies</Typography>
-                    <Link
-                      href="/"
-                      color={"blue"}
-                      variant="body1"
-                      underline="hover"
-                      target="_blank"
-                      rel="noopener noreferrer"
-
-                    >
-                      View all
-                    </Link>
-                  </Box>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow sx={{ backgroundColor: '#F8F9FB' }}>
-                        <TableCell>
-                          <Box className="flex gap-3">
-                            Company Name
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            UEN Number
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Contact Person
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Email
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Box className="flex gap-3">
-                            Actions
-                            <div className='grid'>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
-                              </svg>
-                              <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
-                              </svg>
-                            </div>
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow
-                          key={row.name}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {row.company_name}
-                          </TableCell>
-                          <TableCell align="left">{row.uen_number}</TableCell>
-                          <TableCell align="left">{row.name}</TableCell>
-                          <TableCell align="left">{row.email}</TableCell>
-                          <TableCell align="left">
-                            <Box sx={{gap:'10px'}} className="flex">
-                              {
-                                Constants.icons.map((item)=>{
-                                  return (
-                                    item.icon
-                                  )
-                                })
-                              }
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-
-                </TableContainer>
-              </Grid>
+            {viewSection !== "matching_status" && <Companies setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
             </Grid>
         </Box>
       </Main>

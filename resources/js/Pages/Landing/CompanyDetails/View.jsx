@@ -10,16 +10,18 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProfilePhotoUpload from '@/Components/FileUpload';
 import profileImage from '../../../Assets/Images/profileImage.png'
+import { scrollToInput } from '@/utility/ScrollToInput';
+import { useRef } from 'react';
 
 
 
-const companySchema = Constants.companySchema
-
+const companySchema = Constants.companySchema;
 function CompanyDetail() {
+    const inputRefs = useRef(Constants.companyInputRefs());
+
     const { data, setData, post, processing} = useForm(Constants.initCompanyDetailForm);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
-
 
     const handleChange = (key, value) => {
         const updatedData = {
@@ -66,14 +68,20 @@ function CompanyDetail() {
           }
         });
 
+
         if (data.confirm_password !== data.password) {
           validationErrors.confirm_password = 'Passwords does not match';
-          return;
+
         }
 
         if (Object.keys(validationErrors).length > 0) {
+            for (const field in inputRefs.current) {
+                if (inputRefs.current[field] && inputRefs.current[field].current && validationErrors[field]) {
+                    scrollToInput(inputRefs.current[field]);
+                    break;
+                }
+            }
           setValidationErrors(validationErrors);
-
           return;
         } else {
           console.log('Data', data);
@@ -97,15 +105,8 @@ function CompanyDetail() {
       };
 
 
-    console.log(data,"dataaa");
     return (
         <Landing>
-         {/* <Notifier
-                open={open}
-                setOpen={setOpen}
-                message={notification.message}
-                severity={notification.severity}
-            /> */}
             <div className='company_detail'>
                 <Typography sx={{ height: '65px' }}></Typography>
                     <Grid container px={8} py={4} sx={{padding : "24px"}}>
@@ -139,9 +140,12 @@ function CompanyDetail() {
                     </Grid>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} sx={{p:3}}>
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'
+
+>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Company Name</Typography>
                                     <TextField
+                                        inputRef={inputRefs.current.company_name}
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
@@ -150,6 +154,7 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("company_name", e.target.value)}
                                         error={!!validationErrors.company_name}
                                         helperText={validationErrors.company_name}
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
@@ -163,6 +168,8 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("contact_name", e.target.value)}
                                         error={!!validationErrors.contact_name}
                                         helperText={validationErrors.contact_name}
+                                        inputRef={inputRefs.current.contact_name}
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
@@ -177,6 +184,8 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("email", e.target.value)}
                                         error={!!validationErrors.email}
                                         helperText={validationErrors.email}
+                                        inputRef={inputRefs.current.email}
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
@@ -190,6 +199,8 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("user_name", e.target.value)}
                                         error={!!validationErrors.user_name}
                                         helperText={validationErrors.user_name}
+                                        inputRef={inputRefs.current.user_name}
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
@@ -203,6 +214,8 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("password", e.target.value)}
                                         error={!!validationErrors.password}
                                         helperText={validationErrors.password}
+                                        inputRef={inputRefs.current.password}
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
@@ -216,6 +229,8 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("confirm_password", e.target.value)}
                                         error={!!validationErrors.confirm_password || passwordError}
                                         helperText={validationErrors.confirm_password || (passwordError ? 'Passwords does not match' : '')}
+                                        inputRef={inputRefs.current.confirm_password}
+
                                     />
                             </Grid>
 
@@ -230,6 +245,8 @@ function CompanyDetail() {
                                         onChange={(e)=> handleChange("company_uen", e.target.value)}
                                         error={!!validationErrors.company_uen}
                                         helperText={validationErrors.company_uen}
+                                        inputRef={inputRefs.current.company_uen}
+
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field  ' sx={{mb:1}}>
@@ -246,6 +263,7 @@ function CompanyDetail() {
                                         placeholder='Please Fill Your Company Mobile Number'
                                         onChange={(e)=> handleChange("mobile_number", e.target.value.replace(/\D/, '').slice(0, 10))}
 
+
                                     />
                             </Grid>
                             <Grid item lg={6} xs={12} className='company_select_box  ' sx={{mb:1}}>
@@ -259,6 +277,8 @@ function CompanyDetail() {
                                         defaultValue={""}
                                         label='Please Select Your Company Details'
                                         onChange={(e) => handleChange('position', e.target.value)}
+                                        inputRef={inputRefs.current.position}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -272,6 +292,7 @@ function CompanyDetail() {
                                     <FormControl sx={{ width:"100%",}} error={!!validationErrors.founded_year}>
                                     <LocalizationProvider   dateAdapter={AdapterDayjs} >
                                     <DatePicker
+                                        inputRef={inputRefs.current.founded_year}
                                       sx={{ width:"100%",    }}
                                       views={['year']}
                                       label={''}
@@ -298,6 +319,7 @@ function CompanyDetail() {
                                         variant='outlined'
                                         defaultValue={""}
                                         label='Select Your Company Time Size'
+                                        inputRef={inputRefs.current.team_size}
                                         onChange={(e) => handleChange('team_size', e.target.value)}
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
@@ -318,6 +340,8 @@ function CompanyDetail() {
                                         variant='outlined'
                                         label='Select Your Company Current Revenue Size'
                                         onChange={(e) => handleChange('current_revenue', e.target.value)}
+                                        inputRef={inputRefs.current.current_revenue}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -339,6 +363,8 @@ function CompanyDetail() {
                                         defaultValue={""}
                                         label='Select Your Company Current Customers Base Size'
                                         onChange={(e) => handleChange('current_customers_base_size', e.target.value)}
+                                        inputRef={inputRefs.current.current_customers_base_size}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -360,6 +386,8 @@ function CompanyDetail() {
                                         defaultValue={""}
                                         placeholder='Select Industry Sector of Your Company'
                                         onChange={(e) => handleChange('industry_sector', e.target.value)}
+                                        inputRef={inputRefs.current.industry_sector}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -383,6 +411,8 @@ function CompanyDetail() {
                                         onChange={(e) => handleChange('description', e.target.value)}
                                         error={!!validationErrors.description}
                                         helperText={validationErrors.description}
+                                        inputRef={inputRefs.current.description}
+
                                     />
                             </Grid>
 
@@ -397,6 +427,8 @@ function CompanyDetail() {
                                         defaultValue={""}
                                         label='Select your company  Functional Area'
                                         onChange={(e) => handleChange('function_area_1', e.target.value)}
+                                        inputRef={inputRefs.current.function_area_1}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -417,6 +449,8 @@ function CompanyDetail() {
                                         variant='outlined'
                                         label='Select your company  Functional Area'
                                         onChange={(e) => handleChange('function_area_2', e.target.value)}
+                                        inputRef={inputRefs.current.function_area_2}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -437,6 +471,8 @@ function CompanyDetail() {
                                         defaultValue={""}
                                         label=' Select your company  Functional Area'
                                         onChange={(e) => handleChange('function_area_3', e.target.value)}
+                                        inputRef={inputRefs.current.function_area_3}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -457,6 +493,8 @@ function CompanyDetail() {
                                         defaultValue={""}
                                         label=' Select your company  Functional Area '
                                         onChange={(e) => handleChange('hear_about_us', e.target.value)}
+                                        inputRef={inputRefs.current.hear_about_us}
+
                                     >
                                         <MenuItem value="ten">Ten</MenuItem>
                                         <MenuItem value="twenty">Twenty</MenuItem>
@@ -479,6 +517,8 @@ function CompanyDetail() {
                                         onChange={(e) => handleChange('current_problem', e.target.value)}
                                         error={!!validationErrors.current_problem}
                                         helperText={validationErrors.current_problem}
+                                        inputRef={inputRefs.current.current_problem}
+
                                     />
                             </Grid>
                             <Grid item xs={12} className='company_message_field'  sx={{mb:1}}>

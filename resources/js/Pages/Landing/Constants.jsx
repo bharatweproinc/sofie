@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { useRef } from "react";
 
 const initSignUpForm = {
     'full_name' : '',
@@ -46,6 +47,42 @@ const initCompanyDetailForm = {
     'additional_information' : '',
     'profile_photo' : ''
 }
+
+ const companyInputRefs = () => ({
+    company_name: useRef(null),
+    contact_name: useRef(null),
+    email: useRef(null),
+    user_name: useRef(null),
+    company_uen: useRef(null),
+    password: useRef(null),
+    confirm_password: useRef(null),
+    mobile_number: useRef(null),
+    position: useRef(null),
+    founded_year: useRef(null),
+    team_size: useRef(null),
+    current_revenue: useRef(null),
+    current_customers_base_size: useRef(null),
+    industry_sector: useRef(null),
+    description: useRef(null),
+    function_area_1: useRef(null),
+    function_area_2: useRef(null),
+    function_area_3: useRef(null),
+    hear_about_us: useRef(null),
+    current_problem: useRef(null),
+});
+
+const mentorInputRefs = () => ({
+    name : useRef(null),
+    email : useRef(null),
+    username : useRef(null),
+    password : useRef(null),
+    confirm_password : useRef(null),
+    qualifications : useRef(null),
+    industry_sector : useRef(null),
+    functional : useRef(null),
+    hear_about_us : useRef(null),
+    number_of_companies : useRef(null),
+});
 
 const initMentorForm = {
     'name' : '',
@@ -153,7 +190,8 @@ const dummy_company_data = {
 
 const Constants = {
     initLoginForm, initContactForm, initCompanyDetailForm, initMentorForm, initSignUpForm,
-    signupSchema, loginSchema, mentorSchema, companySchema, contactSchema, dummy_company_data
+    signupSchema, loginSchema, mentorSchema, companySchema, contactSchema, dummy_company_data,
+    companyInputRefs,mentorInputRefs
 }
 
 export default Constants;

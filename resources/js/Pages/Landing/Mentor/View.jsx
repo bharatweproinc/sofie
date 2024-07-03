@@ -10,6 +10,8 @@ import Constants from '../Constants';
 import { useState } from 'react';
 import profileImage from '../../../Assets/Images/profileImage.png'
 import ProfilePhotoUpload from '@/Components/FileUpload';
+import { useRef } from 'react';
+import { scrollToInput } from '@/utility/ScrollToInput';
 
 const HeadingBox = styled('div')(() => ({
   border: '1px solid black',
@@ -29,6 +31,9 @@ function Mentor() {
     const { data, setData, post, processing} = useForm(Constants.initMentorForm);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
+    const inputRefs = useRef(Constants.mentorInputRefs());
+
+
 
     const handleChange = (key, value) => {
         const updatedData = {
@@ -71,6 +76,12 @@ function Mentor() {
           validationErrors.confirm_password = 'Passwords does not match';
         }
         if (Object.keys(validationErrors).length > 0) {
+            for (const field in inputRefs.current) {
+                if (inputRefs.current[field] && inputRefs.current[field].current && validationErrors[field]) {
+                    scrollToInput(inputRefs.current[field]);
+                    break;
+                }
+            }
           setValidationErrors(validationErrors);
         } else {
             console.log(data)
@@ -134,6 +145,7 @@ function Mentor() {
                         <Grid item="true" xs={12} md={6} className='profile_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Contact Name</Typography>
                             <TextField
+                                inputRef={inputRefs.current.name}
                                 size='small'
                                 sx={{  mt: 1, width: '100%' }}
                                 fullWidth
@@ -163,6 +175,7 @@ function Mentor() {
                         <Grid item="true" md={6} xs={12} className='profile_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Email</Typography>
                             <TextField
+                                inputRef={inputRefs.current.email}
                                 size='small'
                                 sx={{ mt: 1, width: '100%' }}
                                 fullWidth
@@ -178,6 +191,7 @@ function Mentor() {
                         <Grid item="true" md={6} xs={12} className='profile_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>User Name</Typography>
                             <TextField
+                                inputRef={inputRefs.current.username}
                                 size='small'
                                 sx={{ mt: 1, width: '100%' }}
                                 fullWidth
@@ -193,6 +207,7 @@ function Mentor() {
                         <Grid item="true" md={6} xs={12} className='profile_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Password</Typography>
                             <TextField
+                                inputRef={inputRefs.current.password}
                                 size='small'
                                 sx={{ mt: 1, width: '100%' }}
                                 fullWidth
@@ -207,6 +222,7 @@ function Mentor() {
                         <Grid item="true" md={6} xs={12} className='profile_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Confirm Password</Typography>
                             <TextField
+                                inputRef={inputRefs.current.confirm_password}
                                 size='small'
                                 sx={{ mt: 1, width: '100%' }}
                                 fullWidth
@@ -235,6 +251,7 @@ function Mentor() {
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Qualifications</Typography>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Eg. previous mentoring experiences, completed courses on how to be a mentor, conducted workshops for XXX company, etc </Typography>
                             <TextField
+                                inputRef={inputRefs.current.qualifications}
                                 size='small'
                                 sx={{  mt:1, width: '100%' }}
                                 fullWidth
@@ -251,6 +268,7 @@ function Mentor() {
                         <Grid item="true" xs={12} className="profile_message_field">
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Please choose which industry sectors you would like to mentor in</Typography>
                             <TextField
+                                inputRef={inputRefs.current.industry_sector}
                                 size='small'
                                 sx={{  mt:1, width: '100%' }}
                                 fullWidth
@@ -268,6 +286,7 @@ function Mentor() {
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
                             <FormControl sx={{width : '100%'}} error={!!validationErrors.functional}>
                                 <Select
+                                    inputRef={inputRefs.current.functional}
                                     size='small'
                                     sx={{ '& legend': { display: 'none'}, mt: 1, width: '100%' }}
                                     fullWidth
@@ -287,6 +306,7 @@ function Mentor() {
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How did your hear about us?</Typography>
                             <FormControl sx={{width : '100%'}} error={!!validationErrors.hear_about_us}>
                                 <Select
+                                    inputRef={inputRefs.current.hear_about_us}
                                     size='small'
                                     sx={{ '& legend': { display: 'none'}, mt: 1, width: '100%' }}
                                     fullWidth
@@ -306,6 +326,7 @@ function Mentor() {
                         <Grid item="true" xs={12} className="profile_input_fields">
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How Many Companies are the mentors willing to mentor ?</Typography>
                             <TextField
+                                inputRef={inputRefs.current.number_of_companies}
                                 size='small'
                                 sx={{  mt:1, width: '100%' }}
                                 fullWidth

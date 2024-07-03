@@ -69,7 +69,7 @@ const menuItem = [
 
 const icons = [
   { id: 1, icon: <CheckIcon /> },
-  { id: 2, icon: <EditIcon />, link : '/company-detail' },
+  { id: 2, icon: <EditIcon /> },
   { id: 3, icon: <DeleteIcon /> },
 ];
 
