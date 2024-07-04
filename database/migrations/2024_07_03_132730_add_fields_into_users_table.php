@@ -12,16 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('user_role')->nullable();
             $table->string('phone')->nullable();
-            $table->string('role')->nullable();
             $table->string('username')->nullable();
-            $table->string('qualifications')->nullable();
-            $table->string('industry_sector')->nullable();
-            $table->string('mentored_company')->nullable();
-            $table->string('functional_area')->nullable();
-            $table->string('hear_about_us')->nullable();
-            $table->string('number_of_companies')->nullable();
-            $table->string('additional_information')->nullable();
+            $table->unsignedBigInteger('functional_id')->nullable();
         });
     }
 
@@ -31,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'role','username','password','qualifications','industry_sector','mentored_compnay','functional_area','hear_about_us','number_of_companies','additional_information']);
+            $table->dropColumn(['phone', 'user_role','username','functional_id']);
         });
     }
 };

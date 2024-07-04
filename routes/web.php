@@ -43,8 +43,8 @@ Route::name('landing.')->group(function() {
     Route::get('/login-page', [LandingController::class, 'login'])->name('login');
     Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
     Route::get('/company-detail-review', [LandingController::class, 'companyReview'])->name('companyReview');
-    Route::get('/mentor-detail', [LandingController::class, 'mentor'])->name('mentor');
-    Route::get('/mentor-detail-review', [LandingController::class, 'mentorReview'])->name('mentorReview');
+    // Route::get('/mentor-detail', [LandingController::class, 'mentor'])->name('mentor');
+    // Route::get('/mentor-detail-review', [LandingController::class, 'mentorReview'])->name('mentorReview');
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
@@ -54,5 +54,14 @@ Route::name('landing.')->group(function() {
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 });
+
+Route::name('company')->group(function() {
+    Route::post('/saveData', [LandingController::class, 'companyDetailsStore'])->name('companyDetailsStore');
+});
+
+Route::prefix('company')->name('company.')->group(function(){
+        Route::post('/saveData', [LandingController::class, 'saveData'])->name('saveData');
+});
+
 
 require __DIR__.'/auth.php';

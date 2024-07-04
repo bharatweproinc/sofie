@@ -85,14 +85,14 @@ function CompanyDetail() {
           return;
         } else {
           console.log('Data', data);
-           // post(route('company.details.store',data),{
-            //     onSuccess:(success) => {
-            //        console.log(success, "sucesss")
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error")
-            //     },
-            // })}
+          post(route('company.saveData',data),{
+                onSuccess:(success) => {
+                   console.log(success, "sucesss")
+                },
+                onError:(error) => {
+                  console.log(error,"error")
+                },
+            })}
             // post(route('company.details.update',data),{
             //     onSuccess:(success) => {
             //        console.log(success, "sucesss")
@@ -101,8 +101,8 @@ function CompanyDetail() {
             //       console.log(error,"error")
             //     },
             // })}
-        }
-      };
+        // }
+    //   };
 
 
     return (
@@ -539,7 +539,7 @@ function CompanyDetail() {
                                     />
                             </Grid>
                             <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='submit_btn'>
-                                <Button variant="contained" type='submit' disabled={processing}> Update</Button>
+                                <Button variant="contained" type='submit' disabled={processing} > Update</Button>
                             </Grid>
                         </Grid>
                     </form>
