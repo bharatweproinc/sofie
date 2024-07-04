@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\Mentor\MentorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -54,5 +55,11 @@ Route::name('landing.')->group(function() {
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 });
+
+Route::prefix('mentor')->name('mentor.')->group(function() {
+    Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
+    Route::post('/detail-review', [MentorController::class, 'store'])->name('store');
+});
+
 
 require __DIR__.'/auth.php';

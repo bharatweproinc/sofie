@@ -8,6 +8,7 @@ Interface MentorRepositoryInterface {
      * @param slug
      * @return array
     */
+    public function get($id);
     public function getList();
-    // public function saveData(Request $data);
+    public function saveData(Request $data);
 }

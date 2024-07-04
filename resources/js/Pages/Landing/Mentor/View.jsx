@@ -83,25 +83,16 @@ function Mentor() {
                 }
             }
           setValidationErrors(validationErrors);
-        } else {
-            console.log(data)
-            // post(route('mentor.user.store',data),{
-            //     onSuccess:(success) => {
-            //        console.log(success, "sucesss")
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error")
-            //     },
-            // })}
-            // post(route('mentor.user.update',data),{
-            //     onSuccess:(success) => {
-            //        console.log(success, "sucesss")
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error")
-            //     },
-            // })}
-      };
+        } else 
+        {
+            post(route('mentor.saveDetail',data),{
+                onSuccess:(success) => {
+                   console.log(success, "sucesss")
+                },
+                onError:(error) => {
+                  console.log(error,"error")
+                },
+            })}
     }
 
   return (
@@ -356,7 +347,7 @@ function Mentor() {
                         </Grid>
                     </Grid>
                     <Grid item="true" xs={12} mb={4} textAlign={"center"} className='submit_btn'>
-                        <Button type='submit' variant="contained" disabled={processing}> Update</Button>
+                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}> Update</Button>
                     </Grid>
                 </Grid>
             </form>

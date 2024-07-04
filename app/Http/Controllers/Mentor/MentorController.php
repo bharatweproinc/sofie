@@ -9,7 +9,7 @@ use App\Repository\MentorRepository;
 use Illuminate\Support\Facades\Redirect;
 
 
-class ProjectController extends Controller
+class MentorController extends Controller
 {
     //
     private $mentorRepository;
@@ -22,6 +22,22 @@ class ProjectController extends Controller
         $response = $this->mentorRepository->get($id);
         return Inertia::render('Landing/Mentor/View',[
             'data' => $response['data'],
+            ]
+        );
+    }
+
+    public function getList() {
+        $response = $this->mentorRepository->getList();
+        return Inertia::render('Landing/Mentor/View',[
+            'data' => $response['data'],
+            ]
+        );
+    }
+
+    public function saveDetail(Request $request) {
+        $response = $this->mentorRepository->saveData($request);
+        return Inertia::render('mentor/detail',[
+            'data' => $response['mentor/detail-review'],
             ]
         );
     }

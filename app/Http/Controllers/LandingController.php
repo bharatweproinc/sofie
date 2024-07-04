@@ -30,15 +30,18 @@ class LandingController extends Controller
     }
 
     public function signup() {
-        $data = $request->only(['name', 'email', 'phone', 'username', 'password', 'qualifications', 'industry_sector',
-        'mentored_compnay','functional_area','hear_about_us','number_of_companies','additional_information']);
+        // $data = $request->only(['name', 'email', 'phone', 'username', 'password', 'qualifications', 'industry_sector',
+        // 'mentored_compnay','functional_area','hear_about_us','number_of_companies','additional_information']);
         return Inertia::render('Landing/SignUp/View', [
-            "formData" => $data
+            "formData" => $data =null
         ]);
     }
 
     public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
+    }
+    public function mentor() {
+        return Inertia::render('Landing/Mentor/View',[]);
     }
     public function partialMatched() {
         return Inertia::render('Landing/Dashboard/PartialMatched/View');
