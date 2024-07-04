@@ -70,4 +70,8 @@ class LandingController extends Controller
     public function accountSetting() {
         return Inertia::render(('Landing/Dashboard/Settings/AccountSettings/View'));
     }
+
+    public function saveData(Request $request){
+        $this->companyRepository->saveData($request);
+    }
 }

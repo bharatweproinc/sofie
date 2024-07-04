@@ -27,7 +27,7 @@ const ProfilePhotoUpload = ({setData,data,name, defaultImg}) => {
                     <Avatar
                         alt="Avatar"
                         src={data?.profile_photo || defaultImg}
-                        sx={{ width: 162, height: 162 }}
+                        sx={{ width: 162, height: 162 , cursor:'pointer'}}
                     />
                 </label>
                 <input

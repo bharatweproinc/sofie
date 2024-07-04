@@ -44,8 +44,8 @@ Route::name('landing.')->group(function() {
     Route::get('/login-page', [LandingController::class, 'login'])->name('login');
     Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
     Route::get('/company-detail-review', [LandingController::class, 'companyReview'])->name('companyReview');
-    Route::get('/mentor-detail', [LandingController::class, 'mentor'])->name('mentor');
-    Route::get('/mentor-detail-review', [LandingController::class, 'mentorReview'])->name('mentorReview');
+    // Route::get('/mentor-detail', [LandingController::class, 'mentor'])->name('mentor');
+    // Route::get('/mentor-detail-review', [LandingController::class, 'mentorReview'])->name('mentorReview');
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
@@ -58,7 +58,10 @@ Route::name('landing.')->group(function() {
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
     Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
-    Route::post('/detail-review', [MentorController::class, 'store'])->name('store');
+});
+
+Route::prefix('company')->name('company.')->group(function(){
+    Route::post('/saveData', [LandingController::class, 'saveData'])->name('saveData');
 });
 
 

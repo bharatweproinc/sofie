@@ -19,10 +19,12 @@ class CompanyRepository implements CompanyRepositoryInterface {
     public function saveData($data){
         try {
             $data["company_name"] = $data['company_name'];
+            $data['email'] = $data['email'];
             $data["company_uen"] = $data['company_uen'];
             $data["phone"] = $data['phone'];
             $data["username"] = $data['username'];
             $data["password"] = $data['password'];
+            $data["mobile_number"] = $data['mobile_number'];
             $data["position"] = $data['position'];
             $data["founded_year"] = $data['founded_year'];
             $data["team_size"] = $data['team_size'];
@@ -43,7 +45,6 @@ class CompanyRepository implements CompanyRepositoryInterface {
             } else {
                 $job = Company::create($data);
             }
-
             return [
                 'success' => true,
                 'data' => $job,
