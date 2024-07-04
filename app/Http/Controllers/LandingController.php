@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repository\{MentorRepository, CompanyRepository};
 use Inertia\Inertia;
 
 class LandingController extends Controller
 {
+    private $mentorRepository, $companyRepository;
+
+    public function __construct(MentorRepository $mentorRepository, CompanyRepository $companyRepository){
+        $this->mentorRepository = $mentorRepository;
+        $this->companyRepository = $companyRepository;
+    }
+
     //
     public function home() {
         return Inertia::render('Landing/Home/View',[]);
@@ -22,25 +30,26 @@ class LandingController extends Controller
     }
 
     public function signup() {
-        return Inertia::render('Landing/SignUp/View',[]);
+        $data = $request->only(['name', 'email', 'phone', 'username', 'password', 'qualifications', 'industry_sector',
+        'mentored_compnay','functional_area','hear_about_us','number_of_companies','additional_information']);
+        return Inertia::render('Landing/SignUp/View', [
+            "formData" => $data
+        ]);
     }
 
     public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
     }
-
     public function partialMatched() {
-        return Inertia::render('Landing/Dashboard/PartialMatched/View' , []);
+        return Inertia::render('Landing/Dashboard/PartialMatched/View');
     }
     public function matched() {
-        return Inertia::render('Landing/Dashboard/Matched/View', []);
+        return Inertia::render('Landing/Dashboard/Matched/View');
     }
-    public function mentor() {
-        return Inertia::render('Landing/Mentor/View',[]);
+    public function profile() {
+        return Inertia::render('Landing/Profile/View',[]);
     }
-    public function mentorReview(){
-        return Inertia::render('Landing/Mentor/Review',[]);
-    }
+
     public function privacy() {
         return Inertia::render('Landing/Privacy/View',[]);
     }
@@ -53,12 +62,9 @@ class LandingController extends Controller
         return Inertia::render('Landing/Dashboard/View',[]);
     }
     public function profileSetting() {
-        return Inertia::render('Landing/Dashboard/Settings/ProfileSettings/View',[]);
+        return Inertia::render(('Landing/Dashboard/Settings/ProfileSettings/View'));
     }
     public function accountSetting() {
-        return Inertia::render('Landing/Dashboard/Settings/AccountSettings/View',[]);
-    }
-    public function companyReview(){
-        return Inertia::render('Landing/CompanyDetails/Review',[]);
+        return Inertia::render(('Landing/Dashboard/Settings/AccountSettings/View'));
     }
 }
