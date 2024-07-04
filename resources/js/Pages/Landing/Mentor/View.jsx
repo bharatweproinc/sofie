@@ -239,8 +239,8 @@ function Mentor() {
                             <FormControl sx={{marginLeft : '10px'}}>
                                 <RadioGroup
                                     row
-                                    value={data.mentored_compnay}
-                                    onChange={(e) => handleChange("mentored_compnay", e.target.value)}
+                                    value={data.mentored_company}
+                                    onChange={(e) => handleChange("mentored_company", e.target.value)}
                                 >
                                     <FormControlLabel value="yes" control={<Radio />} label="Yes" />
                                     <FormControlLabel value="no" control={<Radio />} label="No" />
@@ -284,22 +284,22 @@ function Mentor() {
                         </Grid>
                         <Grid item="true" xs={12} md={6} className='profile_select_box'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
-                            <FormControl sx={{width : '100%'}} error={!!validationErrors.functional}>
+                            <FormControl sx={{width : '100%'}} error={!!validationErrors.functional_area}>
                                 <Select
-                                    inputRef={inputRefs.current.functional}
+                                    inputRef={inputRefs.current.functional_area}
                                     size='small'
                                     sx={{ '& legend': { display: 'none'}, mt: 1, width: '100%' }}
                                     fullWidth
                                     variant='outlined'
                                     defaultValue={""}
-                                    value={data.functional}
+                                    value={data.functional_area}
                                     placeholder='Please select your company  Functional Area '
-                                    onChange={(e) => handleChange("functional", e.target.value)}
+                                    onChange={(e) => handleChange("functional_area", e.target.value)}
                                 >
                                     <MenuItem value="marketing">Marketing</MenuItem>
                                     <MenuItem value="finance">Finance</MenuItem>
                                 </Select>
-                                <FormHelperText>{validationErrors.functional}</FormHelperText>
+                                <FormHelperText>{validationErrors.functional_area}</FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item="true" xs={12} md={6} className='profile_select_box'>
@@ -319,6 +319,7 @@ function Mentor() {
                                     <MenuItem value="twitter">Twitter</MenuItem>
                                     <MenuItem value="instagram">Instagram</MenuItem>
                                     <MenuItem value="facebook">Facebook</MenuItem>
+                                    <MenuItem value="webiste">Website</MenuItem>
                                 </Select>
                                 <FormHelperText>{validationErrors.hear_about_us}</FormHelperText>
                             </FormControl>
@@ -330,6 +331,7 @@ function Mentor() {
                                 size='small'
                                 sx={{  mt:1, width: '100%' }}
                                 fullWidth
+                                type='number'
                                 variant='outlined'
                                 placeholder='No. of Companies'
                                 value={data.number_of_companies}

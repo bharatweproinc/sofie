@@ -184,8 +184,8 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
 
     return (
         <>
-            <Grid item xs={12} md={isView ? 12 : 7} sx={{ width: "100%" }}>
-                <Paper>
+            <Grid item xs={12} md={isView ? 12 : 7} sx={{ width: "100%", paddingLeft:'0px' }} className="matching_status_main">
+                <Paper sx={{ height:'100%' }}>
                     {isView && (
                         <Button
                             onClick={() => handleBack()}
@@ -207,6 +207,7 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                             fontSize="18px"
                             fontWeight="700"
                             color="#090D28"
+                            alignSelf={'center'}
                         >
                             Matching Status
                         </Typography>
@@ -214,7 +215,6 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                             <Button
                                 onClick={() => handleViewAll("matching_status")}
                                 sx={{
-                                    color: "black",
                                     textTransform: "capitalize",
                                 }}
                             >

@@ -41,7 +41,6 @@ const SideBar = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [open, setOpen] = React.useState(true);
     const [openItems, setOpenItems] = React.useState({});
-    const [activeLink, setActiveLink] = useState(null);
 
     React.useEffect(() => {
         setOpen(!isMobile);
@@ -59,12 +58,7 @@ const SideBar = () => {
             ...prevOpenItems,
             [id]: !prevOpenItems[id],
         }));
-        const active = Constants.menuItem.find((item) => item.id == id);
-        if (active) {
-            setActiveLink(activeLink);
-        }
 
-        console.log(active, id, "::active");
     };
 
     return (
@@ -72,11 +66,12 @@ const SideBar = () => {
             {isMobile && (
                 <AppBar position="fixed" className="mobile_hamburger_header">
                     <Toolbar
+                    className="mobile_hamburger_toolbar"
                         pt={50}
                         sx={{
                             paddingTop: "30px",
                             paddingLeft: "32px",
-                            width: "10%",
+                            width: "17%",
                         }}
                     >
                         <IconButton
@@ -85,7 +80,7 @@ const SideBar = () => {
                             edge="start"
                             onClick={handleDrawerOpen}
                         >
-                            <MenuIcon />
+                            <MenuIcon sx={{fontSize:'2rem'}}/>
                         </IconButton>
                     </Toolbar>
                 </AppBar>
@@ -97,23 +92,29 @@ const SideBar = () => {
                     "& .MuiDrawer-paper": {
                         width: drawerWidth,
                         boxSizing: "border-box",
+                        overflow:'visible',
                     },
+                    zIndex:1400
                 }}
                 variant={isMobile ? "temporary" : "persistent"}
                 anchor="left"
                 open={open}
             >
                 <DrawerHeader
-                    sx={{ display: "flex", justifyContent: "space-between" }}
+                    sx={{ display: "flex", justifyContent: "space-between", paddingLeft:"17px"}}
                 >
                     <img src={Sofie} />
                     {isMobile && (
                         <IconButton
+
                             sx={{
                                 height: "30px",
                                 width: "30px",
                                 color: "white",
                                 backgroundColor: "black",
+                                position:'absolute',
+                                right:'-15px',
+                                top:'40px',
                             }}
                             onClick={handleDrawerClose}
                         >
@@ -126,7 +127,6 @@ const SideBar = () => {
                     )}
                 </DrawerHeader>
 
-                <Divider />
 
                 <List>
                     {Constants.menuItem.map((item, index) => (
@@ -144,12 +144,21 @@ const SideBar = () => {
                                             ? handleClick(item.id)
                                             : null
                                     }
+                                    className={
+                                                item?.link ===  window.location.pathname
+                                                    ? "drawer_link_active"
+                                                    : ""
+                                                }
                                 >
-                                    <ListItemIcon>{item.icon}</ListItemIcon>
+                                    <ListItemIcon className={
+                                                        item?.link ===  window.location.pathname
+                                                        ? "drawer_links"
+                                                        : ""
+                                                }>{item.icon}</ListItemIcon>
                                     <ListItemText
                                         primary={item.label}
                                         className={
-                                            activeLink?.id == item.id
+                                            item?.link ===  window.location.pathname
                                                 ? "drawer_links"
                                                 : ""
                                         }
@@ -177,12 +186,14 @@ const SideBar = () => {
                                                 key={subItem.id}
                                                 sx={{ pl: 4 }}
                                             >
-                                                <ListItemIcon>
+                                                <ListItemIcon >
                                                     <CircleIcon
                                                         sx={{ fontSize: 8 }}
+
                                                     />
                                                 </ListItemIcon>
                                                 <ListItemText
+
                                                     primary={subItem.label}
                                                 />
                                             </ListItemButton>

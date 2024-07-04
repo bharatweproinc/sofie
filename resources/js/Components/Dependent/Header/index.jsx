@@ -18,10 +18,10 @@ const Header = () => {
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
-    
+
     const drawer = (
-        <>  
-             <Toolbar 
+        <>
+             <Toolbar
                 sx={{
                     display: 'flex',
                     flexDirection : "column",
@@ -70,7 +70,7 @@ const Header = () => {
                                 href={route(`landing.${item.link}`)}
                             >
                               {item.name}
-                            </Button> //signup
+                            </Button>
                         ))}
                     </Box>
                 </Toolbar>

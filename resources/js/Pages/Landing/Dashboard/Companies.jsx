@@ -83,7 +83,7 @@ const Companies = ({ handleViewAll, section, setViewSection }) => {
      };
 
     return (
-        <Grid item xs={12} md={12} sx={{ width: '100%' }}>
+        <Grid item xs={12} md={12} sx={{ width: '100%' }} className='companies_main'>
             <Paper>
                 {
                     isView &&
@@ -93,10 +93,10 @@ const Companies = ({ handleViewAll, section, setViewSection }) => {
                     </Button>
                 }
                 <Box p={2} className="flex justify-between">
-                    <Typography variant="h5" fontSize='18px' fontWeight='700' color="#090D28">Companies</Typography>
+                    <Typography alignSelf={'center'} variant="h5" fontSize='18px' fontWeight='700' color="#090D28">Companies</Typography>
                     {
                         !isView &&
-                        <Button onClick={() => handleViewAll('companies')} sx={{ color: 'black', textTransform: 'capitalize' }}>
+                        <Button onClick={() => handleViewAll('companies')} sx={{ textTransform: 'capitalize' }}>
                             View all
                         </Button>
                     }
@@ -177,7 +177,7 @@ const Companies = ({ handleViewAll, section, setViewSection }) => {
                                         <Box sx={{ gap: '10px' }} className="flex">
                                             {Constants.icons.map((item, index) => (
                                                 <span key={index}>
-                                                    {item.id === 2 ? <Link href={item.link}>{item.icon}</Link> : item.icon}
+                                                    {item.id === 1 ? <Link href={item.link}>{item.icon}</Link> : item.icon}
                                                 </span>
                                             ))}
                                         </Box>
