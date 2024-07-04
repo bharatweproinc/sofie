@@ -64,11 +64,12 @@ class LandingController extends Controller
     public function dashBoard() {
         return Inertia::render('Landing/Dashboard/View',[]);
     }
+
     public function profileSetting() {
-        return Inertia::render(('Landing/Dashboard/Settings/ProfileSettings/View'));
+        return Inertia::render('Landing/Dashboard/Settings/ProfileSettings/View', []);
     }
     public function accountSetting() {
-        return Inertia::render(('Landing/Dashboard/Settings/AccountSettings/View'));
+        return Inertia::render('Landing/Dashboard/Settings/AccountSettings/View',[]);
     }
 
     public function saveData(Request $request){

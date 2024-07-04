@@ -11,6 +11,7 @@ export default function FeatureCard({ item }) {
             // bgcolor:'red',
             // my:{sm:0, xs:10},
             height:'100%',
+            borderRadius:"12px",
             boxShadow:'0px 3px 11px 0px #8e8a8a5c'
         }}>
             <CardActionArea>
@@ -31,7 +32,7 @@ export default function FeatureCard({ item }) {
                         {item.text}
                     </Typography>
                     <Box className="flex gap-2 items-center mt-3">
-                        <img src={item.user.img}/>  
+                        <img src={item.user.img}/>
                         <Box className="block">
                             <Typography sx={{ fontWeight: 'bold !important'}}>
                                 {item.user.name}

@@ -312,9 +312,12 @@ function DrawerAppBar(props) {
 								>
 									Your mentorship can make a significant impact, helping entrepreneurs overcome challenges and achieve their business goals.								</Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
-									<Button variant="contained">
+                                <Link href="/mentor-detail" className='w-full'>
+                                <Button variant="contained">
 										Be A Mentor
 									</Button>
+                                 </Link>
+
 								</Box>
 							</Grid>
 						</Grid>
@@ -421,7 +424,7 @@ function DrawerAppBar(props) {
 
 					<Grid item xs={12} sm={4}>
 						<Paper elevation={2} sx={{ height: '100%', width: '100%', pb: 2 }} >
-							<Box p={{ sm: 2, xs: 2 }}>^X Exit          ^R Read File     ^\ Replace       ^U Paste         ^J Justify       ^/ Go To Line    M-E Redo         M-6 Copy         ^Q Where Was
+							<Box p={{ sm: 2, xs: 2 }}>
 								<Box sx={{ height: "90px" }}>
 									<img src={nuevocar}></img>
 								</Box>
