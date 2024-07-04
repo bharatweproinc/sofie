@@ -30,10 +30,10 @@ const menuItem = [
     subItems: [
       { id: 1, label: 'To Review', link: '/company-detail' },
       { id: 2, label: 'Partial Matched', link: '/partial-matched' },
-      { id: 2, label: 'Matched', link: '/matched' },
+      { id: 3, label: 'Matched', link: '/matched' },
     ],
   },
-  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/profile-page' },
+  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/mentor-detail' },
   {
     id: 4,
     label: 'Settings',
