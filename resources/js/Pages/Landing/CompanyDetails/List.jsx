@@ -1,12 +1,6 @@
+import SideBar from "@/Components/Dependent/SideBar";
+import { Box, Grid, Pagination, Typography } from "@mui/material";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Constants from "./Constant";
-import {
-    Grid,
-    Button,
-    Pagination,
-} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,137 +8,140 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "./style.scss";
+import Constants from "../Constants";
+import { Link } from "@inertiajs/react";
 import { useState } from "react";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-
-const rows = [
-    createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'lana', 'Rahman', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'Nita', 'nitakamil', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 1', 'Niken', 'Ang', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'donny', 'Niken', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Kmail', 'nitakamil', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 1', 'Test 1', 'Test 2', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-];
-
-function createData(
-    company_name,
-    Area1,
-    Area2,
-    Area3
-) {
-    return {
-        company_name,
-        Area1,
-        Area2,
-        Area3
-
-    };
+import "./style.scss";
+import DeleteAlert from "@/Components/DeleteAlert";
+function createData(id, name, phone, email, functional) {
+    return { id, name, phone, email, functional };
 }
 
-const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+const rows = [
+    createData(
+        1,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        2,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        3,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        4,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        5,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        6,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        7,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        8,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        9,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+    createData(
+        10,
+        "Testing Mentor",
+        1231321321,
+        "email@yopmail.com",
+        "marketing"
+    ),
+];
+
+function CompanyList() {
+    const [sortConfig, setSortConfig] = useState({
+        key: null,
+        direction: "asc",
+    });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
-    const isView = section === "matching_status" ? true : false;
-
-    const handleBack = () => {
-        setViewSection("");
-    };
 
     const sortedRows = [...rows].sort((a, b) => {
-       if (sortConfig.key !== null) {
-         const key = sortConfig.key;
-         if (a[key] < b[key]) {
-           return sortConfig.direction === 'asc' ? -1 : 1;
-         }
-         if (a[key] > b[key]) {
-           return sortConfig.direction === 'asc' ? 1 : -1;
-         }
-       }
-       return 0;
-     });
-
+        if (sortConfig.key !== null) {
+            const key = sortConfig.key;
+            if (a[key] < b[key]) {
+                return sortConfig.direction === "asc" ? -1 : 1;
+            }
+            if (a[key] > b[key]) {
+                return sortConfig.direction === "asc" ? 1 : -1;
+            }
+        }
+        return 0;
+    });
 
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = !isView ?
-        sortedRows.slice(0, 7) :
-        sortedRows.slice(indexOfFirstRow, indexOfLastRow);
-
+    const currentRows = sortedRows.slice(indexOfFirstRow, indexOfLastRow);
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
 
     const handleSort = (key) => {
-       let direction = 'asc';
-       if (sortConfig.key === key && sortConfig.direction === 'asc') {
-         direction = 'desc';
-       }
-       setSortConfig({ key, direction });
-     };
-
+        let direction = "asc";
+        if (sortConfig.key === key && sortConfig.direction === "asc") {
+            direction = "desc";
+        }
+        setSortConfig({ key, direction });
+    };
     return (
         <>
-            <Grid item xs={12} md={isView ? 12 : 7} sx={{ width: "100%", paddingLeft:'0px' }} className="matching_status_main">
-                <Paper sx={{ height:'100%' }}>
-                    {isView && (
-                        <Button
-                            onClick={() => handleBack()}
-                            sx={{
-                                color: "black",
-                                fontSize: "14px",
-                                textTransform: "capitalize",
-                            }}
+            <Grid
+                item
+                xs={12}
+                md={12}
+                sx={{ width: "100%", padding:"32px" }}
+                className="companies_main"
+            >
+                <Paper>
+                    <TableContainer  sx={{ width: "100%" }}>
+                        <Table
+                            sx={{ minWidth: 650, maxWidth: "100%" }}
+                            aria-label="simple table"
                         >
-                            <ArrowBackIcon
-                                sx={{ marginRight: "5px", fontSize: "18px" }}
-                            />
-                            Back
-                        </Button>
-                    )}
-                    <Box p={2} className="flex justify-between">
-                        <Typography
-                            variant="h5"
-                            fontSize="18px"
-                            fontWeight="700"
-                            color="#090D28"
-                            alignSelf={'center'}
-                        >
-                            Matching Status
-                        </Typography>
-                        {!isView && (
-                            <Button
-                                onClick={() => handleViewAll("matching_status")}
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                View all
-                            </Button>
-                        )}
-                    </Box>
-                    <TableContainer>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
-                                <TableRow sx={{ backgroundColor: "#F8F9FB" }}>
+                                <TableRow>
                                     <TableCell>
                                         <Box className="flex gap-3">
                                             <Typography
@@ -152,9 +149,15 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                                                 color="#212121"
                                                 fontWeight="600"
                                             >
-                                                Company Name
+                                                Contact Name
                                             </Typography>
-                                            <div className="grid"  onClick={() => handleSort('company_name')} style={{ cursor:"pointer" }}>
+                                            <div
+                                                className="grid"
+                                                onClick={() =>
+                                                    handleSort("company_name")
+                                                }
+                                                style={{ cursor: "pointer" }}
+                                            >
                                                 <svg
                                                     width="12"
                                                     height="9"
@@ -182,16 +185,22 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                                             </div>
                                         </Box>
                                     </TableCell>
-                                    <TableCell align="left">
+                                    <TableCell>
                                         <Box className="flex gap-3">
                                             <Typography
                                                 fontSize="14px"
                                                 color="#212121"
                                                 fontWeight="600"
                                             >
-                                                Area 1
+                                                Mobile Number
                                             </Typography>
-                                            <div className="grid"  onClick={() => handleSort('Area1')} style={{ cursor:"pointer" }}>
+                                            <div
+                                                className="grid"
+                                                onClick={() =>
+                                                    handleSort("mobile_number")
+                                                }
+                                                style={{ cursor: "pointer" }}
+                                            >
                                                 <svg
                                                     width="12"
                                                     height="9"
@@ -219,16 +228,22 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                                             </div>
                                         </Box>
                                     </TableCell>
-                                    <TableCell align="left">
+                                    <TableCell>
                                         <Box className="flex gap-3">
                                             <Typography
                                                 fontSize="14px"
                                                 color="#212121"
                                                 fontWeight="600"
                                             >
-                                                Area 2
+                                                Email
                                             </Typography>
-                                            <div className="grid"  onClick={() => handleSort('Area2')} style={{ cursor:"pointer" }}>
+                                            <div
+                                                className="grid"
+                                                onClick={() =>
+                                                    handleSort("email")
+                                                }
+                                                style={{ cursor: "pointer" }}
+                                            >
                                                 <svg
                                                     width="12"
                                                     height="9"
@@ -256,16 +271,22 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                                             </div>
                                         </Box>
                                     </TableCell>
-                                    <TableCell align="left">
+                                    <TableCell>
                                         <Box className="flex gap-3">
                                             <Typography
                                                 fontSize="14px"
                                                 color="#212121"
                                                 fontWeight="600"
                                             >
-                                                Area 3
+                                                Functional
                                             </Typography>
-                                            <div className="grid"  onClick={() => handleSort('Area3')} style={{ cursor:"pointer" }}>
+                                            <div
+                                                className="grid"
+                                                onClick={() =>
+                                                    handleSort("functional")
+                                                }
+                                                style={{ cursor: "pointer" }}
+                                            >
                                                 <svg
                                                     width="12"
                                                     height="9"
@@ -291,45 +312,92 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                                                     />
                                                 </svg>
                                             </div>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box className="flex gap-3">
+                                            <Typography
+                                                fontSize="14px"
+                                                color="#212121"
+                                                fontWeight="600"
+                                            >
+                                                Action
+                                            </Typography>
                                         </Box>
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {currentRows.map((row, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell component="th" scope="row">
-                                            {row.company_name}
+                                {currentRows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        sx={{
+                                            "&:last-child td, &:last-child th":
+                                                {
+                                                    border: 0,
+                                                },
+                                        }}
+                                    >
+                                        <TableCell align="left" component="th" scope="row">
+                                            {row.name}
                                         </TableCell>
+                                        <TableCell align="left">{row.phone}</TableCell>
+                                        <TableCell align="left">{row.email}</TableCell>
+                                        <TableCell align="left">{row.functional}</TableCell>
                                         <TableCell align="left">
-                                            {row.Area1}
-                                        </TableCell>
-                                        <TableCell align="left">
-                                            {row.Area2}
-                                        </TableCell>
-                                        <TableCell align="left">
-                                            {row.Area3}
+                                            <Box
+                                                sx={{ gap: "10px" }}
+                                                className="flex"
+                                            >
+                                                {Constants.icons.map(
+                                                    (item, index) => (
+                                                        <span key={index}>
+                                                        {item.id === 1 ? (
+                                                                        <Link
+                                                                            href={
+                                                                                "/company-detail"
+                                                                            }
+                                                                        >
+                                                                            {item.icon}
+                                                                        </Link>
+                                                                    ) : item.id === 2 ? (
+                                                                        <Link
+                                                                            href={
+                                                                                "/company-detail-review"
+                                                                            }
+                                                                        >
+                                                                    {item.icon}
+                                                                </Link>
+                                                            ) : (
+                                                                item.icon
+                                                            )}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </Box>
                                         </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {isView && (
-                        <Box p={2} display="flex" justifyContent="center">
-                            <Pagination
-                                className="table_pagination"
-                                count={Math.ceil(rows.length / rowsPerPage)}
-                                page={currentPage}
-                                onChange={handlePageChange}
-                                sx={{ mt: 3, color: "#117B9E" }}
-                            />
-                        </Box>
-                    )}
+                    <Box p={2} display="flex" justifyContent="center">
+                        <Pagination
+                            count={Math.ceil(rows.length / rowsPerPage)}
+                            page={currentPage}
+                            className="table_pagination"
+                            onChange={handlePageChange}
+                            sx={{ mt: 3 }}
+                        />
+                    </Box>
+                    <DeleteAlert />
+
                 </Paper>
             </Grid>
-        </>
-    );
-};
 
-export default MatchingStatus;
+        </>
+
+    );
+}
+
+export default CompanyList;

@@ -1,5 +1,8 @@
 import Joi from "joi";
 import { useRef } from "react";
+import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
+import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
+import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
 
 const initSignUpForm = {
     'full_name' : '',
@@ -31,7 +34,7 @@ const initCompanyDetailForm = {
     'user_name':'',
     'password' : '',
     'confirm_password' : '',
-    'mobile_number' : 0,
+    'phone' : 0,
     'position' : '',
     'founded_year' : {},
     'team_size' : '',
@@ -56,7 +59,7 @@ const initCompanyDetailForm = {
     company_uen: useRef(null),
     password: useRef(null),
     confirm_password: useRef(null),
-    mobile_number: useRef(null),
+    phone: useRef(null),
     position: useRef(null),
     founded_year: useRef(null),
     team_size: useRef(null),
@@ -140,7 +143,7 @@ const mentorSchema = Joi.object({
     confirm_password: Joi.string().min(6).label("Confirm Password").required(),
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
     company_uen : Joi.string().label("Company UEN").required(),
-    mobile_number : Joi.number().min(10).label("Mobile Number").optional(),
+    phone : Joi.optional(),
     position : Joi.string().label('Position in Company').required(),
     founded_year : Joi.number().label("Year Founded").required(),
     team_size : Joi.string().label("Time size, Number Of Employees").required(),
@@ -187,11 +190,16 @@ const dummy_company_data = {
     'current_problem' : 'No Issues',
     'additional_information' : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into e'
 }
+const icons = [
+    { id: 1, icon: <EditIcon /> },
+    { id:2, icon: <CheckIcon /> },
+    { id: 3, icon: <DeleteIcon /> },
+  ];
 
 const Constants = {
     initLoginForm, initContactForm, initCompanyDetailForm, initMentorForm, initSignUpForm,
     signupSchema, loginSchema, mentorSchema, companySchema, contactSchema, dummy_company_data,
-    companyInputRefs,mentorInputRefs
+    companyInputRefs,mentorInputRefs,icons
 }
 
 export default Constants;

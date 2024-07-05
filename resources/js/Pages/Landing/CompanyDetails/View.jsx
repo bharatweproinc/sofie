@@ -56,6 +56,7 @@ function CompanyDetail() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("helooo")
 
         const validationErrors = {};
 
@@ -82,6 +83,7 @@ function CompanyDetail() {
                 }
             }
           setValidationErrors(validationErrors);
+          console.log(validationErrors,"::validation")
           return;
         } else {
           console.log('Data', data);
@@ -103,11 +105,13 @@ function CompanyDetail() {
             // })}
         // }
     //   };
+        }
 
 
     return (
         <Landing>
-            <div className='company_detail'>
+
+        <div className='company_detail'>
                 <Typography sx={{ height: '65px' }}></Typography>
                     <Grid container px={8} py={4} sx={{padding : "24px"}}>
                         <Grid item xs={12} gap={2} className='company_detail_title' px={8} py={4}>
@@ -259,9 +263,9 @@ function CompanyDetail() {
                                         fullWidth
                                         variant='outlined'
                                         type='text'
-                                        value={data.mobile_number || ''}
+                                        value={data.phone || ''}
                                         placeholder='Please Fill Your Company Mobile Number'
-                                        onChange={(e)=> handleChange("mobile_number", e.target.value.replace(/\D/, '').slice(0, 10))}
+                                        onChange={(e)=> handleChange("phone", e.target.value.replace(/\D/, '').slice(0, 10))}
 
 
                                     />
@@ -544,6 +548,8 @@ function CompanyDetail() {
                         </Grid>
                     </form>
             </div>
+
+
         </Landing>
     );
 }

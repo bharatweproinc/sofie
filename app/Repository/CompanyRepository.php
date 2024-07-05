@@ -16,7 +16,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
         return $list;
     }
 
-    public function saveData($data){
+    public function saveData(Request $request){
+        $data = $request->request->all();
         try {
             $data["company_name"] = $data['company_name'];
             $data['email'] = $data['email'];

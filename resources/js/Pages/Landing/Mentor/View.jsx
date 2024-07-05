@@ -12,6 +12,9 @@ import profileImage from '../../../Assets/Images/profileImage.png'
 import ProfilePhotoUpload from '@/Components/FileUpload';
 import { useRef } from 'react';
 import { scrollToInput } from '@/utility/ScrollToInput';
+import  { notify } from '@/Components/Notifier';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HeadingBox = styled('div')(() => ({
   border: '1px solid black',
@@ -83,22 +86,27 @@ function Mentor() {
                 }
             }
           setValidationErrors(validationErrors);
-        } else 
+        } else
         {
             post(route('mentor.saveDetail',data),{
                 onSuccess:(success) => {
-                   console.log(success, "sucesss")
+                   console.log(success, "sucesss");
+                   notify.success('Success', { position: 'top-right' });
+
                 },
                 onError:(error) => {
-                  console.log(error,"error")
+                  console.log(error,"error");
+                  notify.error('Failure', { position: 'top-right' });
+
                 },
             })}
     }
 
   return (
     <Landing>
-        <Box py={2} className="profile_page">
+    <Box py={2} className="profile_page">
             <Typography sx={{ height: '65px' }}></Typography>
+            <ToastContainer style={{ marginTop:"53px" }}/>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={4}>
                     <Grid item="true" xs={12} px={8}>
@@ -354,6 +362,7 @@ function Mentor() {
                 </Grid>
             </form>
         </Box>
+
     </Landing>
   );
 }

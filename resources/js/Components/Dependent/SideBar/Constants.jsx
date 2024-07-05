@@ -28,12 +28,12 @@ const menuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'To Review', link: '/company-detail' },
+      { id: 1, label: 'To Review', link: '/company-list' },
       { id: 2, label: 'Partial Matched', link: '/partial-matched' },
       { id: 3, label: 'Matched', link: '/matched' },
     ],
   },
-  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/mentor-detail' },
+  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/mentor-list' },
   {
     id: 4,
     label: 'Settings',

@@ -1,38 +1,11 @@
-import React from "react";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import { toast } from 'react-toastify';
 
-const Notifier = ({ open, setOpen, message, severity }) => {
-    // const handleClose = (event, reason) => {
-    //     if (reason === "clickaway") {
-    //         return;
-    //     }
-    //     setOpen(false);
-    // };
-    // setTimeout(() => {
-    //     setNotification({
-    //         open: true,
-    //         message: 'Form submitted successfully',
-    //         severity: 'success'
-    //     })
-    // },1000);
-    // return (
-    //     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-    //         <Alert
-    //             onClose={handleClose}
-    //             severity={severity}
-    //             variant="filled"
-    //             sx={{ width: "100%" }}
-    //         >
-    //             {message}
-    //         </Alert>
-    //     </Snackbar>
-    // );
-    return (
-        <>
 
-        </>
-    )
+export const notify = {
+  default: (message) => toast(message),
+  success: (message, options = {}) => toast.success(message, options),
+  error: (message, options = {}) => toast.error(message, options),
+  warn: (message, options = {}) => toast.warn(message, options),
+  info: (message, options = {}) => toast.info(message, options),
+  custom: (message, options = {}) => toast(message, options),
 };
-
-export default Notifier;

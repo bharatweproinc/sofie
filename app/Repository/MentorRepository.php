@@ -10,6 +10,10 @@ use Illuminate\Validation\Rule;
 use App\Models\{
     User,
 };
+
+use App\Models\{
+    Mentor,
+};
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -43,9 +47,9 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function saveData(Request $request): RedirectResponse
     {
-        return Redirect::route('landing.login-page');
+        // return Redirect::route('landing.login-page');
 
-        dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
@@ -59,8 +63,9 @@ class MentorRepository implements MentorRepositoryInterface {
             'hear_about_us' => 'required|string|max:255',
             'number_of_companies' => 'required|integer|min:1',
         ]);
+        // dd($request->all());
         try{
-            $mentor = Mentor::create([
+            $mentor = Mentor::create( $request->all(),[
                 'industry_sector' => $request->industry_sector,
                 'qualifications' => $request->qualifications,
                 'mentored_company' => $request->mentored_company,
@@ -69,7 +74,6 @@ class MentorRepository implements MentorRepositoryInterface {
                 'number_of_companies' => $request->number_of_companies,
                 'number_of_companies' => $request->number_of_companies,
             ]);
-    
             $user = new User;
             $user->name = $request->name;
             $user->phone = $request->phone;
@@ -79,7 +83,7 @@ class MentorRepository implements MentorRepositoryInterface {
             $user->user_role = 'mentor';
             $user->functional_id = $mentor->id;
             $user->save();
-    
+
             return Redirect::route('login-page');
 
         }catch(\Exception $e){

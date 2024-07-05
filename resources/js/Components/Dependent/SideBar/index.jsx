@@ -18,6 +18,7 @@ import {
     Toolbar,
     IconButton,
     Button,
+    Box,
 } from "@mui/material";
 import Sofie from "../../../Assets/Images/Sofie-logo.png";
 import Constants from "./Constants";
@@ -36,7 +37,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     justifyContent: "flex-end",
 }));
 
-const SideBar = () => {
+const SideBar = ({children}) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [open, setOpen] = React.useState(true);
@@ -63,6 +64,7 @@ const SideBar = () => {
 
     return (
         <>
+        <Box sx={{display : 'flex'}} >
             {isMobile && (
                 <AppBar position="fixed" className="mobile_hamburger_header">
                     <Toolbar
@@ -94,7 +96,7 @@ const SideBar = () => {
                         boxSizing: "border-box",
                         overflow:'visible',
                     },
-                    zIndex:1400
+                    zIndex:1300
                 }}
                 variant={isMobile ? "temporary" : "persistent"}
                 anchor="left"
@@ -186,14 +188,22 @@ const SideBar = () => {
                                                 key={subItem.id}
                                                 sx={{ pl: 4 }}
                                             >
-                                                <ListItemIcon >
+                                                <ListItemIcon  className={
+                                               subItem?.link ===  window.location.pathname
+                                                ? "drawer_links"
+                                                : ""
+                                                 }>
                                                     <CircleIcon
                                                         sx={{ fontSize: 8 }}
 
                                                     />
                                                 </ListItemIcon>
                                                 <ListItemText
-
+                                                   className={
+                                                    subItem?.link ===  window.location.pathname
+                                                ? "drawer_links"
+                                                : ""
+                                              }
                                                     primary={subItem.label}
                                                 />
                                             </ListItemButton>
@@ -217,6 +227,10 @@ const SideBar = () => {
                     Logout
                 </Button>
             </Drawer>
+            <Box sx={{ width:"100%" }}>
+                {children}
+            </Box>
+        </Box>
         </>
     );
 };

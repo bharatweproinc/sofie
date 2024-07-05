@@ -40,8 +40,20 @@ class LandingController extends Controller
     public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
     }
+    public function companyList() {
+        return Inertia::render('Landing/CompanyDetails/List',[]);
+    }
+    public function companyReview() {
+        return Inertia::render('Landing/CompanyDetails/Review',[]);
+    }
     public function mentor() {
         return Inertia::render('Landing/Mentor/View',[]);
+    }
+    public function mentorList() {
+        return Inertia::render('Landing/Mentor/List',[]);
+    }
+    public function mentorReview() {
+        return Inertia::render('Landing/Mentor/Review',[]);
     }
     public function partialMatched() {
         return Inertia::render('Landing/Dashboard/PartialMatched/View');
