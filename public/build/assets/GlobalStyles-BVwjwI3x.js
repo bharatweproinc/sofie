@@ -1,0 +1,1 @@
+import{D as n,Q as r,b as u,E as m,y as f}from"./styled-Dav1juSj.js";import{j as o}from"./app-CDNeLb_W.js";function p({styles:e,themeId:s,defaultTheme:a={}}){const t=n(a),l=typeof e=="function"?e(s&&t[s]||t):e;return o.jsx(r,{styles:l})}function b(e){return o.jsx(p,u({},e,{defaultTheme:m,themeId:f}))}export{b as G};
