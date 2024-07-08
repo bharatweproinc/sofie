@@ -33,7 +33,7 @@ class LandingController extends Controller
         // $data = $request->only(['name', 'email', 'phone', 'username', 'password', 'qualifications', 'industry_sector',
         // 'mentored_compnay','functional_area','hear_about_us','number_of_companies','additional_information']);
         return Inertia::render('Landing/SignUp/View', [
-            "formData" => $data =null
+            // "formData" => $data
         ]);
     }
 

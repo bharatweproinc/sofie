@@ -38,7 +38,7 @@ function DrawerAppBar(props) {
 	return (
 		<>
 			<Landing>
-				<CssBaseline />
+				<CssBaseline/>
 				<Grid container spacing={2} mt={{ xs: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>
 					<Grid item sm={6}>
 						<Box pl={{ lg: 15, md: 5, sm: 2 }} p={{ xs: 2 }}>

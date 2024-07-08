@@ -11,7 +11,7 @@ const contactSchema = Constants.contactSchema
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  height: '100vh',
+  height: '896px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

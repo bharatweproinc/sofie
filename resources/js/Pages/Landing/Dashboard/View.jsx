@@ -106,14 +106,14 @@ function dashboard() {
 
       <Main open={open} sx={{display : 'flex', flexDirection : 'column'}}>
         <Box sx={{ display: 'flex' }}>
-          <CssBaseline />
+          <CssBaseline/>
             <Grid className='serach-every' container spacing={4} px={2}>
              <Navbar/>
             {viewSection !== "matching_status" && viewSection !== "companies" &&
             <Cards/>
                }
 
-            {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll} />}
+            {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
 
             {viewSection !== "matching_status" && <Companies setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
             </Grid>

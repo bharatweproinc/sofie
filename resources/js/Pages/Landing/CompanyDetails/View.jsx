@@ -144,9 +144,7 @@ function CompanyDetail() {
                     </Grid>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} sx={{p:3}}>
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'
-
->
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Company Name</Typography>
                                     <TextField
                                         inputRef={inputRefs.current.company_name}

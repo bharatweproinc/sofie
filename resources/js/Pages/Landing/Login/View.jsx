@@ -66,9 +66,9 @@ function Login() {
 
   return (
     <Landing>
-        <Typography sx={{ height: '120px' }}></Typography>
+        <Typography sx={{ height: '65px' }}></Typography>
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
-         <div style={{ position: 'relative', minHeight: '100vh' }} className='login_page'>
+         <div style={{ position: 'relative',}} className='login_page'>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 200px)', paddingTop: '100px', paddingBottom: '100px' }}>
             <CenteredPaper elevation={4} sx={{ margin: '60px', width: '650px !important'}}>
                 <form onSubmit={handleSubmit}>

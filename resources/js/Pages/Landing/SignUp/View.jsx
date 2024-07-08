@@ -87,7 +87,7 @@ function Signup() {
 
     <Landing>
     <Typography sx={{height:'65px'}}></Typography>
-        <BackgroundImageContainer sx={{paddingTop:'65px'}}>
+        <BackgroundImageContainer>
             <CenteredPaper elevation={4}
               sx={{
               margin:'60px',
