@@ -3,8 +3,7 @@ import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
 import "./style.scss"
 import { Link } from "@inertiajs/react";
 
-function ReviewProfilePage () {
-
+function ReviewProfilePage ({detail}) {
     return (
         <Landing>
             <Typography sx={{ height: '65px' }}></Typography>
@@ -16,51 +15,51 @@ function ReviewProfilePage () {
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Profile Photo</Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                src="../Assets/Images/header-right.png"
+                                // src={detail.profile_photo || null}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Contact Name</Typography>
-                            <Typography fontSize="14px">Abc</Typography>
+                            <Typography fontSize="14px">{detail.mentored_company}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Mobile Number</Typography>
-                            <Typography fontSize="14px">1234567981</Typography>
+                            <Typography fontSize="14px">{detail.user.phone}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Email</Typography>
-                            <Typography mailto:fontsize="14px">abc@yopmail.com</Typography>
+                            <Typography fontSize="14px">{detail.user.email}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Mentored Company</Typography>
-                            <Typography fontSize="14px">Yes</Typography>
+                            <Typography fontSize="14px">{detail.mentored_company}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Qualifications</Typography>
-                            <Typography fontSize="14px">Information technology </Typography>
+                            <Typography fontSize="14px">{detail.qualifications} </Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Industry sectors</Typography>
-                            <Typography fontSize="14px">demography</Typography>
+                            <Typography fontSize="14px">{detail.industry_sector}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Functional</Typography>
-                            <Typography fontSize="14px">Lorem Ipsum is simply dummy text of the printing and typesetting</Typography>
+                            <Typography fontSize="14px">{detail.functional_area}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Companies willing to mentor</Typography>
-                            <Typography fontSize="14px">demography</Typography>
+                            <Typography fontSize="14px">{detail.number_of_companies}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={12} lg={12} sm={12}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Additional Information</Typography>
-                            <Typography fontSize="14px">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web </Typography>
+                            <Typography fontSize="14px">{detail.additional_information}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
                 <Grid container mt={4}>
                     <Grid item xs={12} mb={4} textAlign={"center"} className='edit_btn'>
-                        <Link href={route('landing.mentor')}>
+                        <Link href={route('mentor.list')}>
                             <Button variant="contained"> Edit </Button>
                         </Link>
                     </Grid>

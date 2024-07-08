@@ -28,6 +28,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -46,7 +50,6 @@ Route::name('landing.')->group(function() {
     Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
     Route::get('/company-list', [LandingController::class, 'companyList'])->name('companyList');
     Route::get('/company-detail-review', [LandingController::class, 'companyReview'])->name('companyReview');
-    Route::get('/mentor-detail', [LandingController::class, 'mentor'])->name('mentor');
     Route::get('/mentor-list', [LandingController::class, 'mentorList'])->name('mentorList');
     Route::get('/mentor-detail-review', [LandingController::class, 'mentorReview'])->name('mentorReview');
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
@@ -63,9 +66,9 @@ Route::name('landing.')->group(function() {
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
-    Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
-    Route::get('/list', [MentorController::class, 'getList'])->name('getList');
-    Route::get('/detail-review/{id}', [MentorController::class, 'get'])->name('get');
+    Route::get('/list', [MentorController::class, 'view'])->name('list');
+    Route::post('/{id}/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
+    Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
 });
 
 Route::prefix('company')->name('company.')->group(function(){

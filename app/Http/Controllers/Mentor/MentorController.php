@@ -18,12 +18,14 @@ class MentorController extends Controller
         $this->mentorRepository = $mentorRepository;
     }
 
+    public function view() {
+        $response = $this->mentorRepository->getList();
+        return Inertia::render('Landing/Mentor/List',$response);
+    }
+
     public function get($id) {
         $response = $this->mentorRepository->get($id);
-        return Inertia::render('Landing/Mentor/View',[
-            'data' => $response['data'],
-            ]
-        );
+        return Inertia::render('Landing/Mentor/Review',$response);
     }
 
     public function getList() {
@@ -36,10 +38,7 @@ class MentorController extends Controller
 
     public function saveDetail(Request $request) {
         $response = $this->mentorRepository->saveData($request);
-        return Inertia::render('Landing/Login/View',[
-            'data' => $response['data'],
-            ]
-        );
+        return Inertia::render('Landing/Mentor/View',$response);
     }
 
 }

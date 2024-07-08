@@ -43,9 +43,7 @@ class LandingController extends Controller
     {
         //dd($request->all());
         // $user = Auth::user();
-        // dd($user);
-        Auth::loginUsingId(1);
-        $user = Auth::user();
+        // dd($user)
         try {
             $credentials = $request->validate([
                 'email' => ['required', 'email'],
@@ -88,9 +86,14 @@ class LandingController extends Controller
     public function companyReview() {
         return Inertia::render('Landing/CompanyDetails/Review',[]);
     }
-    public function mentor() {
-        return Inertia::render('Landing/Mentor/View',[]);
-    }
+    // public function mentor() {
+    //     $response = $this->mentorRepository->getList();
+    //     // dd($response);
+    //     return Inertia::render('Landing/Mentor/List',$response);
+    //     // return Inertia::render('Landing/Mentor/View',[
+
+    //     // ]);
+    // }
     public function mentorList() {
         return Inertia::render('Landing/Mentor/List',[]);
     }

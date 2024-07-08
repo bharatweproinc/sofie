@@ -101,7 +101,7 @@ function Mentor() {
                 },
             })
 
-            // post(route('mentor.getList',data),{
+            // get(route('mentor.getList',data),{
             //     onSuccess:(success) => {
             //        console.log(success, "sucesss");
             //        notify.success('Success', { position: 'top-right' });

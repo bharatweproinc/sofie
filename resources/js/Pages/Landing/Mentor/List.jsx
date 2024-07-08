@@ -16,101 +16,8 @@ function createData(id, name, phone, email, functional) {
     return { id, name, phone, email, functional };
 }
 
-const rows = [
-    createData(
-        1,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        2,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        3,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        4,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        5,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        6,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        7,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        8,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        9,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        10,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        11,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        12,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        13,
-        "Testing Mentor",
-        1231321321,
-        "mailto:email@yopmail.com",
-        "marketing"
-    ),
-];
-
-function MentorList() {
+function MentorList({list}) {
+    const rows = list;
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -359,11 +266,11 @@ function MentorList() {
                                                 }}
                                             >
                                                 <TableCell align="left" component="th" scope="row">
-                                                    {row.name}
+                                                    {row.mentored_company}
                                                 </TableCell>
-                                                <TableCell align="left">{row.phone}</TableCell>
-                                                <TableCell align="left">{row.email}</TableCell>
-                                                <TableCell align="left">{row.functional}</TableCell>
+                                                <TableCell align="left">{row.user.phone}</TableCell>
+                                                <TableCell align="left">{row.user.email}</TableCell>
+                                                <TableCell align="left">{row.functional_area}</TableCell>
                                                 <TableCell align="left">
                                                     <Box
                                                         sx={{ gap: "10px" }}
@@ -374,17 +281,13 @@ function MentorList() {
                                                                 <span key={index}>
                                                                     {item.id === 1 ? (
                                                                         <Link
-                                                                            href={
-                                                                                "/mentor-detail"
-                                                                            }
+                                                                            href={route('mentor.saveDetail', {id : row.id})}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>
                                                                     ) : item.id === 2 ? (
                                                                         <Link
-                                                                            href={
-                                                                                "/mentor-detail-review"
-                                                                            }
+                                                                            href={route('mentor.detail',{id:row.id})}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>

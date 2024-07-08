@@ -25,20 +25,17 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function getList(){
         //$list = Mentor::select('id','email','phone','created_at')->get();
-        $list = Mentor::select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
+        $list = Mentor::with('user')->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
             'number_of_companies', 'additional_information')->get();
-        return $list;
+        // $userlist = User::select('phone', 'email')->get();
+        // dd($userlist);
+        return ["list" => $list];
     }
 
     public function get($id) {
         try {
-            $data = Mentor::find($id);
-
-            return [
-                'success' => true,
-                'data' => $data,
-                'message' => "Get mentor details successfully",
-            ];
+            $data = Mentor::with('user')->find($id);
+            return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -65,7 +62,7 @@ class MentorRepository implements MentorRepositoryInterface {
             'hear_about_us' => 'required|string|max:255',
             'number_of_companies' => 'required|integer|min:1',
         ]);
-        // dd($request->all());
+        //dd($request->all());
         try{
             $mentor = Mentor::create( $request->all(),[
                 'industry_sector' => $request->industry_sector,
@@ -86,9 +83,10 @@ class MentorRepository implements MentorRepositoryInterface {
             $user->functional_id = $mentor->id;
             $user->save();
 
-            return Redirect::route('login-page');
+            return Redirect::route('landing.login');
 
         }catch(\Exception $e){
+            dd($e);
             return response()->json([
                 'msg' => $e->getMessage(),
                 'success' => false
