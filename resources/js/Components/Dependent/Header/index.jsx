@@ -51,7 +51,9 @@ const Header = () => {
                     display: 'flex',
                     justifyContent: 'space-between'
                 }}>
-                    <img src={sofieLogo} alt="description" />
+                    <Link href={route('landing.home')}>
+                        <img src={sofieLogo} alt="description" />
+                    </Link>
                     <IconButton
                         aria-label="open drawer"
                         edge="start"

@@ -215,6 +215,8 @@ const SideBar = ({children}) => {
                     ))}
                 </List>
                 <Button
+                    component={Link}
+                    href='/admin/login'
                     sx={{
                         color: "#9A9A9A",
                         mt: "auto",

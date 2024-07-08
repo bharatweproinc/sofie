@@ -39,44 +39,6 @@ class LandingController extends Controller
         ]);
     }
 
-    public function authenticate(Request $request)
-    {
-        //dd($request->all());
-        // $user = Auth::user();
-        // dd($user)
-        try {
-            $credentials = $request->validate([
-                'email' => ['required', 'email'],
-                'password' => ['required'],
-            ]);
-            //dd($credentials);
-
-            if (Auth::attempt($credentials)) {
-                return response()->json(['message' => 'Authenticated'], 200);
-            }
-
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Something went wrong'], 500);
-        }
-    }
-
-    public function store(Request $request)
-    {
-        # code...
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return Inertia::render('Landing/Login/View',[]);
-    }
-
     public function companyDetails() {
         return Inertia::render('Landing/CompanyDetails/View',[]);
     }

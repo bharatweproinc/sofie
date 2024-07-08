@@ -61,12 +61,12 @@ function DrawerAppBar(props) {
 								Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals.
 							</Typography>
 							<Box className="flex gap-5 mt-10">
-                            <Link href='company-detail' className='w-full'>
+                            <Link href={route('company.saveData')} className='w-full'>
 									<Button variant="contained" className="w-full">
 										Sign Up to be SME
 									</Button>
 								</Link>
-								<Link href="/mentor-detail" className='w-full'>
+								<Link href={route('mentor.saveDetail')} className='w-full'>
 									<Button variant="outlined" className="w-full">
 										Sign Up to be Mentor
 									</Button>
