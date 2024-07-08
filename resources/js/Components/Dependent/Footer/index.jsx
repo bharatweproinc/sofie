@@ -20,7 +20,7 @@ export const Footer = () => {
                 borderBottom:' 1px solid #BEBEC0',
                 paddingBottom: { sm:'20px', xs:'20px'}
                 }}>
-                <Grid mb={5} item xs={12} sm={3}>
+                <Grid className="grid justify-center" mb={5} item xs={12} sm={3}>
                     <Typography
                         textAlign={{xs:'center', sm:'left'}} sx={{
                         fontWeight: "bold !important",
@@ -46,7 +46,7 @@ export const Footer = () => {
                         <br />
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid className="grid justify-center" item xs={12} sm={3}>
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         sx={{
@@ -77,7 +77,7 @@ export const Footer = () => {
                         <br />
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid className="grid justify-center" item xs={12} sm={3}>
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         sx={{
@@ -105,7 +105,7 @@ export const Footer = () => {
                         <br />
                     </Typography>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid className="grid justify-center" item xs={12} sm={3}>
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         sx={{ fontWeight: "bold !important" }}
@@ -114,10 +114,10 @@ export const Footer = () => {
                     >
                         Connect
                     </Typography>
-                    <Box className="flex gap-2 justify-center sm:justify-start" mt={1}>
-                        <img src={facebook}></img>
-                        <img src={twitter}></img>
-                        <img src={linkedin}></img>
+                    <Box className="flex gap-2 justify-center sm:justify-start align-baseline" mt={1}>
+                        <img style={{height: '30px', width:'30px'}} src={facebook}></img>
+                        <img style={{height: '30px', width:'30px'}} src={twitter}></img>
+                        <img style={{height: '30px', width:'30px'}} src={linkedin}></img>
                     </Box>
                 </Grid>
             </Grid>
