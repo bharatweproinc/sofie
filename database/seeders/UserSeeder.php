@@ -17,9 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $users = [
-            ['name' => 'User one', 'email' => 'userone@yopmail.com', 'password' => Hash::make('password')],
-            ['name' => 'User two', 'email' => 'usertwo@yopmail.com', 'password' => Hash::make('password')],
-            ['name' => 'User three', 'email' => 'userthree@yopmail.com' , 'password' => Hash::make('password')],
+            ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => Hash::make('password'), 'user_role' => 'admin'],
         ];
         foreach ($users as $user) {
             $existingUser = User::where('email', $user['email'])->first();
