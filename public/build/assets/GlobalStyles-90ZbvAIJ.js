@@ -1,0 +1,1 @@
+import{C as n,O as r,b as u,D as m,x as f}from"./styled-Xo7N0gWc.js";import{j as o}from"./app-4Uf3I1yf.js";function p({styles:e,themeId:s,defaultTheme:a={}}){const t=n(a),l=typeof e=="function"?e(s&&t[s]||t):e;return o.jsx(r,{styles:l})}function b(e){return o.jsx(p,u({},e,{defaultTheme:m,themeId:f}))}export{b as G};
