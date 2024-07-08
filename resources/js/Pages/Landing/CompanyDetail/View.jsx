@@ -7,7 +7,6 @@ import './style.scss'
 const BackgroundImageContainer = styled('div')({
     backgroundImage: 'url(./images/image7.png)',
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
     //   width: '100vh',
     height: '100vh',
     display: 'flex',
