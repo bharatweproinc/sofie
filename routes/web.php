@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\MentorController;
+use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -56,14 +57,21 @@ Route::name('landing.')->group(function() {
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
+    Route::post('/authenticate', [LandingController::class, 'authenticate'])->name('authenticate');
+    //Route::post('/register', [LandingController::class, 'store'])->name('store');
+    Route::post('/logout', [LandingController::class, 'logout'])->name('logout');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
     Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
+    Route::get('/list', [MentorController::class, 'getList'])->name('getList');
+    Route::get('/detail-review/{id}', [MentorController::class, 'get'])->name('get');
 });
 
 Route::prefix('company')->name('company.')->group(function(){
-    Route::post('/saveData', [LandingController::class, 'saveData'])->name('saveData');
+    Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
+    Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
+    Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
 });
 
 

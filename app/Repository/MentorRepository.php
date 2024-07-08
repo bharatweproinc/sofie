@@ -24,13 +24,15 @@ use Illuminate\Support\Facades\Redirect;
 class MentorRepository implements MentorRepositoryInterface {
 
     public function getList(){
-        $list = User::select('id','email','phone','created_at')->get();
+        //$list = Mentor::select('id','email','phone','created_at')->get();
+        $list = Mentor::select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
+            'number_of_companies', 'additional_information')->get();
         return $list;
     }
 
     public function get($id) {
         try {
-            $data = User::find($id);
+            $data = Mentor::find($id);
 
             return [
                 'success' => true,

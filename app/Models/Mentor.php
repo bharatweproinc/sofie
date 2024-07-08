@@ -11,13 +11,6 @@ class Mentor extends Model
     protected $table = 'mentors';
 
     protected $fillables = [
-        'name',
-        'email',
-        'password',
-        'email_verified_at',
-        'password',
-        'phone',
-        'username',
         'qualifications',
         'industry_sector',
         'mentored_company',

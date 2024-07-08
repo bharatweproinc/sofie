@@ -28,16 +28,16 @@ class MentorController extends Controller
 
     public function getList() {
         $response = $this->mentorRepository->getList();
-        return Inertia::render('Landing/Mentor/View',[
-            'data' => $response['data'],
+        return Inertia::render('Landing/Mentor/List',[
+            'data' => $response,
             ]
         );
     }
 
     public function saveDetail(Request $request) {
         $response = $this->mentorRepository->saveData($request);
-        return Inertia::render('mentor/detail',[
-            'data' => $response['mentor/detail-review'],
+        return Inertia::render('Landing/Login/View',[
+            'data' => $response['data'],
             ]
         );
     }

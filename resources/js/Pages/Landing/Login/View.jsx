@@ -62,6 +62,14 @@ function Login() {
     } else {
       console.log('data', value)
     }
+
+    post(route('landing.authenticate'), data)
+            .then(response => {
+                console.log(success, "sucesss")
+            })
+            .catch(error => {
+                  console.log(error,"error")
+            });
   };
 
   return (

@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('mentors', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone')->nullable();
-            $table->unsignedBigInteger('functional_id')->nullable();
             $table->string('qualifications')->nullable();
             $table->string('industry_sector')->nullable();
             $table->string('mentored_company')->nullable();

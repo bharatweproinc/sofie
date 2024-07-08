@@ -99,7 +99,23 @@ function Mentor() {
                   notify.error('Failure', { position: 'top-right' });
 
                 },
-            })}
+            })
+
+            // post(route('mentor.getList',data),{
+            //     onSuccess:(success) => {
+            //        console.log(success, "sucesss");
+            //        notify.success('Success', { position: 'top-right' });
+
+            //     },
+            //     onError:(error) => {
+            //       console.log(error,"error");
+            //       notify.error('Failure', { position: 'top-right' });
+            //     },
+            // })
+
+
+        }
+
     }
 
   return (

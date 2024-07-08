@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,23 +12,31 @@ use Illuminate\Support\Facades\Redirect;
 class CompanyController extends Controller
 {
     //
-    private $companyRepository;
+    private CompanyRepository $companyRepository;
 
     public function __construct(CompanyRepository $companyRepository){
         $this->companyRepository = $companyRepository;
     }
 
     public function get($id) {
-        $response = $this->companyRepository->get($id);
+        $response = $this->companyRepository->getData($id);
         return Inertia::render('Landing/Company/View',[
             'data' => $response['data'],
             ]
         );
     }
 
-    public function store(Request $request){
+    public function getList() {
+        $response = $this->companyRepository->getList();
+        return Inertia::render('Landing/CompanyDetails/List',[
+            'data' => $response
+            ]
+        );
+    }
+
+    public function saveData(Request $request){
         $response = $this->companyRepository->saveData($request);
-        return Inertia::render('Landing/Company/View',[
+        return Inertia::render('Landing/Login/View',[
             'data' => $response['data'],
             ]
         );
