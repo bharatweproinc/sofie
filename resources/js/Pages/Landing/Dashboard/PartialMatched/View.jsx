@@ -1,9 +1,11 @@
+import SideBar from "@/Components/Dependent/SideBar";
+import { Typography } from "@mui/material";
 
 function partialMatched () {
     return (
-        <div>
-         <p>Companies Partial Matched Coming Soon ...</p>
-        </div>
+        <SideBar>
+            <Typography>Companies Partial Matched Coming Soon ...</Typography>
+        </SideBar>
     )
 }
 

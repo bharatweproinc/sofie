@@ -36,4 +36,7 @@ class CompanyController extends Controller
         return Inertia::render('Landing/Login/View',$response);
     }
 
+    public function signup(){
+        return Inertia::render('Landing/SignUp/View', []);
+    }
 }

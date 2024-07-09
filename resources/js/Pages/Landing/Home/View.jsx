@@ -61,12 +61,12 @@ function DrawerAppBar(props) {
 								Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals.
 							</Typography>
 							<Box className="flex gap-5 mt-10">
-                            <Link href={route('company.saveData')} className='w-full'>
+                            <Link href={route('company.signup')} className='w-full'>
 									<Button variant="contained" className="w-full">
 										Sign Up to be SME
 									</Button>
 								</Link>
-								<Link href={route('mentor.saveDetail')} className='w-full'>
+								<Link href={route('mentor.signup')} className='w-full'>
 									<Button variant="outlined" className="w-full">
 										Sign Up to be Mentor
 									</Button>
@@ -312,12 +312,11 @@ function DrawerAppBar(props) {
 								>
 									Your mentorship can make a significant impact, helping entrepreneurs overcome challenges and achieve their business goals.								</Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
-                                <Link href="/mentor-detail" className='w-full'>
-                                <Button variant="contained">
+                                <Link href={route('mentor.signup')} className='w-full'>
+                                	<Button variant="contained">
 										Be A Mentor
 									</Button>
                                  </Link>
-
 								</Box>
 							</Grid>
 						</Grid>

@@ -1,8 +1,12 @@
+import SideBar from "@/Components/Dependent/SideBar";
+
 function accountSettings () {
     return (
-        <div>
-            <p>Account Settings Coming Soon..</p>
-        </div>
+        <SideBar>
+            <div>
+                <p>Account Settings Coming Soon..</p>
+            </div>
+        </SideBar>
     )
 }
 

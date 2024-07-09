@@ -12,9 +12,10 @@ import Constants from "../Constants";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
+import NoDataFound from "@/Components/NoDataFound";
 
-function MentorList({list}) {
-    // const rows = list !== undefined && list.length > 0 && list ? list : Constants.dummy_company_data;
+function MentorList({list = []}) {
+
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -22,7 +23,7 @@ function MentorList({list}) {
     const rowsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const sortedRows = [...rows].sort((a, b) => {
+    const sortedRows = [...list].sort((a, b) => {
         if (sortConfig.key !== null) {
             const key = sortConfig.key;
             if (a[key] < b[key]) {
@@ -51,6 +52,8 @@ function MentorList({list}) {
     };
     return (
         <SideBar>
+            {
+                list.length > 0 ?
                 <Grid container className="mentor_list">
                     <Grid
                         item
@@ -312,7 +315,8 @@ function MentorList({list}) {
                             </Box>
                         </Paper>
                     </Grid>
-                </Grid>
+                </Grid> : <NoDataFound message="No Mentor available" />
+            }
         </SideBar>
     );
 }

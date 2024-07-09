@@ -12,85 +12,10 @@ import Constants from "../Constants";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
-import DeleteAlert from "@/Components/DeleteAlert";
-function createData(id, name, phone, email, functional) {
-    return { id, name, phone, email, functional };
-}
+import NoDataFound from "@/Components/NoDataFound";
 
-const rows = [
-    createData(
-        1,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        2,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        3,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        4,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        5,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        6,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        7,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        8,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        9,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-    createData(
-        10,
-        "Testing Mentor",
-        1231321321,
-        "email@yopmail.com",
-        "marketing"
-    ),
-];
 
-function CompanyList() {
+function CompanyList({list = []}) {
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -98,7 +23,7 @@ function CompanyList() {
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const sortedRows = [...rows].sort((a, b) => {
+    const sortedRows = [...list].sort((a, b) => {
         if (sortConfig.key !== null) {
             const key = sortConfig.key;
             if (a[key] < b[key]) {
@@ -126,7 +51,9 @@ function CompanyList() {
         setSortConfig({ key, direction });
     };
     return (
-        <>
+        <SideBar>
+            {
+                list.length > 0 ?
             <Grid
                 item
                 xs={12}
@@ -390,13 +317,10 @@ function CompanyList() {
                             sx={{ mt: 3 }}
                         />
                     </Box>
-                    <DeleteAlert />
-
                 </Paper>
-            </Grid>
-
-        </>
-
+            </Grid> : <NoDataFound message="No Company Available" />
+            }
+        </SideBar>
     );
 }
 

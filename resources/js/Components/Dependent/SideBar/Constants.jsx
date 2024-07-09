@@ -61,8 +61,8 @@ const menuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'Profile Settings', link: 'profile-setting' },
-      { id: 2, label: 'Account Settings', link: 'account-setting' },
+      { id: 1, label: 'Profile Settings', link: '/profile-setting' },
+      { id: 2, label: 'Account Settings', link: '/account-setting' },
     ],
   },
 ];

@@ -62,19 +62,22 @@ Route::name('landing.')->group(function() {
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
     Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
-    // Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('admin/dashboard');
+    Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('admin/dashboard');
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
+    Route::get('/admin/login-page', [LandingController::class, 'adminLogin'])->name('adminLogin');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
+    Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
     Route::get('/list', [MentorController::class, 'view'])->name('list');
     Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
     Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
 });
 
 Route::prefix('company')->name('company.')->group(function(){
+    Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
     Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
     Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
     Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');

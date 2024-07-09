@@ -94,5 +94,8 @@ class LandingController extends Controller
     public function accountSetting() {
         return Inertia::render('Landing/Dashboard/Settings/AccountSettings/View',[]);
     }
+    public function adminLogin(){
+        return Inertia::render('Landing/AdminLogin/View', []);
+    }
 
 }

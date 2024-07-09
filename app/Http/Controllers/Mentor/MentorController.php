@@ -41,4 +41,7 @@ class MentorController extends Controller
         return Inertia::render('Landing/Mentor/View',$response);
     }
 
+    public function signup(){
+        return Inertia::render('Landing/SignUp/View', []);
+    }
 }

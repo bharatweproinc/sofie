@@ -112,7 +112,6 @@ const SideBar = ({children}) => {
                     <img src={Sofie} />
                     {isMobile && (
                         <IconButton
-
                             sx={{
                                 height: "30px",
                                 width: "30px",
