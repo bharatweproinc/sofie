@@ -83,7 +83,7 @@ class MentorRepository implements MentorRepositoryInterface {
             $user->functional_id = $mentor->id;
             $user->save();
 
-            return Redirect::route('landing.login');
+            return Redirect::route('landing.admin.login');
 
         }catch(\Exception $e){
             dd($e);

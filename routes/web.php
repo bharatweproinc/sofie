@@ -31,6 +31,10 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
+    Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
+    Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
+
 });
 
 // Route::get('/dashboard', function () {
