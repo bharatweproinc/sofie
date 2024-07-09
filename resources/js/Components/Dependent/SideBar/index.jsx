@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import Sofie from "../../../Assets/Images/Sofie-logo.png";
 import Constants from "./Constants";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./style.scss";
 import { useState } from "react";
@@ -60,6 +60,10 @@ const SideBar = ({children}) => {
             [id]: !prevOpenItems[id],
         }));
 
+    };
+
+    const logout = () => {
+        router.post(route('logout'));
     };
 
     return (
@@ -216,7 +220,7 @@ const SideBar = ({children}) => {
                 </List>
                 <Button
                     component={Link}
-                    href='/admin/login'
+
                     sx={{
                         color: "#9A9A9A",
                         mt: "auto",
@@ -224,6 +228,7 @@ const SideBar = ({children}) => {
                         ml: "20px",
                         justifyContent: "left",
                     }}
+                    onClick={logout}
                 >
                     <LogoutIcon sx={{ marginRight: "5px" }} />
                     Logout

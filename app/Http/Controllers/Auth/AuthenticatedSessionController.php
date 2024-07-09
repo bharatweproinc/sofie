@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Redirect;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,12 +32,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // dd($request->all());
         $request->authenticate();
         $request->session()->regenerate();
         $user = Auth::user();
-
-        return redirect('admin.dashboard');
-        // return redirect()->intended('/','/dashboard');
+        return Redirect::route('admin.dashboard');
     }
 
     /**
@@ -48,7 +49,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        return redirect('/admin/login');
+        // return Redirect::route('admin.login');
+        // return redirect('/admin/login');
     }
 }

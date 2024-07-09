@@ -7,6 +7,8 @@ use App\Repository\{MentorRepository, CompanyRepository};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+
 
 class LandingController extends Controller
 {
@@ -27,7 +29,9 @@ class LandingController extends Controller
     }
 
     public function login() {
-        // dd(12);
+        if (Auth::user() && Auth::user()->user_role == "admin") {
+            return Redirect::route('admin.dashboard');
+        }
         return Inertia::render('Landing/Login/View',[]);
     }
 
