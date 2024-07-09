@@ -59,8 +59,21 @@ const SideBar = ({children}) => {
             ...prevOpenItems,
             [id]: !prevOpenItems[id],
         }));
-
     };
+
+    React.useEffect(() => {
+        const newOpenItems = {};
+        Constants.menuItem.forEach(item => {
+            if (item.subItems) {
+                item.subItems.forEach(subItem => {
+                    if (subItem.link === window.location.pathname) {
+                        newOpenItems[item.id] = true;
+                    }
+                });
+            }
+        });
+        setOpenItems(newOpenItems);
+    }, [location.pathname]);
 
     const logout = () => {
         router.post(route('logout'));
