@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Button, Grid, Input, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Input, Paper, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import { useForm } from '@inertiajs/react'
@@ -11,7 +11,7 @@ const contactSchema = Constants.contactSchema
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  height: '896px',
+  // height: '896px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -67,9 +67,9 @@ function Contact() {
 	<Landing>
 	<Typography sx={{height:'65px'}}></Typography>
       <BackgroundImageContainer sx={{paddingToo:'65px'}}>
-        <CenteredPaper elevation={4}>
+        <CenteredPaper sx={{width:'650px !important', margin:'60px',}} elevation={4}>
           <form onSubmit={handleSubmit} className='contact_page'>
-            <Grid container spacing={2} width="650px" height="616px">
+            <Grid container spacing={2} width="100%">
                 <Grid item xs={12} gap={2}>
                     <Typography fontWeight={700} sx={{fontSize:"28px"}}>Contact Us</Typography>
                 </Grid>

@@ -12,12 +12,9 @@ import Constants from "../Constants";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
-function createData(id, name, phone, email, functional) {
-    return { id, name, phone, email, functional };
-}
 
 function MentorList({list}) {
-    const rows = list;
+    // const rows = list !== undefined && list.length > 0 && list ? list : Constants.dummy_company_data;
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",

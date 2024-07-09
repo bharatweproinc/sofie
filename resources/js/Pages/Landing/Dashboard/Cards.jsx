@@ -10,12 +10,12 @@ const Cards = () => {
                 item
                 md={5}
                 xs={12}
-                sx={{ rowGap: { md : '9px' , lg : '18px', xs:'18px'} }}
+                sx={{ rowGap: { md: '9px', lg: '18px', xs: '18px' } }}
             >
                 <Grid item lg={6} md={6} xs={6} className="flex justify-start">
                     <Box
-                       className="flex justify-between rounded-lg border p-4 bg-white"
-                       sx={{ width: "97%", height:"100%", flexDirection : { lg : "unset",  xs : 'column-reverse'}}}
+                        className="flex justify-between rounded-lg border p-4 bg-white"
+                        sx={{ width: "97%", height: "100%", flexDirection: { lg: "unset", xs: 'column-reverse' } }}
                     >
                         <div>
                             <p variant="body1" color="initial">
@@ -53,7 +53,7 @@ const Cards = () => {
                             </Box>
                         </div>
                         <div
-                            style={{ backgroundColor: "#EF5D94" ,  }}
+                            style={{ backgroundColor: "#EF5D94", }}
                             className="rounded-icon"
                         >
                             <svg
@@ -83,10 +83,10 @@ const Cards = () => {
                         </div>
                     </Box>
                 </Grid>
-                <Grid item lg={6} md={6} xs={6}  className="flex justify-end" >
+                <Grid item lg={6} md={6} xs={6} className="flex justify-end" >
                     <Box
-                         className="flex justify-between rounded-lg border p-4 bg-white"
-                         sx={{ width: "97%", height:"100%", flexDirection : { lg : "unset",  xs : 'column-reverse'}}}
+                        className="flex justify-between rounded-lg border p-4 bg-white"
+                        sx={{ width: "97%", height: "100%", flexDirection: { lg: "unset", xs: 'column-reverse' } }}
                     >
                         <div>
                             <p variant="body1" color="initial">
@@ -146,8 +146,8 @@ const Cards = () => {
                 </Grid>
                 <Grid item lg={6} md={6} xs={6} className="flex justify-start">
                     <Box
-                         className="flex justify-between rounded-lg border p-4 bg-white"
-                         sx={{ width: "97%", height:"100%", flexDirection : { lg : "unset",  xs : 'column-reverse'}}}
+                        className="flex justify-between rounded-lg border p-4 bg-white"
+                        sx={{ width: "97%", height: "100%", flexDirection: { lg: "unset", xs: 'column-reverse' } }}
                     >
                         <div>
                             <p variant="body1" color="initial">
@@ -205,8 +205,8 @@ const Cards = () => {
                 </Grid>
                 <Grid item lg={6} md={6} xs={6} className="flex justify-end">
                     <Box
-                         className="flex justify-between rounded-lg border p-4 bg-white"
-                         sx={{ width: "97%", height:"100%", flexDirection : { lg : "unset",  xs : 'column-reverse'}}}
+                        className="flex justify-between rounded-lg border p-4 bg-white"
+                        sx={{ width: "97%", height: "100%", flexDirection: { lg: "unset", xs: 'column-reverse' } }}
                     >
                         <div>
                             <p variant="body1" color="initial">
@@ -265,15 +265,10 @@ const Cards = () => {
                         </div>
                     </Box>
                 </Grid>
-                <Grid
-                    item
-                    lg={6}
-                    md={5}
-                    xs={6}
-                    className="flex justify-start"                >
+                <Grid item lg={6} md={5} xs={6} className="flex justify-start"                >
                     <Box
                         className="flex justify-between rounded-lg border p-4 bg-white"
-                        sx={{ width: "97%", height:"100%", flexDirection : { lg : "unset",  xs : 'column-reverse'}}}
+                        sx={{ width: "97%", height: "100%", flexDirection: { lg: "unset", xs: 'column-reverse' } }}
                     >
                         <div>
                             <p variant="body1" color="initial">
@@ -335,16 +330,11 @@ const Cards = () => {
                         </div>
                     </Box>
                 </Grid>
-                <Grid
-                    item
-                    lg={6}
-                    md={5}
-                    xs={6}
-                    className="flex justify-end"
+                <Grid item lg={6} md={5} xs={6} className="flex justify-end"
                 >
                     <Box
                         className="flex justify-between rounded-lg border p-4 bg-white"
-                        sx={{ width: "97%", height:"100%", flexDirection : { lg : "unset",  xs : 'column-reverse'}}}
+                        sx={{ width: "97%", height: "100%", flexDirection: { lg: "unset", xs: 'column-reverse' } }}
                     >
                         <div>
                             <p variant="body1" color="initial">
@@ -359,7 +349,7 @@ const Cards = () => {
                             </Typography>
                             <Box className="flex text-xs items-center pt-2">
                                 <svg
-                                style={{ paddingBottom:"10px"  }}
+                                    style={{ paddingBottom: "10px" }}
                                     width="14"
                                     height="12"
                                     viewBox="0 0 8 6"

@@ -5,7 +5,6 @@ import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import Constants from '../Constants';
 import './style.scss';
-import Joi from 'joi';
 
 const loginSchema = Constants.loginSchema
 
@@ -17,7 +16,7 @@ const CenteredPaper = styled(Paper)({
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  height: '896px',
+  // height: '896px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -62,15 +61,22 @@ function Login() {
     } else {
       console.log('data', value)
     }
-    post(route('login'));
+
+    post(route('landing.authenticate'), data)
+            .then(response => {
+                console.log(success, "sucesss")
+            })
+            .catch(error => {
+                  console.log(error,"error")
+            });
   };
 
   return (
     <Landing>
         <Typography sx={{ height: '65px' }}></Typography>
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
-         <div style={{ position: 'relative',}} className='login_page'>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 200px)', paddingTop: '100px', paddingBottom: '100px' }}>
+         <div style={{ position: 'relative', width : '100%'}} className='login_page'>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
             <CenteredPaper elevation={4} sx={{ margin: '60px', width: '650px !important'}}>
                 <form onSubmit={handleSubmit}>
                   <Grid container spacing={4}>
@@ -105,7 +111,9 @@ function Login() {
                           />
                       </Grid>
                       <Grid item xs={12}>
+                        <Link href=''>
                           <Typography>Forgot Password</Typography>
+                        </Link>
                       </Grid>
                       <Grid item xs={12} className='submit_btn'>
                           <Button variant="contained" fullWidth type="submit" disabled={processing}>Log In</Button>
