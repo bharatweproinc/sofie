@@ -81,6 +81,7 @@ function Signup() {
         } else {
           console.log('Data', data);
         }
+        post(route('register'));
       };
 
   return (
@@ -93,7 +94,7 @@ function Signup() {
               margin:'60px',
               width:'650px !important'
               }}>
-                <form onSubmit={handleSubmit}>
+                <form method={"post"} onSubmit={handleSubmit}>
                   <Grid container spacing={2} className='signup_page'>
                       <Grid item xs={12} gap={2}>
                           <Typography fontWeight={700} sx={{fontSize:"28px"}}>Get Started</Typography>

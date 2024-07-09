@@ -14,6 +14,11 @@ use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificationEmail;
+
 
 class RegisteredUserController extends Controller
 {
@@ -22,6 +27,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
+        // dd("Tet");
         return Inertia::render('Auth/Register');
     }
 
@@ -32,39 +38,29 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => ['required', Rules\Password::defaults()],
-            'username' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'qualifications' => 'required|string|max:255',
-            'industry_sector' => 'required|string|max:255',
-            'mentored_company' => 'required|string|max:255',
-            'functional_area' => 'required|string|max:255',
-            'hear_about_us' => 'required|string|max:255',
-            'number_of_companies' => 'required|integer|min:1',
+            'enterpreneur_or_mentor' =>'required'
         ]);
-        
+        if ($validator->fails()) {
+            return redirect('signup')->withErrors($validator)->withInput();
+        }
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email_contact,
-            'username' => $request->user_name,
-            'phone' => $request->mobile_number,
+            'name' => $request->full_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'qualifications' => $request->qualifications,
-            'industry_sector' => $request->industry_sector,
-            'qualifications' => $request->qualifications,
-            'mentored_company' => $request->mentored_company,
-            'functional_area' => $request->functional_area,
-            'hear_about_us' => $request->hear_about_us,
-            'number_of_companies' => $request->number_of_companies,
+            'user_role' => $request->enterpreneur_or_mentor
 
         ]);
         event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        // Mail::to("nitintest@yopmail.com")->send(new NotificationEmail());
+        // Auth::login($user);
+        // return Redirect::route('verification.send');
     }
 }

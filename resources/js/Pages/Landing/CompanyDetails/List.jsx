@@ -266,11 +266,11 @@ function CompanyList({list = []}) {
                                         }}
                                     >
                                         <TableCell align="left" component="th" scope="row">
-                                            {row.name}
+                                            {row.company_name}
                                         </TableCell>
-                                        <TableCell align="left">{row.phone}</TableCell>
-                                        <TableCell align="left">{row.email}</TableCell>
-                                        <TableCell align="left">{row.functional}</TableCell>
+                                        <TableCell align="left">{row.user.phone}</TableCell>
+                                        <TableCell align="left">{row.user.email}</TableCell>
+                                        <TableCell align="left">{row.function_area_1}</TableCell>
                                         <TableCell align="left">
                                             <Box
                                                 sx={{ gap: "10px" }}
@@ -306,7 +306,7 @@ function CompanyList({list = []}) {
                     </TableContainer>
                     <Box p={2} display="flex" justifyContent="center">
                         <Pagination
-                            count={Math.ceil(rows.length / rowsPerPage)}
+                            count={Math.ceil(list.length / rowsPerPage)}
                             page={currentPage}
                             className="table_pagination"
                             onChange={handlePageChange}

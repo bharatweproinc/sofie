@@ -17,6 +17,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
             'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size',
             'industry_sector', 'description', 'function_area_2', 'function_area_3', 'hear_about_us', 'current_problem', 'additional_information')->get();
             return ["list" => $list];
+        dd($list);
     }
 
     public function saveData(Request $request){

@@ -5,7 +5,7 @@ import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
 import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
 
 const menuItem = [
-  { id: 1, label: 'Dashboard', icon: <DashboardOutlinedIcon />, link: '/dashboard' },
+  { id: 1, label: 'Dashboard', icon: <DashboardOutlinedIcon />, link: '/admin/dashboard' },
   {
     id: 2,
     label: 'Companies',
@@ -28,12 +28,12 @@ const menuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'To Review', link: '/company-list' },
-      { id: 2, label: 'Partial Matched', link: '/partial-matched' },
-      { id: 3, label: 'Matched', link: '/matched' },
+      { id: 1, label: 'To Review', link: '/admin/company/list' },
+      { id: 2, label: 'Partial Matched', link: '/admin/partial-matched' },
+      { id: 3, label: 'Matched', link: '/admin/matched' },
     ],
   },
-  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/mentor-list' },
+  { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/admin/mentor/list' },
   {
     id: 4,
     label: 'Settings',
@@ -61,8 +61,8 @@ const menuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'Profile Settings', link: '/profile-setting' },
-      { id: 2, label: 'Account Settings', link: '/account-setting' },
+      { id: 1, label: 'Profile Settings', link: '/admin/profile-setting' },
+      { id: 2, label: 'Account Settings', link: '/admin/account-setting' },
     ],
   },
 ];

@@ -31,10 +31,21 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
-    Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
-    Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
+    // Route::get('/list', [DashboardController::class, 'getList'])->name('dashboard');
+    // Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
+    // Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
 
+    Route::prefix('company')->name('company.')->group(function(){
+        Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
+        Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
+        Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
+    });
+
+    Route::prefix('mentor')->name('mentor.')->group(function() {
+        Route::get('/list', [MentorController::class, 'view'])->name('list');
+        Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
+        Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
+    });
 });
 
 // Route::get('/dashboard', function () {
@@ -70,15 +81,11 @@ Route::name('landing.')->group(function() {
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
-    Route::get('/list', [MentorController::class, 'view'])->name('list');
-    Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
-    Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
+    Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
 });
 
 Route::prefix('company')->name('company.')->group(function(){
-    Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
-    Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
-    Route::get('/{id}/detail', [CompanyController::class, 'get'])->name('get');
+    Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
 });
 
 require __DIR__.'/auth.php';

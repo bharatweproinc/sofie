@@ -15,7 +15,6 @@ import "./style.scss";
 import NoDataFound from "@/Components/NoDataFound";
 
 function MentorList({list = []}) {
-
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -306,7 +305,7 @@ function MentorList({list = []}) {
                             </TableContainer>
                             <Box p={2} display="flex" justifyContent="center">
                                 <Pagination
-                                    count={Math.ceil(rows.length / rowsPerPage)}
+                                    count={Math.ceil(list.length / rowsPerPage)}
                                     page={currentPage}
                                     className="table_pagination"
                                     onChange={handlePageChange}
