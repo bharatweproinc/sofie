@@ -1,13 +1,12 @@
 import SideBar from "@/Components/Dependent/SideBar";
+import { Box, Typography } from "@mui/material";
 
 function profileSettings () {
     return (
         <SideBar>
-        <div>
-            <p>
-                Profile Setting Coming Soon....
-            </p>
-        </div>
+            <Box p={8}>
+                <Typography>Profile Setting Coming Soon....</Typography>
+            </Box>
         </SideBar>
     )
 }

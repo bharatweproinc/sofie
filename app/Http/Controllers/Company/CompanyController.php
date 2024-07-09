@@ -35,8 +35,4 @@ class CompanyController extends Controller
         $response = $this->companyRepository->saveData($request);
         return Inertia::render('Landing/Login/View',$response);
     }
-
-    public function signup(){
-        return Inertia::render('Landing/SignUp/View', []);
-    }
 }

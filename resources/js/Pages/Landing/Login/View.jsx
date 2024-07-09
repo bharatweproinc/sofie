@@ -5,6 +5,8 @@ import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import Constants from '../Constants';
 import './style.scss';
+import  backgroundimage from '../../../../../public/images/image7.png'; 
+
 
 const loginSchema = Constants.loginSchema
 
@@ -14,7 +16,7 @@ const CenteredPaper = styled(Paper)({
 });
 
 const BackgroundImageContainer = styled('div')({
-  backgroundImage: 'url(./images/image7.png)',
+  backgroundImage: `url(${backgroundimage})`,
   backgroundSize: 'cover',
   // height: '896px',
   display: 'flex',

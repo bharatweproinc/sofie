@@ -2,6 +2,7 @@ import { Landing } from "@/Layouts/Landing";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
 import "./style.scss"
 import { Link } from "@inertiajs/react";
+import NoDataFound from "@/Components/NoDataFound";
 
 function ReviewProfilePage ({detail}) {
     return (
@@ -64,7 +65,7 @@ function ReviewProfilePage ({detail}) {
                         </Link>
                     </Grid>
                 </Grid>
-            </Box>
+            </Box> 
        </Landing>
     )
 }

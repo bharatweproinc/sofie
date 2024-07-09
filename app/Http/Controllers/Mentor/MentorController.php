@@ -40,8 +40,4 @@ class MentorController extends Controller
         $response = $this->mentorRepository->saveData($request);
         return Inertia::render('Landing/Mentor/View',$response);
     }
-
-    public function signup(){
-        return Inertia::render('Landing/SignUp/View', []);
-    }
 }

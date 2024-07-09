@@ -36,8 +36,6 @@ function Mentor() {
     const [passwordError, setpasswordError] = useState(false);
     const inputRefs = useRef(Constants.mentorInputRefs());
 
-
-
     const handleChange = (key, value) => {
         const updatedData = {
             ...data,
@@ -112,10 +110,7 @@ function Mentor() {
             //       notify.error('Failure', { position: 'top-right' });
             //     },
             // })
-
-
         }
-
     }
 
   return (

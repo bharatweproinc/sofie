@@ -7,7 +7,7 @@ export const Landing = ({auth, children}) => {
     return (
         <Box>
             <Header/>
-            {children}
+                {children} 
             <Footer/>
         </Box>
     )

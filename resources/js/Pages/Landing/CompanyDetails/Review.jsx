@@ -16,7 +16,7 @@ const Reviewdata = () => {
     const { data, setData} = useForm(Constants.dummy_company_data);
 
     useEffect(() => {
-      // get(route('cmentor.user.get'),{
+      // get(route('company.user.get'),{
             //     onSuccess:(success) => {
             // setData(res.data)
             //        console.log(success, "sucesss")

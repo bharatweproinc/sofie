@@ -25,7 +25,6 @@ import Constants from "./Constants";
 import { Link, router } from "@inertiajs/react";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./style.scss";
-import { useState } from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 const drawerWidth = 240;
 
@@ -54,6 +53,8 @@ const SideBar = ({children}) => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    
     const handleClick = (id) => {
         setOpenItems((prevOpenItems) => ({
             ...prevOpenItems,
@@ -194,7 +195,7 @@ const SideBar = ({children}) => {
                                 <Collapse
                                     in={openItems[item.id]}
                                     timeout="auto"
-                                    unmountOnExit
+                                    mountOnEnter
                                 >
                                     <List component="div" disablePadding>
                                         {item.subItems.map((subItem) => (

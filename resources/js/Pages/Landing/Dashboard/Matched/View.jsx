@@ -1,11 +1,12 @@
 import SideBar from "@/Components/Dependent/SideBar";
+import { Box, Typography } from "@mui/material";
 
 function matched () {
     return (
         <SideBar>
-        <div>
-            <p>Companies Matched Coming Soon</p>
-        </div>
+            <Box p={8}>
+                <Typography>Companies Matched Coming Soon..</Typography>
+            </Box>
         </SideBar>
     )
 }

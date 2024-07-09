@@ -92,34 +92,36 @@ function dashboard() {
 
     // const [isViewAll , setIsViewAll] = useState(false);
     const [viewSection , setViewSection] = useState('')
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleViewAll = (section)=>{
     setViewSection(section)
   }
 
   return (
-    <Box sx={{ display: 'flex', backgroundColor: '#FAFAFA' }}>
-      <CssBaseline />
-      <SideBar/>
-      {/* Content Box   */}
+    <SideBar>
+      <Box sx={{ display: 'flex', backgroundColor: '#FAFAFA' }}>
+        <CssBaseline />
+        {/* <SideBar/> */}
+        {/* Content Box   */}
 
-      <Main open={open} sx={{display : 'flex', flexDirection : 'column'}}>
-        <Box sx={{ display: 'flex' }}>
-          <CssBaseline/>
-            <Grid className='serach-every' container spacing={4} px={2}>
-             <Navbar/>
-            {viewSection !== "matching_status" && viewSection !== "companies" &&
-            <Cards/>
-               }
+        <Main open={open} sx={{display : 'flex', flexDirection : 'column'}}>
+            <Box sx={{ display: 'flex' }}>
+              <CssBaseline/>
+                <Grid className='serach-every' container spacing={4} px={2}>
+                <Navbar/>
+                {viewSection !== "matching_status" && viewSection !== "companies" &&
+                <Cards/>
+                  }
 
-            {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
+                {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
 
-            {viewSection !== "matching_status" && <Companies setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
-            </Grid>
-        </Box>
-      </Main>
-    </Box>
+                {viewSection !== "matching_status" && <Companies setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
+                </Grid>
+            </Box>
+        </Main>
+      </Box>
+    </SideBar>
   );
 }
 

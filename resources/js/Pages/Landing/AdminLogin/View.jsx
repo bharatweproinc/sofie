@@ -5,6 +5,7 @@ import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import Constants from '../Constants';
 import './style.scss';
+import  backgroundimage from '../../../../../public/images/image7.png'; 
 
 const loginSchema = Constants.loginSchema
 
@@ -14,7 +15,7 @@ const CenteredPaper = styled(Paper)({
 });
 
 const BackgroundImageContainer = styled('div')({
-  backgroundImage: 'url(./images/image7.png)',
+  backgroundImage: `url(${backgroundimage})`,
   backgroundSize: 'cover',
   // height: '896px',
   display: 'flex',
@@ -117,7 +118,6 @@ function Login() {
                       </Grid>
                       <Grid item xs={12} className='submit_btn'>
                           <Button variant="contained" fullWidth type="submit" disabled={processing}>Log In</Button>
-                          <Typography textAlign="center" mt={4}>Need an account? <Link href={route('landing.signup')}>Sign up here.</Link> </Typography>
                       </Grid>
                     </Grid>
                 </form>

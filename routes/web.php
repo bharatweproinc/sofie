@@ -51,8 +51,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 Route::name('landing.')->group(function() {
     Route::get('/', [LandingController::class, 'home'])->name('home');
     Route::get('/contact-us', [LandingController::class, 'contactUs'])->name('contactus');
-    Route::get('/login-page', [LandingController::class, 'login'])->name('login');
-    Route::get('/admin/login', [LandingController::class, 'login'])->name('admin.login');
+    Route::get('/login', [LandingController::class, 'login'])->name('login');
+    Route::get('/admin/login-page', [LandingController::class, 'login'])->name('admin.login');
     Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
     Route::get('/company-list', [LandingController::class, 'companyList'])->name('companyList');
     Route::get('/company-detail-review', [LandingController::class, 'companyReview'])->name('companyReview');
@@ -66,22 +66,19 @@ Route::name('landing.')->group(function() {
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
-    Route::get('/admin/login-page', [LandingController::class, 'adminLogin'])->name('adminLogin');
+    Route::get('/admin/login', [LandingController::class, 'adminLogin'])->name('adminLogin');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
-    Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
     Route::get('/list', [MentorController::class, 'view'])->name('list');
     Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
     Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
 });
 
 Route::prefix('company')->name('company.')->group(function(){
-    Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
     Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
     Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
-    Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
+    Route::get('/{id}/detail', [CompanyController::class, 'get'])->name('get');
 });
-
 
 require __DIR__.'/auth.php';
