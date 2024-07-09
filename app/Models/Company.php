@@ -28,4 +28,10 @@ class Company extends Model
         'current_problem',
         'additional_information'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'functional_id', 'id');
+    }
 }
+

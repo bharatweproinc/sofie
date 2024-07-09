@@ -20,10 +20,7 @@ class CompanyController extends Controller
 
     public function get($id) {
         $response = $this->companyRepository->getData($id);
-        return Inertia::render('Landing/Company/View',[
-            'data' => $response['data'],
-            ]
-        );
+        return Inertia::render('Landing/Company/Review',$response);
     }
 
     public function getList() {
@@ -36,10 +33,7 @@ class CompanyController extends Controller
 
     public function saveData(Request $request){
         $response = $this->companyRepository->saveData($request);
-        return Inertia::render('Landing/Login/View',[
-            'data' => $response['data'],
-            ]
-        );
+        return Inertia::render('Landing/Login/View',$response);
     }
 
 }

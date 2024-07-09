@@ -13,10 +13,10 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function getList(){
         //$list = Company::select('id','company_name','company_uen','created_at')->get();
-        $list = Company::select('id','company_name','company_uen', 'function_area_1',
+        $list = Company::with('user')->select('id','company_name','company_uen', 'function_area_1',
             'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size',
             'industry_sector', 'description', 'function_area_2', 'function_area_3', 'hear_about_us', 'current_problem', 'additional_information')->get();
-        return $list;
+            return ["list" => $list];
     }
 
     public function saveData(Request $request){
@@ -69,13 +69,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function getData($id) {
         try {
-            $data = Company::find($id);
-
-            return [
-                'success' => true,
-                'data' => $data,
-                'message' => "Get company details successfully",
-            ];
+            $data = Company::with('user')->find($id);
+            return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
