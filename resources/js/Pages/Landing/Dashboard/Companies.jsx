@@ -17,8 +17,7 @@ import { Link } from '@inertiajs/react';
 import NoDataFound from '@/Components/NoDataFound';
 
 
-const Companies = ({ handleViewAll, section, setViewSection, company = []}) => {
-    console.log("::company", company)
+const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +27,7 @@ const Companies = ({ handleViewAll, section, setViewSection, company = []}) => {
         setViewSection("");
     };
 
-    const sortedRows = [...company].sort((a, b) => {
+    const sortedRows = [...list].sort((a, b) => {
        if (sortConfig.key !== null) {
          const key = sortConfig.key;
          if (a[key] < b[key]) {
@@ -79,7 +78,7 @@ const Companies = ({ handleViewAll, section, setViewSection, company = []}) => {
                         </Button>
                     }
                 </Box>
-                { company.length > 0 ?
+                { list.length > 0 ?
                 <Box>
                     <TableContainer>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -137,8 +136,8 @@ const Companies = ({ handleViewAll, section, setViewSection, company = []}) => {
                                             </div>
                                         </Box>
                                     </TableCell>
-                                    <TableCell align="left">
-                                        <Box className="flex gap-3">
+                                    <TableCell align="center">
+                                        <Box className="flex gap-3 pl-10">
                                             <Typography fontSize='14px' color='#212121' fontWeight='600'>Actions</Typography>
                                         </Box>
                                     </TableCell>
@@ -150,9 +149,9 @@ const Companies = ({ handleViewAll, section, setViewSection, company = []}) => {
                                         <TableCell component="th" scope="row">
                                             {row.company_name}
                                         </TableCell>
-                                        <TableCell align="left">{row.uen_number}</TableCell>
-                                        <TableCell align="left">{row.name}</TableCell>
-                                        <TableCell align="left">{row.email}</TableCell>
+                                        <TableCell align="left">{row.company_uen}</TableCell>
+                                        <TableCell align="left">{row.user.name}</TableCell>
+                                        <TableCell align="left">{row.user.email}</TableCell>
                                         <TableCell align="left">
                                             <Box sx={{ gap: '10px' }} className="flex">
                                                 {Constants.icons.map((item, index) => (
@@ -171,7 +170,7 @@ const Companies = ({ handleViewAll, section, setViewSection, company = []}) => {
                         isView &&
                         <Box p={2} display="flex" justifyContent="center">
                             <Pagination
-                                count={Math.ceil(company.length / rowsPerPage)}
+                                count={Math.ceil(list.length / rowsPerPage)}
                                 page={currentPage}
                                 className='table_pagination'
                                 onChange={handlePageChange}

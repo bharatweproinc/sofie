@@ -280,13 +280,13 @@ function MentorList({list = []}) {
                                                                 <span key={index}>
                                                                     {item.id === 1 ? (
                                                                         <Link
-                                                                            href={route('mentor.saveDetail', {id : row.id})}
+                                                                            href={route('admin.mentor.saveDetail', {id : row.id})}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>
                                                                     ) : item.id === 2 ? (
                                                                         <Link
-                                                                            href={route('mentor.detail',{id:row.id})}
+                                                                            href={route('admin.mentor.detail',{id:row.id})}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>

@@ -71,15 +71,15 @@ const AppBar = styled(MuiAppBar, {
 
 
 const rows = [
-  createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm",),
-  createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm",),
-  createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm",),
-  createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm",),
-  createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
-  createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
-  createData('Company 8', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
-  createData('Company 9', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
-  createData('Company 10', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm",),
+  createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "mailto:nitakamil@email.comm",),
+  createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "mailto:angadam@email.comm",),
+  createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "mailto:nikenn@email.comm",),
+  createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "mailto:donnys@email.comm",),
+  createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "mailto:nitakamil@email.comm",),
+  createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "mailto:nitakamil@email.comm",),
+  createData('Company 8', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "mailto:nitakamil@email.comm",),
+  createData('Company 9', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "mailto:nitakamil@email.comm",),
+  createData('Company 10', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "mailto:nitakamil@email.comm",),
 
 ];
 
@@ -87,7 +87,10 @@ function createData(company_name, calories, fat, carbs, protein, uen_number, nam
   return { company_name, calories, fat, carbs, protein, uen_number, name, email };
 }
 
-function dashboard() {
+function dashboard({companies={}}) {
+  const { list } = companies;
+
+
   const theme = useTheme();
 
     // const [isViewAll , setIsViewAll] = useState(false);
@@ -102,9 +105,6 @@ function dashboard() {
     <SideBar>
       <Box sx={{ display: 'flex', backgroundColor: '#FAFAFA' }}>
         <CssBaseline />
-        {/* <SideBar/> */}
-        {/* Content Box   */}
-
         <Main open={open} sx={{display : 'flex', flexDirection : 'column'}}>
             <Box sx={{ display: 'flex' }}>
               <CssBaseline/>
@@ -116,7 +116,7 @@ function dashboard() {
 
                 {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
 
-                {viewSection !== "matching_status" && <Companies setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
+                {viewSection !== "matching_status" && <Companies list={list} setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
                 </Grid>
             </Box>
         </Main>

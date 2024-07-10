@@ -242,7 +242,7 @@ function CompanyList({list = []}) {
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        <Box className="flex gap-3">
+                                        <Box className="flex gap-3 pl-10">
                                             <Typography
                                                 fontSize="14px"
                                                 color="#212121"
@@ -281,13 +281,13 @@ function CompanyList({list = []}) {
                                                         <span key={index}>
                                                         {item.id === 1 ? (
                                                                         <Link
-                                                                            href={route('company.saveData', {id : row.id})}
+                                                                            href={route('admin.company.saveData', {id : row.id})}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>
                                                                     ) : item.id === 2 ? (
                                                                         <Link
-                                                                            href={route('company.detail', {id : row.id})}
+                                                                            href={route('admin.company.getList', {id : row.id})}
                                                                         >
                                                                     {item.icon}
                                                                 </Link>

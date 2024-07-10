@@ -5,7 +5,10 @@ import { Landing } from '@/Layouts/Landing';
 import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import Constants from '../Constants';
-import './style.scss'
+import './style.scss';
+import  { notify } from '@/Components/Notifier';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const signupSchema = Constants.signupSchema
 
@@ -81,13 +84,23 @@ function Signup() {
         } else {
           console.log('Data', data);
         }
-        post(route('register'));
+        post(route('register'),{
+            onSuccess:(success) => {
+               console.log(success, "sucesss");
+            },
+            onError:(error) => {
+              console.log(error.email,"::error");
+              notify.error(error.email, { position: 'top-right' });
+
+            },
+        })
       };
 
   return (
 
     <Landing>
     <Typography sx={{height:'65px'}}></Typography>
+    <ToastContainer style={{marginTop:"65px"}}/>
         <BackgroundImageContainer>
             <CenteredPaper elevation={4}
               sx={{

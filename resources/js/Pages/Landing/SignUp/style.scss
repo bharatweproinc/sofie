@@ -2,7 +2,7 @@
 	position: relative;
     padding-top: 65px;
   }
-  
+
   .inner_banner_section > img{
 	width: 100%;
   }
@@ -27,11 +27,11 @@
 		height: 170px;
 	  }
 	}
-  
+
 .signup_page{
 
   .signup_input_fields{
-  
+
       .MuiInputBase-input{
         padding: 12px !important;
       }
@@ -42,7 +42,7 @@
         margin-left: 0px !important;
       }
     }
-  
+
     .submit_btn{
         .MuiButtonBase-root{
             padding: 10px 32px;
@@ -53,4 +53,16 @@
             background-color: #117B9E;
         }
       }
-}  
+
+      .email_notification_popup{
+        .MuiDialog-container{
+          .MuiPaper-root {
+            border-radius: 15px;
+            height: 352px;
+            width: 600px;
+            box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+
+          }
+        }
+      }
+}

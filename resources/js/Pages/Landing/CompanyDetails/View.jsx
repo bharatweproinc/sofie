@@ -92,7 +92,7 @@ function CompanyDetail({detail}) {
           return;
         } else {
           console.log('Data', data);
-          post(route('company.saveData',data),{
+          post(route('admin.company.saveData',data),{
                 onSuccess:(success) => {
                    console.log(success, "sucesss")
                 },
@@ -219,6 +219,7 @@ function CompanyDetail({detail}) {
                                         fullWidth
                                         variant='outlined'
                                         placeholder='Please Fill Your Password'
+                                        type='password'
                                         onChange={(e)=> handleChange("password", e.target.value)}
                                         error={!!validationErrors.password}
                                         helperText={validationErrors.password}
@@ -233,6 +234,7 @@ function CompanyDetail({detail}) {
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
                                         variant='outlined'
+                                        type='password'
                                         placeholder='Please Fill Your Email'
                                         onChange={(e)=> handleChange("confirm_password", e.target.value)}
                                         error={!!validationErrors.confirm_password || passwordError}

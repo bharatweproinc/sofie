@@ -6,6 +6,9 @@ import { Landing } from '@/Layouts/Landing';
 import Constants from '../Constants';
 import './style.scss';
 import  backgroundimage from '../../../../../public/images/image7.png';
+import  { notify } from '@/Components/Notifier';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const loginSchema = Constants.loginSchema
 
@@ -63,19 +66,21 @@ function Login() {
       console.log('data', value)
     }
 
-    post(route('login'));
-    // post(route('landing.authenticate'), data)
-    //         .then(response => {
-    //             console.log(success, "sucesss")
-    //         })
-    //         .catch(error => {
-    //               console.log(error,"error")
-    //         });
+    post(route('login'),{
+        onSuccess:(success) => {
+           console.log(success, "sucesss");
+        },
+        onError:(error) => {
+          console.log(error.email,"::error");
+          notify.error(error.email, { position: 'top-right' });
+        },
+    })
   };
 
   return (
     <Landing>
         <Typography sx={{ height: '65px' }}></Typography>
+        <ToastContainer style={{marginTop:"65px"}}/>
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
          <div style={{ position: 'relative', width : '100%'}} className='admin_login_page'>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>

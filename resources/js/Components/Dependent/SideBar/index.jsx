@@ -54,7 +54,7 @@ const SideBar = ({children}) => {
         setOpen(false);
     };
 
-    
+
     const handleClick = (id) => {
         setOpenItems((prevOpenItems) => ({
             ...prevOpenItems,
@@ -123,7 +123,9 @@ const SideBar = ({children}) => {
                 <DrawerHeader
                     sx={{ display: "flex", justifyContent: "space-between", paddingLeft:"17px"}}
                 >
-                    <img src={Sofie} />
+                    <Link href="/">
+                   <img src={Sofie} />
+                   </Link>
                     {isMobile && (
                         <IconButton
                             sx={{

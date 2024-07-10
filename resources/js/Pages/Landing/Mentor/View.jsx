@@ -86,7 +86,7 @@ function Mentor() {
           setValidationErrors(validationErrors);
         } else
         {
-            post(route('mentor.saveDetail',data),{
+            post(route('admin.mentor.saveDetail',data),{
                 onSuccess:(success) => {
                    console.log(success, "sucesss");
                    notify.success('Success', { position: 'top-right' });
