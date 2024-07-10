@@ -1,0 +1,1 @@
+import{H as n,N as r,a as u,M as m,v as f}from"./styled-2C0y4Fjx.js";import{j as o}from"./app-BLj_NEnq.js";function p({styles:e,themeId:s,defaultTheme:a={}}){const t=n(a),l=typeof e=="function"?e(s&&t[s]||t):e;return o.jsx(r,{styles:l})}function c(e){return o.jsx(p,u({},e,{defaultTheme:m,themeId:f}))}export{c as G};
