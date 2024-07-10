@@ -15,13 +15,12 @@ class Role
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,$role): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
-
-        if($role == $request->user()->user_role){
+        if ($role == $request->user()->user_role) {
             return $next($request);
         }
 
-        // return Redirect::route('verification.send');
+        return new Response('Unauthorized.', 403);
     }
 }

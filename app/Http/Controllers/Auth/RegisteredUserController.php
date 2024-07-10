@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // dd($request->all());
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
@@ -58,9 +58,10 @@ class RegisteredUserController extends Controller
             'user_role' => $request->enterpreneur_or_mentor
 
         ]);
+
         event(new Registered($user));
-        // Mail::to("nitintest@yopmail.com")->send(new NotificationEmail());
-        // Auth::login($user);
-        // return Redirect::route('verification.send');
+        Mail::to("nitintest@yopmail.com")->send(new NotificationEmail());
+        //Auth::login($user);
+        return Redirect::route('verification.send');
     }
 }

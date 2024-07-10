@@ -32,7 +32,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        // dd($request->all());
         $request->authenticate();
         $request->session()->regenerate();
         $user = Auth::user();
@@ -49,7 +48,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        // return Redirect::route('admin.login');
-        // return redirect('/admin/login');
+        return Redirect::route('landing.login');
     }
 }

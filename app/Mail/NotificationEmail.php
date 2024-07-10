@@ -16,20 +16,20 @@ class NotificationEmail extends Mailable
     use Queueable, SerializesModels;
 
     public $template;
-
+    public $link;
 
     /**
      * Create a new message instance.
      */
     public function __construct()
     {
-        $this->template = EmailController::where('name',"notification")->first();
-
+        $this->template = EmailController::where('name','notification')->first();
+        $this->link = 'www.lucky.com';
     }
-         public function build()
+
+    public function build()
     {
-        // return  $this->from('support@sofie.com', 'Sofie')->view('email.blade')->subject("Email");
-        return  $this->from('support@weareappointments.com', 'WeAreAppointments')->view('emails.notification')->subject("Notification");
-
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.notification')->subject("Notification");
     }
+
 }

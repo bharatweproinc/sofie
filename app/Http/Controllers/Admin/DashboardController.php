@@ -28,7 +28,6 @@ class DashboardController extends Controller
     }
     public function getList() {
         $companyResponse = $this->companyRepository->getList();
-        dd("tets");
         return Inertia::render('Landing/Dashboard/Companies',[
             "company" => $companyResponse,
 

@@ -25,7 +25,6 @@ class CompanyController extends Controller
 
     public function getList() {
         $response = $this->companyRepository->getList();
-        dd("Test1");
         return Inertia::render('Landing/CompanyDetails/List',$response);
     }
 
