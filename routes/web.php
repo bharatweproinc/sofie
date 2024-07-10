@@ -94,7 +94,7 @@ Route::prefix('company')->name('company.')->group(function(){
 // Email Verify
 Route::prefix('verify')->group(function(){
     Route::get('/entrepreneur/{id}', [RegisteredUserController::class, 'companylogin'])->name('companylogin');
-    Route::get('/mentor/{id}', [RegisteredUserController::class, 'mentorlogin'])->name('companylogin');
+    Route::get('/mentor/{id}', [RegisteredUserController::class, 'mentorlogin'])->name('mentorlogin');
 });
 
 
