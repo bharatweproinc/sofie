@@ -21,10 +21,10 @@ class NotificationEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($link)
     {
         $this->template = EmailController::where('name','notification')->first();
-        $this->link = 'www.lucky.com';
+        $this->link = $link;
     }
 
     public function build()

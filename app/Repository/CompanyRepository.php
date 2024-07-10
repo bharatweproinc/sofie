@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\{
     Company,
+    User,
 };
 class CompanyRepository implements CompanyRepositoryInterface {
 
@@ -17,11 +18,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
             'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size',
             'industry_sector', 'description', 'function_area_2', 'function_area_3', 'hear_about_us', 'current_problem', 'additional_information')->get();
             return ["list" => $list];
-        dd($list);
     }
 
-    public function saveData(Request $request){
+    public function saveData(Request $request, $id){
         try {
+            $user = User::findOrfail($id);
             $data["company_name"] = $request['company_name'];
             $data['email'] = $request['email'];
             $data["company_uen"] = $request['company_uen'];
@@ -48,14 +49,6 @@ class CompanyRepository implements CompanyRepositoryInterface {
             } else {
                 $job = Company::create($data);
             }
-            $user = new User;
-            $user->name = $request->name;
-            $user->phone = $request->phone;
-            $user->email = $request->email;
-            $user->user_name = $request->username;
-            $user->password = Hash::make($request->password);
-            $user->functional_id = $mentor->id;
-            $user->save();
             return [
                 'success' => true,
                 'data' => $job,

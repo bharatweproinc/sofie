@@ -4,6 +4,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\MentorController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -64,9 +65,10 @@ Route::name('landing.')->group(function() {
     Route::get('/contact-us', [LandingController::class, 'contactUs'])->name('contactus');
     // Route::get('/login', [LandingController::class, 'login'])->name('login');
     // Route::get('/admin/login-page', [LandingController::class, 'login'])->name('admin.login');
-    Route::get('/company-detail', [LandingController::class, 'companyDetails'])->name('companydetail');
+    Route::get('/company-detail/{id}', [LandingController::class, 'companyDetails'])->name('companydetail');
+    Route::get('/mentor-detail/{id}', [LandingController::class, 'mentorDetails'])->name('mentordetails');
     Route::get('/company-list', [LandingController::class, 'companyList'])->name('companyList');
-    Route::get('/company-detail-review', [LandingController::class, 'companyReview'])->name('companyReview');
+    Route::get('/company-detail-review',[LandingController::class, 'companyReview'])->name('companyReview');
     Route::get('/mentor-list', [LandingController::class, 'mentorList'])->name('mentorList');
     Route::get('/mentor-detail-review', [LandingController::class, 'mentorReview'])->name('mentorReview');
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
@@ -86,6 +88,14 @@ Route::prefix('mentor')->name('mentor.')->group(function() {
 
 Route::prefix('company')->name('company.')->group(function(){
     Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
+    Route::post('/saveData/{id}', [CompanyController::class, 'saveData'])->name('saveData');
 });
+
+// Email Verify
+Route::prefix('verify')->group(function(){
+    Route::get('/entrepreneur/{id}', [RegisteredUserController::class, 'companylogin'])->name('companylogin');
+    Route::get('/mentor/{id}', [RegisteredUserController::class, 'mentorlogin'])->name('companylogin');
+});
+
 
 require __DIR__.'/auth.php';

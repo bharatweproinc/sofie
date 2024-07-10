@@ -12,16 +12,21 @@ import ProfilePhotoUpload from '@/Components/FileUpload';
 import profileImage from '../../../Assets/Images/profileImage.png'
 import { scrollToInput } from '@/utility/ScrollToInput';
 import { useRef } from 'react';
+import { useEffect } from 'react';
 
 
 
 const companySchema = Constants.companySchema;
-function CompanyDetail() {
+function CompanyDetail({detail}) {
     const inputRefs = useRef(Constants.companyInputRefs());
 
     const { data, setData, post, processing} = useForm(Constants.initCompanyDetailForm);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
+
+    useEffect(()=>{
+        setData(detail);
+    },[])
 
     const handleChange = (key, value) => {
         const updatedData = {
@@ -187,6 +192,7 @@ function CompanyDetail() {
                                         error={!!validationErrors.email}
                                         helperText={validationErrors.email}
                                         inputRef={inputRefs.current.email}
+                                        value={data.email || ''}
 
                                     />
                             </Grid>
@@ -202,7 +208,7 @@ function CompanyDetail() {
                                         error={!!validationErrors.user_name}
                                         helperText={validationErrors.user_name}
                                         inputRef={inputRefs.current.user_name}
-
+                                        value={data.name || ''}
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repository\{MentorRepository, CompanyRepository};
 use Inertia\Inertia;
@@ -43,8 +44,11 @@ class LandingController extends Controller
         ]);
     }
 
-    public function companyDetails() {
-        return Inertia::render('Landing/CompanyDetails/View',[]);
+    public function companyDetails($id) {
+        $user = User::findOrFail($id);
+        return Inertia::render('Landing/CompanyDetails/View',[
+            'detail' => $user
+        ]);
     }
     public function companyList() {
         return Inertia::render('Landing/CompanyDetails/List',[]);
@@ -52,14 +56,13 @@ class LandingController extends Controller
     public function companyReview() {
         return Inertia::render('Landing/CompanyDetails/Review',[]);
     }
-    // public function mentor() {
-    //     $response = $this->mentorRepository->getList();
-    //     // dd($response);
-    //     return Inertia::render('Landing/Mentor/List',$response);
-    //     // return Inertia::render('Landing/Mentor/View',[
 
-    //     // ]);
-    // }
+    public function mentorDetails($id) {
+        $user = User::findOrFail($id);
+        return Inertia::render('Landing/Mentor/View',[
+            'detail' => $user
+        ]);
+    }
     public function mentorList() {
         return Inertia::render('Landing/Mentor/List',[]);
     }
@@ -95,6 +98,9 @@ class LandingController extends Controller
         return Inertia::render('Landing/Dashboard/Settings/AccountSettings/View',[]);
     }
     public function adminLogin(){
+        if (Auth::user() && Auth::user()->user_role == "admin") {
+            return Redirect::route('admin.dashboard');
+        }
         return Inertia::render('Landing/AdminLogin/View', []);
     }
 
