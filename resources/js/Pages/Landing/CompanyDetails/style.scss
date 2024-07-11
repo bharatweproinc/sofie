@@ -27,7 +27,7 @@
     }
     .company_input_field{
         .MuiInputBase-input{
-            padding: 12px !important;
+            padding: 16.5px 14px !important;
         }
         .MuiInputBase-input:focus{
             box-shadow: none !important;
@@ -38,25 +38,13 @@
             box-shadow: none !important;
           }
     }
-    .company_select_box{
-        .MuiFormControl-root {
-            .MuiInputBase-root {
-                margin-bottom: 0px !important;
-            }
+    .date_picker{
+        .MuiOutlinedInput-input{
+            padding: 16.5px 14px;
         }
-
-
-        .MuiInputBase-input{
-            padding: 10px !important;
+        .MuiInputBase-inputAdornedEnd:focus {
+            box-shadow: none !important;
         }
-        .MuiInputBase-inputAdornedEnd {
-            padding: 12px 10px !important;
-        }
-        }
-        .date_picker{
-            .MuiInputBase-inputAdornedEnd:focus {
-                box-shadow: none !important;
-            }
     }
     .MuiFormHelperText-root{
         margin-left: 0px !important;
@@ -95,4 +83,3 @@
         }
     }
 }
-

@@ -2,7 +2,7 @@
 .profile_page{
     .profile_input_fields{
         .MuiInputBase-input{
-            padding: 12px !important;
+            padding: 16.5px 14px !important;
         }
         .MuiInputBase-input:focus{
             box-shadow: none !important;
@@ -12,11 +12,6 @@
         textarea:focus{
             box-shadow: none !important;
           }
-    }
-    .profile_select_box{
-        .MuiInputBase-input{
-            padding: 12px !important;
-        }
     }
     .MuiFormHelperText-root{
          margin-left: 0px !important;

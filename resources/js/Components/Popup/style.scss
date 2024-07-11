@@ -1,0 +1,34 @@
+
+.common_popup{
+    .MuiDialog-container {
+        .MuiPaper-root{
+            width: 400px !important;
+        }
+    }
+}
+    .bg1{
+        background-color:#117B9E !important;
+        margin: 0px !important;
+    }
+    .bg2{
+        background-color:#a51515 !important ;
+        margin-right: 6px !important;
+    }
+    .popup_btn{
+        text-transform: capitalize !important;
+        color: #fff !important;
+        font-size: 12px !important;
+        // margin: 0px 15px 0 27px !important;
+        padding: 3px 11px !important;
+    }
+    .add_more_input{
+        .Mui-focused{
+            input{
+                border: none !important;
+                box-shadow: none !important;
+                outline: none !important;
+                border-color: unset !important;
+            }
+
+        }
+    }

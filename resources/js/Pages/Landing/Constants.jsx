@@ -3,6 +3,8 @@ import { useRef } from "react";
 import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
 import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
 import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
+import CropSquareIcon from '@mui/icons-material/CropSquare';
+import { Typography } from "@mui/material";
 
 const initSignUpForm = {
     'full_name' : '',
@@ -35,17 +37,17 @@ const initCompanyDetailForm = {
     'password' : '',
     'confirm_password' : '',
     'phone' : 0,
-    'position' : '',
+    'position' : [],
     'founded_year' : {},
-    'team_size' : '',
-    'current_revenue' : 0,
-    'current_customers_base_size': 0,
-    'industry_sector': '',
+    'team_size' : [],
+    'current_revenue' : [],
+    'current_customers_base_size': [],
+    'industry_sector': [],
     'description': '',
-    'function_area_1' : '',
-    'function_area_2' : '',
-    'function_area_3' : '',
-    'hear_about_us' : '',
+    'functional_area_1' : [],
+    'functional_area_2' : [],
+    'functional_area_3' : [],
+    'hear_about_us' : [],
     'current_problem' : '',
     'additional_information' : '',
     'profile_photo' : ''
@@ -67,9 +69,9 @@ const initCompanyDetailForm = {
     current_customers_base_size: useRef(null),
     industry_sector: useRef(null),
     description: useRef(null),
-    function_area_1: useRef(null),
-    function_area_2: useRef(null),
-    function_area_3: useRef(null),
+    functional_area_1: useRef(null),
+    functional_area_2: useRef(null),
+    functional_area_3: useRef(null),
     hear_about_us: useRef(null),
     current_problem: useRef(null),
 });
@@ -94,11 +96,11 @@ const initMentorForm = {
     'username' : '',
     'password' : '',
     'confirm_password' : '',
-    'mentored_company' : 'no',
+    'mentored_company' : [],
     'qualifications' : '',
-    'industry_sector' : '',
-    'functional_area' : '',
-    'hear_about_us' : '',
+    'industry_sector' : [],
+    'functional_area' : [],
+    'hear_about_us' : [],
     'number_of_companies' : '',
     'additional_information' : '',
     'profile_photo':''
@@ -125,11 +127,11 @@ const mentorSchema = Joi.object({
     username : Joi.string().label("User Name").required(),
     password : Joi.string().min(6).label("Password").required(),
     confirm_password : Joi.string().min(6).label("Confirm Password").required(),
-    mentored_company : Joi.required(),
+    mentored_company : Joi.array().items(Joi.string()).min(1).label("Mentored Company").required(),
     qualifications : Joi.string().label("Qulaifications").required(),
-    industry_sector : Joi.string().label("Industry Sector").required(),
-    functional_area : Joi.string().label("Functional").required(),
-    hear_about_us : Joi.string().label("Hear About Us").required(),
+    industry_sector : Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
+    functional_area : Joi.array().items(Joi.string()).min(1).label("Functional").required(),
+    hear_about_us : Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     number_of_companies : Joi.string().label("Number of Companies").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional()
@@ -144,17 +146,17 @@ const mentorSchema = Joi.object({
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
     company_uen : Joi.string().label("Company UEN").required(),
     phone : Joi.optional(),
-    position : Joi.string().label('Position in Company').required(),
+    position: Joi.array().items(Joi.string()).min(1).label('Position in Company').required(),
     founded_year : Joi.number().label("Year Founded").required(),
-    team_size : Joi.string().label("Time size, Number Of Employees").required(),
-    current_revenue :Joi.string().label("Current Revenue").required(),
-    current_customers_base_size : Joi.string().label("Current Customers Base Size").required(),
-    industry_sector:  Joi.string().label("Industry Sector").required(),
+    team_size : Joi.array().items(Joi.string()).min(1).label("Time size, Number Of Employees").required(),
+    current_revenue: Joi.array().items(Joi.string()).min(1).label("Current Revenue").required(),
+    current_customers_base_size : Joi.array().items(Joi.string()).min(1).label('Current Customer Base Size').required(),
+    industry_sector:  Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
     description:  Joi.string().label("Description").required(),
-    function_area_1:  Joi.string().label("Function Area 1").required(),
-    function_area_2:  Joi.string().label("Function Area 2").required(),
-    function_area_3:  Joi.string().label("Function Area 3").required(),
-    hear_about_us:  Joi.string().label("Hear About Us").required(),
+    functional_area_1:  Joi.array().items(Joi.string()).min(1).label("Functional Area 1").required(),
+    functional_area_2:  Joi.array().items(Joi.string()).min(1).label("Functional Area 2").required(),
+    functional_area_3: Joi.array().items(Joi.string()).min(1).label("Functional Area 3").required(),
+    hear_about_us:  Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     current_problem:  Joi.string().label("Current Problem ").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional()
@@ -172,7 +174,7 @@ const contactSchema = Joi.object({
 const dummy_company_data = {
     'company_name' : 'Testing Company Name',
     'contact_name':' Test Contact 666',
-    'email':'user78655@gmail.com',
+    'mailto:email':'user78655@gmail.com',
     'company_uen' : 'Test Company',
     'user_name':'Test User',
     'mobile_number' : 9787657654,
@@ -183,9 +185,9 @@ const dummy_company_data = {
     'current_customers_base_size': 54,
     'industry_sector': "54 sector",
     'description': '',
-    'function_area_1' : 'Function Area Test 1',
-    'function_area_2' : ' Function Area Test 2',
-    'function_area_3' : 'Function Area Test 3',
+    'functional_area_1' : 'Functional Area Test 1',
+    'functional_area_2' : ' Functional Area Test 2',
+    'functional_area_3' : 'Functional Area Test 3',
     'hear_about_us' : 'Ipsum is simply dummy text',
     'current_problem' : 'No Issues',
     'additional_information' : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into e'
@@ -196,10 +198,79 @@ const icons = [
     { id: 3, icon: <DeleteIcon /> },
   ];
 
+const positionInCompanyOptions = [
+    "Owner/Co-owner",
+    "Chief Executive Officer(CEO)",
+    "Chief Financial Officer(COO)",
+    "Chief Marketing Officer(COO)",
+    "Chief Technology Officer(COO)",
+    "Other"
+]
+
+const currentRevenueSizeOptions = [
+    '$0 - $50,000',
+    '$50,001 - $100,000',
+    '$100,001 - $500,000',
+    '$500,001 - $1,000,000',
+    '$1,000,001 - $5,000,000',
+    '$5,000,001 - $10,000,000',
+    '$10,000,001 - $50,000,000',
+    '$50,000,001 - $100,000,000'
+]
+
+const currentCustomersBaseSize = [
+    '0 - 100',
+    '101 - 500',
+    '501 - 1,000',
+    '1,001 - 5,000',
+    '5,001 - 10,000',
+    '10,000+'
+]
+
+const teamSizeOptions = [
+    '1 - 25',
+    '26 - 50',
+    '51 - 100',
+    '101 - 200'
+]
+
+const industrySectorOptions = [
+    {name : 'Manufacturing', value : 'Manufacturing', description : 'Manufacturing (includes Energy and Chemicals, Precision Engineering, Marine and Offshore, AeroSpace, Electronics)'},
+    {name : 'Build Environment', value : 'Build Environment', description : 'Build Environment (includes Construction, Architecture, Engineering, Real Estate, Cleaning, Security)'},
+    {name : 'Trade and Connectivity', value : 'Trade and Connectivity', description : 'Trade and Connectivity (includes Logistics, Air Transport, Sea Transport, Land Transport, Public Transport, Wholesale Trade)'},
+    {name : 'Essential Domestic Services', value : 'Essential Domestic Services', description : 'Essential Domestic Services (includes Healthcare, Early Childhood Education, Private Education)'},
+    {name : 'Professional Services', value : 'Professional Services', description : 'Professional Services (includes Professional Services, ICT and Media, Financial Services)'},
+    {name : 'Lifestyle', value : 'Lifestyle', description : 'Lifestyle (includes Food Services, F & B, Retail, Hotels, Food Manufacturing)'}
+]
+
+const functionalAreaOptions = [
+    'Accounting', "Customer Service", 'Finance',  'Human Resources', "IT (Information Technology)", 'Marketing', "Sales",  'Operations', "Production",  "Research & Development", "Strategy/Business Development"
+]
+
+const hearAboutUsOptions = [
+    "Family or Friend", "Colleague or Professional contact", "Internet Search", "Social Media", "Print Media", "Other"
+]
+
+const mentoredCompanyOptions = [
+    "Yes",
+    "No"
+]
+
+function addButton () {
+    return(
+    <>
+        <CropSquareIcon sx={{color : '#6b7280', fontSize : '28px', ml : '14px'}} />
+        <Typography sx={{color : 'black', textTransform : 'capitalize', pl : '6px', fontWeight : '600'}}>Add Option</Typography>
+    </>
+    )
+}
+
 const Constants = {
     initLoginForm, initContactForm, initCompanyDetailForm, initMentorForm, initSignUpForm,
     signupSchema, loginSchema, mentorSchema, companySchema, contactSchema, dummy_company_data,
-    companyInputRefs,mentorInputRefs,icons
+    companyInputRefs, mentorInputRefs, icons, positionInCompanyOptions, currentRevenueSizeOptions,
+    currentCustomersBaseSize, teamSizeOptions, industrySectorOptions, functionalAreaOptions,
+    hearAboutUsOptions, mentoredCompanyOptions, addButton
 }
 
 export default Constants;
