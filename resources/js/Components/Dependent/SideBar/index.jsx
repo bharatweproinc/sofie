@@ -133,6 +133,7 @@ const SideBar = ({children}) => {
 
 
                 <List>
+                {/* show menu items according to user_role */}
                 {/* <AdminMenuItem Constants={Constants} openItems={openItems} setOpenItems={setOpenItems}/> */}
                 <MentorMenuItem Constants={Constants} openItems={openItems}/>
                 </List>

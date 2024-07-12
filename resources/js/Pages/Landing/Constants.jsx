@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from "@/utility/JoiValidator";
 import { useRef } from "react";
 import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
 import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
@@ -34,8 +34,6 @@ const initCompanyDetailForm = {
     'email':'',
     'company_uen' : '',
     'user_name':'',
-    'password' : '',
-    'confirm_password' : '',
     'phone' : 0,
     'position' : [],
     'founded_year' : {},
@@ -59,8 +57,6 @@ const initCompanyDetailForm = {
     email: useRef(null),
     user_name: useRef(null),
     company_uen: useRef(null),
-    password: useRef(null),
-    confirm_password: useRef(null),
     phone: useRef(null),
     position: useRef(null),
     founded_year: useRef(null),
@@ -79,9 +75,6 @@ const initCompanyDetailForm = {
 const mentorInputRefs = () => ({
     name : useRef(null),
     email : useRef(null),
-    username : useRef(null),
-    password : useRef(null),
-    confirm_password : useRef(null),
     qualifications : useRef(null),
     industry_sector : useRef(null),
     functional_area : useRef(null),
@@ -93,9 +86,6 @@ const initMentorForm = {
     'name' : '',
     'phone' : 0,
     'email' : '',
-    'username' : '',
-    'password' : '',
-    'confirm_password' : '',
     'mentored_company' : [],
     'qualifications' : '',
     'industry_sector' : [],
@@ -110,39 +100,34 @@ const signupSchema = Joi.object({
     full_name: Joi.string().label("Full Name").required(),
     phone: Joi.number().min(10).label("Phone Number").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
-    password: Joi.string().min(6).label("Password").required(),
-    confirm_password: Joi.string().min(6).label("Confirm Password").required(),
+    password: Joi.string().min(8).label("Password").required(),
+    confirm_password: Joi.string().min(8).label("Confirm Password").required(),
     enterpreneur_or_mentor : Joi.required()
 })
 
 const loginSchema = Joi.object({
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
-    password: Joi.string().min(6).label("Password").required(),
+    password: Joi.string().min(8).label("Password").required(),
 });
 
 const mentorSchema = Joi.object({
     name : Joi.string().label("Contact Name").required(),
     phone : Joi.optional(),
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
-    username : Joi.string().label("User Name").required(),
-    password : Joi.string().min(6).label("Password").required(),
-    confirm_password : Joi.string().min(6).label("Confirm Password").required(),
-    mentored_company : Joi.array().items(Joi.string()).min(1).label("Mentored Company").required(),
+    mentored_company : Joi.optional(),
     qualifications : Joi.string().label("Qulaifications").required(),
     industry_sector : Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
     functional_area : Joi.array().items(Joi.string()).min(1).label("Functional").required(),
     hear_about_us : Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     number_of_companies : Joi.string().label("Number of Companies").required(),
     additional_information : Joi.optional(),
-    profile_photo:Joi.optional()
+    profile_photo:Joi.optional(),
  });
 
  const companySchema = Joi.object({
     company_name : Joi.string().label("Company Name").required(),
     contact_name : Joi.string().label("Contact Name").required(),
     user_name : Joi.string().label("User Name").required(),
-    password: Joi.string().min(6).label("Password").required(),
-    confirm_password: Joi.string().min(6).label("Confirm Password").required(),
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
     company_uen : Joi.string().label("Company UEN").required(),
     phone : Joi.optional(),
@@ -160,7 +145,6 @@ const mentorSchema = Joi.object({
     current_problem:  Joi.string().label("Current Problem ").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional()
-
   });
 
 const contactSchema = Joi.object({
@@ -203,8 +187,7 @@ const positionInCompanyOptions = [
     "Chief Executive Officer(CEO)",
     "Chief Financial Officer(COO)",
     "Chief Marketing Officer(COO)",
-    "Chief Technology Officer(COO)",
-    "Other"
+    "Chief Technology Officer(COO)"
 ]
 
 const currentRevenueSizeOptions = [
@@ -248,7 +231,7 @@ const functionalAreaOptions = [
 ]
 
 const hearAboutUsOptions = [
-    "Family or Friend", "Colleague or Professional contact", "Internet Search", "Social Media", "Print Media", "Other"
+    "Family or Friend", "Colleague or Professional contact", "Internet Search", "Social Media", "Print Media"
 ]
 
 const mentoredCompanyOptions = [

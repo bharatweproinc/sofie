@@ -15,8 +15,9 @@ import { useRef } from 'react';
 import Popup from '@/Components/Popup/index';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Joi from '@/utility/JoiValidator';
 
-const companySchema = Constants.companySchema;
+
 const addButton = Constants.addButton;
 const multiSelectData = {
     current_revnue:Constants.currentRevenueSizeOptions ,
@@ -42,14 +43,7 @@ function CompanyDetail({detail}) {
         title:"",
         desc:""
     });
-    const [user, setUser] = useState(null);
-    console.log(data,"::data")
 
-
-
-    useEffect(() => {
-        setUser(detail)
-    }, [detail])
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -59,15 +53,12 @@ function CompanyDetail({detail}) {
         }))
     };
 
-    const handleChange = (key, value,type) => {
-        if(type && type == "select"){
-            if(value.includes(undefined)){
-                return;
-            }
-        }
+
+
+    const handleChange = (key, value) => {
         const updatedData = {
-            ...data,
-            [key]: value,
+        ...data,
+        [key]: value,
         };
         if (key === 'confirm_password' || key === 'password') {
             if (data.password !== value && data.confirm_password !== value) {
@@ -76,75 +67,67 @@ function CompanyDetail({detail}) {
               setpasswordError(false);
             }
         }
-        const fieldSchema = companySchema.extract(key);
-        const { error } = fieldSchema.validate(value);
 
-        if (error) {
-            setValidationErrors({
-                ...validationErrors,
-                [key]: error.message,
-            });
-        } else {
-            const { [key]: removedError, ...rest } = validationErrors;
-            setValidationErrors(rest);
-        }
-        setData(updatedData);
+        setValidationErrors({
+            ...validationErrors,
+            [key]: Joi.validateToPlainErrors(value,Constants.companySchema[key])
+        });
+
+        setData((prev)=>({
+        ...prev,
+        [key]:value
+        }));
     };
+
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const validationErrors = {};
-        Object.keys(data).forEach(key => {
-          const fieldSchema = companySchema.extract(key);
-          const { error } = fieldSchema.validate(data[key]);
-          if (error) {
-            validationErrors[key] = error.message;
-          }
-        });
+
+        let err = Joi.validateToPlainErrors(data, Constants.companySchema)
+        setValidationErrors(err);
+
         if (data.confirm_password !== data.password) {
           validationErrors.confirm_password = 'Passwords does not match';
+
         }
-        if (Object.keys(validationErrors).length > 0) {
+        const isError = Object.keys(err)?.map((val,i)=>{
+            if(err[val]== null){
+                 return 0
+               }
+              else{
+               return i
+              }
+             })
+
+        if (isError?.length > 0) {
             for (const field in inputRefs.current) {
-                if (inputRefs.current[field] && inputRefs.current[field].current && validationErrors[field]) {
+                if (inputRefs.current[field] && inputRefs.current[field].current && err[field]) {
                     scrollToInput(inputRefs.current[field]);
                     break;
                 }
             }
-          setValidationErrors(validationErrors);
-        } else
-        {
-            console.log("data", data);
-            post(route('company.saveData',user.id),{
-                onSuccess:(success) => {
-                   console.log(success, "sucesss");
-                   notify.success('Success', { position: 'top-right' });
+          setValidationErrors(err);
+          return;
+        } else {
+            console.log("testt");
 
-                },
-                onError:(error) => {
-                  console.log(error,"error");
-                  notify.error('Failure', { position: 'top-right' });
+        console.log('Data::', data);
 
-                },
-            })
-
-            // get(route('mentor.getList',data),{
-            //     onSuccess:(success) => {
-            //        console.log(success, "sucesss");
-            //        notify.success('Success', { position: 'top-right' });
-
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error");
-            //       notify.error('Failure', { position: 'top-right' });
-            //     },
-            // })
+        post(route('company.saveData',data?.id),{
+            onSuccess:(success) => {
+                console.log(success, "sucesss")
+            },
+            onError:(error) => {
+                console.log(error,"error")
+            },
+        })}
         }
-    }
 
 
     return (
-        <Landing auth={user}>
+        <Landing auth={data?.id}>
             <Popup
                 title={selectPopup.title}
                 dsec={selectPopup.desc}
@@ -492,6 +475,7 @@ function CompanyDetail({detail}) {
                                         fullWidth
                                         multiline
                                         rows={4}
+                                        // value={data?.description}
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
                                         onChange={(e) => handleChange('description', e.target.value)}

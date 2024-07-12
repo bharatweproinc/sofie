@@ -4,7 +4,7 @@ import Grid from '@mui/system/Unstable_Grid';
 import styled from '@mui/system/styled';
 import { useForm } from '@inertiajs/react'
 import { Landing } from '@/Layouts/Landing';
-import { FormControl, MenuItem,Button, Select, TextField, Typography, FormHelperText, OutlinedInput, Checkbox, ListItemText, InputLabel,  } from '@mui/material';
+import { FormControl, MenuItem,Button, Select, TextField, Typography, FormHelperText, OutlinedInput, Checkbox, ListItemText, InputLabel, FormControlLabel, RadioGroup, FormGroup, Radio,  } from '@mui/material';
 import "./style.scss"
 import Constants from '../Constants';
 import { useState } from 'react';
@@ -12,10 +12,17 @@ import profileImage from '../../../Assets/Images/profileImage.png'
 import ProfilePhotoUpload from '@/Components/FileUpload';
 import { useRef } from 'react';
 import { scrollToInput } from '@/utility/ScrollToInput';
-import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react';
+import Popup from '@/Components/Popup/index';
+import Joi from '@/utility/JoiValidator';
+
+const multiSelectData = {
+    mentored_in_company : Constants.mentoredCompanyOptions,
+    hear_about_us: Constants.hearAboutUsOptions,
+    functional_area:Constants.functionalAreaOptions,
+    industry_sector:Constants.industrySectorOptions,
+}
 
 const HeadingBox = styled('div')(() => ({
   border: '1px solid black',
@@ -31,26 +38,32 @@ const DetailBox = styled('div')(() => ({
 
 
 function Mentor({detail}) {
-    const { data, setData, post, processing} = useForm(Constants.initMentorForm);
+    const { data, setData, post, processing} = useForm({...Constants.initMentorForm,...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
-    const [passwordError, setpasswordError] = useState(false);
     const inputRefs = useRef(Constants.mentorInputRefs());
     const mentorSchema = Constants.mentorSchema;
+    const [open, setOpen] = React.useState(false);
+    const [addMoreId, setAddMoreId] = useState("");
+    const [selectData, setSelectData] = useState(multiSelectData);
     const addButton = Constants.addButton;
-    const [user, setUser] = useState(null);
+    const [selectPopup, setSelectPopup] = useState({
+        title:"",
+        desc:""
+    });
+    const handleClickOpen = (id,title) => {
+        setOpen(true);
+        setAddMoreId(id);
+        setSelectPopup(()=>({
+            title:title
+        }))
+    };
 
-    useEffect(() => {
-        setUser(detail)
-    }, [detail])
-
+    console.log(data,"::data");
 
     const handleChange = (key, value) => {
-        if(value.includes(undefined)){
-            return;
-        }
         const updatedData = {
-            ...data,
-            [key]: value,
+        ...data,
+        [key]: value,
         };
         if (key === 'confirm_password' || key === 'password') {
             if (data.password !== value && data.confirm_password !== value) {
@@ -59,74 +72,70 @@ function Mentor({detail}) {
               setpasswordError(false);
             }
         }
-        const fieldSchema = mentorSchema.extract(key);
-        const { error } = fieldSchema.validate(value);
 
-        if (error) {
-            setValidationErrors({
-                ...validationErrors,
-                [key]: error.message,
-            });
-        } else {
-            const { [key]: removedError, ...rest } = validationErrors;
-            setValidationErrors(rest);
-        }
-        setData(updatedData);
+        setValidationErrors({
+            ...validationErrors,
+            [key]: Joi.validateToPlainErrors(value,Constants.mentorSchema[key])
+        });
+
+        setData((prev)=>({
+        ...prev,
+        [key]:value
+        }));
     };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const validationErrors = {};
-        Object.keys(data).forEach(key => {
-          const fieldSchema = mentorSchema.extract(key);
-          const { error } = fieldSchema.validate(data[key]);
-          if (error) {
-            validationErrors[key] = error.message;
-          }
-        });
+        let err = Joi.validateToPlainErrors(data, Constants.mentorSchema)
+        setValidationErrors(err);
+
         if (data.confirm_password !== data.password) {
           validationErrors.confirm_password = 'Passwords does not match';
+
         }
-        if (Object.keys(validationErrors).length > 0) {
+        console.log(err,"::err")
+        const isError = Object.keys(err)?.map((val,i)=>{
+            if(err[val]== null){
+                 return false
+               }
+              else{
+               return i
+              }
+             })
+
+        if (isError?.length > 0) {
             for (const field in inputRefs.current) {
-                if (inputRefs.current[field] && inputRefs.current[field].current && validationErrors[field]) {
+                if (inputRefs.current[field] && inputRefs.current[field].current && err[field]) {
                     scrollToInput(inputRefs.current[field]);
                     break;
                 }
             }
-          setValidationErrors(validationErrors);
-        } else
-        {
-            console.log("data", data);
-            post(route('mentor.saveDetail',user.id),{
-                onSuccess:(success) => {
-                   console.log(success, "sucesss");
-                   notify.success('Success', { position: 'top-right' });
-
-                },
-                onError:(error) => {
-                  console.log(error,"error");
-                  notify.error('Failure', { position: 'top-right' });
-
-                },
-            })
-
-            // get(route('mentor.getList',data),{
-            //     onSuccess:(success) => {
-            //        console.log(success, "sucesss");
-            //        notify.success('Success', { position: 'top-right' });
-
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error");
-            //       notify.error('Failure', { position: 'top-right' });
-            //     },
-            // })
+          setValidationErrors(err);
+          return;
+        } else {
+        post(route('mentor.saveDetail',data?.id),{
+            onSuccess:(success) => {
+                console.log(success, "sucesss")
+            },
+            onError:(error) => {
+                console.log(error,"error")
+            },
+        })}
         }
-    }
 
   return (
-    <Landing auth={user}>
+    <Landing auth={data?.id}>
+     <Popup
+        title={selectPopup.title}
+        dsec={selectPopup.desc}
+        setOpen={setOpen}
+        open={open}
+        addMoreId={addMoreId}
+        setSelectData={setSelectData}
+        selectData={selectData}
+    />
+        <ToastContainer style={{ marginTop:"53px" }}/>
     <Box py={2} className="profile_page">
             <Typography sx={{ height: '65px' }}></Typography>
             <ToastContainer style={{ marginTop:"53px" }}/>
@@ -189,7 +198,7 @@ function Mentor({detail}) {
                                 fullWidth
                                 variant='outlined'
                                 type='text'
-                                value={data.phone || ''}
+                                value={data.phone}
                                 placeholder='Please fill your company mobile number'
                                 onChange={(e) => handleChange("phone", e.target.value.replace(/\D/, '').slice(0, 10))}
                             />
@@ -210,79 +219,16 @@ function Mentor({detail}) {
                                 helperText={validationErrors.email}
                             />
                         </Grid>
-                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
-                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>User Name</Typography>
-                            <TextField
-                                inputRef={inputRefs.current.username}
-                                size='small'
-                                sx={{ mt: 1, width: '100%' }}
-                                fullWidth
-                                variant='outlined'
-                                type='text'
-                                placeholder='Please Fill User Name'
-                                value={data.username}
-                                onChange={(e) => handleChange("username", e.target.value)}
-                                error={!!validationErrors.username}
-                                helperText={validationErrors.username}
-                            />
-                        </Grid>
-                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
-                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Password</Typography>
-                            <TextField
-                                inputRef={inputRefs.current.password}
-                                size='small'
-                                sx={{ mt: 1, width: '100%' }}
-                                fullWidth
-                                variant='outlined'
-                                type='password'
-                                placeholder='Password'
-                                onChange={(e) => handleChange("password", e.target.value)}
-                                error={!!validationErrors.password}
-                                helperText={validationErrors.password}
-                            />
-                        </Grid>
-                        <Grid item="true" md={6} xs={12} className='profile_input_fields'>
-                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Confirm Password</Typography>
-                            <TextField
-                                inputRef={inputRefs.current.confirm_password}
-                                size='small'
-                                sx={{ mt: 1, width: '100%' }}
-                                fullWidth
-                                variant='outlined'
-                                type='password'
-                                placeholder='Confirm Password'
-                                onChange={(e) => handleChange("confirm_password", e.target.value)}
-                                error={!!validationErrors.confirm_password || passwordError}
-                                helperText={validationErrors.confirm_password || (passwordError ? 'Passwords does not match' : '')}
-                            />
-                        </Grid>
                         <Grid item="true" xs={12} sx={{mb : 1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Have you mentored companies before?</Typography>
-                            <FormControl sx={{ width : '100%' }} error={!!validationErrors.mentored_company}>
-                                    <InputLabel id="mentoredCompany-label">Mentored Company</InputLabel>
-                                    <Select
-                                        labelId="mentoredCompany-label"
-                                        multiple
-                                        fullWidth
-                                        variant="outlined"
-                                        value={data.mentored_company  }
-                                        onChange={(e) => handleChange('mentored_company', e.target.value)}
-                                        input={<OutlinedInput label="Mentored Company" />}
-                                        error={!!validationErrors.mentored_company}
-                                        inputRef={inputRefs.current.mentored_company}
-                                        renderValue={(selected) => selected.join(', ')}
+                                <FormControl sx={{marginLeft : '10px'}}>
+                                    <RadioGroup
+                                        value={data.mentored_company}
+                                        onChange={(e) => handleChange("mentored_company", e.target.value)}
                                     >
-                                        {Constants.mentoredCompanyOptions.map((val) => (
-                                            <MenuItem key={val} value={val}>
-                                                <Checkbox checked={data.mentored_company.includes(val)} />
-                                                <ListItemText primary={val} />
-                                            </MenuItem>
-                                        ))}
-                                        <Button>
-                                            {addButton()}
-                                        </Button>
-                                    </Select>
-                                    <FormHelperText>{validationErrors.mentored_company}</FormHelperText>
+                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                                        <FormControlLabel value="no" control={<Radio />} label="No" />
+                                    </RadioGroup>
                                 </FormControl>
                         </Grid>
                         <Grid item="true" xs={12} className="profile_message_field">
@@ -305,27 +251,27 @@ function Mentor({detail}) {
                         </Grid>
                         <Grid item="true" xs={12} className="profile_message_field" sx={{mb : 1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Please choose which industry sectors you would like to mentor in</Typography>
-                            <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
+                                <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
                                     <InputLabel id="industrySector-label">Industry Sector</InputLabel>
                                     <Select
                                         labelId="industrySector-label"
                                         multiple
                                         fullWidth
                                         variant="outlined"
-                                        value={data.industry_sector  }
-                                        onChange={(e) => handleChange('industry_sector', e.target.value)}
+                                        value={data.industry_sector }
+                                        onChange={(e) => handleChange('industry_sector', e.target.value,'select')}
                                         input={<OutlinedInput label="Industry Sector" />}
                                         error={!!validationErrors.industry_sector}
                                         inputRef={inputRefs.current.industry_sector}
                                         renderValue={(selected) => selected.join(', ')}
                                     >
-                                        {Constants.industrySectorOptions.map((val) => (
+                                        {selectData.industry_sector.map((val) => (
                                             <MenuItem key={val.value} value={val.value}>
                                                 <Checkbox checked={data.industry_sector.includes(val.value)} />
                                                 <ListItemText primary={val.description} />
                                             </MenuItem>
                                         ))}
-                                        <Button>
+                                        <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
                                             {addButton()}
                                         </Button>
                                     </Select>
@@ -341,20 +287,20 @@ function Mentor({detail}) {
                                     multiple
                                     fullWidth
                                     variant="outlined"
-                                    value={data.functional_area  }
-                                    onChange={(e) => handleChange('functional_area', e.target.value)}
+                                    value={data.functional_area }
+                                    onChange={(e) => handleChange('functional_area', e.target.value,'select')}
                                     input={<OutlinedInput label="Functional Area" />}
                                     error={!!validationErrors.functional_area}
                                     inputRef={inputRefs.current.functional_area}
                                     renderValue={(selected) => selected.join(', ')}
                                 >
-                                    {Constants.functionalAreaOptions.map((val) => (
+                                    {selectData.functional_area.map((val) => (
                                         <MenuItem key={val} value={val}>
                                             <Checkbox checked={data.functional_area.includes(val)} />
                                             <ListItemText primary={val} />
                                         </MenuItem>
                                     ))}
-                                    <Button>
+                                    <Button onClick={()=>handleClickOpen("functional_area", "Functional Area")}>
                                         {addButton()}
                                     </Button>
                                 </Select>
@@ -370,20 +316,20 @@ function Mentor({detail}) {
                                     multiple
                                     fullWidth
                                     variant="outlined"
-                                    value={data.hear_about_us  }
-                                    onChange={(e) => handleChange('hear_about_us', e.target.value)}
+                                    value={data.hear_about_us}
+                                    onChange={(e) => handleChange('hear_about_us', e.target.value,'select')}
                                     input={<OutlinedInput label="Hear About Us" />}
                                     error={!!validationErrors.hear_about_us}
                                     inputRef={inputRefs.current.hear_about_us}
                                     renderValue={(selected) => selected.join(', ')}
                                 >
-                                    {Constants.hearAboutUsOptions.map((val) => (
+                                    {selectData.hear_about_us.map((val) => (
                                         <MenuItem key={val} value={val}>
                                             <Checkbox checked={data.hear_about_us.includes(val)} />
                                             <ListItemText primary={val} />
                                         </MenuItem>
                                     ))}
-                                    <Button>
+                                    <Button onClick={()=>handleClickOpen("hear_about_us", "Hear About Us")}>
                                         {addButton()}
                                     </Button>
                                 </Select>
@@ -424,7 +370,7 @@ function Mentor({detail}) {
                         </Grid>
                     </Grid>
                     <Grid item="true" xs={12} mb={4} textAlign={"center"} className='submit_btn'>
-                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}> Update</Button>
+                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Create' : 'Update'}</Button>
                     </Grid>
                 </Grid>
             </form>

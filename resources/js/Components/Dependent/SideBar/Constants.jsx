@@ -68,8 +68,7 @@ const AdminmenuItem = [
 ];
 
 const MentorMenuItem = [
-    { id: 1, label: 'My Account', icon: <DashboardOutlinedIcon />, link: '/admin/dashboard' },
-
+    { id: 1, label: 'My Account', icon: <DashboardOutlinedIcon />, link: '' },
 ]
 
 const icons = [
