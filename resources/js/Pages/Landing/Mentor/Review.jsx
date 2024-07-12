@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/react";
 import NoDataFound from "@/Components/NoDataFound";
 
 function ReviewProfilePage ({detail}) {
+    console.log("detail", detail.user.id)
     return (
         <Landing>
             <Typography sx={{ height: '65px' }}></Typography>
@@ -22,7 +23,7 @@ function ReviewProfilePage ({detail}) {
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Contact Name</Typography>
-                            <Typography fontSize="14px">{detail.mentored_company}</Typography>
+                            <Typography fontSize="14px">{detail.user.name}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Mobile Number</Typography>
@@ -38,7 +39,7 @@ function ReviewProfilePage ({detail}) {
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Qualifications</Typography>
-                            <Typography fontSize="14px">{detail.qualifications} </Typography>
+                            <Typography fontSize="14px">{detail.qualifications}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Industry sectors</Typography>
@@ -60,12 +61,12 @@ function ReviewProfilePage ({detail}) {
                 </Box>
                 <Grid container mt={4}>
                     <Grid item xs={12} mb={4} textAlign={"center"} className='edit_btn'>
-                        <Link href={route('mentor.list')}>
+                        <Link href={route('landing.mentordetail', detail.user.id)}>
                             <Button variant="contained"> Edit </Button>
                         </Link>
                     </Grid>
                 </Grid>
-            </Box> 
+            </Box>
        </Landing>
     )
 }

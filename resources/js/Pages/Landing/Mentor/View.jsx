@@ -61,17 +61,16 @@ function Mentor({detail}) {
     console.log(data,"::data");
 
     const handleChange = (key, value) => {
+        if(value?.includes(undefined)){
+            return;
+        }
         const updatedData = {
         ...data,
         [key]: value,
         };
-        if (key === 'confirm_password' || key === 'password') {
-            if (data.password !== value && data.confirm_password !== value) {
-              setpasswordError(true);
-            } else {
-              setpasswordError(false);
-            }
-        }
+
+        const fieldSchema = mentorSchema.extract(key);
+        const { error } = fieldSchema.validate(value);
 
         setValidationErrors({
             ...validationErrors,
@@ -125,20 +124,20 @@ function Mentor({detail}) {
         }
 
   return (
-    <Landing auth={data?.id}>
-     <Popup
-        title={selectPopup.title}
-        dsec={selectPopup.desc}
-        setOpen={setOpen}
-        open={open}
-        addMoreId={addMoreId}
-        setSelectData={setSelectData}
-        selectData={selectData}
-    />
+    <Landing>
+        <Popup
+            title={selectPopup.title}
+            dsec={selectPopup.desc}
+            setOpen={setOpen}
+            open={open}
+            addMoreId={addMoreId}
+            setSelectData={setSelectData}
+            selectData={selectData}
+        />
         <ToastContainer style={{ marginTop:"53px" }}/>
-    <Box py={2} className="profile_page">
+
+        <Box py={2} className="profile_page">
             <Typography sx={{ height: '65px' }}></Typography>
-            <ToastContainer style={{ marginTop:"53px" }}/>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={4}>
                     <Grid item="true" xs={12} px={8}>
@@ -234,27 +233,56 @@ function Mentor({detail}) {
                         <Grid item="true" xs={12} className="profile_message_field">
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Qualifications</Typography>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Eg. previous mentoring experiences, completed courses on how to be a mentor, conducted workshops for XXX company, etc </Typography>
-                            <TextField
-                                inputRef={inputRefs.current.qualifications}
-                                size='small'
-                                sx={{  mt:1, width: '100%' }}
-                                fullWidth
-                                multiline
-                                rows={4}
-                                variant='outlined'
-                                placeholder='Please Fill your Qualifications'
-                                value={data.qualifications}
-                                onChange={(e) => handleChange("qualifications", e.target.value)}
-                                error={!!validationErrors.qualifications}
-                                helperText={validationErrors.qualifications}
-                            />
+                                <TextField
+                                    inputRef={inputRefs.current.qualifications}
+                                    size='small'
+                                    sx={{  mt:1, width: '100%' }}
+                                    fullWidth
+                                    multiline
+                                    rows={4}
+                                    variant='outlined'
+                                    placeholder='Please Fill your Qualifications'
+                                    value={data.qualifications}
+                                    onChange={(e) => handleChange("qualifications", e.target.value)}
+                                    error={!!validationErrors.qualifications}
+                                    helperText={validationErrors.qualifications}
+                                />
                         </Grid>
                         <Grid item="true" xs={12} className="profile_message_field" sx={{mb : 1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Please choose which industry sectors you would like to mentor in</Typography>
                                 <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
                                     <InputLabel id="industrySector-label">Industry Sector</InputLabel>
+                                        <Select
+                                            labelId="industrySector-label"
+                                            multiple
+                                            fullWidth
+                                            variant="outlined"
+                                            value={data.industry_sector }
+                                            onChange={(e) => handleChange('industry_sector', e.target.value)}
+                                            input={<OutlinedInput label="Industry Sector" />}
+                                            error={!!validationErrors.industry_sector}
+                                            inputRef={inputRefs.current.industry_sector}
+                                            renderValue={(selected) => selected.join(', ')}
+                                        >
+                                            {selectData.industry_sector.map((val) => (
+                                                <MenuItem key={val.value} value={val.value}>
+                                                    <Checkbox checked={data.industry_sector.includes(val.value)} />
+                                                    <ListItemText primary={val.description} />
+                                                </MenuItem>
+                                            ))}
+                                            <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
+                                                {addButton()}
+                                            </Button>
+                                        </Select>
+                                    <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
+                                </FormControl>
+                        </Grid>
+                        <Grid item="true" xs={12} md={6} sx={{mb:1}}>
+                            <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
+                            <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
+                                <InputLabel id="functionalArea-label">Functional Area</InputLabel>
                                     <Select
-                                        labelId="industrySector-label"
+                                        labelId="functionalArea-label"
                                         multiple
                                         fullWidth
                                         variant="outlined"

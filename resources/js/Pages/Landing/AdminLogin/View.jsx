@@ -9,6 +9,7 @@ import  backgroundimage from '../../../../../public/images/image7.png';
 import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Joi from '@/utility/JoiValidator';
 
 const loginSchema = Constants.loginSchema
 
@@ -32,50 +33,41 @@ function Login() {
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleChange = (key, value) => {
-    const updatedData = {
-      ...data,
-      [key]: value,
-    };
-
-    const fieldSchema = loginSchema.extract(key);
-    const { error } = fieldSchema.validate(value);
-
-    if (error) {
-      setValidationErrors({
+    setValidationErrors({
         ...validationErrors,
-        [key]: error.message,
-      });
-    } else {
-      const { [key]: removedError, ...rest } = validationErrors;
-      setValidationErrors(rest);
-    }
-    setData(updatedData);
-  };
+        [key]: Joi.validateToPlainErrors(value, loginSchema[key])
+    });
+    setData((prev)=>({
+    ...prev,
+    [key]:value
+    }));
+    };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { error, value } = loginSchema.validate(data, { abortEarly: false });
-
-    if (error) {
-      const validationErrors = {};
-      error.details.forEach(detail => {
-        validationErrors[detail.path[0]] = detail.message;
-      });
-      setValidationErrors(validationErrors);
-    } else {
-      console.log('data', value)
-    }
-
-    post(route('login'),{
-        onSuccess:(success) => {
-           console.log(success, "sucesss");
-        },
-        onError:(error) => {
-          console.log(error.email,"::error");
-          notify.error(error.email, { position: 'top-right' });
-        },
-    })
-  };
+    let err = Joi.validateToPlainErrors(data, loginSchema)
+    setValidationErrors(err);
+      const isError = Object.keys(err)?.map((val,i)=>{
+          if(err[val]== null){
+              return 0
+            }
+            else{
+            return i
+            }
+          })
+      if (isError?.length > 0) {
+        return;
+      } else {
+        post(route('login'),{
+          onSuccess:(success) => {
+             console.log(success, "sucesss");
+          },
+          onError:(error) => {
+            console.log(error.email,"::error");
+            notify.error(error.email, { position: 'top-right' });
+          },
+      })
+    }}
 
   return (
     <Landing>
@@ -99,8 +91,8 @@ function Login() {
                             variant='outlined'
                             placeholder='Email Address'
                             onChange={(e) => handleChange("email", e.target.value)}
-                            error={!!validationErrors.email}
-                            helperText={validationErrors.email}
+                            error={!!validationErrors.email?.[0]}
+                            helperText={validationErrors.email?.[0]}
                           />
                       </Grid>
                       <Grid item xs={12} className='login_input_fields'>
@@ -113,8 +105,8 @@ function Login() {
                             type='password'
                             placeholder='Password'
                             onChange={(e) => handleChange("password", e.target.value)}
-                            error={!!validationErrors.password}
-                            helperText={validationErrors.password}
+                            error={!!validationErrors.password?.[0]}
+                            helperText={validationErrors.password?.[0]}
                           />
                       </Grid>
                       <Grid item xs={12}>

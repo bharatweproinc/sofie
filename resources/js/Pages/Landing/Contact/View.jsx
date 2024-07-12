@@ -5,6 +5,7 @@ import { Landing } from '@/Layouts/Landing';
 import { useForm } from '@inertiajs/react'
 import Constants from '../Constants';
 import './style.scss'
+import Joi from '@/utility/JoiValidator';
 
 const contactSchema = Constants.contactSchema
 
@@ -28,40 +29,33 @@ function Contact() {
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleChange = (key, value) => {
-    const updatedData = {
-      ...data,
-      [key]: value,
+    setValidationErrors({
+        ...validationErrors,
+        [key]: Joi.validateToPlainErrors(value, contactSchema[key])
+    });
+    setData((prev)=>({
+    ...prev,
+    [key]:value
+    }));
     };
 
-    const fieldSchema = contactSchema.extract(key);
-    const { error } = fieldSchema.validate(value);
-
-    if (error) {
-      setValidationErrors({
-        ...validationErrors,
-        [key]: error.message,
-      });
-    } else {
-      const { [key]: removedError, ...rest } = validationErrors;
-      setValidationErrors(rest);
-    }
-
-    setData(updatedData);
-  };
-
-  const handleSubmit = (e) => {    
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { error, value } = contactSchema.validate(data, { abortEarly: false });
-    if (error) {
-      const validationErrors = {};
-      error.details.forEach(detail => {
-        validationErrors[detail.path[0]] = detail.message;
-      });
-      setValidationErrors(validationErrors);
-    } else {
-      console.log('data', value)
-    }
-  };
+    let err = Joi.validateToPlainErrors(data, contactSchema)
+    setValidationErrors(err);
+      const isError = Object.keys(err)?.map((val,i)=>{
+          if(err[val]== null){
+              return 0
+            }
+            else{
+              return i
+            }
+          })
+      if (isError?.length > 0) {
+          return;
+      } else {
+        console.log("data", data)
+    }}
 
   return (
 	<Landing>
@@ -97,8 +91,8 @@ function Contact() {
                       variant='outlined'
                       placeholder='Your Email Address'
                       onChange={(e) => handleChange("email", e.target.value)}
-                      error={!!validationErrors.email}
-                      helperText={validationErrors.email}
+                      error={!!validationErrors.email?.[0]}
+                      helperText={validationErrors.email?.[0]}
                     />
                 </Grid>
                 <Grid item lg={6} sm={12} md={12} xs={12} className='contact_input_fields'>

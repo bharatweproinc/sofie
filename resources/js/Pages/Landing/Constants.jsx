@@ -86,7 +86,7 @@ const initMentorForm = {
     'name' : '',
     'phone' : 0,
     'email' : '',
-    'mentored_company' : [],
+    'mentored_company' : 'no',
     'qualifications' : '',
     'industry_sector' : [],
     'functional_area' : [],
@@ -96,21 +96,21 @@ const initMentorForm = {
     'profile_photo':''
 }
 
-const signupSchema = Joi.object({
+const signupSchema = {
     full_name: Joi.string().label("Full Name").required(),
     phone: Joi.number().min(10).label("Phone Number").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     password: Joi.string().min(8).label("Password").required(),
     confirm_password: Joi.string().min(8).label("Confirm Password").required(),
     enterpreneur_or_mentor : Joi.required()
-})
+};
 
-const loginSchema = Joi.object({
+const loginSchema = {
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     password: Joi.string().min(8).label("Password").required(),
-});
+};
 
-const mentorSchema = Joi.object({
+const mentorSchema = {
     name : Joi.string().label("Contact Name").required(),
     phone : Joi.optional(),
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
@@ -122,9 +122,9 @@ const mentorSchema = Joi.object({
     number_of_companies : Joi.string().label("Number of Companies").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional(),
- });
+ };
 
- const companySchema = Joi.object({
+const companySchema = {
     company_name : Joi.string().label("Company Name").required(),
     contact_name : Joi.string().label("Contact Name").required(),
     user_name : Joi.string().label("User Name").required(),
@@ -145,40 +145,19 @@ const mentorSchema = Joi.object({
     current_problem:  Joi.string().label("Current Problem ").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional()
-  });
+  };
 
-const contactSchema = Joi.object({
+const contactSchema = {
     name : Joi.string().label("Name").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     phone_number: Joi.number().min(10).label("Phone Number").required(),
     company : Joi.optional(),
     message : Joi.string().label("Message").required()
-});
+};
 
-const dummy_company_data = {
-    'company_name' : 'Testing Company Name',
-    'contact_name':' Test Contact 666',
-    'mailto:email':'user78655@gmail.com',
-    'company_uen' : 'Test Company',
-    'user_name':'Test User',
-    'mobile_number' : 9787657654,
-    'position' : '1234',
-    'founded_year' : 2023,
-    'team_size' : 6,
-    'current_revenue' : 5675,
-    'current_customers_base_size': 54,
-    'industry_sector': "54 sector",
-    'description': '',
-    'functional_area_1' : 'Functional Area Test 1',
-    'functional_area_2' : ' Functional Area Test 2',
-    'functional_area_3' : 'Functional Area Test 3',
-    'hear_about_us' : 'Ipsum is simply dummy text',
-    'current_problem' : 'No Issues',
-    'additional_information' : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into e'
-}
 const icons = [
     { id: 1, icon: <EditIcon /> },
-    { id:2, icon: <CheckIcon /> },
+    { id:2, icon:  <CheckIcon /> },
     { id: 3, icon: <DeleteIcon /> },
   ];
 
@@ -250,7 +229,7 @@ function addButton () {
 
 const Constants = {
     initLoginForm, initContactForm, initCompanyDetailForm, initMentorForm, initSignUpForm,
-    signupSchema, loginSchema, mentorSchema, companySchema, contactSchema, dummy_company_data,
+    signupSchema, loginSchema, mentorSchema, companySchema, contactSchema ,
     companyInputRefs, mentorInputRefs, icons, positionInCompanyOptions, currentRevenueSizeOptions,
     currentCustomersBaseSize, teamSizeOptions, industrySectorOptions, functionalAreaOptions,
     hearAboutUsOptions, mentoredCompanyOptions, addButton

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from '@inertiajs/react'
-import { Avatar, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormHelperText, Grid, InputLabel, ListItemText, MenuItem, OutlinedInput, Paper, Select, TextField, TextareaAutosize, Typography } from '@mui/material';
+import { Button, Checkbox, FormControl, FormHelperText, Grid, InputLabel, ListItemText, MenuItem, OutlinedInput, Paper, Select, TextField, TextareaAutosize, Typography } from '@mui/material';
 import { Landing } from '@/Layouts/Landing';
 import './style.scss'
 import Constants from '../Constants';
@@ -17,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
 
+import { notify } from '@/Components/Notifier';
 
 const addButton = Constants.addButton;
 const multiSelectData = {
@@ -33,9 +34,8 @@ const multiSelectData = {
 
 function CompanyDetail({detail}) {
     const inputRefs = useRef(Constants.companyInputRefs());
-    const { data, setData, post, processing} = useForm(Constants.initCompanyDetailForm);
+    const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
-    const [passwordError, setpasswordError] = useState(false);
     const [open, setOpen] = React.useState(false);
     const [addMoreId, setAddMoreId] = useState("");
     const [selectData, setSelectData] = useState(multiSelectData);
@@ -53,19 +53,10 @@ function CompanyDetail({detail}) {
         }))
     };
 
-
-
     const handleChange = (key, value) => {
-        const updatedData = {
-        ...data,
-        [key]: value,
-        };
-        if (key === 'confirm_password' || key === 'password') {
-            if (data.password !== value && data.confirm_password !== value) {
-              setpasswordError(true);
-            } else {
-              setpasswordError(false);
-            }
+        
+        if(value?.includes(undefined)){
+            return;
         }
 
         setValidationErrors({
@@ -78,9 +69,6 @@ function CompanyDetail({detail}) {
         [key]:value
         }));
     };
-
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -123,7 +111,7 @@ function CompanyDetail({detail}) {
                 console.log(error,"error")
             },
         })}
-        }
+    }
 
 
     return (
@@ -137,9 +125,7 @@ function CompanyDetail({detail}) {
                 setSelectData={setSelectData}
                 selectData={selectData}
             />
-              <ToastContainer style={{ marginTop:"53px" }}/>
-
-
+            <ToastContainer style={{ marginTop:"53px" }}/>
 
         <div className='company_detail'>
                 <Typography sx={{ height: '65px' }}></Typography>
@@ -175,12 +161,59 @@ function CompanyDetail({detail}) {
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2} sx={{p:3}}>
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>User Name</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        variant='outlined'
+                                        value={data.name}
+                                        placeholder='Please Fill Your User Name'
+                                        onChange={(e)=> handleChange("user_name", e.target.value)}
+                                        error={!!validationErrors.user_name}
+                                        helperText={validationErrors.user_name}
+                                        inputRef={inputRefs.current.user_name}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field  ' sx={{mb:1}}>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Mobile Number
+                                <span style={{color:"#7C7C7C", fontWeight : "400", marginLeft:"4px"}}>(Optional)</span>
+                                </Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        variant='outlined'
+                                        type='text'
+                                        value={data.phone}
+                                        placeholder='Please Fill Your Company Mobile Number'
+                                        onChange={(e)=> handleChange("phone", e.target.value.replace(/\D/, '').slice(0, 10))}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
+                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Email</Typography>
+                                    <TextField
+                                        size='small'
+                                        sx={{ mb: 1, width: '100%' }}
+                                        fullWidth
+                                        value={data.email}
+                                        type='email'
+                                        variant='outlined'
+                                        placeholder='Please Fill Your Email'
+                                        onChange={(e)=> handleChange("email", e.target.value)}
+                                        error={!!validationErrors.email}
+                                        helperText={validationErrors.email}
+                                        inputRef={inputRefs.current.email}
+                                    />
+                            </Grid>
+                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Company Name</Typography>
                                     <TextField
                                         inputRef={inputRefs.current.company_name}
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
+                                        value={data.company_name}
                                         variant='outlined'
                                         placeholder='Please Fill Your Company Name'
                                         onChange={(e)=> handleChange("company_name", e.target.value)}
@@ -194,107 +227,28 @@ function CompanyDetail({detail}) {
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
+                                        value={data.contact_name}
                                         variant='outlined'
                                         placeholder='Please Fill Your Contact Name'
                                         onChange={(e)=> handleChange("contact_name", e.target.value)}
                                         error={!!validationErrors.contact_name}
                                         helperText={validationErrors.contact_name}
                                         inputRef={inputRefs.current.contact_name}
-
                                     />
                             </Grid>
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Email</Typography>
-                                    <TextField
-                                        size='small'
-                                        sx={{ mb: 1, width: '100%' }}
-                                        fullWidth
-                                        type='email'
-                                        variant='outlined'
-                                        placeholder='Please Fill Your Email'
-                                        onChange={(e)=> handleChange("email", e.target.value)}
-                                        error={!!validationErrors.email}
-                                        helperText={validationErrors.email}
-                                        inputRef={inputRefs.current.email}
-
-                                    />
-                            </Grid>
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>User Name</Typography>
-                                    <TextField
-                                        size='small'
-                                        sx={{ mb: 1, width: '100%' }}
-                                        fullWidth
-                                        variant='outlined'
-                                        placeholder='Please Fill Your User Name'
-                                        onChange={(e)=> handleChange("user_name", e.target.value)}
-                                        error={!!validationErrors.user_name}
-                                        helperText={validationErrors.user_name}
-                                        inputRef={inputRefs.current.user_name}
-
-                                    />
-                            </Grid>
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Password</Typography>
-                                    <TextField
-                                        size='small'
-                                        sx={{ mb: 1, width: '100%' }}
-                                        fullWidth
-                                        variant='outlined'
-                                        placeholder='Please Fill Your Password'
-                                        onChange={(e)=> handleChange("password", e.target.value)}
-                                        error={!!validationErrors.password}
-                                        helperText={validationErrors.password}
-                                        inputRef={inputRefs.current.password}
-                                        type='password'
-
-                                    />
-                            </Grid>
-                            <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field'>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Confirm Password</Typography>
-                                    <TextField
-                                        size='small'
-                                        sx={{ mb: 1, width: '100%' }}
-                                        fullWidth
-                                        variant='outlined'
-                                        placeholder='Please Fill Your Email'
-                                        onChange={(e)=> handleChange("confirm_password", e.target.value)}
-                                        error={!!validationErrors.confirm_password || passwordError}
-                                        helperText={validationErrors.confirm_password || (passwordError ? 'Passwords does not match' : '')}
-                                        inputRef={inputRefs.current.confirm_password}
-                                        type='password'
-
-                                    />
-                            </Grid>
-
                             <Grid item lg={6} sm={12} md={6} xs={12} className='company_input_field ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Company UEN</Typography>
                                     <TextField
                                         size='small'
                                         sx={{ mb: 1, width: '100%' }}
                                         fullWidth
+                                        value={data.company_uen}
                                         variant='outlined'
                                         placeholder='Please Fill Your Company UEN'
                                         onChange={(e)=> handleChange("company_uen", e.target.value)}
                                         error={!!validationErrors.company_uen}
                                         helperText={validationErrors.company_uen}
                                         inputRef={inputRefs.current.company_uen}
-
-                                    />
-                            </Grid>
-                            <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field  ' sx={{mb:1}}>
-                                <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Mobile Number
-                                <span style={{color:"#7C7C7C", fontWeight : "400", marginLeft:"4px"}}>(Optional)</span>
-                                </Typography>
-                                    <TextField
-                                        size='small'
-                                        sx={{ mb: 1, width: '100%' }}
-                                        fullWidth
-                                        variant='outlined'
-                                        type='text'
-                                        value={data.phone || ''}
-                                        placeholder='Please Fill Your Company Mobile Number'
-                                        onChange={(e)=> handleChange("phone", e.target.value.replace(/\D/, '').slice(0, 10))}
                                     />
                             </Grid>
                             <Grid item lg={6} xs={12}  sx={{mb:1}}>
@@ -333,6 +287,7 @@ function CompanyDetail({detail}) {
                                     <FormControl sx={{ width:"100%"}} error={!!validationErrors.founded_year}>
                                         <LocalizationProvider   dateAdapter={AdapterDayjs} >
                                             <DatePicker
+                                                // value={data.founded_year}
                                                 inputRef={inputRefs.current.founded_year}
                                                 sx={{ width:"100%"}}
                                                 views={['year']}
@@ -609,6 +564,7 @@ function CompanyDetail({detail}) {
                                         fullWidth
                                         multiline
                                         rows={4}
+                                        value={data.current_problem}
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
                                         onChange={(e) => handleChange('current_problem', e.target.value)}
@@ -624,6 +580,7 @@ function CompanyDetail({detail}) {
                                 </Typography>
                                     <TextField
                                         size='small'
+                                        value={data.additional_information}
                                         sx={{ mt:0, width: '100%' }}
                                         fullWidth
                                         multiline
@@ -634,7 +591,7 @@ function CompanyDetail({detail}) {
                                     />
                             </Grid>
                             <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='submit_btn'>
-                                <Button variant="contained" type='submit' disabled={processing} > Update</Button>
+                                <Button variant="contained" type='submit' disabled={processing}> {data.functional_id === null ? "Create" : "Update"}</Button>
                             </Grid>
                         </Grid>
                     </form>

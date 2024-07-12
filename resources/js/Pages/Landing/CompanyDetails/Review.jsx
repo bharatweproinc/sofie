@@ -7,25 +7,11 @@ import {
     Typography,
 } from "@mui/material";
 import React from "react";
-import Constants from "../Constants";
-import { Link, useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import "./style.scss";
-import { useEffect } from "react";
 
-const Reviewdata = () => {
-    const { data, setData} = useForm(Constants.dummy_company_data);
-
-    useEffect(() => {
-      // get(route('company.user.get'),{
-            //     onSuccess:(success) => {
-            // setData(res.data)
-            //        console.log(success, "sucesss")
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error")
-            //     },
-            // })}
-    }, [])
+const Reviewdata = ({detail}) => {
+    console.log("detail", detail)
 
     return (
         <Landing>
@@ -77,7 +63,7 @@ const Reviewdata = () => {
                                 Company Name
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.company_name}
+                                {detail.company_name}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -89,7 +75,7 @@ const Reviewdata = () => {
                                 Contact Name
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.contact_name}
+                                {detail.contact_name}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -101,7 +87,7 @@ const Reviewdata = () => {
                                 Email
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.email}
+                                {detail.user.email}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -113,7 +99,7 @@ const Reviewdata = () => {
                                 User Name
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.user_name}
+                                {detail.user.name}
                             </Typography>
                         </Grid>
 
@@ -126,7 +112,7 @@ const Reviewdata = () => {
                                 Company UEN
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.company_uen}
+                                {detail.company_uen}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -138,7 +124,7 @@ const Reviewdata = () => {
                                 Contact Name
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.contact_name}
+                                {detail.contact_name}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -150,7 +136,7 @@ const Reviewdata = () => {
                                 Mobile Number
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.mobile_number}
+                                {detail.user.phone}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -162,7 +148,7 @@ const Reviewdata = () => {
                                 Position In Company
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.position}
+                                {detail.position}
                             </Typography>
                         </Grid>
 
@@ -175,7 +161,7 @@ const Reviewdata = () => {
                                 Year Founded
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.founded_year}
+                                {detail.founded_year}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -187,7 +173,7 @@ const Reviewdata = () => {
                                 Team Size, Number Of Employees
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.team_size}
+                                {detail.team_size}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -199,7 +185,7 @@ const Reviewdata = () => {
                                 Current Revenue Size
                             </Typography>
                             <Typography>
-                                {data.current_revenue}
+                                {detail.current_revenue}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -211,7 +197,7 @@ const Reviewdata = () => {
                                 Current Customers Base Size
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.current_customers_base_size}
+                                {detail.current_customers_base_size}
                             </Typography>
                         </Grid>
 
@@ -224,7 +210,7 @@ const Reviewdata = () => {
                                 Industry sector
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.industry_sector}
+                                {detail.industry_sector}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -236,7 +222,7 @@ const Reviewdata = () => {
                                 Functional Area 1
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.function_area_1}
+                                {detail.function_area_1}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -248,7 +234,7 @@ const Reviewdata = () => {
                                 Functional Area 2
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.function_area_2}
+                                {detail.function_area_2}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -260,7 +246,7 @@ const Reviewdata = () => {
                                 Functional Area 3
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.function_area_3}
+                                {detail.function_area_3}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -272,7 +258,7 @@ const Reviewdata = () => {
                                 Current problem
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.current_problem}
+                                {detail.current_problem}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} my={2} pr={15}>
@@ -284,7 +270,7 @@ const Reviewdata = () => {
                                 Additional Information
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {data.additional_information}
+                                {detail.additional_information}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -307,8 +293,7 @@ const Reviewdata = () => {
                             type="submit"
                             variant="contained"
                         >
-                            {" "}
-                            Edit{" "}
+                            Edit
                         </Button>
                     </Link>
                 </Grid>

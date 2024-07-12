@@ -9,6 +9,7 @@ import './style.scss';
 import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Joi from '@/utility/JoiValidator';
 
 const signupSchema = Constants.signupSchema
 
@@ -34,67 +35,44 @@ function Signup() {
   const [passwordError, setpasswordError] = useState(false);
 
   const handleChange = (key, value) => {
-      const updatedData = {
-        ...data,
-        [key]: value,
-      };
-
-      const fieldSchema = signupSchema.extract(key);
-      const { error } = fieldSchema.validate(value);
-
-      if (key === 'confirm_password' || key === 'password' ) {
-        if (data.password !== value && data.confirm_password !== value) {
-          setpasswordError(true);
-        } else {
-          setpasswordError(false);
-        }
-      }
-
-      if (error) {
-        setValidationErrors({
-          ...validationErrors,
-          [key]: error.message,
-        });
-      } else {
-        const { [key]: removedError, ...rest } = validationErrors;
-        setValidationErrors(rest);
-      }
-      setData(updatedData);
+    setValidationErrors({
+        ...validationErrors,
+        [key]: Joi.validateToPlainErrors(value, signupSchema[key])
+    });
+    setData((prev)=>({
+    ...prev,
+    [key]:value
+    }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const validationErrors = {};
-
-        Object.keys(data).forEach(key => {
-          const fieldSchema = signupSchema.extract(key);
-          const { error } = fieldSchema.validate(data[key]);
-          if (error) {
-            validationErrors[key] = error.message;
-          }
-        });
-
-        if (data.confirm_password !== data.password) {
-          validationErrors.confirm_password = 'Passwords does not match';
-        }
-
-        if (Object.keys(validationErrors).length > 0) {
-          setValidationErrors(validationErrors);
-        } else {
-          console.log('Data', data);
-        }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let err = Joi.validateToPlainErrors(data, signupSchema)
+    setValidationErrors(err);
+      const isError = Object.keys(err)?.map((val,i)=>{
+          if(err[val]== null){
+              return 0
+            }
+            else{
+              return i
+            }
+          })
+      if (isError?.length > 0) {
+          return;
+      } else {
         post(route('register'),{
-            onSuccess:(success) => {
-               console.log(success, "sucesss");
-            },
-            onError:(error) => {
-              console.log(error.email,"::error");
-              notify.error(error.email, { position: 'top-right' });
+          onSuccess:(success) => {
+             console.log(success, "sucesss");
+          },
+          onError:(error) => {
+            console.log(error.email,"::error");
+            notify.error(error.email, { position: 'top-right' });
 
-            },
-        })
-      };
+          },
+      })
+    }}
+    
+     
 
   return (
 
@@ -153,8 +131,8 @@ function Signup() {
                             variant='outlined'
                             placeholder='Email'
                             onChange={(e) => handleChange("email", e.target.value)}
-                            error={!!validationErrors.email}
-                            helperText={validationErrors.email}
+                            error={!!validationErrors.email?.[0]}
+                            helperText={validationErrors.email?.[0]}
                           />
                     </Grid>
                     <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
@@ -167,8 +145,8 @@ function Signup() {
                             variant='outlined'
                             placeholder='Password'
                             onChange={(e) => handleChange("password", e.target.value)}
-                            error={!!validationErrors.password}
-                            helperText={validationErrors.password}
+                            error={!!validationErrors.password?.[0]}
+                            helperText={validationErrors.password?.[0]}
                           />
                     </Grid>
                     <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
@@ -181,8 +159,8 @@ function Signup() {
                             variant='outlined'
                             placeholder='Confirm Password'
                             onChange={(e) => handleChange("confirm_password", e.target.value)}
-                            error={!!validationErrors.confirm_password || passwordError}
-                            helperText={validationErrors.confirm_password || (passwordError ? 'Passwords does not match' : '')}
+                            error={!!validationErrors.confirm_password?.[0] || passwordError}
+                            helperText={validationErrors.confirm_password?.[0] || (passwordError ? 'Passwords does not match' : '')}
                           />
                     </Grid>
                     <Grid  item lg={6} sm={12} md={6} xs={12} textAlign={"start"}>
