@@ -61,17 +61,7 @@ function Mentor({detail}) {
     console.log(data,"::data");
 
     const handleChange = (key, value) => {
-        if(value?.includes(undefined)){
-            return;
-        }
-        const updatedData = {
-        ...data,
-        [key]: value,
-        };
-
-        const fieldSchema = mentorSchema.extract(key);
-        const { error } = fieldSchema.validate(value);
-
+        
         setValidationErrors({
             ...validationErrors,
             [key]: Joi.validateToPlainErrors(value,Constants.mentorSchema[key])
