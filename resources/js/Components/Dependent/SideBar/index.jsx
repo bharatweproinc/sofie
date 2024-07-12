@@ -26,6 +26,8 @@ import { Link, router } from "@inertiajs/react";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./style.scss";
 import LogoutIcon from '@mui/icons-material/Logout';
+import AdminMenuItem from "./AdminMenuItem";
+import MentorMenuItem from "./MentorMenuItem";
 const drawerWidth = 240;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -55,26 +57,7 @@ const SideBar = ({children}) => {
     };
 
 
-    const handleClick = (id) => {
-        setOpenItems((prevOpenItems) => ({
-            ...prevOpenItems,
-            [id]: !prevOpenItems[id],
-        }));
-    };
 
-    React.useEffect(() => {
-        const newOpenItems = {};
-        Constants.menuItem.forEach(item => {
-            if (item.subItems) {
-                item.subItems.forEach(subItem => {
-                    if (subItem.link === window.location.pathname) {
-                        newOpenItems[item.id] = true;
-                    }
-                });
-            }
-        });
-        setOpenItems(newOpenItems);
-    }, [location.pathname]);
 
     const logout = () => {
         router.post(route('logout'));
@@ -150,88 +133,8 @@ const SideBar = ({children}) => {
 
 
                 <List>
-                    {Constants.menuItem.map((item, index) => (
-                        <React.Fragment key={index}>
-                            <ListItem disablePadding>
-                                <ListItemButton
-                                    component={item.subItems ? "button" : Link}
-                                    href={
-                                        item.subItems
-                                            ? undefined
-                                            : `${item.link}`
-                                    }
-                                    onClick={() =>
-                                        item.subItems
-                                            ? handleClick(item.id)
-                                            : null
-                                    }
-                                    className={
-                                                item?.link ===  window.location.pathname
-                                                    ? "drawer_link_active"
-                                                    : ""
-                                                }
-                                >
-                                    <ListItemIcon className={
-                                                        item?.link ===  window.location.pathname
-                                                        ? "drawer_links"
-                                                        : ""
-                                                }>{item.icon}</ListItemIcon>
-                                    <ListItemText
-                                        primary={item.label}
-                                        className={
-                                            item?.link ===  window.location.pathname
-                                                ? "drawer_links"
-                                                : ""
-                                        }
-                                    />
-                                    {item.subItems ? (
-                                        openItems[item.id] ? (
-                                            <ExpandLess />
-                                        ) : (
-                                            <ExpandMore />
-                                        )
-                                    ) : null}
-                                </ListItemButton>
-                            </ListItem>
-                            {item.subItems && (
-                                <Collapse
-                                    in={openItems[item.id]}
-                                    timeout="auto"
-                                    mountOnEnter
-                                >
-                                    <List component="div" disablePadding>
-                                        {item.subItems.map((subItem) => (
-                                            <ListItemButton
-                                                component={Link}
-                                                href={`${subItem.link}`}
-                                                key={subItem.id}
-                                                sx={{ pl: 4 }}
-                                            >
-                                                <ListItemIcon  className={
-                                               subItem?.link ===  window.location.pathname
-                                                ? "drawer_links"
-                                                : ""
-                                                 }>
-                                                    <CircleIcon
-                                                        sx={{ fontSize: 8 }}
-
-                                                    />
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                   className={
-                                                    subItem?.link ===  window.location.pathname
-                                                ? "drawer_links"
-                                                : ""
-                                              }
-                                                    primary={subItem.label}
-                                                />
-                                            </ListItemButton>
-                                        ))}
-                                    </List>
-                                </Collapse>
-                            )}
-                        </React.Fragment>
-                    ))}
+                {/* <AdminMenuItem Constants={Constants} openItems={openItems} setOpenItems={setOpenItems}/> */}
+                <MentorMenuItem Constants={Constants} openItems={openItems}/>
                 </List>
                 <Button
                     component={Link}

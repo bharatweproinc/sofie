@@ -13,8 +13,8 @@ import profileImage from '../../../Assets/Images/profileImage.png'
 import { scrollToInput } from '@/utility/ScrollToInput';
 import { useRef } from 'react';
 import Popup from '@/Components/Popup/index';
-// import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const companySchema = Constants.companySchema;
 const addButton = Constants.addButton;
@@ -43,6 +43,9 @@ function CompanyDetail({detail}) {
         desc:""
     });
     const [user, setUser] = useState(null);
+    console.log(data,"::data")
+
+
 
     useEffect(() => {
         setUser(detail)
@@ -56,7 +59,12 @@ function CompanyDetail({detail}) {
         }))
     };
 
-    const handleChange = (key, value) => {
+    const handleChange = (key, value,type) => {
+        if(type && type == "select"){
+            if(value.includes(undefined)){
+                return;
+            }
+        }
         const updatedData = {
             ...data,
             [key]: value,
@@ -136,7 +144,7 @@ function CompanyDetail({detail}) {
 
 
     return (
-        <Landing>
+        <Landing auth={user}>
             <Popup
                 title={selectPopup.title}
                 dsec={selectPopup.desc}
@@ -146,34 +154,9 @@ function CompanyDetail({detail}) {
                 setSelectData={setSelectData}
                 selectData={selectData}
             />
-              {/* <ToastContainer style={{ marginTop:"53px" }}/> */}
-            {/* <>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                >
-                <DialogTitle>Position in Company</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                        Add New Position in Company
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            required
-                            margin="dense"
-                            type="text"
-                            id='addNewPosition'
-                            fullWidth
-                            variant="standard"
-                            onChange={(e) => {(e.target.value)}}
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>Close</Button>
-                        <Button onClick={() => addNewData()}>Add</Button>
-                    </DialogActions>
-            </Dialog>
-        </> */}
+              <ToastContainer style={{ marginTop:"53px" }}/>
+
+
 
         <div className='company_detail'>
                 <Typography sx={{ height: '65px' }}></Typography>
@@ -343,7 +326,7 @@ function CompanyDetail({detail}) {
                                             fullWidth
                                             variant="outlined"
                                             value={data.position}
-                                            onChange={(e) => handleChange('position', e.target.value)}
+                                            onChange={(e) => handleChange('position', e.target.value, 'select')}
                                             input={<OutlinedInput label="Position in Company" />}
                                             error={!!validationErrors.position}
                                             inputRef={inputRefs.current.position}
@@ -395,7 +378,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.team_size}
-                                                onChange={(e) => handleChange('team_size', e.target.value)}
+                                                onChange={(e) => handleChange('team_size', e.target.value, 'select')}
                                                 input={<OutlinedInput label="Team Size" />}
                                                 error={!!validationErrors.team_size}
                                                 inputRef={inputRefs.current.team_size}
@@ -424,7 +407,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.current_revenue}
-                                                onChange={(e) => handleChange('current_revenue', e.target.value)}
+                                                onChange={(e) => handleChange('current_revenue', e.target.value, 'select')}
                                                 input={<OutlinedInput label="Revenue Size" />}
                                                 error={!!validationErrors.current_revenue}
                                                 inputRef={inputRefs.current.current_revenue}
@@ -453,7 +436,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.current_customers_base_size}
-                                                onChange={(e) => handleChange('current_customers_base_size', e.target.value)}
+                                                onChange={(e) => handleChange('current_customers_base_size', e.target.value,'select')}
                                                 input={<OutlinedInput label="Customers Base Size" />}
                                                 error={!!validationErrors.current_customers_base_size}
                                                 inputRef={inputRefs.current.current_customers_base_size}
@@ -482,7 +465,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.industry_sector }
-                                                onChange={(e) => handleChange('industry_sector', e.target.value)}
+                                                onChange={(e) => handleChange('industry_sector', e.target.value,'select')}
                                                 input={<OutlinedInput label="Industry Sector" />}
                                                 error={!!validationErrors.industry_sector}
                                                 inputRef={inputRefs.current.industry_sector}
@@ -528,7 +511,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_1  }
-                                                onChange={(e) => handleChange('functional_area_1', e.target.value)}
+                                                onChange={(e) => handleChange('functional_area_1', e.target.value,'select')}
                                                 input={<OutlinedInput label="Functional Area 1" />}
                                                 error={!!validationErrors.functional_area_1}
                                                 inputRef={inputRefs.current.functional_area_1}
@@ -557,7 +540,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_2  }
-                                                onChange={(e) => handleChange('functional_area_2', e.target.value)}
+                                                onChange={(e) => handleChange('functional_area_2', e.target.value,'select')}
                                                 input={<OutlinedInput label="Functional Area 2" />}
                                                 error={!!validationErrors.functional_area_2}
                                                 inputRef={inputRefs.current.functional_area_2}
@@ -586,7 +569,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_3}
-                                                onChange={(e) => handleChange('functional_area_3', e.target.value)}
+                                                onChange={(e) => handleChange('functional_area_3', e.target.value,'select')}
                                                 input={<OutlinedInput label="Functional Area 3" />}
                                                 error={!!validationErrors.functional_area_3}
                                                 inputRef={inputRefs.current.functional_area_3}
@@ -615,7 +598,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.hear_about_us  }
-                                                onChange={(e) => handleChange('hear_about_us', e.target.value)}
+                                                onChange={(e) => handleChange('hear_about_us', e.target.value,'select')}
                                                 input={<OutlinedInput label="Hear About Us" />}
                                                 error={!!validationErrors.hear_about_us}
                                                 inputRef={inputRefs.current.hear_about_us}

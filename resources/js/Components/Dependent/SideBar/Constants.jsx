@@ -4,7 +4,7 @@ import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
 import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
 import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
 
-const menuItem = [
+const AdminmenuItem = [
   { id: 1, label: 'Dashboard', icon: <DashboardOutlinedIcon />, link: '/admin/dashboard' },
   {
     id: 2,
@@ -67,13 +67,18 @@ const menuItem = [
   },
 ];
 
+const MentorMenuItem = [
+    { id: 1, label: 'My Account', icon: <DashboardOutlinedIcon />, link: '/admin/dashboard' },
+
+]
+
 const icons = [
   { id: 1, icon: <CheckIcon /> },
   { id: 2, icon: <EditIcon /> },
   { id: 3, icon: <DeleteIcon /> },
 ];
 
-const Constants = { menuItem, icons };
+const Constants = { MentorMenuItem, AdminmenuItem, icons };
 
 export default Constants;
 

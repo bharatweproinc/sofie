@@ -45,6 +45,9 @@ function Mentor({detail}) {
 
 
     const handleChange = (key, value) => {
+        if(value.includes(undefined)){
+            return;
+        }
         const updatedData = {
             ...data,
             [key]: value,
@@ -123,7 +126,7 @@ function Mentor({detail}) {
     }
 
   return (
-    <Landing>
+    <Landing auth={user}>
     <Box py={2} className="profile_page">
             <Typography sx={{ height: '65px' }}></Typography>
             <ToastContainer style={{ marginTop:"53px" }}/>
