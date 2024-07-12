@@ -1,0 +1,1 @@
+import{I as n,O as r,a as u,N as m,v as f}from"./styled-D2R11-vQ.js";import{j as o}from"./app-k6o5FfB4.js";function p({styles:e,themeId:s,defaultTheme:a={}}){const t=n(a),l=typeof e=="function"?e(s&&t[s]||t):e;return o.jsx(r,{styles:l})}function c(e){return o.jsx(p,u({},e,{defaultTheme:m,themeId:f}))}export{c as G};
