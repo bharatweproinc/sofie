@@ -8,7 +8,7 @@ import { Link } from '@inertiajs/react';
 const navItems = [
      {name :'Browse Companies', link:'home'},
      {name : 'Find A Mentor', link : 'home'},
-     {name : "Login", link : 'login'},
+     {name : "Login", link : 'userlogin'},
      {name : 'Get Started Now', link : 'signup'}
     ];
 

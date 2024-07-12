@@ -38,16 +38,17 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // $validator = Validator::make($request->all(), [
-        //     'full_name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users,email',
-        //     'password' => ['required', Rules\Password::defaults()],
-        //     'phone' => 'required|string|max:20',
-        //     'enterpreneur_or_mentor' =>'required'
-        // ]);
-        // if ($validator->fails()) {
-        //     return redirect('signup')->withErrors($validator)->withInput();
-        // }
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => ['required', Rules\Password::defaults()],
+            'phone' => 'required|string|max:20',
+            'enterpreneur_or_mentor' =>'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect('signup')->withErrors($validator)->withInput();
+        }
         $user = new User;
         $user->name = $request->full_name;
         $user->email = $request->email;
@@ -60,7 +61,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
         Mail::to($user->email)->send(new NotificationEmail($login_link));
-        // Auth::login($user);
+        Auth::login($user);
         return Redirect::route('verification.send');
     }
 

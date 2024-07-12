@@ -36,8 +36,9 @@ class MentorController extends Controller
         );
     }
 
-    public function saveDetail(Request $request) {
-        $response = $this->mentorRepository->saveData($request);
+    public function saveDetail(Request $request, $id) {
+        $response = $this->mentorRepository->saveData($request, $id);
+        //dd("mentor save success", $response);
         return Inertia::render('Landing/Mentor/View',$response);
     }
 }

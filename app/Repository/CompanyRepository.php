@@ -43,15 +43,18 @@ class CompanyRepository implements CompanyRepositoryInterface {
             $data["hear_about_us"] = $request['hear_about_us'];
             $data["current_problem"] = $request['current_problem'];
             $data["additional_information"] = $request['additional_information'];
-            if(isset($data['id'])){
-                $job = Company::findOrFail($data['id']);
-                $job->update($data);
-            } else {
-                $job = Company::create($data);
+
+            $company = Company::where('id', $user->functional_id)->first();
+            if($company){
+                $company->update($data);
+            }else {
+                $company = Company::create($data);
+                $user->functional_id = $company->id;
+                $user->save();
             }
             return [
                 'success' => true,
-                'data' => $job,
+                'data' => $company
             ];
         } catch (\Exception $e) {
             return [

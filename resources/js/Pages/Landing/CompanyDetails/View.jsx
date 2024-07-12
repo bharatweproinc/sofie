@@ -13,6 +13,8 @@ import profileImage from '../../../Assets/Images/profileImage.png'
 import { scrollToInput } from '@/utility/ScrollToInput';
 import { useRef } from 'react';
 import Popup from '@/Components/Popup/index';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const companySchema = Constants.companySchema;
 const addButton = Constants.addButton;
@@ -28,7 +30,7 @@ const multiSelectData = {
     team_size: Constants.teamSizeOptions
 }
 
-function CompanyDetail() {
+function CompanyDetail({detail}) {
     const inputRefs = useRef(Constants.companyInputRefs());
     const { data, setData, post, processing} = useForm(Constants.initCompanyDetailForm);
     const [validationErrors, setValidationErrors] = useState({});
@@ -39,27 +41,26 @@ function CompanyDetail() {
     const [selectPopup, setSelectPopup] = useState({
         title:"",
         desc:""
-    })
+    });
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        setUser(detail)
+    }, [detail])
+
     const handleClickOpen = (id,title) => {
         setOpen(true);
-        setAddMoreId(id)
-;
+        setAddMoreId(id);
         setSelectPopup(()=>({
             title:title
         }))
     };
 
     const handleChange = (key, value) => {
-
-        if(value?.includes(undefined)){
-            return;
-        }
-
         const updatedData = {
-        ...data,
-        [key]: value,
+            ...data,
+            [key]: value,
         };
-
         if (key === 'confirm_password' || key === 'password') {
             if (data.password !== value && data.confirm_password !== value) {
               setpasswordError(true);
@@ -67,45 +68,34 @@ function CompanyDetail() {
               setpasswordError(false);
             }
         }
-
-
-        const fieldSchema = companySchema.extract(key)
-;
+        const fieldSchema = companySchema.extract(key);
         const { error } = fieldSchema.validate(value);
 
         if (error) {
-        setValidationErrors({
-            ...validationErrors,
-            [key]: error.message,
-        });
+            setValidationErrors({
+                ...validationErrors,
+                [key]: error.message,
+            });
         } else {
-        const { [key]: removedError, ...rest } = validationErrors;
-        setValidationErrors(rest);
+            const { [key]: removedError, ...rest } = validationErrors;
+            setValidationErrors(rest);
         }
-
         setData(updatedData);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const validationErrors = {};
-
         Object.keys(data).forEach(key => {
-          const fieldSchema = companySchema.extract(key)
-    ;
+          const fieldSchema = companySchema.extract(key);
           const { error } = fieldSchema.validate(data[key]);
           if (error) {
             validationErrors[key] = error.message;
           }
         });
-
-
         if (data.confirm_password !== data.password) {
           validationErrors.confirm_password = 'Passwords does not match';
-
         }
-
         if (Object.keys(validationErrors).length > 0) {
             for (const field in inputRefs.current) {
                 if (inputRefs.current[field] && inputRefs.current[field].current && validationErrors[field]) {
@@ -114,28 +104,35 @@ function CompanyDetail() {
                 }
             }
           setValidationErrors(validationErrors);
-          return;
-        } else {
-        //   console.log('Data', data);
-          post(route('admin.company.saveData',data),{
+        } else
+        {
+            console.log("data", data);
+            post(route('company.saveData',user.id),{
                 onSuccess:(success) => {
-                   console.log(success, "sucesss")
+                   console.log(success, "sucesss");
+                   notify.success('Success', { position: 'top-right' });
+
                 },
                 onError:(error) => {
-                  console.log(error,"error")
+                  console.log(error,"error");
+                  notify.error('Failure', { position: 'top-right' });
+
                 },
-            })}
-            // post(route('company.details.update',data),{
+            })
+
+            // get(route('mentor.getList',data),{
             //     onSuccess:(success) => {
-            //        console.log(success, "sucesss")
+            //        console.log(success, "sucesss");
+            //        notify.success('Success', { position: 'top-right' });
+
             //     },
             //     onError:(error) => {
-            //       console.log(error,"error")
+            //       console.log(error,"error");
+            //       notify.error('Failure', { position: 'top-right' });
             //     },
-            // })}
-        // }
-    //   };
+            // })
         }
+    }
 
 
     return (
@@ -149,6 +146,7 @@ function CompanyDetail() {
                 setSelectData={setSelectData}
                 selectData={selectData}
             />
+              {/* <ToastContainer style={{ marginTop:"53px" }}/> */}
             {/* <>
             <Dialog
                 open={open}

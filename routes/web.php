@@ -66,7 +66,7 @@ Route::name('landing.')->group(function() {
     // Route::get('/login', [LandingController::class, 'login'])->name('login');
     // Route::get('/admin/login-page', [LandingController::class, 'login'])->name('admin.login');
     Route::get('/company-detail/{id}', [LandingController::class, 'companyDetails'])->name('companydetail');
-    Route::get('/mentor-detail/{id}', [LandingController::class, 'mentorDetails'])->name('mentordetails');
+    Route::get('/mentor-detail/{id}', [LandingController::class, 'mentorDetails'])->name('mentordetail');
     Route::get('/company-list', [LandingController::class, 'companyList'])->name('companyList');
     Route::get('/company-detail-review',[LandingController::class, 'companyReview'])->name('companyReview');
     Route::get('/mentor-list', [LandingController::class, 'mentorList'])->name('mentorList');
@@ -80,10 +80,14 @@ Route::name('landing.')->group(function() {
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
     Route::get('/admin/login', [LandingController::class, 'adminLogin'])->name('login');
+    Route::get('/user/login', [LandingController::class,'userLogin'])->name('userlogin');
+    Route::post('/users/login', [LandingController::class,'usersLogin'])->name('userslogin');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
     Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
+    Route::post('/saveDetail{id}', [MentorController::class, 'saveDetail'])->name('saveDetail');
+
 });
 
 Route::prefix('company')->name('company.')->group(function(){

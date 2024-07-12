@@ -15,6 +15,7 @@ import { scrollToInput } from '@/utility/ScrollToInput';
 import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 const HeadingBox = styled('div')(() => ({
   border: '1px solid black',
@@ -29,13 +30,19 @@ const DetailBox = styled('div')(() => ({
 }));
 
 
-function Mentor() {
+function Mentor({detail}) {
     const { data, setData, post, processing} = useForm(Constants.initMentorForm);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
     const inputRefs = useRef(Constants.mentorInputRefs());
     const mentorSchema = Constants.mentorSchema;
     const addButton = Constants.addButton;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        setUser(detail)
+    }, [detail])
+
 
     const handleChange = (key, value) => {
         const updatedData = {
@@ -88,18 +95,18 @@ function Mentor() {
         } else
         {
             console.log("data", data);
-            // post(route('admin.mentor.saveDetail',data),{
-            //     onSuccess:(success) => {
-            //        console.log(success, "sucesss");
-            //        notify.success('Success', { position: 'top-right' });
+            post(route('mentor.saveDetail',user.id),{
+                onSuccess:(success) => {
+                   console.log(success, "sucesss");
+                   notify.success('Success', { position: 'top-right' });
 
-            //     },
-            //     onError:(error) => {
-            //       console.log(error,"error");
-            //       notify.error('Failure', { position: 'top-right' });
+                },
+                onError:(error) => {
+                  console.log(error,"error");
+                  notify.error('Failure', { position: 'top-right' });
 
-            //     },
-            // })
+                },
+            })
 
             // get(route('mentor.getList',data),{
             //     onSuccess:(success) => {

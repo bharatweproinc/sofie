@@ -30,6 +30,7 @@ class CompanyController extends Controller
 
     public function saveData(Request $request, $id){
         $response = $this->companyRepository->saveData($request, $id);
-        return Inertia::render('Landing/Login/View',$response);
+        //dd("company save success",$response);
+        return Inertia::render('Landing/CompanyDetails/View',$response);
     }
 }

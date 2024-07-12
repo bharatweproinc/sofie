@@ -10,7 +10,7 @@ class Mentor extends Model
     use HasFactory;
     protected $table = 'mentors';
 
-    protected $fillables = [
+    protected $fillable = [
         'qualifications',
         'industry_sector',
         'mentored_company',

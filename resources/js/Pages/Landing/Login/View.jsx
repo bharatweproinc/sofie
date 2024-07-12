@@ -5,7 +5,7 @@ import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import Constants from '../Constants';
 import './style.scss';
-import  backgroundimage from '../../../../../public/images/image7.png'; 
+import  backgroundimage from '../../../../../public/images/image7.png';
 
 
 const loginSchema = Constants.loginSchema
@@ -64,7 +64,7 @@ function Login() {
       console.log('data', value)
     }
 
-    post(route('login'));
+    post(route('landing.userslogin'));
     // post(route('landing.authenticate'), data)
     //         .then(response => {
     //             console.log(success, "sucesss")

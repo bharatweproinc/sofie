@@ -44,55 +44,57 @@ class MentorRepository implements MentorRepositoryInterface {
         }
     }
 
-    public function saveData(Request $request): RedirectResponse
+    public function saveData(Request $request, $id)
     {
-        // return Redirect::route('landing.login-page');
-
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => ['required', Rules\Password::defaults()],
-            'username' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'qualifications' => 'required|string|max:255',
-            'industry_sector' => 'required|string|max:255',
-            'mentored_company' => 'required|string|max:255',
-            'functional_area' => 'required|string|max:255',
-            'hear_about_us' => 'required|string|max:255',
-            'number_of_companies' => 'required|integer|min:1',
-        ]);
-        //dd($request->all());
         try{
-            $mentor = Mentor::create( $request->all(),[
-                'industry_sector' => $request->industry_sector,
+            $user = User::findOrfail($id);
+            // $validator = Validator::make($request->all(), [
+            //     'name' => 'required|string|max:255',
+            //     'email' => 'required|string|email|max:255|unique:users,email',
+            //     'password' => ['required', Rules\Password::defaults()],
+            //     'username' => 'required|string|max:255',
+            //     'phone' => 'required|string|max:20',
+            //     'qualifications' => 'required|string|max:255',
+            //     'industry_sector' => 'required|string|max:255',
+            //     'mentored_company' => 'required|string|max:255',
+            //     'functional_area' => 'required|string|max:255',
+            //     'hear_about_us' => 'required|string|max:255',
+            //     'number_of_companies' => 'required|integer|min:1',
+            // ]);
+            // if($validator->fails()){
+            //     return [
+            //         'success' => false,
+            //         'data' => "validation error occured"
+            //     ];
+            // }
+            $data = [
                 'qualifications' => $request->qualifications,
-                'mentored_company' => $request->mentored_company,
+                'industry_sector' => $request->industry_sector,
                 'functional_area' => $request->functional_area,
-                'hear_about_us' => $request->hear_about_us,
+                'mentored_company' => $request->mentored_company,
+                'hear_about_us' =>$request->hear_about_us,
                 'number_of_companies' => $request->number_of_companies,
-                'number_of_companies' => $request->number_of_companies,
-            ]);
-            $user = new User;
-            $user->name = $request->name;
-            $user->phone = $request->phone;
-            $user->email = $request->email;
-            $user->user_name = $request->username;
-            $user->password = Hash::make($request->password);
-            $user->user_role = 'mentor';
-            $user->functional_id = $mentor->id;
-            $user->save();
+                'additional_information' => $request->additional_information
+            ];
 
-            return Redirect::route('landing.login');
-
-        }catch(\Exception $e){
+            $mentor = Mentor::where('id', $user->functional_id)->first();
+            if($mentor){
+                $mentor->update($data);
+            }else {
+                $mentor = Mentor::create($data);
+                $user->functional_id = $mentor->id;
+                $user->save();
+            }
+            return [
+                'success' => true,
+                'data' => $mentor
+            ];
+        }catch (\Exception $e) {
             dd($e);
-            return response()->json([
-                'msg' => $e->getMessage(),
-                'success' => false
-            ]);
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
         }
     }
-
-
 }

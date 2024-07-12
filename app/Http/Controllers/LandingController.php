@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Company;
+use App\Models\Mentor;
 use App\Repository\{MentorRepository, CompanyRepository};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -37,17 +40,13 @@ class LandingController extends Controller
     }
 
     public function signup() {
-        // $data = $request->only(['name', 'email', 'phone', 'username', 'password', 'qualifications', 'industry_sector',
-        // 'mentored_compnay','functional_area','hear_about_us','number_of_companies','additional_information']);
-        return Inertia::render('Landing/SignUp/View', [
-            // "formData" => $data
-        ]);
+        return Inertia::render('Landing/SignUp/View', []);
     }
 
     public function companyDetails($id) {
         $user = User::findOrFail($id);
         return Inertia::render('Landing/CompanyDetails/View',[
-            'detail' => $user
+            'detail' => $user,
         ]);
     }
     public function companyList() {
@@ -60,7 +59,7 @@ class LandingController extends Controller
     public function mentorDetails($id) {
         $user = User::findOrFail($id);
         return Inertia::render('Landing/Mentor/View',[
-            'detail' => $user
+            'detail' => $user,
         ]);
     }
     public function mentorList() {
@@ -104,4 +103,53 @@ class LandingController extends Controller
         return Inertia::render('Landing/AdminLogin/View', []);
     }
 
+    public function userLogin(){
+        // Auth::logout();
+        // return Inertia::render('Landing/Home/View', []);
+
+        return Inertia::render('Landing/Login/View', []);
+    }
+
+    public function usersLogin(LoginRequest $request){
+        //dd('mentor/company login', $request->all());
+        $user = Auth::user();
+        if(!$user){
+            $request->authenticate();
+            $request->session()->regenerate();
+            $user = Auth::user();
+            $user_id = Auth::id();
+        }
+        $user_id = $user->id;
+        $role = $user->user_role;
+        if($user->functional_id && $role == "mentor"){
+            $existing_mentor = Mentor::where('id',$user->functional_id)->first();
+            if(!$existing_mentor || !$existing_mentor){
+                $first_login_mentor = true;
+            }else{
+                $first_login_mentor = false;
+            }
+        }else if($user->functional_id && $role == "entrepreneur"){
+            $existing_company = Company::where('id',$user->functional_id)->first();
+            if(!$existing_company){
+                $first_login_company = true;
+            }else{
+                $first_login_company = false;
+            }
+        }
+        if($role == "mentor"){
+            $user = User::findOrFail($user_id);
+            return Inertia::render('Landing/Mentor/View',[
+                'detail' => $user,
+            ]);
+        }else if($role == "entrepreneur"){
+            $user = User::findOrFail($user_id);
+            return Inertia::render('Landing/CompanyDetails/View',[
+            'detail' => $user,
+        ]);
+        }
+
+
+
+        // return Inertia::render('Landing/Login/View', []);
+    }
 }
