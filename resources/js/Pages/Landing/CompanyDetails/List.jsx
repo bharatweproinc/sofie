@@ -13,6 +13,7 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
 import NoDataFound from "@/Components/NoDataFound";
+import { Landing } from "@/Layouts/Landing";
 
 
 function CompanyList({list = []}) {
@@ -51,7 +52,7 @@ function CompanyList({list = []}) {
         setSortConfig({ key, direction });
     };
     return (
-        <SideBar>
+        <Landing auth={list}>
             {
                 list.length > 0 ?
             <Grid
@@ -316,7 +317,7 @@ function CompanyList({list = []}) {
                 </Paper>
             </Grid> : <NoDataFound message="No Company Available" />
             }
-        </SideBar>
+        </Landing>
     );
 }
 

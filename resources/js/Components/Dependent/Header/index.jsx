@@ -6,8 +6,8 @@ import sofieLogo from '../../../Assets/Images/Sofie-logo.png';
 import { Link } from '@inertiajs/react';
 
 const navItems = [
-     {name :'Browse Companies', link:'home'},
-     {name : 'Find A Mentor', link : 'home'},
+     {name :'Browse Companies', link:'findcompanies'},
+     {name : 'Find A Mentor', link : 'findmentors'},
      {name : "Login", link : 'userlogin'},
      {name : 'Get Started Now', link : 'signup'}
     ];

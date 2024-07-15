@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, FormControl, Grid, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import { useState } from 'react';
@@ -16,7 +16,6 @@ const signupSchema = Constants.signupSchema
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  // height: '896px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -35,20 +34,33 @@ function Signup() {
   const [passwordError, setpasswordError] = useState(false);
 
   const handleChange = (key, value) => {
+
     setValidationErrors({
         ...validationErrors,
         [key]: Joi.validateToPlainErrors(value, signupSchema[key])
     });
+
+    if (key === 'confirm_password' || key === 'password' ) {
+      if (data.password !== value && data.confirm_password !== value) {
+        setpasswordError(true);
+      } else {
+        setpasswordError(false);
+      }
+    }
+
     setData((prev)=>({
-    ...prev,
-    [key]:value
+      ...prev,
+      [key]:value
     }));
+
     };
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
     let err = Joi.validateToPlainErrors(data, signupSchema)
     setValidationErrors(err);
+
       const isError = Object.keys(err)?.map((val,i)=>{
           if(err[val]== null){
               return 0
@@ -57,7 +69,9 @@ function Signup() {
               return i
             }
           })
-      if (isError?.length > 0) {
+
+      if (isError?.length > 0 || data.confirm_password !== data.password) {
+            validationErrors.confirm_password = data.confirm_password !== data.password  ? 'Passwords does not match' : '';
           return;
       } else {
         post(route('register'),{
@@ -67,13 +81,10 @@ function Signup() {
           onError:(error) => {
             console.log(error.email,"::error");
             notify.error(error.email, { position: 'top-right' });
-
           },
       })
     }}
     
-     
-
   return (
 
     <Landing>
@@ -173,6 +184,19 @@ function Signup() {
                           </RadioGroup>
                       </FormControl>
                     </Grid>
+                    {
+                      data.enterpreneur_or_mentor  === "mentor" ? 
+                        <Grid item xs={12} className='custom_checkbox_label'>
+                          <FormControlLabel required control={<Checkbox />} 
+                              label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with consultation and guidance completely FREE OF CHARGE for up to 1 year." /> 
+                        </Grid> 
+                        :
+                        <Grid item xs={12} className='custom_checkbox_label'>
+                          <FormControlLabel required control={<Checkbox />}
+                              label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for the duration of up to 1 year. 
+                                  I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance completely FREE OF CHARGE." />
+                        </Grid>  
+                    }
                     <Grid item xs={12} mt={2} className='submit_btn'>
                         <Button type='submit' disabled={processing} variant="contained">Sign Up</Button>
                     </Grid>

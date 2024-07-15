@@ -103,6 +103,12 @@ class LandingController extends Controller
     public function accountSetting() {
         return Inertia::render('Landing/Dashboard/Settings/AccountSettings/View',[]);
     }
+    public function findMentors(){
+        return Inertia::render('Landing/Home/Components/Mentors',[]);
+    }
+    public function findCompanies(){
+        return Inertia::render('Landing/Home/Components/Companies',[]);
+    }
     public function adminLogin(){
         if (Auth::user() && Auth::user()->user_role == "admin") {
             return Redirect::route('admin.dashboard');

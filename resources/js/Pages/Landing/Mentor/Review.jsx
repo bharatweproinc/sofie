@@ -2,29 +2,29 @@ import { Landing } from "@/Layouts/Landing";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
 import "./style.scss"
 import { Link } from "@inertiajs/react";
-import NoDataFound from "@/Components/NoDataFound";
+import moment from "moment";
 
-function ReviewProfilePage ({detail}) {
+function ReviewProfilePage ({detail}){
+
+    let initialDate = moment(detail.created_at);
+    let enableDate = initialDate.clone().add(0, 'days');
+    let currentDate = moment();
+    
     return (
         <Landing auth={detail}>
             <Typography sx={{ height: '65px' }}></Typography>
             <Box p={4} className="review_mentor">
-                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mr={1}>
-                <Typography my={2} fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
-                 <Box className='edit_btn'>
-                        <Link href={route('landing.mentordetail', detail.user.id)}>
-                            <Button variant="contained"> Edit </Button>
-                        </Link>
-                    </Box>
+                <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2} className='edit_btn'>
+                    <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
+                    <Button disabled={currentDate.isAfter(enableDate) ? false : true } component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">{currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'} </Button>
                 </Box>
-
                 <Box p={4} pr={0} sx={{border : '1px solid black', borderRadius : '10px'}}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Profile Photo</Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                // src={detail.profile_photo || null}
+                                src={detail.profile_photo || null}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>
@@ -50,11 +50,11 @@ function ReviewProfilePage ({detail}) {
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Industry sectors</Typography>
-                            <Typography fontSize="14px">{detail.industry_sector}</Typography>
+                            {detail.industry_sector.map(item => (<Typography key={item} fontSize="14px">{item}</Typography>))}
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Functional</Typography>
-                            <Typography fontSize="14px">{detail.functional_area}</Typography>
+                            {detail.functional_area.map(item => (<Typography key={item} fontSize="14px">{item}</Typography>))}
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Companies willing to mentor</Typography>
@@ -66,16 +66,10 @@ function ReviewProfilePage ({detail}) {
                         </Grid>
                     </Grid>
                 </Box>
-                <Grid container mt={4}>
-                    {/* <Grid item xs={12} mb={4} textAlign={"center"} className='edit_btn'>
-                        <Link href={route('landing.mentordetail', detail.user.id)}>
-                            <Button variant="contained"> Edit </Button>
-                        </Link>
-                    </Grid> */}
-                </Grid>
             </Box>
-       </Landing>
+        </Landing>
     )
 }
 
 export default ReviewProfilePage;
+

@@ -83,6 +83,8 @@ Route::name('landing.')->group(function() {
     Route::get('/user/login', [LandingController::class,'userLogin'])->name('userlogin');
     Route::post('/users/login', [LandingController::class,'usersLogin'])->name('userslogin');
     Route::get('/notification', [LandingController::class,'notification'])->name('notification');
+    Route::get('/find-mentors', [LandingController::class,'findMentors'])->name('findmentors');
+    Route::get('/find-companies', [LandingController::class,'findCompanies'])->name('findcompanies');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {

@@ -13,6 +13,7 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
 import NoDataFound from "@/Components/NoDataFound";
+import { Landing } from "@/Layouts/Landing";
 
 function MentorList({list = []}) {
     const [sortConfig, setSortConfig] = useState({
@@ -50,7 +51,7 @@ function MentorList({list = []}) {
         setSortConfig({ key, direction });
     };
     return (
-        <SideBar>
+        <Landing>
             {
                 list.length > 0 ?
                 <Grid container className="mentor_list">
@@ -316,7 +317,7 @@ function MentorList({list = []}) {
                     </Grid>
                 </Grid> : <NoDataFound message="No Mentor available" />
             }
-        </SideBar>
+        </Landing>
     );
 }
 

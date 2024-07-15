@@ -249,7 +249,6 @@ function DrawerAppBar(props) {
 						</Grid>
 					))}
 				</Grid>
-
 				<Box className="relative">
 					<img
 						style={{

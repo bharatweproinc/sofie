@@ -108,7 +108,7 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
-        post(route('mentor.saveDetail',data?.id),{
+        post(route('mentor.saveDetail',data.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
             },

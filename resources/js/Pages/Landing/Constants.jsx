@@ -2,7 +2,6 @@ import { useRef } from "react";
 import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
 import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
 import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
-import CropSquareIcon from '@mui/icons-material/CropSquare';
 import { Typography } from "@mui/material";
 import Joi from '@/utility/JoiValidator';
 
@@ -37,12 +36,12 @@ const initCompanyDetailForm = {
     'name':'',
     'phone' : 0,
     'position' : [],
-    'founded_year' : {},
+    'founded_year' : 0,
     'team_size' : [],
     'current_revenue' : [],
     'current_customers_base_size': [],
     'industry_sector': [],
-    'description': '',
+    'company_description': '',
     'functional_area_1' : [],
     'functional_area_2' : [],
     'functional_area_3' : [],
@@ -65,7 +64,7 @@ const initCompanyDetailForm = {
     current_revenue: useRef(null),
     current_customers_base_size: useRef(null),
     industry_sector: useRef(null),
-    description: useRef(null),
+    company_description: useRef(null),
     functional_area_1: useRef(null),
     functional_area_2: useRef(null),
     functional_area_3: useRef(null),
@@ -138,8 +137,7 @@ const companySchema = [{
     current_revenue: Joi.array().items(Joi.string()).min(1).label("Current Revenue").required(),
     current_customers_base_size : Joi.array().items(Joi.string()).min(1).label('Current Customer Base Size').required(),
     industry_sector:  Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
-    // description:  Joi.string().label("Description").required(),
-    description:Joi.optional(),
+    company_description:  Joi.string().label("Description").required(),
     functional_area_1:  Joi.array().items(Joi.string()).min(1).label("Functional Area 1").required(),
     functional_area_2:  Joi.array().items(Joi.string()).min(1).label("Functional Area 2").required(),
     functional_area_3: Joi.array().items(Joi.string()).min(1).label("Functional Area 3").required(),
@@ -223,8 +221,7 @@ const mentoredCompanyOptions = [
 function addButton () {
     return(
     <>
-        <CropSquareIcon sx={{color : '#6b7280', fontSize : '28px', ml : '14px'}} />
-        <Typography sx={{color : 'black', textTransform : 'capitalize', pl : '6px', fontWeight : '600'}}>Add Option</Typography>
+        <Typography sx={{color : 'black', textTransform : 'capitalize', pl : '16px', fontWeight : '600'}}>Add Option</Typography>
     </>
     )
 }

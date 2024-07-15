@@ -29,6 +29,7 @@ import MatchingStatus from './MatchingStatus';
 import { useState } from 'react';
 import Companies from './Companies';
 import Cards from './Cards';
+import { Landing } from '@/Layouts/Landing';
 
 
 const drawerWidth = 240;
@@ -53,8 +54,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 );
 
 
-function dashboard({companies={}}) {
-  const { list } = companies;
+function dashboard({list}) {
+  console.log('list123', list)
 
   const theme = useTheme();
 
@@ -66,7 +67,7 @@ function dashboard({companies={}}) {
   }
 
   return (
-    <SideBar>
+    <Landing auth={list.user}>
       <Box sx={{ display: 'flex', backgroundColor: '#FAFAFA' }}>
         <CssBaseline />
         <Main open={open} sx={{display : 'flex', flexDirection : 'column'}}>
@@ -83,7 +84,7 @@ function dashboard({companies={}}) {
             </Box>
         </Main>
       </Box>
-    </SideBar>
+    </Landing>
   );
 }
 

@@ -21,7 +21,7 @@ class Company extends Model
         'current_revenue',
         'current_customers_base_size',
         'industry_sector',
-        'description',
+        'company_description',
         'functional_area_1',
         'functional_area_2',
         'functional_area_3',

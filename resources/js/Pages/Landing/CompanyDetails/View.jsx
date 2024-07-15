@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from '@inertiajs/react'
-import { Button, Checkbox, FormControl, FormHelperText, Grid, InputLabel, ListItemText, MenuItem, OutlinedInput, Paper, Select, TextField, TextareaAutosize, Typography } from '@mui/material';
+import { Autocomplete, Button, Checkbox, FormControl, FormHelperText, Grid, InputLabel, ListItemText, MenuItem, OutlinedInput, Paper, Select, TextField, TextareaAutosize, Typography } from '@mui/material';
 import { Landing } from '@/Layouts/Landing';
 import './style.scss'
 import Constants from '../Constants';
 import { useState } from 'react';
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ProfilePhotoUpload from '@/Components/FileUpload';
 import profileImage from '../../../Assets/Images/profileImage.png'
 import { scrollToInput } from '@/utility/ScrollToInput';
@@ -16,7 +13,6 @@ import Popup from '@/Components/Popup/index';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
-
 import { notify } from '@/Components/Notifier';
 
 const addButton = Constants.addButton;
@@ -39,14 +35,11 @@ function CompanyDetail({detail}) {
     const [open, setOpen] = React.useState(false);
     const [addMoreId, setAddMoreId] = useState("");
     const [selectData, setSelectData] = useState(multiSelectData);
+    const years = Array.from({ length: 2024 - 1990 + 1 }, (_, index) => 1990 + index);
     const [selectPopup, setSelectPopup] = useState({
         title:"",
         desc:""
     });
-    console.log('de', detail);
-
-    console.log(detail,"::detail")
-
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -58,11 +51,11 @@ function CompanyDetail({detail}) {
 
     const handleChange = (key, value,type) => {
 
-        if(type && type==="select"){
+        if(type && type ==="select"){
         if(value?.includes(undefined)){
             return;
         }
-    }
+        }
         setValidationErrors({
             ...validationErrors,
             [key]: Joi.validateToPlainErrors(value,Constants.companySchema[key])
@@ -104,14 +97,16 @@ function CompanyDetail({detail}) {
           return;
         } else {
 
-        console.log('Data::', detail);
+        // console.log('Data::', data);
 
         post(route('company.saveData', detail?.user.id),{
             onSuccess:(success) => {
-                console.log(success, "sucesss")
+                notify.success('Company Data has been updated successfully')
+                console.log(success, "sucesss");
             },
             onError:(error) => {
-                console.log(error,"error")
+                notify.error("Error in Company Data");
+                console.log(error,"error");
             },
         })}
     }
@@ -287,27 +282,21 @@ function CompanyDetail({detail}) {
                             </Grid>
                             <Grid item lg={6}  xs={12} className='date_picker ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Year Founded</Typography>
-                                    <FormControl sx={{ width:"100%"}} error={!!validationErrors.founded_year}>
-                                        <LocalizationProvider  dateAdapter={AdapterDayjs} >
-                                            <DatePicker
-                                                // value={data.founded_year}
+                                    <Autocomplete
+                                        options={years}
+                                        value={data.founded_year || ''}
+                                        getOptionLabel={(option) => option.toString()}
+                                        onChange={(event, value) => handleChange('founded_year', value)}
+                                        renderInput={(params) => 
+                                            <TextField 
+                                                {...params}
+                                                label="Founded Year" 
+                                                variant="outlined"
                                                 inputRef={inputRefs.current.founded_year}
-                                                sx={{ width:"100%"}}
-                                                views={['year']}
-                                                label={''}
-                                                openTo="year"
-                                                slotProps={{
-                                                    textField:
-                                                    {
-                                                        size: "small",
-                                                        error: !!validationErrors.founded_year,
-                                                        placeholder:"Year Founded"
-                                                    },
-                                            }}
-                                            onChange={(value) => handleChange('founded_year', value.$y)}/>
-                                        <FormHelperText>{validationErrors.founded_year}</FormHelperText>
-                                    </LocalizationProvider>
-                                    </FormControl>
+                                                error={!!validationErrors.founded_year}
+                                                helperText={validationErrors.founded_year}
+                                            />}
+                                        />
                                </Grid>
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Team Size, Number Of Employees</Typography>
@@ -433,13 +422,13 @@ function CompanyDetail({detail}) {
                                         fullWidth
                                         multiline
                                         rows={4}
-                                        value={data?.description}
+                                        value={data.company_description}
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
-                                        onChange={(e) => handleChange('description', e.target.value)}
-                                        error={!!validationErrors.description}
-                                        helperText={validationErrors.description}
-                                        inputRef={inputRefs.current.description}
+                                        onChange={(e) => handleChange('company_description', e.target.value)}
+                                        error={!!validationErrors.company_description}
+                                        helperText={validationErrors.company_description}
+                                        inputRef={inputRefs.current.company_description}
                                     />
                             </Grid>
 

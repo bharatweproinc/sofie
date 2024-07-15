@@ -43,6 +43,11 @@
       }
     }
 
+    .custom_checkbox_label{
+      .MuiFormControlLabel-root{
+        align-items: start;
+      }
+    }
     .submit_btn{
         .MuiButtonBase-root{
             padding: 10px 32px;

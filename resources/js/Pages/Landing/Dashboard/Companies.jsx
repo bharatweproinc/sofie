@@ -27,7 +27,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
         setViewSection("");
     };
 
-    const sortedRows = [...list].sort((a, b) => {
+    const sortedRows = [...list.companies].sort((a, b) => {
        if (sortConfig.key !== null) {
          const key = sortConfig.key;
          if (a[key] < b[key]) {
@@ -79,7 +79,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                         </Button>
                     }
                 </Box>
-                {list.length > 0 ?
+                {list.companies.length > 0 ?
                 <Box>
                     <TableContainer>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -151,8 +151,8 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                             {row.company_name}
                                         </TableCell>
                                         <TableCell align="left">{row.company_uen}</TableCell>
-                                        <TableCell align="left">{row.user?.name}</TableCell>
-                                        <TableCell align="left">{row.user?.email}</TableCell>
+                                        <TableCell align="left">{row.user.name}</TableCell>
+                                        <TableCell align="left">{row.user.email}</TableCell>
                                         <TableCell align="left">
                                             <Box sx={{ gap: '10px' }} className="flex">
                                                 {Constants.icons.map((item, index) => (
@@ -171,7 +171,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                         isView &&
                         <Box p={2} display="flex" justifyContent="center">
                             <Pagination
-                                count={Math.ceil(list.length / rowsPerPage)}
+                                count={Math.ceil(list.companies.length / rowsPerPage)}
                                 page={currentPage}
                                 className='table_pagination'
                                 onChange={handlePageChange}
