@@ -20,7 +20,7 @@ const BackgroundImageContainer = styled('div')({
 
 function EmailNotification({user}) {
   return (
-    <Landing>
+    <Landing >
 	    <Typography sx={{height:'65px'}}></Typography>
          <BackgroundImageContainer sx={{paddingToo:'65px'}}>
             <CenteredPaper sx={{width:'650px !important', margin:'60px',}} elevation={4}>

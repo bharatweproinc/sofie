@@ -44,6 +44,8 @@ function CompanyDetail({detail}) {
         desc:""
     });
 
+    console.log(detail,"::detail")
+
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -100,10 +102,6 @@ function CompanyDetail({detail}) {
           setValidationErrors(err);
           return;
         } else {
-            console.log("testt");
-
-        console.log('Data::', data);
-
         post(route('company.saveData',data?.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
@@ -116,7 +114,7 @@ function CompanyDetail({detail}) {
 
 
     return (
-        <Landing auth={data?.id}>
+        <Landing auth={data}>
             <Popup
                 title={selectPopup.title}
                 dsec={selectPopup.desc}
@@ -170,10 +168,10 @@ function CompanyDetail({detail}) {
                                         variant='outlined'
                                         value={data.name}
                                         placeholder='Please Fill Your User Name'
-                                        onChange={(e)=> handleChange("user_name", e.target.value)}
-                                        error={!!validationErrors.user_name}
-                                        helperText={validationErrors.user_name}
-                                        inputRef={inputRefs.current.user_name}
+                                        onChange={(e)=> handleChange("name", e.target.value)}
+                                        error={!!validationErrors.name}
+                                        helperText={validationErrors.name}
+                                        inputRef={inputRefs.current.name}
                                     />
                             </Grid>
                             <Grid item lg={6} sm={12} md={12} xs={12} className='company_input_field  ' sx={{mb:1}}>

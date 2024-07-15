@@ -11,10 +11,9 @@ import { Link } from "@inertiajs/react";
 import "./style.scss";
 
 const Reviewdata = ({detail}) => {
-    console.log("detail", detail)
 
     return (
-        <Landing>
+        <Landing detail={detail}>
             <Box className="company_detail_review">
                 <Typography sx={{ height: "65px" }}></Typography>
                 <Grid item xs={12}  px={5} pt={4} pb={0}>

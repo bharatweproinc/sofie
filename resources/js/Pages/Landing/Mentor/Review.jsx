@@ -5,12 +5,19 @@ import { Link } from "@inertiajs/react";
 import NoDataFound from "@/Components/NoDataFound";
 
 function ReviewProfilePage ({detail}) {
-    console.log("detail", detail.user.id)
     return (
         <Landing auth={detail}>
             <Typography sx={{ height: '65px' }}></Typography>
             <Box p={4} className="review_mentor">
+                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} mr={1}>
                 <Typography my={2} fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
+                 <Box className='edit_btn'>
+                        <Link href={route('landing.mentordetail', detail.user.id)}>
+                            <Button variant="contained"> Edit </Button>
+                        </Link>
+                    </Box>
+                </Box>
+
                 <Box p={4} pr={0} sx={{border : '1px solid black', borderRadius : '10px'}}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
@@ -60,11 +67,11 @@ function ReviewProfilePage ({detail}) {
                     </Grid>
                 </Box>
                 <Grid container mt={4}>
-                    <Grid item xs={12} mb={4} textAlign={"center"} className='edit_btn'>
+                    {/* <Grid item xs={12} mb={4} textAlign={"center"} className='edit_btn'>
                         <Link href={route('landing.mentordetail', detail.user.id)}>
                             <Button variant="contained"> Edit </Button>
                         </Link>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Box>
        </Landing>

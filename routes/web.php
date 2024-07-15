@@ -75,7 +75,7 @@ Route::name('landing.')->group(function() {
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
     Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
-    Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('admin/dashboard');
+    // Route::get('/dashboard', [LandingController::class, 'dashBoard'])->name('admin/dashboard');
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');

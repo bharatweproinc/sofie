@@ -27,7 +27,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "./style.scss";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AdminMenuItem from "./AdminMenuItem";
-import MentorMenuItem from "./MentorMenuItem";
+import MenuItem from "./MenuItem";
 const drawerWidth = 240;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -38,7 +38,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     justifyContent: "flex-end",
 }));
 
-const SideBar = ({children}) => {
+const SideBar = ({children,auth}) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [open, setOpen] = React.useState(true);
@@ -55,8 +55,6 @@ const SideBar = ({children}) => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-
-
 
 
     const logout = () => {
@@ -133,13 +131,16 @@ const SideBar = ({children}) => {
 
 
                 <List>
-                {/* show menu items according to user_role */}
-                {/* <AdminMenuItem Constants={Constants} openItems={openItems} setOpenItems={setOpenItems}/> */}
-                <MentorMenuItem Constants={Constants} openItems={openItems}/>
+                {auth?.user_role === "admin" ? (
+                    <>
+                  <AdminMenuItem Constants={Constants} openItems={openItems} setOpenItems={setOpenItems}/>
+                    </>
+                ):
+                  <MenuItem Constants={Constants} openItems={openItems}/>
+                }
                 </List>
                 <Button
                     component={Link}
-
                     sx={{
                         color: "#9A9A9A",
                         mt: "auto",

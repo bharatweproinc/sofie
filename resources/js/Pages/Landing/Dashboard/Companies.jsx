@@ -51,6 +51,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
         setCurrentPage(page);
     };
 
+
     const handleSort = (key) => {
        let direction = 'asc';
        if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -78,7 +79,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                         </Button>
                     }
                 </Box>
-                { list.length > 0 ?
+                {list.length > 0 ?
                 <Box>
                     <TableContainer>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -144,14 +145,14 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {currentRows.map((row, index) => (
+                                {currentRows?.length && currentRows.map((row, index) => (
                                     <TableRow key={index}>
                                         <TableCell component="th" scope="row">
                                             {row.company_name}
                                         </TableCell>
                                         <TableCell align="left">{row.company_uen}</TableCell>
-                                        <TableCell align="left">{row.user.name}</TableCell>
-                                        <TableCell align="left">{row.user.email}</TableCell>
+                                        <TableCell align="left">{row.user?.name}</TableCell>
+                                        <TableCell align="left">{row.user?.email}</TableCell>
                                         <TableCell align="left">
                                             <Box sx={{ gap: '10px' }} className="flex">
                                                 {Constants.icons.map((item, index) => (

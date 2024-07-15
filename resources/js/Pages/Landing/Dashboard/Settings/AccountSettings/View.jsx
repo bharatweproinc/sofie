@@ -1,13 +1,13 @@
-import SideBar from "@/Components/Dependent/SideBar";
+import { Landing } from "@/Layouts/Landing";
 import { Box, Typography } from "@mui/material";
 
 function accountSettings () {
     return (
-        <SideBar>
+        <Landing>
             <Box p={8}>
                 <Typography>Account Settings Coming Soon..</Typography>
             </Box>
-        </SideBar>
+        </Landing>
     )
 }
 

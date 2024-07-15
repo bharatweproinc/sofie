@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Link, router } from "@inertiajs/react";
 
-const MentorMenuItem = ({Constants,openItems})=>{
+const MenuItem = ({Constants,openItems})=>{
     return (
         <>
           {Constants.MentorMenuItem.map((item, index) => (
@@ -58,4 +58,4 @@ const MentorMenuItem = ({Constants,openItems})=>{
     )
 }
 
-export default  MentorMenuItem;
+export default  MenuItem;

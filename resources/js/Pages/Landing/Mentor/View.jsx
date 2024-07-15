@@ -58,7 +58,6 @@ function Mentor({detail}) {
         }))
     };
 
-    console.log(data,"::data");
 
     const handleChange = (key, value, type) => {
 
@@ -120,7 +119,7 @@ function Mentor({detail}) {
         }
 
   return (
-    <Landing auth={data?.id}>
+    <Landing auth={data}>
         <Popup
             title={selectPopup.title}
             dsec={selectPopup.desc}
