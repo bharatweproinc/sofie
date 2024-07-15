@@ -10,7 +10,6 @@ use App\Models\Mentor;
 use App\Repository\{MentorRepository, CompanyRepository};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -63,7 +62,6 @@ class LandingController extends Controller
     public function mentorDetails($id) {
         $user = User::findOrFail($id);
         $mentor = Mentor::where('id', $user->functional_id)->first();
-        // dd($user, $mentor);
         return Inertia::render('Landing/Mentor/View',[
             'detail' => [
                 'user' => $user,
@@ -114,13 +112,11 @@ class LandingController extends Controller
 
     public function userLogin(){
         // Auth::logout();
-        // return Inertia::render('Landing/AdminLogin/View', []);
+        // return Inertia::render('Landing/Home/View', []);
         return Inertia::render('Landing/Login/View', []);
     }
 
     public function usersLogin(LoginRequest $request){
-
-        //dd('mentor/company login', $request->all());
         $user = Auth::user();
         if(!$user){
             $request->authenticate();

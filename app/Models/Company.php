@@ -11,6 +11,7 @@ class Company extends Model
     protected $fillable = [
         'company_name',
         'company_uen',
+        'contact_name',
         'phone',
         'position',
         'username',
@@ -21,9 +22,9 @@ class Company extends Model
         'current_customers_base_size',
         'industry_sector',
         'description',
-        'function_area_1',
-        'function_area_2',
-        'function_area_3',
+        'functional_area_1',
+        'functional_area_2',
+        'functional_area_3',
         'hear_about_us',
         'current_problem',
         'additional_information'
@@ -35,9 +36,9 @@ class Company extends Model
         'current_revenue' => 'array',
         'current_customers_base_size' => 'array',
         'industry_sector' => 'array',
-        'function_area_1' => 'array',
-        'function_area_2' => 'array',
-        'function_area_3' => 'array',
+        'functional_area_1' => 'array',
+        'functional_area_2' => 'array',
+        'functional_area_3' => 'array',
         'hear_about_us' => 'array',
     ];
 

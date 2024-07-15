@@ -22,29 +22,33 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function saveData(Request $request, $id){
         try {
-            $user = User::findOrfail($id);
-            $data["company_name"] = $request['company_name'];
-            $data['email'] = $request['email'];
-            $data["company_uen"] = $request['company_uen'];
-            $data["phone"] = $request['phone'];
-            $data["username"] = $request['username'];
-            $data["password"] = $request['password'];
-            $data["mobile_number"] = $request['mobile_number'];
-            $data["position"] = $request['position'];
-            $data["founded_year"] = $request['founded_year'];
-            $data["team_size"] = $request['team_size'];
-            $data["current_revenue"] = $request['current_revenue'];
-            $data["current_customers_base_size"] = $request['current_customers_base_size'];
-            $data["industry_sector"] = $request['industry_sector'];
-            $data["description"] = $request['description'];
-            $data["function_area_1"] = $request['function_area_1'];
-            $data["function_area_2"] = $request['function_area_2'];
-            $data["function_area_3"] = $request['function_area_3'];
-            $data["hear_about_us"] = $request['hear_about_us'];
-            $data["current_problem"] = $request['current_problem'];
-            $data["additional_information"] = $request['additional_information'];
 
+            $user = User::findOrfail($id);
+            $data = [
+                'company_name' => $request->company_name,
+                'email' => $request->email,
+                'company_uen' => $request->company_uen,
+                'phone' => $request->phone,
+                'username' =>$request->username,
+                'mobile_number' => $request->mobile_number,
+                'position' => $request->position,
+                'founded_year' => $request->founded_year,
+                'team_size' => $request->team_size,
+                'current_revenue' => $request->current_revenue,
+                'current_customers_base_size' => $request->current_customers_base_size,
+                'industry_sector' => $request->industry_sector,
+                'description' => $request->description,
+                'functional_area_1' => $request->functional_area_1,
+                'functional_area_2' => $request->functional_area_2,
+                'functional_area_3' => $request->functional_area_3,
+                'hear_about_us' => $request->hear_about_us,
+                'current_problem' => $request->current_problem,
+                'additional_information' => $request->additional_information,
+                'contact_name' => $request->contact_name
+            ];
             $company = Company::where('id', $user->functional_id)->first();
+            //dd($request->contact_name, $company->contact_name);
+
             if($company){
                 $company->update($data);
             }else {

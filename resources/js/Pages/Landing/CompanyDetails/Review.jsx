@@ -71,18 +71,6 @@ const Reviewdata = ({detail}) => {
                                 fontWeight={600}
                                 color={"#7C7C7C"}
                             >
-                                Contact Name
-                            </Typography>
-                            <Typography fontSize={"14px"}>
-                                {detail.contact_name}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
-                            <Typography
-                                fontSize={"18px"}
-                                fontWeight={600}
-                                color={"#7C7C7C"}
-                            >
                                 Email
                             </Typography>
                             <Typography fontSize={"14px"}>
@@ -221,7 +209,7 @@ const Reviewdata = ({detail}) => {
                                 Functional Area 1
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {detail.function_area_1}
+                                {detail.functional_area_1}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -233,7 +221,7 @@ const Reviewdata = ({detail}) => {
                                 Functional Area 2
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {detail.function_area_2}
+                                {detail.functional_area_2}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -245,7 +233,7 @@ const Reviewdata = ({detail}) => {
                                 Functional Area 3
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {detail.function_area_3}
+                                {detail.functional_area_3}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -282,7 +270,7 @@ const Reviewdata = ({detail}) => {
                     textAlign={"center"}
                     className="edit_btn"
                 >
-                    <Link href={route("landing.companydetail")}>
+                    <Link href={route("landing.companydetail",detail.user.id)}>
                         <Button
                             sx={{
                                 textTransform: "capitalize",

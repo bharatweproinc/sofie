@@ -43,6 +43,7 @@ function CompanyDetail({detail}) {
         title:"",
         desc:""
     });
+    console.log('de', detail);
 
     console.log(detail,"::detail")
 
@@ -102,7 +103,10 @@ function CompanyDetail({detail}) {
           setValidationErrors(err);
           return;
         } else {
-        post(route('company.saveData',data?.id),{
+
+        console.log('Data::', detail);
+
+        post(route('company.saveData', detail?.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
             },
@@ -284,7 +288,7 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12} className='date_picker ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Year Founded</Typography>
                                     <FormControl sx={{ width:"100%"}} error={!!validationErrors.founded_year}>
-                                        <LocalizationProvider   dateAdapter={AdapterDayjs} >
+                                        <LocalizationProvider  dateAdapter={AdapterDayjs} >
                                             <DatePicker
                                                 // value={data.founded_year}
                                                 inputRef={inputRefs.current.founded_year}
@@ -429,7 +433,7 @@ function CompanyDetail({detail}) {
                                         fullWidth
                                         multiline
                                         rows={4}
-                                        // value={data?.description}
+                                        value={data?.description}
                                         variant='outlined'
                                         placeholder='Please fill your company current problems'
                                         onChange={(e) => handleChange('description', e.target.value)}
