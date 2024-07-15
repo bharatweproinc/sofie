@@ -97,21 +97,21 @@ const initMentorForm = {
     'profile_photo':''
 }
 
-const signupSchema = {
+const signupSchema = [{
     full_name: Joi.string().label("Full Name").required(),
     phone: Joi.number().min(10).label("Phone Number").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     password: Joi.string().min(8).label("Password").required(),
     confirm_password: Joi.string().min(8).label("Confirm Password").required(),
     enterpreneur_or_mentor : Joi.required()
-};
+}];
 
-const loginSchema = {
+const loginSchema = [{
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     password: Joi.string().min(8).label("Password").required(),
-};
+}];
 
-const mentorSchema = {
+const mentorSchema = [{
     name : Joi.string().label("Contact Name").required(),
     phone : Joi.optional(),
     email : Joi.string().email({ tlds: { allow: false } }).label("Email Contact").required(),
@@ -123,9 +123,9 @@ const mentorSchema = {
     number_of_companies : Joi.string().label("Number of Companies").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional(),
- };
+ }];
 
-const companySchema = {
+const companySchema = [{
     company_name : Joi.string().label("Company Name").required(),
     contact_name : Joi.string().label("Contact Name").required(),
     user_name : Joi.string().label("User Name").required(),
@@ -147,15 +147,15 @@ const companySchema = {
     current_problem:  Joi.string().label("Current Problem ").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional()
-  };
+  }];
 
-const contactSchema = {
+const contactSchema = [{
     name : Joi.string().label("Name").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     phone_number: Joi.number().min(10).label("Phone Number").required(),
     company : Joi.optional(),
     message : Joi.string().label("Message").required()
-};
+}];
 
 const icons = [
     { id: 1, icon: <EditIcon /> },

@@ -60,8 +60,13 @@ function Mentor({detail}) {
 
     console.log(data,"::data");
 
-    const handleChange = (key, value) => {
+    const handleChange = (key, value, type) => {
 
+        if(type && type==="select"){
+            if(value?.includes(undefined)){
+                return;
+            }
+        }
         setValidationErrors({
             ...validationErrors,
             [key]: Joi.validateToPlainErrors(value,Constants.mentorSchema[key])
@@ -115,7 +120,7 @@ function Mentor({detail}) {
         }
 
   return (
-    <Landing>
+    <Landing auth={data?.id}>
         <Popup
             title={selectPopup.title}
             dsec={selectPopup.desc}
@@ -249,7 +254,7 @@ function Mentor({detail}) {
                                             fullWidth
                                             variant="outlined"
                                             value={data.industry_sector }
-                                            onChange={(e) => handleChange('industry_sector', e.target.value)}
+                                            onChange={(e) => handleChange('industry_sector', e.target.value, 'select')}
                                             input={<OutlinedInput label="Industry Sector" />}
                                             error={!!validationErrors.industry_sector}
                                             inputRef={inputRefs.current.industry_sector}
@@ -268,35 +273,7 @@ function Mentor({detail}) {
                                     <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
                                 </FormControl>
                         </Grid>
-                        <Grid item="true" xs={12} md={6} sx={{mb:1}}>
-                            <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
-                            <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
-                                <InputLabel id="functionalArea-label">Functional Area</InputLabel>
-                                    <Select
-                                        labelId="functionalArea-label"
-                                        multiple
-                                        fullWidth
-                                        variant="outlined"
-                                        value={data.industry_sector }
-                                        onChange={(e) => handleChange('industry_sector', e.target.value,'select')}
-                                        input={<OutlinedInput label="Industry Sector" />}
-                                        error={!!validationErrors.industry_sector}
-                                        inputRef={inputRefs.current.industry_sector}
-                                        renderValue={(selected) => selected.join(', ')}
-                                    >
-                                        {selectData.industry_sector.map((val) => (
-                                            <MenuItem key={val.value} value={val.value}>
-                                                <Checkbox checked={data.industry_sector.includes(val.value)} />
-                                                <ListItemText primary={val.description} />
-                                            </MenuItem>
-                                        ))}
-                                        <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
-                                            {addButton()}
-                                        </Button>
-                                    </Select>
-                                    <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
-                                </FormControl>
-                        </Grid>
+
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
                             <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>

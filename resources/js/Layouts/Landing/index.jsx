@@ -5,10 +5,9 @@ import { Box } from '@mui/material'
 import React from 'react'
 
 export const Landing = ({ auth, children }) => {
-    console.log(auth, "::auth")
     return (
         <Box>
-            {auth?.id ?
+            {auth ?
                 <>
                 <SideBar children={children}>
                 {children}

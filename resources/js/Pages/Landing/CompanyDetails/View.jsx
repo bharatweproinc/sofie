@@ -53,12 +53,13 @@ function CompanyDetail({detail}) {
         }))
     };
 
-    const handleChange = (key, value) => {
+    const handleChange = (key, value,type) => {
 
+        if(type && type==="select"){
         if(value?.includes(undefined)){
             return;
         }
-
+    }
         setValidationErrors({
             ...validationErrors,
             [key]: Joi.validateToPlainErrors(value,Constants.companySchema[key])
