@@ -1,10 +1,11 @@
-import Joi from "@/utility/JoiValidator";
 import { useRef } from "react";
 import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
 import EditIcon from '@/Components/SVGIcons/Home/EditIcon';
 import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
 import CropSquareIcon from '@mui/icons-material/CropSquare';
 import { Typography } from "@mui/material";
+import Joi from '@/utility/JoiValidator';
+
 
 const initSignUpForm = {
     'full_name' : '',
@@ -137,7 +138,8 @@ const companySchema = {
     current_revenue: Joi.array().items(Joi.string()).min(1).label("Current Revenue").required(),
     current_customers_base_size : Joi.array().items(Joi.string()).min(1).label('Current Customer Base Size').required(),
     industry_sector:  Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
-    description:  Joi.string().label("Description").required(),
+    // description:  Joi.string().label("Description").required(),
+    description:Joi.optional(),
     functional_area_1:  Joi.array().items(Joi.string()).min(1).label("Functional Area 1").required(),
     functional_area_2:  Joi.array().items(Joi.string()).min(1).label("Functional Area 2").required(),
     functional_area_3: Joi.array().items(Joi.string()).min(1).label("Functional Area 3").required(),

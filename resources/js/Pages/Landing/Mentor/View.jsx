@@ -38,7 +38,7 @@ const DetailBox = styled('div')(() => ({
 
 
 function Mentor({detail}) {
-    const { data, setData, post, processing} = useForm({...Constants.initMentorForm,...detail.user});
+    const { data, setData, post, processing} = useForm({...Constants.initMentorForm, ...detail.mentor, ...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
     const inputRefs = useRef(Constants.mentorInputRefs());
     const mentorSchema = Constants.mentorSchema;
@@ -61,7 +61,7 @@ function Mentor({detail}) {
     console.log(data,"::data");
 
     const handleChange = (key, value) => {
-        
+
         setValidationErrors({
             ...validationErrors,
             [key]: Joi.validateToPlainErrors(value,Constants.mentorSchema[key])
@@ -75,6 +75,7 @@ function Mentor({detail}) {
 
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
         let err = Joi.validateToPlainErrors(data, Constants.mentorSchema)
         setValidationErrors(err);

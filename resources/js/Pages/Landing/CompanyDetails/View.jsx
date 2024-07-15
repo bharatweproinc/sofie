@@ -34,7 +34,7 @@ const multiSelectData = {
 
 function CompanyDetail({detail}) {
     const inputRefs = useRef(Constants.companyInputRefs());
-    const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user});
+    const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user, ...detail.company});
     const [validationErrors, setValidationErrors] = useState({});
     const [open, setOpen] = React.useState(false);
     const [addMoreId, setAddMoreId] = useState("");
@@ -54,7 +54,7 @@ function CompanyDetail({detail}) {
     };
 
     const handleChange = (key, value) => {
-        
+
         if(value?.includes(undefined)){
             return;
         }

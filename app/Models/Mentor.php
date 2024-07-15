@@ -20,6 +20,16 @@ class Mentor extends Model
         'additional_information'
     ];
 
+    protected $casts = [
+        'qualifications' => 'array',
+        'industry_sector' => 'array',
+        'mentored_company' => 'array',
+        'functional_area' => 'array',
+        'hear_about_us' => 'array',
+        'number_of_companies' => 'array',
+        'additional_information' => 'array'
+    ];
+
     /**
      * Get the user associated with the Mentor
      *

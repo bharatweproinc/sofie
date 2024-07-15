@@ -29,6 +29,18 @@ class Company extends Model
         'additional_information'
     ];
 
+    protected $casts = [
+        'position' => 'array',
+        'team_size' => 'array',
+        'current_revenue' => 'array',
+        'current_customers_base_size' => 'array',
+        'industry_sector' => 'array',
+        'function_area_1' => 'array',
+        'function_area_2' => 'array',
+        'function_area_3' => 'array',
+        'hear_about_us' => 'array',
+    ];
+
     public function user()
     {
         return $this->hasOne(User::class, 'functional_id', 'id');

@@ -7,7 +7,7 @@ import NoDataFound from "@/Components/NoDataFound";
 function ReviewProfilePage ({detail}) {
     console.log("detail", detail.user.id)
     return (
-        <Landing>
+        <Landing auth={detail}>
             <Typography sx={{ height: '65px' }}></Typography>
             <Box p={4} className="review_mentor">
                 <Typography my={2} fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>

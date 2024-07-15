@@ -45,8 +45,12 @@ class LandingController extends Controller
 
     public function companyDetails($id) {
         $user = User::findOrFail($id);
+        $company = Company::where('id', $user->functional_id)->first();
         return Inertia::render('Landing/CompanyDetails/View',[
-            'detail' => $user,
+            'detail' => [
+                'user' => $user,
+                'company' => $company
+            ],
         ]);
     }
     public function companyList() {
@@ -58,8 +62,13 @@ class LandingController extends Controller
 
     public function mentorDetails($id) {
         $user = User::findOrFail($id);
+        $mentor = Mentor::where('id', $user->functional_id)->first();
+        // dd($user, $mentor);
         return Inertia::render('Landing/Mentor/View',[
-            'detail' => $user,
+            'detail' => [
+                'user' => $user,
+                'mentor' => $mentor
+            ],
         ]);
     }
     public function mentorList() {
@@ -105,12 +114,12 @@ class LandingController extends Controller
 
     public function userLogin(){
         // Auth::logout();
-        // return Inertia::render('Landing/Home/View', []);
-
+        // return Inertia::render('Landing/AdminLogin/View', []);
         return Inertia::render('Landing/Login/View', []);
     }
 
     public function usersLogin(LoginRequest $request){
+
         //dd('mentor/company login', $request->all());
         $user = Auth::user();
         if(!$user){
@@ -119,8 +128,31 @@ class LandingController extends Controller
             $user = Auth::user();
             $user_id = Auth::id();
         }
+
         $user_id = $user->id;
         $role = $user->user_role;
+
+        if($role == "mentor"){
+            $user = User::findOrFail($user_id);
+            return Redirect::route('landing.mentordetail',[
+                'id' => $user->id
+            ]);
+
+        }else if($role == "entrepreneur"){
+            $user = User::findOrFail($user_id);
+            return Redirect::route('landing.companydetail',[
+                'id' => $user->id
+            ]);
+
+        //     return Inertia::render('Landing/CompanyDetails/View',[
+        //     'detail' => [
+        //         'user' => $user,
+        //         'company' => $company
+        //     ],
+        // ]);
+        }
+
+
         if($user->functional_id && $role == "mentor"){
             $existing_mentor = Mentor::where('id',$user->functional_id)->first();
             if(!$existing_mentor || !$existing_mentor){
@@ -136,20 +168,13 @@ class LandingController extends Controller
                 $first_login_company = false;
             }
         }
-        if($role == "mentor"){
-            $user = User::findOrFail($user_id);
-            return Inertia::render('Landing/Mentor/View',[
-                'detail' => $user,
-            ]);
-        }else if($role == "entrepreneur"){
-            $user = User::findOrFail($user_id);
-            return Inertia::render('Landing/CompanyDetails/View',[
-            'detail' => $user,
-        ]);
-        }
-
-
-
         // return Inertia::render('Landing/Login/View', []);
+    }
+
+    public function notification(){
+        $user = Auth::user();
+        return Inertia::render('Landing/EmailNotification/view',[
+            'user' => $user
+        ]);
     }
 }

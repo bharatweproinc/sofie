@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\MentorRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -37,8 +40,12 @@ class MentorController extends Controller
     }
 
     public function saveDetail(Request $request, $id) {
+
         $response = $this->mentorRepository->saveData($request, $id);
+        //dd($response['data']->id);
         //dd("mentor save success", $response);
-        return Inertia::render('Landing/Mentor/View',$response);
+        return Redirect::route("mentor.detail",[
+            'id' => $response['data']->id
+        ]);
     }
 }

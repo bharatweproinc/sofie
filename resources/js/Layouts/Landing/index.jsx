@@ -8,7 +8,7 @@ export const Landing = ({ auth, children }) => {
     console.log(auth, "::auth")
     return (
         <Box>
-            {auth ?
+            {auth?.id ?
                 <>
                 <SideBar children={children}>
                 {children}
