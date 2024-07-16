@@ -48,7 +48,13 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 'additional_information' => $request->additional_information,
                 'contact_name' => $request->contact_name
             ];
-          
+
+            //save image
+            // $fileName = time().'.'.$request->profile_photo->extension();
+            // dd($fileName);
+            // $request->file->move(public_path('uploads'), $fileName);
+
+
             $company = Company::where('id', $user->functional_id)->first();
 
             if($company){
