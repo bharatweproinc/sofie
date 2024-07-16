@@ -18,6 +18,13 @@ class UserSeeder extends Seeder
     {
         $users = [
             ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => Hash::make('password'), 'user_role' => 'admin'],
+            ['name' => 'Steven Kim', 'email'=>'skim@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'mentor', ],
+            ['name' => 'Julia Zheng Kuik', 'email'=>'jkuik@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'mentor'],
+            ['name' => 'Soon Yu', 'email'=>'syu@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'mentor'],
+            ['name' => 'Saira Rajan', 'email'=>'srajan@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'mentor'],
+            ['name' => 'Joyce Lian', 'email'=>'jlian@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'company'],
+            ['name' => 'Aaron', 'email'=>'aaron@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'company'],
+            ['name' => 'Ting and Bel', 'email'=>'tbel@yopmail.com', 'password' => Hash::make('password'), 'user_role' => 'company'],
         ];
         foreach ($users as $user) {
             $existingUser = User::where('email', $user['email'])->first();
