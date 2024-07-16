@@ -24,17 +24,28 @@ use Illuminate\Support\Facades\Redirect;
 class MentorRepository implements MentorRepositoryInterface {
 
     public function getList(){
+        $user = Auth::user();
         //$list = Mentor::select('id','email','phone','created_at')->get();
-        $list = Mentor::with('user')->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
-            'number_of_companies', 'additional_information')->get();
+        $mentor = Mentor::with('user')->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
+            'number_of_companies', 'additional_information', 'experience', 'profile_photo')
+            ->get()->each(function($m) {
+                $m->link = url("storage/mentor_profile/{$m->profile_photo}");
+            });
         // $userlist = User::select('phone', 'email')->get();
         // dd($userlist);
-        return ["list" => $list];
+        return ["list" => [
+            "user" => $user,
+            "mentor" => $mentor
+        ]];
     }
 
     public function get($id) {
         try {
-            $data = Mentor::with('user')->find($id);
+            $data = Mentor::with('user')->where('id', $id)
+            ->get()->each(function($m) {
+                $m->link = url("storage/mentor_profile/{$m->profile_photo}");
+            });
+            dd($data);
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [
@@ -46,7 +57,9 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function saveData(Request $request, $id)
     {
+        // dd($request->profile_photo);
         try{
+            $fileName = null;
             $user = User::findOrfail($id);
             // $validator = Validator::make($request->all(), [
             //     'name' => 'required|string|max:255',
@@ -60,6 +73,7 @@ class MentorRepository implements MentorRepositoryInterface {
             //     'functional_area' => 'required|string|max:255',
             //     'hear_about_us' => 'required|string|max:255',
             //     'number_of_companies' => 'required|integer|min:1',
+            //
             // ]);
             // if($validator->fails()){
             //     return [
@@ -77,6 +91,11 @@ class MentorRepository implements MentorRepositoryInterface {
                 'additional_information' => $request->additional_information
             ];
 
+            //saving image in db
+            if($request->hasFile('profile_photo')){
+                $fileName =  $this->uploadFile($request->file('profile_photo'),'mentor_profile');
+            }
+
             $mentor = Mentor::where('id', $user->functional_id)->first();
             if($mentor){
                 $mentor->update($data);
@@ -84,6 +103,11 @@ class MentorRepository implements MentorRepositoryInterface {
                 $mentor = Mentor::create($data);
                 $user->functional_id = $mentor->id;
                 $user->save();
+            }
+
+            if($fileName != null){
+                $mentor->profile_photo = $fileName;
+                $mentor->save();
             }
             return [
                 'success' => true,
@@ -96,5 +120,12 @@ class MentorRepository implements MentorRepositoryInterface {
                 'error' => $e->getMessage()
             ];
         }
+    }
+
+    public function uploadFile($file, $folderName) {
+        $fileName = uniqid() . '_' . time() . '_' . $file->getClientOriginalName();
+        $fileType = $file->getClientOriginalExtension();
+        $file->storeAs("public/{$folderName}", $fileName);
+        return $fileName;
     }
 }

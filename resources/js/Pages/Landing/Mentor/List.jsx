@@ -16,6 +16,7 @@ import NoDataFound from "@/Components/NoDataFound";
 import { Landing } from "@/Layouts/Landing";
 
 function MentorList({list = []}) {
+    const mentorList = list.mentor;
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -23,7 +24,7 @@ function MentorList({list = []}) {
     const rowsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const sortedRows = [...list].sort((a, b) => {
+    const sortedRows = [...mentorList].sort((a, b) => {
         if (sortConfig.key !== null) {
             const key = sortConfig.key;
             if (a[key] < b[key]) {
@@ -51,9 +52,9 @@ function MentorList({list = []}) {
         setSortConfig({ key, direction });
     };
     return (
-        <Landing>
+        <Landing auth={list.user}>
             {
-                list.length > 0 ?
+                mentorList.length > 0 ?
                 <Grid container className="mentor_list">
                     <Grid
                         item
@@ -266,7 +267,7 @@ function MentorList({list = []}) {
                                                 }}
                                             >
                                                 <TableCell align="left" component="th" scope="row">
-                                                    {row.mentored_company}
+                                                    {row.user.name}
                                                 </TableCell>
                                                 <TableCell align="left">{row.user.phone}</TableCell>
                                                 <TableCell align="left">{row.user.email}</TableCell>
@@ -306,7 +307,7 @@ function MentorList({list = []}) {
                             </TableContainer>
                             <Box p={2} display="flex" justifyContent="center">
                                 <Pagination
-                                    count={Math.ceil(list.length / rowsPerPage)}
+                                    count={Math.ceil(mentorList.length / rowsPerPage)}
                                     page={currentPage}
                                     className="table_pagination"
                                     onChange={handlePageChange}

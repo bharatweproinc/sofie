@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, Button, CardActionArea, CardActions } from '@mui/material';
+import { Box } from '@mui/material';
 import Experience from '@/Components/SVGIcons/Home/Experience';
 import Group from '@/Components/SVGIcons/Home/Group';
 
@@ -21,13 +21,13 @@ export default function ImageCard({item}) {
         }}>
             <CardMedia
                 component="img"
-                height="140"
-                image={item.img}
-                alt="green iguana"
+                sx={{borderRadius : '8px', height : '345px'}}
+                image={item.link}
+                alt="mentor_img"
             />
             <CardContent sx={{pl:0}}>
                 <Typography gutterBottom variant="subtitle1" component="div" color={'#000'}>
-                    {item.name}
+                    {item.user.name}
                 </Typography>
                 <Typography gutterBottom variant="subtitle2" component="div" color={'#000'}>
                     {item.site}
@@ -35,13 +35,13 @@ export default function ImageCard({item}) {
                 <Box className="flex" gap={.5}>
                     <Experience/>
                     <Typography variant="caption" color="text.secondary">
-                            {item.experience}
+                            {item.experience} Years Experience
                     </Typography>
                 </Box>
                 <Box className="flex" gap={1}>
                     <Group />
                     <Typography variant="caption" color="text.secondary">
-                        {item.email}
+                        {item.user.email}
                     </Typography>
                 </Box>
             </CardContent>

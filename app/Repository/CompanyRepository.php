@@ -19,8 +19,14 @@ class CompanyRepository implements CompanyRepositoryInterface {
         //$list = Company::select('id','company_name','company_uen','created_at')->get();
         $company = Company::with('user')->select('id','company_name','company_uen', 'functional_area_1',
             'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size',
-            'industry_sector', 'company_description', 'functional_area_2', 'functional_area_3', 'hear_about_us', 'current_problem', 'additional_information')->get();
-            return $company;
+            'industry_sector', 'company_description', 'functional_area_2', 'functional_area_3', 'hear_about_us', 'current_problem', 'additional_information')
+            ->get()->each(function($m) {
+                $m->link = url("storage/company_profile/{$m->profile_photo}");
+            });
+            return ["list" => [
+                "user" => $user,
+                "company" => $company
+            ]];
     }
 
     public function saveData(Request $request, $id){
@@ -49,11 +55,10 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 'contact_name' => $request->contact_name
             ];
 
-            //save image
-            // $fileName = time().'.'.$request->profile_photo->extension();
-            // dd($fileName);
-            // $request->file->move(public_path('uploads'), $fileName);
-
+            //saving image in db
+            if($request->hasFile('profile_photo')){
+                $fileName =  $this->uploadFile($request->file('profile_photo'),'company_profile');
+            }
 
             $company = Company::where('id', $user->functional_id)->first();
 
@@ -63,6 +68,9 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $company = Company::create($data);
                 $user->functional_id = $company->id;
                 $user->save();
+            }
+            if($fileName != null){
+                $company->profile_photo = $fileName;
             }
             return [
                 'success' => true,
@@ -86,5 +94,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 'message' => $e->getMessage(),
             ];
         }
+    }
+    public function uploadFile($file, $folderName) {
+        $fileName = uniqid() . '_' . time() . '_' . $file->getClientOriginalName();
+        $fileType = $file->getClientOriginalExtension();
+        $file->storeAs("public/{$folderName}", $fileName);
+        return $fileName;
     }
 }

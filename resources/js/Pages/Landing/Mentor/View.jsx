@@ -41,7 +41,6 @@ function Mentor({detail}) {
     const { data, setData, post, processing} = useForm({...Constants.initMentorForm, ...detail.mentor, ...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
     const inputRefs = useRef(Constants.mentorInputRefs());
-    const mentorSchema = Constants.mentorSchema;
     const [open, setOpen] = React.useState(false);
     const [addMoreId, setAddMoreId] = useState("");
     const [selectData, setSelectData] = useState(multiSelectData);
@@ -84,11 +83,6 @@ function Mentor({detail}) {
         let err = Joi.validateToPlainErrors(data, Constants.mentorSchema)
         setValidationErrors(err);
 
-        if (data.confirm_password !== data.password) {
-          validationErrors.confirm_password = 'Passwords does not match';
-
-        }
-        console.log(err,"::err")
         const isError = Object.keys(err)?.map((val,i)=>{
             if(err[val]== null){
                  return false
@@ -108,7 +102,8 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
-        post(route('mentor.saveDetail',data.user.id),{
+            console.log("Data12", data)
+            post(route('mentor.saveDetail', detail.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
             },

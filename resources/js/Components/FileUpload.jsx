@@ -1,23 +1,17 @@
 import { Avatar, Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const ProfilePhotoUpload = ({setData,data,name, defaultImg}) => {
+    const [img, setImg] = useState(null);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                const updatedData = {
-                    ...data,
-                    [name]: reader.result,
-                  };
-                  setData(updatedData);
-            };
-            reader.readAsDataURL(file);
-        }
+            setData({...data, ["profile_photo"] :file});
+            setImg(file)
+            }
     };
 
     return (
@@ -26,7 +20,7 @@ const ProfilePhotoUpload = ({setData,data,name, defaultImg}) => {
                 <label htmlFor="avatar-upload">
                     <Avatar
                         alt="Avatar"
-                        src={data?.profile_photo || defaultImg}
+                        src={img ? URL.createObjectURL(img) : defaultImg}
                         sx={{ width: 162, height: 162 , cursor:'pointer'}}
                     />
                 </label>

@@ -7,8 +7,12 @@ import Constants from '../Constants';
 import './style.scss';
 import  backgroundimage from '../../../../../public/images/image7.png';
 import Joi from '@/utility/JoiValidator';
-const loginSchema = Constants.loginSchema
+import  { notify } from '@/Components/Notifier';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+
+const loginSchema = Constants.loginSchema
 const CenteredPaper = styled(Paper)({
   padding: '40px',
   borderRadius: "12px",
@@ -54,12 +58,21 @@ function Login() {
       if (isError?.length > 0) {
           return;
       } else {
-        post(route('landing.userslogin'));
+        post(route('landing.userslogin'),{
+          onSuccess:(success) => {
+             console.log(success, "sucesss");
+          },
+          onError:(error) => {
+            console.log(error.email,"::error");
+            notify.error(error.email, { position: 'top-right' });
+          },
+        });
     }}
 
   return (
     <Landing>
         <Typography sx={{ height: '65px' }}></Typography>
+        <ToastContainer style={{marginTop:"65px"}}/>
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
          <div style={{ position: 'relative', width : '100%'}} className='login_page'>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>

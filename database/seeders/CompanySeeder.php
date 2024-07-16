@@ -81,6 +81,7 @@ class CompanySeeder extends Seeder
                     'company_name' => $company['company_name'],
                     'company_uen' => $company['company_uen'],
                     'founded_year' => $company['founded_year'],
+                    'position' => $company['position'],
                     'team_size' => $company['team_size'],
                     'current_revenue' => $company['current_revenue'],
                     'current_customers_base_size' => $company['current_customers_base_size'],

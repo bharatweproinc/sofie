@@ -17,6 +17,7 @@ import { Landing } from "@/Layouts/Landing";
 
 
 function CompanyList({list = []}) {
+    let companyList = list.company
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -24,7 +25,7 @@ function CompanyList({list = []}) {
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const sortedRows = [...list].sort((a, b) => {
+    const sortedRows = [...companyList].sort((a, b) => {
         if (sortConfig.key !== null) {
             const key = sortConfig.key;
             if (a[key] < b[key]) {
@@ -52,9 +53,9 @@ function CompanyList({list = []}) {
         setSortConfig({ key, direction });
     };
     return (
-        <Landing auth={list}>
+        <Landing auth={list.user}>
             {
-                list.length > 0 ?
+                companyList.length > 0 ?
             <Grid
                 item
                 xs={12}
@@ -267,11 +268,11 @@ function CompanyList({list = []}) {
                                         }}
                                     >
                                         <TableCell align="left" component="th" scope="row">
-                                            {row.company_name}
+                                            {row?.company_name}
                                         </TableCell>
-                                        <TableCell align="left">{row.user.phone}</TableCell>
-                                        <TableCell align="left">{row.user.email}</TableCell>
-                                        <TableCell align="left">{row.function_area_1}</TableCell>
+                                        <TableCell align="left">{row?.user?.phone}</TableCell>
+                                        <TableCell align="left">{row?.user?.email}</TableCell>
+                                        <TableCell align="left">{row?.function_area_1}</TableCell>
                                         <TableCell align="left">
                                             <Box
                                                 sx={{ gap: "10px" }}
@@ -282,13 +283,13 @@ function CompanyList({list = []}) {
                                                         <span key={index}>
                                                         {item.id === 1 ? (
                                                                         <Link
-                                                                            href={route('admin.company.saveData', {id : row.id})}
+                                                                            // href={route('admin.company.saveData', {id : row.id})}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>
                                                                     ) : item.id === 2 ? (
                                                                         <Link
-                                                                            href={route('admin.company.getList', {id : row.id})}
+                                                                            // href={route('admin.company.get', list.user.id)}
                                                                         >
                                                                     {item.icon}
                                                                 </Link>
@@ -307,7 +308,7 @@ function CompanyList({list = []}) {
                     </TableContainer>
                     <Box p={2} display="flex" justifyContent="center">
                         <Pagination
-                            count={Math.ceil(list.length / rowsPerPage)}
+                            count={Math.ceil(companyList.length / rowsPerPage)}
                             page={currentPage}
                             className="table_pagination"
                             onChange={handlePageChange}

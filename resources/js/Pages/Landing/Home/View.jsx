@@ -26,7 +26,8 @@ import "./style.scss"
 import { Link } from '@inertiajs/react';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-function DrawerAppBar(props) {
+function DrawerAppBar({list}) {
+	console.log("list121", list.companies.list.company)
 	const themes = useTheme()
 	const isMobile = useMediaQuery(themes.breakpoints.down('sm'));
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -189,7 +190,7 @@ function DrawerAppBar(props) {
 				</Grid>
 
 				<Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
-					{Constants.ImageCard.map((item, key) => (
+					{list && list.mentors.list.mentor.map((item, key) => (
 						<Grid item xs={12} sm={3} key={key}>
 							<ImageCard item={item} />
 						</Grid>
@@ -243,7 +244,7 @@ function DrawerAppBar(props) {
 				</Grid>
 
 				<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
-					{Constants.FeatureCard.map((item, key) => (
+					{list.companies.list.company.map((item, key) => (
 						<Grid key={key} item xs={12} sm={4} my={{sm:0, xs:2}}>
 							<FeatureCard item={item} />
 						</Grid>

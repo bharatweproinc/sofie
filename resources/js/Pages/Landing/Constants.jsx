@@ -91,7 +91,7 @@ const initMentorForm = {
     'industry_sector' : [],
     'functional_area' : [],
     'hear_about_us' : [],
-    'number_of_companies' : '',
+    'number_of_companies' : 0,
     'additional_information' : '',
     'profile_photo':''
 }
@@ -119,7 +119,7 @@ const mentorSchema = [{
     industry_sector : Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
     functional_area : Joi.array().items(Joi.string()).min(1).label("Functional").required(),
     hear_about_us : Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
-    number_of_companies : Joi.string().label("Number of Companies").required(),
+    number_of_companies : Joi.number().label("Number of Companies").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional(),
  }];
@@ -162,6 +162,7 @@ const icons = [
   ];
 
 const positionInCompanyOptions = [
+    "Founder",
     "Owner/Co-owner",
     "Chief Executive Officer(CEO)",
     "Chief Financial Officer(COO)",

@@ -40,6 +40,7 @@ function CompanyDetail({detail}) {
         title:"",
         desc:""
     });
+    console.log("DDATADTDA", data.position)
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -470,7 +471,7 @@ function CompanyDetail({detail}) {
                                                 multiple
                                                 fullWidth
                                                 variant="outlined"
-                                                value={data.functional_area_2  }
+                                                value={data.functional_area_2}
                                                 onChange={(e) => handleChange('functional_area_2', e.target.value,'select')}
                                                 input={<OutlinedInput label="Functional Area 2" />}
                                                 error={!!validationErrors.functional_area_2}

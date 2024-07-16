@@ -21,7 +21,6 @@ const CenteredPaper = styled(Paper)({
 const BackgroundImageContainer = styled('div')({
   backgroundImage: `url(${backgroundimage})`,
   backgroundSize: 'cover',
-  // height: '896px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

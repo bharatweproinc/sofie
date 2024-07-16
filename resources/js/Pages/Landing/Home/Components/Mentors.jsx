@@ -1,19 +1,83 @@
+import * as React from 'react';
 import { Landing } from "@/Layouts/Landing";
-import { Grid, Typography } from "@mui/material";
-import Constants from "../Constants";
-import ImageCard from "./ImageCard";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Group from '@/Components/SVGIcons/Home/Group';
+import Experience from '@/Components/SVGIcons/Home/Experience';
+import { Box, Grid, Typography } from '@mui/material';
+import NoDataFound from '@/Components/NoDataFound';
 
-function FindMentors () {
+function FindMentors ({list}) {
     return (
       <Landing>
             <Typography sx={{ height: '95px' }}></Typography>
-            <Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
-               {Constants.ImageCard.map((item, key) => (
-						<Grid item xs={12} sm={3} key={key}>
-							<ImageCard item={item} />
-						</Grid>
-					))}
-            </Grid>
+            { list.mentor.length > 0 ?
+              <Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
+                  {list.mentor.map((item, key) => (
+                    <Grid item xs={12} key={key}>
+                        <Card
+                            sx={{
+                                display: 'flex',
+                                flexDirection: { xs: 'column', md: 'row'}, 
+                                width: '100%',
+                                height : { lg : '385px'},
+                                marginBottom: '20px',
+                                borderRadius: '16px',
+                            }}
+                        >
+                            <CardMedia
+                                component="img"
+                                sx={{
+                                    width: { xs: '100%', md: 345 }, 
+                                    objectFit: 'cover',
+                                    borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
+                                }}
+                                image={item.link}
+                                alt="mentor img"
+                            />
+                            <CardContent
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'flex-start',
+                                    flex: 1,
+                                    padding: '20px',
+                                    backgroundColor: '#f0f0f0',
+                                    borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' }, 
+                                }}
+                            >
+                                <Typography fontWeight={600} gutterBottom variant="h5" component="div">
+                                    {item.user.name}
+                                </Typography>
+                                <Typography pb={1} fontWeight={500} variant='body1' component="div">
+                                    {item.industry_sector}
+                                </Typography>
+                                <Box className="flex" gap={.5}>
+                                        <Experience/>
+                                        <Typography variant="caption" color="text.secondary">
+                                                {item.experience} Years Experience
+                                        </Typography>
+                                    </Box>
+                                    <Box className="flex" gap={1}>
+                                        <Group />
+                                        <Typography variant="caption" color="text.secondary">
+                                            {item.user.email}
+                                        </Typography>
+                                    </Box>
+                                <Typography pt={2} variant="body2" color="text.secondary">
+                                    {item.qualifications}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {item.additional_information}
+                                </Typography> 
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                  ))}
+              </Grid>
+              : <NoDataFound message='No mentor Available' /> 
+            }
       </Landing>
     )
 }

@@ -18,6 +18,8 @@ import NoDataFound from '@/Components/NoDataFound';
 
 
 const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
+    let companyList = list.companies.list.company
+    // console.log('companyList1212', companyList)
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +29,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
         setViewSection("");
     };
 
-    const sortedRows = [...list.companies].sort((a, b) => {
+    const sortedRows = [...companyList].sort((a, b) => {
        if (sortConfig.key !== null) {
          const key = sortConfig.key;
          if (a[key] < b[key]) {
@@ -79,7 +81,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                         </Button>
                     }
                 </Box>
-                {list.companies.length > 0 ?
+                {companyList.length > 0 ?
                 <Box>
                     <TableContainer>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -151,8 +153,8 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                             {row.company_name}
                                         </TableCell>
                                         <TableCell align="left">{row.company_uen}</TableCell>
-                                        <TableCell align="left">{row.user.name}</TableCell>
-                                        <TableCell align="left">{row.user.email}</TableCell>
+                                        <TableCell align="left">{row?.user?.name}</TableCell>
+                                        <TableCell align="left">{row?.user?.email}</TableCell>
                                         <TableCell align="left">
                                             <Box sx={{ gap: '10px' }} className="flex">
                                                 {Constants.icons.map((item, index) => (
@@ -171,7 +173,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                         isView &&
                         <Box p={2} display="flex" justifyContent="center">
                             <Pagination
-                                count={Math.ceil(list.companies.length / rowsPerPage)}
+                                count={Math.ceil(companyList.length / rowsPerPage)}
                                 page={currentPage}
                                 className='table_pagination'
                                 onChange={handlePageChange}
