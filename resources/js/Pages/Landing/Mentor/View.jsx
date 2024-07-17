@@ -113,7 +113,7 @@ function Mentor({detail}) {
         }
 
   return (
-    <Landing auth={data}>
+    <Landing auth={detail?.logged_user}>
         <Popup
             title={selectPopup.title}
             dsec={selectPopup.desc}

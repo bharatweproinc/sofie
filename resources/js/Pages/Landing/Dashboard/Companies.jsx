@@ -159,7 +159,21 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                             <Box sx={{ gap: '10px' }} className="flex">
                                                 {Constants.icons.map((item, index) => (
                                                     <span key={index}>
-                                                        {item.id === 1 ? <Link href={item.link}>{item.icon}</Link> : item.icon}
+                                                    {item.id === 1 ? (
+                                                                    <Link
+                                                                        href={route('admin.company.companydetail', row.user.id)}
+                                                                    >
+                                                                        {item.icon}
+                                                                    </Link>
+                                                                ) : item.id === 2 ? (
+                                                                    <Link
+                                                                        href={route('admin.company.get', row.id)}
+                                                                    >
+                                                                {item.icon}
+                                                            </Link>
+                                                        ) : (
+                                                            item.icon
+                                                        )}
                                                     </span>
                                                 ))}
                                             </Box>

@@ -13,12 +13,13 @@ import "./style.scss";
 
 const Reviewdata = ({detail}) => {
 
+
     let initialDate = moment(detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
 
     return (
-        <Landing auth={detail}>
+        <Landing auth={detail?.logged_user}>
             <Box className="company_detail_review">
                 <Typography sx={{ height: "65px" }}></Typography>
                 <Grid item xs={12} px={5} pt={4} pb={0} sx={{display : 'flex', justifyContent : 'space-between'}}>
@@ -33,7 +34,7 @@ const Reviewdata = ({detail}) => {
                     <Box pr={5} className='edit_btn'>
                         <Button
                             disabled={currentDate.isAfter(enableDate) ? false : true }
-                            component={Link} 
+                            component={Link}
                             href={route('landing.companydetail', detail.user.id)}
                             type="submit"
                             variant="contained"

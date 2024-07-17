@@ -88,12 +88,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
     }
 
     public function getData($id) {
+        $logged_user = Auth::user();
         try {
-            $data = Company::with('user')->where('id',$id)->select('id','profile_photo','company_name','company_uen', 'functional_area_1',
-            'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size', 'created_at',
-            'industry_sector', 'company_description', 'functional_area_2', 'functional_area_3', 'hear_about_us', 'current_problem', 'additional_information')
-            ->first();
+            $data = Company::with('user')->where('id',$id)->first();
             $data->link = url("storage/company_profile/{$data->profile_photo}");
+            $data->logged_user = $logged_user;
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [

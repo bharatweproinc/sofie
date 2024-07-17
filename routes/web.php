@@ -40,12 +40,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
         Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
         Route::get('/list', [CompanyController::class, 'getList'])->name('getList');
         Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');
+        Route::get('/company-detail/{id}', [LandingController::class, 'companyDetails'])->name('companydetail');
+
     });
 
     Route::prefix('mentor')->name('mentor.')->group(function() {
         Route::get('/list', [MentorController::class, 'view'])->name('list');
         Route::post('/saveDetail', [MentorController::class, 'saveDetail'])->name('saveDetail');
         Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
+        Route::get('/mentor-detail/{id}', [LandingController::class, 'mentorDetails'])->name('mentordetail');
     });
 });
 

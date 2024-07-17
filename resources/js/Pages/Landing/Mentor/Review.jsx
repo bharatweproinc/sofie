@@ -9,9 +9,9 @@ function ReviewProfilePage ({detail}){
     let initialDate = moment(detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
-    
+
     return (
-        <Landing auth={detail}>
+        <Landing auth={detail?.logged_user}>
             <Typography sx={{ height: '65px' }}></Typography>
             <Box p={4} className="review_mentor">
                 <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2} className='edit_btn'>

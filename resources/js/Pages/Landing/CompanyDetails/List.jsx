@@ -283,13 +283,13 @@ function CompanyList({list = []}) {
                                                         <span key={index}>
                                                         {item.id === 1 ? (
                                                                         <Link
-                                                                            // href={route('admin.company.saveData', {id : row.id})}
+                                                                            href={route('admin.company.companydetail', row.user.id)}
                                                                         >
                                                                             {item.icon}
                                                                         </Link>
                                                                     ) : item.id === 2 ? (
                                                                         <Link
-                                                                            // href={route('admin.company.get', list.user.id)}
+                                                                            href={route('admin.company.get', row.id)}
                                                                         >
                                                                     {item.icon}
                                                                 </Link>

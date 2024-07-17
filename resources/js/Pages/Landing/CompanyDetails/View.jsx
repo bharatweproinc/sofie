@@ -111,9 +111,8 @@ function CompanyDetail({detail}) {
         })}
     }
 
-
     return (
-        <Landing auth={data}>
+        <Landing auth={detail?.logged_user}>
             <Popup
                 title={selectPopup.title}
                 dsec={selectPopup.desc}
@@ -285,10 +284,10 @@ function CompanyDetail({detail}) {
                                         value={data.founded_year || ''}
                                         getOptionLabel={(option) => option.toString()}
                                         onChange={(event, value) => handleChange('founded_year', value)}
-                                        renderInput={(params) => 
-                                            <TextField 
+                                        renderInput={(params) =>
+                                            <TextField
                                                 {...params}
-                                                label="Founded Year" 
+                                                label="Founded Year"
                                                 variant="outlined"
                                                 inputRef={inputRefs.current.founded_year}
                                                 error={!!validationErrors.founded_year}

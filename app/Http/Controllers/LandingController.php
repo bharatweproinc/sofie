@@ -45,17 +45,31 @@ class LandingController extends Controller
         return Inertia::render('Landing/SignUp/View', []);
     }
 
-    public function companyDetails($id) {
-        $user = User::findOrFail($id);
-        $company = Company::where('id', $user->functional_id)->first();
-        $company->link = url("storage/company_profile/{$company->profile_photo}");
-        return Inertia::render('Landing/CompanyDetails/View',[
-            'detail' => [
-                'user' => $user,
-                'company' => $company
-            ],
-        ]);
-    }
+    // public function companyDetails($id) {
+    //     $user = User::findOrFail($id);
+    //     $company = Company::where('id', $user->functional_id)->first();
+    //     $company->link = url("storage/company_profile/{$company->profile_photo}");
+    //     return Inertia::render('Landing/CompanyDetails/View',[
+    //         'detail' => [
+    //             'user' => $user,
+    //             'company' => $company
+    //         ],
+    //     ]);
+    // }
+        public function companyDetails($id) {
+            $logged_user = Auth::user();
+            $user = User::findOrFail($id);
+            $company = Company::where('id', $user->functional_id)->first();
+            $company->link = url("storage/company_profile/{$company->profile_photo}");
+            return Inertia::render('Landing/CompanyDetails/View',[
+                'detail' => [
+                    'logged_user' => $logged_user,
+                    'user' => $user,
+                    'company' => $company,
+                ],
+            ]);
+        }
+
     public function companyList() {
         return Inertia::render('Landing/CompanyDetails/List',[]);
     }
@@ -64,11 +78,13 @@ class LandingController extends Controller
     }
 
     public function mentorDetails($id) {
+        $logged_user = Auth::user();
         $user = User::findOrFail($id);
         $mentor = Mentor::where('id', $user->functional_id)->first();
         $mentor->link = url("storage/mentor_profile/{$mentor->profile_photo}");
         return Inertia::render('Landing/Mentor/View',[
             'detail' => [
+                'logged_user' => $logged_user,
                 'user' => $user,
                 'mentor' => $mentor
             ],
@@ -122,11 +138,27 @@ class LandingController extends Controller
         }
         return Inertia::render('Landing/AdminLogin/View', []);
     }
-
     public function userLogin(){
         // Auth::logout();
-        // return Inertia::render('Landing/Login/View', []);
-        return Inertia::render('Landing/Login/View', []);
+        // return Inertia::render('Landing/Signup/View', []);
+        if(Auth::user()){
+            $role = Auth::user()->user_role;
+            if($role == "mentor"){
+                return Redirect::route('landing.mentordetail',[
+                    'id' => Auth::id()
+                ]);
+
+            }else if($role == "entrepreneur"){
+                return Redirect::route('landing.companydetail',[
+                    'id' => Auth::id()
+                ]);
+            }
+            else if($role == "admin"){
+                return Redirect::route('admin.dashboard',[]);
+            }
+        }else{
+            return Inertia::render('Landing/Login/View', []);
+        }
     }
 
     public function usersLogin(LoginRequest $request){
@@ -137,22 +169,22 @@ class LandingController extends Controller
             $user = Auth::user();
             $user_id = Auth::id();
         }
-        
+
         $user_id = $user->id;
         $role = $user->user_role;
-        
+
         if($role == "mentor"){
             $user = User::findOrFail($user_id);
             return Redirect::route('landing.mentordetail',[
                 'id' => $user->id
             ]);
-            
+
         }else if($role == "entrepreneur"){
             $user = User::findOrFail($user_id);
             return Redirect::route('landing.companydetail',[
                 'id' => $user->id
             ]);
-            
+
         //     return Inertia::render('Landing/CompanyDetails/View',[
         //     'detail' => [
         //         'user' => $user,

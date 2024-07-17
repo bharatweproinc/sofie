@@ -41,11 +41,10 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function get($id) {
         try {
-            $data = Mentor::with('user')->where('id', $id)
-            ->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
-            'number_of_companies', 'additional_information', 'experience', 'profile_photo', 'created_at')
-            ->first();
-                $data->link = url("storage/mentor_profile/{$data->profile_photo}");
+            $logged_user = Auth::user();
+            $data = Mentor::with('user')->where('id', $id)->first();
+            $data->link = url("storage/mentor_profile/{$data->profile_photo}");
+            $data->logged_user = $logged_user;
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [
