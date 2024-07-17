@@ -6,7 +6,7 @@ import moment from "moment";
 
 function ReviewProfilePage ({detail}){
 
-    let initialDate = moment(detail.created_at);
+    let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
 
