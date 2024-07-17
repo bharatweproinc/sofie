@@ -4,35 +4,22 @@ namespace App\Repository;
 
 use App\Repository\Interface\MentorRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Models\{
-    User,
+    User,Mentor
 };
-
-use App\Models\{
-    Mentor,
-};
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
+
 
 class MentorRepository implements MentorRepositoryInterface {
 
     public function getList(){
         $user = Auth::user();
-        //$list = Mentor::select('id','email','phone','created_at')->get();
         $mentor = Mentor::with('user')->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
             'number_of_companies', 'additional_information', 'experience', 'profile_photo')
             ->get()->each(function($m) {
                 $m->link = url("storage/mentor_profile/{$m->profile_photo}");
             });
-        // $userlist = User::select('phone', 'email')->get();
-        // dd($userlist);
         return ["list" => [
             "user" => $user,
             "mentor" => $mentor
@@ -56,9 +43,9 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function saveData(Request $request, $id)
     {
-        // dd($request->profile_photo);
         try{
             $fileName = null;
+            $diff_in_days = 0;
             $user = User::findOrfail($id);
             // $validator = Validator::make($request->all(), [
             //     'name' => 'required|string|max:255',
@@ -96,15 +83,20 @@ class MentorRepository implements MentorRepositoryInterface {
             }
 
             $mentor = Mentor::where('id', $user->functional_id)->first();
-            if($mentor){
-                $mentor->update($data);
+            if($mentor && $mentor->updated_at != null){
+                $current_day = Carbon::now();
+                $updated_at = Carbon::parse($mentor->updated_at);
+                $diff_in_days = $updated_at->diffInDays($current_day);
+                if($diff_in_days >= 7 || $user->user_role =="admin"){
+                    $mentor->update($data);
+                }
             }else {
                 $mentor = Mentor::create($data);
                 $user->functional_id = $mentor->id;
                 $user->save();
             }
 
-            if($fileName != null){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && $user->user_role =="admin")){
                 $mentor->profile_photo = $fileName;
                 $mentor->save();
             }

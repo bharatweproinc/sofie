@@ -139,8 +139,7 @@ class LandingController extends Controller
         return Inertia::render('Landing/AdminLogin/View', []);
     }
     public function userLogin(){
-        // Auth::logout();
-        // return Inertia::render('Landing/Signup/View', []);
+        //Auth::logout();
         if(Auth::user()){
             $role = Auth::user()->user_role;
             if($role == "mentor"){
@@ -184,32 +183,7 @@ class LandingController extends Controller
             return Redirect::route('landing.companydetail',[
                 'id' => $user->id
             ]);
-
-        //     return Inertia::render('Landing/CompanyDetails/View',[
-        //     'detail' => [
-        //         'user' => $user,
-        //         'company' => $company
-        //     ],
-        // ]);
         }
-
-
-        if($user->functional_id && $role == "mentor"){
-            $existing_mentor = Mentor::where('id',$user->functional_id)->first();
-            if(!$existing_mentor || !$existing_mentor){
-                $first_login_mentor = true;
-            }else{
-                $first_login_mentor = false;
-            }
-        }else if($user->functional_id && $role == "entrepreneur"){
-            $existing_company = Company::where('id',$user->functional_id)->first();
-            if(!$existing_company){
-                $first_login_company = true;
-            }else{
-                $first_login_company = false;
-            }
-        }
-        // return Inertia::render('Landing/Login/View', []);
     }
 
     public function notification(){

@@ -149,9 +149,9 @@ const SideBar = ({children,auth}) => {
                         justifyContent: "left",
                     }}
                     onClick={logout}
-                >
-                    <LogoutIcon sx={{ marginRight: "5px" }} />
-                    Logout
+                    >
+                <LogoutIcon sx={{ marginRight: "5px" }} />
+                <Link href={route('logout')}>Logout</Link>
                 </Button>
             </Drawer>
             <Box sx={{ width:"100%" }}>

@@ -4,12 +4,11 @@ namespace App\Repository;
 
 use App\Repository\Interface\CompanyRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Models\{
     Company,
     User,
 };
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyRepository implements CompanyRepositoryInterface {
@@ -31,17 +30,18 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function saveData(Request $request, $id){
         try {
-            //dd($request->all());
+            // dd($request->all());
             $fileName = null;
+            $diff_in_days = 0;
             $user = User::findOrfail($id);
             $data = [
                 'company_name' => $request->company_name,
-                'email' => $request->email,
                 'company_uen' => $request->company_uen,
                 'phone' => $request->phone,
-                'username' =>$request->username,
-                'mobile_number' => $request->mobile_number,
+                'email' => $request->email,
                 'position' => $request->position,
+                'username' => $user->name,
+                'password' => $user->password,
                 'founded_year' => $request->founded_year,
                 'team_size' => $request->team_size,
                 'current_revenue' => $request->current_revenue,
@@ -64,14 +64,19 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
             $company = Company::where('id', $user->functional_id)->first();
 
-            if($company){
-                $company->update($data);
+            if($company && $company->updated_at != null){
+                $current_day = Carbon::now();
+                $updated_at = Carbon::parse($company->updated_at);
+                $diff_in_days = $updated_at->diffInDays($current_day);
+                if($diff_in_days >= 7 || $user->user_role =="admin"){
+                    $company->update($data);
+                }
             }else {
                 $company = Company::create($data);
                 $user->functional_id = $company->id;
                 $user->save();
             }
-            if($fileName != null){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && $user->user_role =="admin")){
                 $company->profile_photo = $fileName;
                 $company->save();
             }
