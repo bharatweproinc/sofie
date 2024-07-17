@@ -146,9 +146,9 @@ function Mentor({detail}) {
                     <Grid item="true" xs={12} px={8}>
                         <DetailBox>
                             <Grid container gap={5} alignItems={"center"}>
-                            <ProfilePhotoUpload
-                                setData={setData}
-                                data={data}
+                                <ProfilePhotoUpload
+                                    setData={setData}
+                                    data={data}
                                 />
                                 <Grid item="true" xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>

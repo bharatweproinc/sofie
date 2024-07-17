@@ -29,15 +29,18 @@ export default function ImageCard({item}) {
                 <Typography gutterBottom variant="subtitle1" component="div" color={'#000'}>
                     {item.user.name}
                 </Typography>
+
                 <Typography gutterBottom variant="subtitle2" component="div" color={'#000'}>
                     {item.site}
                 </Typography>
+
                 <Box className="flex" gap={.5}>
                     <Experience/>
                     <Typography variant="caption" color="text.secondary">
                             {item.experience} Years Experience
                     </Typography>
                 </Box>
+                
                 <Box className="flex" gap={1}>
                     <Group />
                     <Typography variant="caption" color="text.secondary">

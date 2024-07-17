@@ -176,7 +176,7 @@ function Signup() {
                     </Grid>
                     <Grid  item lg={6} sm={12} md={6} xs={12} textAlign={"start"}>
                       <FormControl sx={{marginLeft : '-10px'}}>
-                          <RadioGroup value={data.enterpreneur_or_mentor} name="radio-buttons-group" sx={{flexDirection:"row", alignItems:"center"}}
+                          <RadioGroup value={data.enterpreneur_or_mentor} name="radio-buttons-group" sx={{flexDirection:{ sm : "row"}, alignItems:{sm : "center", xs : 'flex-start' }}}
                               onChange={(e) => handleChange("enterpreneur_or_mentor", e.target.value)}
                             >
                               <Radio value="entrepreneur" label="Entrepreneur" variant="outlined" />Entrepreneur

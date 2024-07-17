@@ -139,7 +139,7 @@ const Reviewdata = ({detail}) => {
                                 Mobile Number
                             </Typography>
                             <Typography fontSize={"14px"}>
-                                {detail.phone}
+                                {detail.user.phone}
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>

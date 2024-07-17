@@ -7,13 +7,22 @@ import Typography from '@mui/material/Typography';
 import Group from '@/Components/SVGIcons/Home/Group';
 import Experience from '@/Components/SVGIcons/Home/Experience';
 import { Box, Grid } from '@mui/material';
+import moment from "moment";
+import User3 from '../../../../Assets/Images/Karen-Lee.png'
+import NoDataFound from '@/Components/NoDataFound';
 
 function BrowseCompanies ({list}) {
+    const [isReadMore, setIsReadMore] = React.useState(null);
+    const toggleReadMore = (key) => {
+        setIsReadMore(key === isReadMore ? null : key)
+    };
+
     return (
         <Landing>
             <Typography sx={{ height: '95px' }}></Typography>
+            { list.company.length > 0 ?
                 <Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
-					{list.company.map((item, key) => (
+					{list && list.company.map((item, key) => (
 						<Grid key={key} item xs={12}>
                             <Card
                                 sx={{
@@ -47,40 +56,46 @@ function BrowseCompanies ({list}) {
                                         borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' }, 
                                     }}
                                 >
-                                    <Typography fontWeight={600} gutterBottom variant="h5" component="div">
-                                        {item.user.name}
+                                    <Typography pb={.5} variant='body1' component="div">
+                                        {item.industry_sector.map(String).join(' , ')}
                                     </Typography>
-                                    <Typography pb={1} variant='body1' component="div">
+
+                                    <Typography fontWeight={600} gutterBottom variant="h5" component="div">
                                         {item.company_name}
                                     </Typography>
-                                    <Box className="flex" gap={.5}>
-                                            <Experience/> 
-                                            <Typography variant="caption" color="text.secondary">
-                                                    {item.experience}
-                                            </Typography>
-                                        </Box>
-                                        <Box className="flex" gap={1}>
-                                            <Group />
-                                            <Typography variant="caption" color="text.secondary">
-                                                {item.user.email}
-                                            </Typography>
-                                        </Box>
-                                    <Typography pt={2}
-                                     style={{
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis',
-                                        display: '-webkit-box',
-                                        WebkitLineClamp: 6,
-                                        WebkitBoxOrient: 'vertical'
-                                    }}
-                                    variant="body2" color="text.secondary">
-                                        {item.company_description}
+
+                                    <Typography variant="body2" color="text.secondary">
+                                        {isReadMore === key ? item.company_description : item.company_description.slice(0, 600)}
+                                        { item.additional_information.length > 600 &&
+                                            <span
+                                                onClick={() => toggleReadMore(key)}
+                                                style={{ color: "#232424", cursor : 'pointer'}}
+                                            >
+                                                {isReadMore === key  ? " show less" : "... read more"}
+                                            </span>
+                                        }
                                     </Typography>
+
+                                    <Box mt={4} className="flex gap-2 items-center">
+                                        <img src={User3}/>
+
+                                        <Box className="block">
+                                            <Typography sx={{ fontWeight: 'bold !important'}}>
+                                                {item.user.name}
+                                            </Typography>
+                                            <Typography color="text.secondary">
+                                                {moment(item.user.created_at).format('LL')}
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+
                                 </CardContent>
                             </Card>
 						</Grid>
 					))}
 				</Grid>
+                : <NoDataFound message='No Company Available'/> 
+            }
         </Landing>
     )
 }

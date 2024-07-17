@@ -24,10 +24,10 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import SwipeableViews from 'react-swipeable-views';
 import "./style.scss"
 import { Link } from '@inertiajs/react';
+import ImageCarousel from './Components/ImageCorousel';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar({list}) {
-	console.log("list121", list.companies.list.company)
 	const themes = useTheme()
 	const isMobile = useMediaQuery(themes.breakpoints.down('sm'));
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -62,24 +62,18 @@ function DrawerAppBar({list}) {
 								Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals.
 							</Typography>
 							<Box className="flex gap-5 mt-10">
-                            <Link href={route('landing.signup')} className='w-full'>
-									<Button variant="contained" className="w-full">
-										Sign Up to be SME
-									</Button>
-								</Link>
-								<Link href={route('landing.signup')} className='w-full'>
-									<Button variant="outlined" className="w-full">
-										Sign Up to be Mentor
-									</Button>
-								</Link>
+								<Button component={Link} href={route('landing.signup')} variant="contained" className="w-full">
+									Sign Up to be SME
+								</Button>
+								<Button component={Link} href={route('landing.signup')} variant="outlined" className="w-full">
+									Sign Up to be Mentor
+								</Button>
 							</Box>
 
 						</Box>
 					</Grid>
 					<Grid item sm={6} sx={{ position: 'relative', height: { lg: '693px', md: '500px', sm: '400px' } }}>
-						<img className='w-full h-full object-cover' style={{
-							maxWidth: '100',
-						}} src={headerRight} alt="description"/>
+						<ImageCarousel />
 						<Box
 						sx={{
 							position:"absolute",
@@ -189,12 +183,66 @@ function DrawerAppBar({list}) {
 					</Grid>
 				</Grid>
 
-				<Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
+				{/* <Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
 					{list && list.mentors.list.mentor.map((item, key) => (
 						<Grid item xs={12} sm={3} key={key}>
 							<ImageCard item={item} />
 						</Grid>
 					))}
+				</Grid> */}
+
+				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+					{isMobile ? (
+						<Box sx={{ width: '100%', pl: 2, py: 4 }}>
+								<AutoPlaySwipeableViews
+									index={activeStep}
+									onChangeIndex={handleStepChange}
+									enableMouseEvents
+								>
+									{list && list.mentors.list.mentor.map((item, index) => (
+										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
+											<ImageCard item={item} />
+										</Box>
+									))}
+								</AutoPlaySwipeableViews>
+								<MobileStepper
+									variant="dots"
+									steps={list.mentors.list.mentor.length}
+									position="static"
+									activeStep={activeStep}
+									sx={{
+										maxWidth: 400,
+										mt: 2,
+										justifyContent: "center",
+										flexGrow: 1,
+										mx: 'auto',
+									}}
+								/>
+						</Box>
+						) : (
+							<>	
+							<Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ xs: 5 }}>
+								{list && list.mentors.list.mentor.map((item, key) => (
+									<Grid item xs={12} sm={3} key={key}>
+										<ImageCard item={item} />
+									</Grid>
+								))}
+							</Grid>
+								<Box className="flex justify-center w-full" >
+									<MobileStepper
+										variant="dots"
+										steps={list.mentors.list.mentor.length}
+										position="static"
+										activeStep={activeStep}
+										sx={{
+											maxWidth: 400,
+											justifyContent: "center",
+											flexGrow: 1,
+										}}
+									/>
+								</Box>
+							</>
+						)}
 				</Grid>
 
 				<Grid container bgcolor={theme.color[import.meta.env.VITE_SELECTED_THEME].primary}
@@ -243,12 +291,66 @@ function DrawerAppBar({list}) {
 					</Grid>
 				</Grid>
 
-				<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
+				{/* <Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
 					{list && list.companies.list.company.map((item, key) => (
 						<Grid key={key} item xs={12} sm={4} my={{sm:0, xs:2}}>
 							<FeatureCard item={item} />
 						</Grid>
 					))}
+				</Grid> */}
+
+				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+					{isMobile ? (
+						<Box sx={{ width: '100%', pl: 2, py: 4 }}>
+								<AutoPlaySwipeableViews
+									index={activeStep}
+									onChangeIndex={handleStepChange}
+									enableMouseEvents
+								>
+									{list && list.companies.list.company.map((item, index) => (
+										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
+											<FeatureCard item={item} />
+										</Box>
+									))}
+								</AutoPlaySwipeableViews>
+								<MobileStepper
+									variant="dots"
+									steps={list.companies.list.company.length}
+									position="static"
+									activeStep={activeStep}
+									sx={{
+										maxWidth: 400,
+										mt: 2,
+										justifyContent: "center",
+										flexGrow: 1,
+										mx: 'auto',
+									}}
+								/>
+						</Box>
+						) : (
+							<>	
+							<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
+								{list && list.companies.list.company.map((item, key) => (
+									<Grid item xs={12} sm={4} my={{sm:0, xs:2}} key={key}>
+										<FeatureCard item={item} />
+									</Grid>
+								))}
+							</Grid>
+								<Box className="flex justify-center w-full" >
+									<MobileStepper
+										variant="dots"
+										steps={list.companies.list.company.length}
+										position="static"
+										activeStep={activeStep}
+										sx={{
+											maxWidth: 400,
+											justifyContent: "center",
+											flexGrow: 1,
+										}}
+									/>
+								</Box>
+							</>
+						)}
 				</Grid>
 				<Box className="relative">
 					<img
@@ -312,11 +414,9 @@ function DrawerAppBar({list}) {
 								>
 									Your mentorship can make a significant impact, helping entrepreneurs overcome challenges and achieve their business goals.								</Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
-                                <Link href={route('landing.signup')} className='w-full'>
-                                	<Button variant="contained">
+									<Button component={Link} href={route('landing.signup')}  variant="contained">
 										Be A Mentor
 									</Button>
-                                 </Link>
 								</Box>
 							</Grid>
 						</Grid>
@@ -482,7 +582,7 @@ function DrawerAppBar({list}) {
 										'& .MuiMobileStepper-dotActive': {
 											bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].white,
 										},
-										mx: 'auto', // Center the stepper
+										mx: 'auto',
 									}}
 								/>
 							</Box>

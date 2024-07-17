@@ -19,7 +19,7 @@ import NoDataFound from '@/Components/NoDataFound';
 
 const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
     let companyList = list.companies.list.company
-    // console.log('companyList1212', companyList)
+    console.log('companyList1212', companyList)
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -160,11 +160,11 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                                 {Constants.icons.map((item, index) => (
                                                     <span key={index}>
                                                     {item.id === 1 ? (
-                                                                    <Link
-                                                                        href={route('admin.company.companydetail', row.user.id)}
-                                                                    >
-                                                                        {item.icon}
-                                                                    </Link>
+                                                            <Link
+                                                                href={route('admin.company.companydetail', row.user.id)}
+                                                                >
+                                                                    {item.icon}
+                                                            </Link>
                                                                 ) : item.id === 2 ? (
                                                                     <Link
                                                                         href={route('admin.company.get', row.id)}

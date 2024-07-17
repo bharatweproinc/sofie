@@ -119,17 +119,17 @@ const FeatureCard = [
 const Testimonials = [
     {
         description: `“Working with my mentor was a transformative experience.”`,
-        user: `Nur Amira`,
+        user: `Joyce Lian`,
         img: TestMontialUser1,
     },
     {
         description: `The mentors guidance and insights have broadened my perspectives`,
-        user: `Ali Reza`,
+        user: `Aaron Chen`,
         img: TestMontialUser2,
     },
     {
         description: `Their insights helped me grow both personally and professionally`,
-        user: `Arjun Kapoor`,
+        user: `Alex Lim`,
         img: TestMontialUser3,
     },
 ]

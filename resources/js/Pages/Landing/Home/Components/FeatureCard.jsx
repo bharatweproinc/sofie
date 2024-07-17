@@ -4,12 +4,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, Button, CardActionArea, CardActions } from '@mui/material';
-import feature1 from '../../../../Assets/Images/Organic-food.png'
 import moment from "moment";
 import User3 from '../../../../Assets/Images/Karen-Lee.png'
 
 export default function FeatureCard({ item }) {
-    console.log("item", item)
     return (
         <Card sx={{
             // bgcolor:'red',
@@ -29,13 +27,15 @@ export default function FeatureCard({ item }) {
                 />
                 <CardContent>
                     <Typography gutterBottom component="div">
-                        {item.user.name}
+                        {item.industry_sector.map(String).join(' , ')}
                     </Typography>
+
                     <Typography gutterBottom variant="h5" component="div" sx={{
                             fontWeight: 'bold !important'
                         }} >
                         {item.company_name}
                     </Typography>
+
                     <Typography variant="body2" color="text.secondary"
                         style={{
                             overflow: 'hidden',
@@ -47,6 +47,7 @@ export default function FeatureCard({ item }) {
                     >
                         {item.additional_information}
                     </Typography>
+
                     <Box className="flex gap-2 items-center mt-3">
                         <img src={User3}/>
                         <Box className="block">
@@ -58,6 +59,7 @@ export default function FeatureCard({ item }) {
                             </Typography>
                         </Box>
                     </Box>
+
                 </CardContent>
             </CardActionArea>
         </Card>

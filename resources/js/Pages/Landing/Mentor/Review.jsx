@@ -14,6 +14,7 @@ function ReviewProfilePage ({detail}){
         <Landing auth={detail?.logged_user}>
             <Typography sx={{ height: '65px' }}></Typography>
             <Box p={4} className="review_mentor">
+
                 <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2} className='edit_btn'>
                     <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
                     <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
@@ -24,7 +25,9 @@ function ReviewProfilePage ({detail}){
                   </div>
                   </Tooltip>
                 </Box>
+
                 <Box p={4} pr={0} sx={{border : '1px solid black', borderRadius : '10px'}}>
+
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Profile Photo</Typography>
