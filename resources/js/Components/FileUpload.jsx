@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-const ProfilePhotoUpload = ({setData,data,name, defaultImg}) => {
+const ProfilePhotoUpload = ({setData, data,}) => {
     const [img, setImg] = useState(null);
 
     const handleImageChange = (event) => {
@@ -13,14 +13,13 @@ const ProfilePhotoUpload = ({setData,data,name, defaultImg}) => {
             setImg(file)
             }
     };
-
     return (
         <>
             <div style={{ position: "relative" }}>
                 <label htmlFor="avatar-upload">
                     <Avatar
                         alt="Avatar"
-                        src={img ? URL.createObjectURL(img) : defaultImg}
+                        src={img ? URL.createObjectURL(img) : data.link}
                         sx={{ width: 162, height: 162 , cursor:'pointer'}}
                     />
                 </label>

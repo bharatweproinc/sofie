@@ -19,8 +19,12 @@ export default function FeatureCard({ item }) {
             boxShadow:'0px 3px 11px 0px #8e8a8a5c'
         }}>
             <CardActionArea>
-                <CardMedia component="img" height="140"
-                    image={item.img || feature1}
+                <CardMedia 
+                    component="img" 
+                    style={{
+                        height : 345
+                    }}
+                    image={item.link}
                     alt="green iguana"
                 />
                 <CardContent>
@@ -32,7 +36,15 @@ export default function FeatureCard({ item }) {
                         }} >
                         {item.company_name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary"
+                        style={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical'
+                        }}
+                    >
                         {item.additional_information}
                     </Typography>
                     <Box className="flex gap-2 items-center mt-3">

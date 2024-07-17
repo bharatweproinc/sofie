@@ -6,10 +6,8 @@ import moment from "moment";
 
 function ReviewProfilePage ({detail}){
 
-    console.log("detail454", detail)
-    
     let initialDate = moment(detail.created_at);
-    let enableDate = initialDate.clone().add(0, 'days');
+    let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
     
     return (
@@ -26,7 +24,7 @@ function ReviewProfilePage ({detail}){
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Profile Photo</Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                src={detail.profile_photo}
+                                src={detail.link}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

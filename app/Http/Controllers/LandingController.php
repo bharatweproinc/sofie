@@ -48,6 +48,7 @@ class LandingController extends Controller
     public function companyDetails($id) {
         $user = User::findOrFail($id);
         $company = Company::where('id', $user->functional_id)->first();
+        $company->link = url("storage/company_profile/{$company->profile_photo}");
         return Inertia::render('Landing/CompanyDetails/View',[
             'detail' => [
                 'user' => $user,
@@ -65,6 +66,7 @@ class LandingController extends Controller
     public function mentorDetails($id) {
         $user = User::findOrFail($id);
         $mentor = Mentor::where('id', $user->functional_id)->first();
+        $mentor->link = url("storage/mentor_profile/{$mentor->profile_photo}");
         return Inertia::render('Landing/Mentor/View',[
             'detail' => [
                 'user' => $user,
@@ -123,7 +125,7 @@ class LandingController extends Controller
 
     public function userLogin(){
         // Auth::logout();
-        // return Inertia::render('Landing/Home/View', []);
+        // return Inertia::render('Landing/Login/View', []);
         return Inertia::render('Landing/Login/View', []);
     }
 

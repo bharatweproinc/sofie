@@ -8,7 +8,6 @@ import { FormControl, MenuItem,Button, Select, TextField, Typography, FormHelper
 import "./style.scss"
 import Constants from '../Constants';
 import { useState } from 'react';
-import profileImage from '../../../Assets/Images/profileImage.png'
 import ProfilePhotoUpload from '@/Components/FileUpload';
 import { useRef } from 'react';
 import { scrollToInput } from '@/utility/ScrollToInput';
@@ -140,10 +139,8 @@ function Mentor({detail}) {
                         <DetailBox>
                             <Grid container gap={5} alignItems={"center"}>
                             <ProfilePhotoUpload
-                                name={'profile_photo'}
                                 setData={setData}
                                 data={data}
-                                defaultImg ={profileImage}
                                 />
                                 <Grid item="true" xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>

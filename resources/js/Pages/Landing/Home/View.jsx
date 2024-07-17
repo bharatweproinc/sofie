@@ -244,7 +244,7 @@ function DrawerAppBar({list}) {
 				</Grid>
 
 				<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
-					{list.companies.list.company.map((item, key) => (
+					{list && list.companies.list.company.map((item, key) => (
 						<Grid key={key} item xs={12} sm={4} my={{sm:0, xs:2}}>
 							<FeatureCard item={item} />
 						</Grid>

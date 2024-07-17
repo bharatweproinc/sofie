@@ -14,7 +14,7 @@ import "./style.scss";
 const Reviewdata = ({detail}) => {
 
     let initialDate = moment(detail.created_at);
-    let enableDate = initialDate.clone().add(0, 'days');
+    let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
 
     return (
@@ -59,7 +59,7 @@ const Reviewdata = ({detail}) => {
                             </Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                src={detail.profile_photo || null}
+                                src={detail.link}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

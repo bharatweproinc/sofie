@@ -38,11 +38,8 @@
             box-shadow: none !important;
           }
     }
-    .date_picker{
-        .MuiOutlinedInput-input{
-            padding: 16.5px 14px;
-        }
-        .MuiInputBase-inputAdornedEnd:focus {
+    .founded_year{
+        .MuiInputBase-input:focus{
             box-shadow: none !important;
         }
     }

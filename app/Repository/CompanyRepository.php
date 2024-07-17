@@ -19,7 +19,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
         //$list = Company::select('id','company_name','company_uen','created_at')->get();
         $company = Company::with('user')->select('id','company_name','company_uen', 'functional_area_1',
             'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size',
-            'industry_sector', 'company_description', 'functional_area_2', 'functional_area_3', 'hear_about_us', 'current_problem', 'additional_information')
+            'industry_sector', 'company_description', 'functional_area_2', 'functional_area_3', 'hear_about_us', 'current_problem', 'additional_information', 'profile_photo')
             ->get()->each(function($m) {
                 $m->link = url("storage/company_profile/{$m->profile_photo}");
             });
@@ -31,6 +31,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function saveData(Request $request, $id){
         try {
+            //dd($request->all());
+            $fileName = null;
             $user = User::findOrfail($id);
             $data = [
                 'company_name' => $request->company_name,
@@ -71,6 +73,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
             }
             if($fileName != null){
                 $company->profile_photo = $fileName;
+                $company->save();
             }
             return [
                 'success' => true,
@@ -86,7 +89,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function getData($id) {
         try {
-            $data = Company::with('user')->find($id);
+            $data = Company::with('user')->where('id',$id)->select('id','profile_photo','company_name','company_uen', 'functional_area_1',
+            'username', 'position', 'founded_year', 'team_size', 'current_revenue', 'current_customers_base_size', 'created_at',
+            'industry_sector', 'company_description', 'functional_area_2', 'functional_area_3', 'hear_about_us', 'current_problem', 'additional_information')
+            ->first();
+            $data->link = url("storage/company_profile/{$data->profile_photo}");
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [

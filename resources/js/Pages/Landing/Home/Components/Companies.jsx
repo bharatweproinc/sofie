@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Landing } from "@/Layouts/Landing";
-import Constants from "../Constants";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Group from '@/Components/SVGIcons/Home/Group';
 import Experience from '@/Components/SVGIcons/Home/Experience';
 import { Box, Grid } from '@mui/material';
-import feature1 from '../../../../Assets/Images/Organic-food.png'
 
 function BrowseCompanies ({list}) {
     return (
@@ -31,11 +29,11 @@ function BrowseCompanies ({list}) {
                                     component="img"
                                     sx={{
                                         width: { xs: '100%', md: 345 }, 
-                                        height: { xs: 300, md: 'auto' }, 
+                                        height : 345, 
                                         objectFit: 'cover',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
-                                    image={item.img || feature1}
+                                    image={item.link}
                                     alt="mentor img"
                                 />
                                 <CardContent
@@ -67,7 +65,15 @@ function BrowseCompanies ({list}) {
                                                 {item.user.email}
                                             </Typography>
                                         </Box>
-                                    <Typography pt={2} variant="body2" color="text.secondary">
+                                    <Typography pt={2}
+                                     style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        display: '-webkit-box',
+                                        WebkitLineClamp: 6,
+                                        WebkitBoxOrient: 'vertical'
+                                    }}
+                                    variant="body2" color="text.secondary">
                                         {item.company_description}
                                     </Typography>
                                 </CardContent>

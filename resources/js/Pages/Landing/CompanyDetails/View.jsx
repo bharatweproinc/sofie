@@ -29,6 +29,7 @@ const multiSelectData = {
 }
 
 function CompanyDetail({detail}) {
+    console.log('detailopop', detail);
     const inputRefs = useRef(Constants.companyInputRefs());
     const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user, ...detail.company});
     const [validationErrors, setValidationErrors] = useState({});
@@ -40,7 +41,7 @@ function CompanyDetail({detail}) {
         title:"",
         desc:""
     });
-    console.log("DDATADTDA", data.position)
+    // console.log("DDATADTDA", data.link)
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -98,8 +99,6 @@ function CompanyDetail({detail}) {
           return;
         } else {
 
-        // console.log('Data::', data);
-
         post(route('company.saveData', detail?.user.id),{
             onSuccess:(success) => {
                 notify.success('Company Data has been updated successfully')
@@ -136,10 +135,8 @@ function CompanyDetail({detail}) {
                         <Grid item xs={12}>
                             <Grid container  gap={5} alignItems={"center"} className='upload_image_section' sx={{border:'2px solid #7C7C7C !important'}}>
                                       <ProfilePhotoUpload
-                                        name={'profile_photo'}
-                                        setData={setData}
-                                        data={data}
-                                        defaultImg={profileImage}
+                                            setData={setData}
+                                            data={data}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
@@ -281,7 +278,7 @@ function CompanyDetail({detail}) {
                                     <FormHelperText>{validationErrors.position}</FormHelperText>
                                 </FormControl>
                             </Grid>
-                            <Grid item lg={6}  xs={12} className='date_picker ' sx={{mb:1}}>
+                            <Grid item lg={6}  xs={12} className='founded_year' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Year Founded</Typography>
                                     <Autocomplete
                                         options={years}

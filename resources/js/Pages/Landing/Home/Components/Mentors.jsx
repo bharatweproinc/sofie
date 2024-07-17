@@ -21,7 +21,7 @@ function FindMentors ({list}) {
                                 display: 'flex',
                                 flexDirection: { xs: 'column', md: 'row'}, 
                                 width: '100%',
-                                height : { lg : '385px'},
+                                minHeight : { md : '345px'},
                                 marginBottom: '20px',
                                 borderRadius: '16px',
                             }}
@@ -30,6 +30,7 @@ function FindMentors ({list}) {
                                 component="img"
                                 sx={{
                                     width: { xs: '100%', md: 345 }, 
+                                    height : 345,
                                     objectFit: 'cover',
                                     borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                 }}
@@ -68,7 +69,15 @@ function FindMentors ({list}) {
                                 <Typography pt={2} variant="body2" color="text.secondary">
                                     {item.qualifications}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography
+                                    style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        display: '-webkit-box',
+                                        WebkitLineClamp: 6,
+                                        WebkitBoxOrient: 'vertical'
+                                    }}
+                                 variant="body2" color="text.secondary">
                                     {item.additional_information}
                                 </Typography> 
                             </CardContent>
