@@ -32,6 +32,10 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
+    Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
+
+
     // Route::get('/list', [DashboardController::class, 'getList'])->name('dashboard');
     // Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
     // Route::get('/detail-review/{id}', [CompanyController::class, 'get'])->name('get');

@@ -48,6 +48,14 @@ function Mentor({detail}) {
         title:"",
         desc:""
     });
+    const [existingData] = useState(data);
+    const [isEdit, setIsEdit] = useState(false);
+
+    React.useEffect(() => {
+        let isEditing =  existingData !== data
+        setIsEdit(isEditing);
+    }, [data, existingData]);
+
     const handleClickOpen = (id,title) => {
         setOpen(true);
         setAddMoreId(id);
@@ -357,7 +365,7 @@ function Mentor({detail}) {
                         </Grid>
                     </Grid>
                     <Grid item="true" xs={12} mb={4} textAlign={"center"} className='submit_btn'>
-                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Create' : 'Update'}</Button>
+                        <Button type='submit' variant="contained" disabled={processing || !isEdit} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Create' : 'Update'}</Button>
                     </Grid>
                 </Grid>
             </form>

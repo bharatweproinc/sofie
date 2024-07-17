@@ -136,7 +136,7 @@ const SideBar = ({children,auth}) => {
                   <AdminMenuItem Constants={Constants} openItems={openItems} setOpenItems={setOpenItems}/>
                     </>
                 ):
-                  <MenuItem Constants={Constants} openItems={openItems}/>
+                  <MenuItem Constants={Constants} openItems={openItems} auth={auth}/>
                 }
                 </List>
                 <Button

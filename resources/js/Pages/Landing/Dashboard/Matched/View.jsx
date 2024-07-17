@@ -4,11 +4,11 @@ import { Box, Typography } from "@mui/material";
 
 function matched () {
     return (
-        <Landing>
-            <Box p={8}>
+        // <Landing>
+            <Box  sx={{ height:"100vh" }}>
                 <Typography>Companies Matched Coming Soon..</Typography>
             </Box>
-        </Landing>
+        // </Landing>
     )
 }
 

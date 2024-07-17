@@ -1,13 +1,14 @@
 import { Landing } from "@/Layouts/Landing";
 import { Box, Typography } from "@mui/material";
 
-function partialMatched () {
+function partialMatched ({detail}) {
+    console.log(detail,"::detail")
     return (
-        <Landing>
-            <Box p={8}>
+        // <Landing>
+            <Box  sx={{ height:"100vh" }}>
                 <Typography>Companies Partial Matched Coming Soon ...</Typography>
             </Box>
-        </Landing>
+        // </Landing>
     )
 }
 

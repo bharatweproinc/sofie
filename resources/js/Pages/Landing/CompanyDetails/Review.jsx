@@ -10,13 +10,12 @@ import React from "react";
 import moment from "moment";
 import { Link } from "@inertiajs/react";
 import "./style.scss";
+import Tooltip from '@mui/material/Tooltip';
 
 const Reviewdata = ({detail}) => {
-
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
-
     return (
         <Landing auth={detail?.logged_user}>
             <Box className="company_detail_review">
@@ -31,15 +30,20 @@ const Reviewdata = ({detail}) => {
                         Company Details
                     </Typography>
                     <Box pr={5} className='edit_btn'>
-                        <Button
-                            disabled={currentDate.isAfter(enableDate) ? false : true }
+                    <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
+                     <div>
+                    <Button
+                            disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true }
                             component={Link}
                             href={route('landing.companydetail', detail.user.id)}
                             type="submit"
                             variant="contained"
                             >
-                            {currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'}
+                            {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'}
                         </Button>
+                      </div>
+                  </Tooltip>
+
                     </Box>
                 </Grid>
                 <Box

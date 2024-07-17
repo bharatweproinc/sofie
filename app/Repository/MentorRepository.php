@@ -87,7 +87,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($mentor->updated_at);
                 $diff_in_days = $updated_at->diffInDays($current_day);
-                if($diff_in_days >= 7 || $user->user_role =="admin"){
+                if($diff_in_days >= 7 || Auth::user()->user_role =="admin"){
                     $mentor->update($data);
                 }
             }else {

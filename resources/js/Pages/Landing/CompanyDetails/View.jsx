@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from '@inertiajs/react'
 import { Autocomplete, Button, Checkbox, FormControl, FormHelperText, Grid, InputLabel, ListItemText, MenuItem, OutlinedInput, Paper, Select, TextField, TextareaAutosize, Typography } from '@mui/material';
 import { Landing } from '@/Layouts/Landing';
@@ -41,7 +41,15 @@ function CompanyDetail({detail}) {
         title:"",
         desc:""
     });
-    // console.log("DDATADTDA", data.link)
+
+    const [existingData] = useState(data);
+    const [isEdit, setIsEdit] = useState(false);
+
+    useEffect(() => {
+        let isEditing =  existingData !== data
+        setIsEdit(isEditing);
+    }, [data, existingData]);
+
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -580,7 +588,7 @@ function CompanyDetail({detail}) {
                                     />
                             </Grid>
                             <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='submit_btn'>
-                                <Button variant="contained" type='submit' disabled={processing}> {data.functional_id === null ? "Create" : "Update"}</Button>
+                                <Button variant="contained" type='submit' disabled={!isEdit}> {data.functional_id === null ? "Create" : "Update"}</Button>
                             </Grid>
                         </Grid>
                     </form>

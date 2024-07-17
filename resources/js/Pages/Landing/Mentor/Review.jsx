@@ -1,5 +1,5 @@
 import { Landing } from "@/Layouts/Landing";
-import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 import "./style.scss"
 import { Link } from "@inertiajs/react";
 import moment from "moment";
@@ -16,7 +16,13 @@ function ReviewProfilePage ({detail}){
             <Box p={4} className="review_mentor">
                 <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2} className='edit_btn'>
                     <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
-                    <Button disabled={currentDate.isAfter(enableDate) ? false : true } component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">{currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'} </Button>
+                    <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
+                     <div>
+                    <Button disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true } component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">
+                        {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'}
+                  </Button>
+                  </div>
+                  </Tooltip>
                 </Box>
                 <Box p={4} pr={0} sx={{border : '1px solid black', borderRadius : '10px'}}>
                     <Grid container spacing={4}>

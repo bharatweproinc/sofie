@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Link, router } from "@inertiajs/react";
 
-const MenuItem = ({Constants,openItems})=>{
+const MenuItem = ({Constants, auth})=>{
     return (
         <>
           {Constants.MentorMenuItem.map((item, index) => (
@@ -20,9 +20,9 @@ const MenuItem = ({Constants,openItems})=>{
                                 <ListItemButton
                                     component={item.subItems ? "button" : Link}
                                     href={
-                                        item.subItems
-                                            ? undefined
-                                            : `${item.link}`
+                                       auth.user_role === "mentor" ? route('landing.mentordetail',auth?.id
+                                       ):
+                                       route('landing.companydetail', auth?.id)
                                     }
                                     onClick={() =>
                                         item.subItems

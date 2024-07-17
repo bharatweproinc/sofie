@@ -68,7 +68,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($company->updated_at);
                 $diff_in_days = $updated_at->diffInDays($current_day);
-                if($diff_in_days >= 7 || $user->user_role =="admin"){
+                if($diff_in_days >= 7 || Auth::user()->user_role =="admin"){
                     $company->update($data);
                 }
             }else {
