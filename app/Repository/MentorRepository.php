@@ -65,7 +65,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 'phone' => $request->phone
             ];
 
-            $user->update($user_data);
+
 
             //saving image in db
             if($request->hasFile('profile_photo')){
@@ -79,6 +79,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 $diff_in_days = $updated_at->diffInDays($current_day);
                 if($diff_in_days >= 7 || Auth::user()->user_role =="admin"){
                     $mentor->update($data);
+                    $user->update($user_data);
                 }
             }else {
                 $mentor = Mentor::create($data);

@@ -63,7 +63,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 'phone' => $request->phone
             ];
 
-            $user->update($user_data);
+
 
             //saving image in db
             if($request->hasFile('profile_photo')){
@@ -78,6 +78,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $diff_in_days = $updated_at->diffInDays($current_day);
                 if($diff_in_days >= 7 || Auth::user()->user_role =="admin"){
                     $company->update($data);
+                    $user->update($user_data);
                 }
             }else {
                 $company = Company::create($data);
