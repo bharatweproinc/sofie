@@ -160,9 +160,6 @@ class LandingController extends Controller
 
     public function usersLogin(LoginRequest $request){
         $user = Auth::user();
-        if($user->is_live == 1 ){
-
-        }
         if(!$user){
             $request->authenticate();
             $request->session()->regenerate();
