@@ -31,7 +31,7 @@ const BackgroundImageContainer = styled('div')({
 function Login() {
   const { data, setData, post, processing } = useForm(Constants.initLoginForm);
   const [validationErrors, setValidationErrors] = useState({});
-  
+
   const handleChange = (key, value) => {
     setValidationErrors({
         ...validationErrors,
@@ -63,7 +63,7 @@ function Login() {
              console.log(success, "sucesss");
           },
           onError:(error) => {
-            console.log(error.email,"::error");
+            console.log(error,"error");
             notify.error(error.email, { position: 'top-right' });
           },
         });

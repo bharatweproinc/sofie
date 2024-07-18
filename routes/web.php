@@ -34,7 +34,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
-    Route::get('/go-live/{id}', [DashboardController::class, 'goLive'])->name('goLive');
+    // Route::get('/go-live/{id}', [DashboardController::class, 'goLive'])->name('goLive');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 

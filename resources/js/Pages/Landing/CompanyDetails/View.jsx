@@ -29,7 +29,6 @@ const multiSelectData = {
 }
 
 function CompanyDetail({detail}) {
-    console.log('detailopop', detail);
     const inputRefs = useRef(Constants.companyInputRefs());
     const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user, ...detail.company});
     const [validationErrors, setValidationErrors] = useState({});

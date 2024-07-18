@@ -184,14 +184,6 @@ function DrawerAppBar({list}) {
 					</Grid>
 				</Grid>
 
-				{/* <Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ md: 10, xs: 5 }}>
-					{list && list.mentors.list.mentor.map((item, key) => (
-						<Grid item xs={12} sm={3} key={key}>
-							<ImageCard item={item} />
-						</Grid>
-					))}
-				</Grid> */}
-
 				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
 					{isMobile ? (
 						<Box sx={{ width: '100%', pl: 2, py: 4 }}>
@@ -224,7 +216,7 @@ function DrawerAppBar({list}) {
 							<>
 							<Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ xs: 5 }}>
 								{list && list.mentors.list.mentor.map((item, key) => (
-									<Grid item xs={12} sm={3} key={key}>
+									<Grid item xs={12} sm={6} md={3} key={key}>
 										<ImageCard item={item} />
 									</Grid>
 								))}
@@ -291,14 +283,6 @@ function DrawerAppBar({list}) {
 						</Typography>
 					</Grid>
 				</Grid>
-
-				{/* <Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
-					{list && list.companies.list.company.map((item, key) => (
-						<Grid key={key} item xs={12} sm={4} my={{sm:0, xs:2}}>
-							<FeatureCard item={item} />
-						</Grid>
-					))}
-				</Grid> */}
 
 				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
 					{isMobile ? (
