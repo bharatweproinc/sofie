@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Company;
 use App\Models\Mentor;
+use App\Models\Testimonial;
 use App\Repository\{MentorRepository, CompanyRepository};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,12 @@ class LandingController extends Controller
     public function home() {
         $companies = $this->companyRepository->getList();
         $mentors = $this->mentorRepository->getList();
+        $testimonials = Testimonial::get()->each(function($t) {
+            $t->link = url("storage/testimonial/{$t->image}");
+        });
+        //dd($testimonials);
         return Inertia::render('Landing/Home/View',[
-            "list" => [ "companies" =>  $companies, "mentors" => $mentors]]);
+            "list" => [ "companies" =>  $companies, "mentors" => $mentors, 'testimonial' => $testimonials]]);
     }
 
     public function contactUs() {
@@ -155,6 +160,9 @@ class LandingController extends Controller
 
     public function usersLogin(LoginRequest $request){
         $user = Auth::user();
+        if($user->is_live == 1 ){
+
+        }
         if(!$user){
             $request->authenticate();
             $request->session()->regenerate();

@@ -40,10 +40,17 @@ class DashboardController extends Controller
     }
 
     public function goLive($id){
-        $user = User::findOrFail($id);
-        if($user){
-            $user->is_live = 1;
+        try{
+            $user = User::findOrFail($id);
+            if($user){
+                $user->is_live = 1;
+            }
+            $response = 'Is live success';
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
         }
+        return Inertia::render('Landing/Dashboard/View',$response);
     }
 
     public function delete($id){
