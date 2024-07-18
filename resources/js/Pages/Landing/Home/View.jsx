@@ -24,6 +24,15 @@ import SwipeableViews from 'react-swipeable-views';
 import "./style.scss"
 import { Link } from '@inertiajs/react';
 import ImageCarousel from './Components/ImageCorousel';
+
+import t1 from '../../../Assets/Images/joyc.jpg'
+import t2 from '../../../Assets/Images/aron.jpg'
+import t3 from '../../../Assets/Images/alex.jpg'
+
+const founderImages = [
+    t1, t2, t3
+]
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar({list}) {
@@ -294,7 +303,7 @@ function DrawerAppBar({list}) {
 								>
 									{list && list.companies.list.company.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-											<FeatureCard item={item} />
+											<FeatureCard item={item} src={founderImages[index]} />
 										</Box>
 									))}
 								</AutoPlaySwipeableViews>
@@ -317,7 +326,7 @@ function DrawerAppBar({list}) {
 							<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
 								{list && list.companies.list.company.map((item, key) => (
 									<Grid item xs={12} sm={4} my={{sm:0, xs:2}} key={key}>
-										<FeatureCard item={item} />
+										<FeatureCard item={item} src={founderImages[key]} />
 									</Grid>
 								))}
 							</Grid>
@@ -461,7 +470,7 @@ function DrawerAppBar({list}) {
 				</Box>
 
 				<Grid container pt={10}>
-					<Grid item xs={12} sm={12} md={12} lg={12}>
+					{/* <Grid item xs={12} sm={12} md={12} lg={12}>
 						<Typography sx={{
 							fontSize: { xs: '32px', sm: '24px', md: '32px' },
 							fontWeight: '700 !important',
@@ -472,10 +481,10 @@ function DrawerAppBar({list}) {
 						>
 							Featured Mentors
 						</Typography>
-					</Grid>
+					</Grid> */}
 				</Grid>
 
-				<Grid container spacing={{ lg: 4, md: 2, sm: 1, xs: 1 }} py={{ lg: 10, md: 5, sm: 2, xs: 5 }} px={{ lg: 15, md: 6, sm: 2, xs: 2 }} >
+				{/* <Grid container spacing={{ lg: 4, md: 2, sm: 1, xs: 1 }} py={{ lg: 10, md: 5, sm: 2, xs: 5 }} px={{ lg: 15, md: 6, sm: 2, xs: 2 }} >
 					<Grid item xs={12} sm={4}>
 						<Paper elevation={2} sx={{ height: '100%', width: '100%', pb: 2 }}>
 							<Box p={{ sm: 2, xs: 2 }}>
@@ -520,7 +529,7 @@ function DrawerAppBar({list}) {
 							<Box className={`border-b-8 border-[${theme.color[import.meta.env.VITE_SELECTED_THEME].secondary}]`}></Box>
 						</Paper>
 					</Grid>
-				</Grid>
+				</Grid> */}
 
 				<Box bgcolor={theme.color[import.meta.env.VITE_SELECTED_THEME].primary}
 					p={{ lg: 10, md: 5, sm: 2 }}
@@ -547,7 +556,7 @@ function DrawerAppBar({list}) {
 									onChangeIndex={handleStepChange}
 									enableMouseEvents
 								>
-									{list && list.testimonial.map((item, index) => (
+									{Constants.Testimonials.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
 											<Testimonial item={item} />
 										</Box>
@@ -555,7 +564,7 @@ function DrawerAppBar({list}) {
 								</AutoPlaySwipeableViews>
 								<MobileStepper
 									variant="dots"
-									steps={list?.testimonial?.length}
+									steps={Constants.Testimonials.length}
 									position="static"
 									activeStep={activeStep}
 									sx={{
@@ -573,7 +582,7 @@ function DrawerAppBar({list}) {
 							</Box>
 						) : (
 							<>
-								{list && list.testimonial.map((item, key) => (
+								{Constants.Testimonials.map((item, key) => (
 									<Grid item sm={4} key={key}>
 										<Testimonial item={item} />
 									</Grid>
@@ -581,7 +590,7 @@ function DrawerAppBar({list}) {
 								<Box className="flex justify-center w-full mt-9" >
 									<MobileStepper
 										variant="dots"
-										steps={list?.testimonial?.length}
+										steps={Constants.Testimonials.length}
 										position="static"
 										activeStep={activeStep}
 										sx={{

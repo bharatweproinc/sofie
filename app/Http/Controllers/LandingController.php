@@ -27,9 +27,10 @@ class LandingController extends Controller
     public function home() {
         $companies = $this->companyRepository->getList();
         $mentors = $this->mentorRepository->getList();
-        $testimonials = Testimonial::get()->each(function($t) {
-            $t->link = url("storage/testimonial/{$t->image}");
-        });
+        $testimonials = Testimonial::get();
+        // $testimonials = Testimonial::get()->each(function($t) {
+        //     $t->link = url("storage/testimonial/{$t->image}");
+        // });
         //dd($testimonials);
         return Inertia::render('Landing/Home/View',[
             "list" => [ "companies" =>  $companies, "mentors" => $mentors, 'testimonial' => $testimonials]]);

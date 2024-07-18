@@ -19,10 +19,16 @@ import TestMontialUser1 from '../../../../Assets/Images/Ellipse 1.png'
 import TestMontialUser2 from '../../../../Assets/Images/Ellipse 2.png'
 import TestMontialUser3 from '../../../../Assets/Images/Ellipse 3.png'
 
+import t1 from '../../../../Assets/Images/joyc.jpg'
+import t2 from '../../../../Assets/Images/aron.jpg'
+import t3 from '../../../../Assets/Images/alex.jpg'
+
 import { Avatar, Badge } from '@mui/material'
 import Support from '@/Components/SVGIcons/Home/Support'
 import Impact from '@/Components/SVGIcons/Home/Impact'
 import Connection from '@/Components/SVGIcons/Home/Connection'
+import { Timer10Select } from '@mui/icons-material'
+
 
 const ImageCard = [
     {
@@ -125,17 +131,17 @@ const Testimonials = [
     {
         description: `“Working with my mentor was a transformative experience.”`,
         user: `Joyce Lian`,
-        img: TestMontialUser1,
+        img: t1,
     },
     {
         description: `The mentors guidance and insights have broadened my perspectives`,
         user: `Aaron Chen`,
-        img: TestMontialUser2,
+        img: t2,
     },
     {
         description: `Their insights helped me grow both personally and professionally`,
         user: `Alex Lim`,
-        img: TestMontialUser3,
+        img: t3,
     },
 ]
 

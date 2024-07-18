@@ -5,9 +5,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, Button, CardActionArea, CardActions } from '@mui/material';
 import moment from "moment";
-import User3 from '../../../../Assets/Images/Karen-Lee.png'
 
-export default function FeatureCard({ item }) {
+
+export default function FeatureCard({ item, src }) {
     return (
         <Card sx={{
             // bgcolor:'red',
@@ -17,8 +17,8 @@ export default function FeatureCard({ item }) {
             boxShadow:'0px 3px 11px 0px #8e8a8a5c'
         }}>
             <CardActionArea>
-                <CardMedia 
-                    component="img" 
+                <CardMedia
+                    component="img"
                     style={{
                         height : 345
                     }}
@@ -49,7 +49,7 @@ export default function FeatureCard({ item }) {
                     </Typography>
 
                     <Box className="flex gap-2 items-center mt-3">
-                        <img src={User3}/>
+                        <img src={src} style={{borderRadius : '50%', height : "45px", width : '45px'}}/>
                         <Box className="block">
                             <Typography sx={{ fontWeight: 'bold !important'}}>
                                 {item.user.name}

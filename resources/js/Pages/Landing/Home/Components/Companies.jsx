@@ -11,6 +11,14 @@ import moment from "moment";
 import User3 from '../../../../Assets/Images/Karen-Lee.png'
 import NoDataFound from '@/Components/NoDataFound';
 
+import t1 from "../../../../Assets/Images/joyc.jpg"
+import t2 from "../../../../Assets/Images/aron.jpg"
+import t3 from "../../../../Assets/Images/alex.jpg"
+
+const founderImages = [
+    t1, t2, t3
+]
+
 function BrowseCompanies ({list}) {
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
@@ -27,7 +35,7 @@ function BrowseCompanies ({list}) {
                             <Card
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: { xs: 'column', md: 'row' }, 
+                                    flexDirection: { xs: 'column', md: 'row' },
                                     width: '100%',
                                     minHeight : { md : '345px'},
                                     marginBottom: '20px',
@@ -37,8 +45,8 @@ function BrowseCompanies ({list}) {
                                 <CardMedia
                                     component="img"
                                     sx={{
-                                        width: { xs: '100%', md: 345 }, 
-                                        height : 345, 
+                                        width: { xs: '100%', md: 345 },
+                                        height : 345,
                                         objectFit: 'cover',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
@@ -53,7 +61,7 @@ function BrowseCompanies ({list}) {
                                         flex: 1,
                                         padding: '20px',
                                         backgroundColor: '#f0f0f0',
-                                        borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' }, 
+                                        borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' },
                                     }}
                                 >
                                     <Typography pb={.5} variant='body1' component="div">
@@ -77,7 +85,7 @@ function BrowseCompanies ({list}) {
                                     </Typography>
 
                                     <Box mt={4} className="flex gap-2 items-center">
-                                        <img src={User3}/>
+                                        <img src={founderImages[key]} style={{borderRadius : '50%', height : "50px", width : '50px'}}/>
 
                                         <Box className="block">
                                             <Typography sx={{ fontWeight: 'bold !important'}}>
@@ -88,13 +96,12 @@ function BrowseCompanies ({list}) {
                                             </Typography>
                                         </Box>
                                     </Box>
-
                                 </CardContent>
                             </Card>
 						</Grid>
 					))}
 				</Grid>
-                : <NoDataFound message='No Company Available'/> 
+                : <NoDataFound message='No Company Available'/>
             }
         </Landing>
     )
