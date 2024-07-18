@@ -43,30 +43,11 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function saveData(Request $request, $id)
     {
+        // dd($request->all());
         try{
             $fileName = null;
             $diff_in_days = 0;
             $user = User::findOrfail($id);
-            // $validator = Validator::make($request->all(), [
-            //     'name' => 'required|string|max:255',
-            //     'email' => 'required|string|email|max:255|unique:users,email',
-            //     'password' => ['required', Rules\Password::defaults()],
-            //     'username' => 'required|string|max:255',
-            //     'phone' => 'required|string|max:20',
-            //     'qualifications' => 'required|string|max:255',
-            //     'industry_sector' => 'required|string|max:255',
-            //     'mentored_company' => 'required|string|max:255',
-            //     'functional_area' => 'required|string|max:255',
-            //     'hear_about_us' => 'required|string|max:255',
-            //     'number_of_companies' => 'required|integer|min:1',
-            //
-            // ]);
-            // if($validator->fails()){
-            //     return [
-            //         'success' => false,
-            //         'data' => "validation error occured"
-            //     ];
-            // }
             $data = [
                 'qualifications' => $request->qualifications,
                 'industry_sector' => $request->industry_sector,
@@ -74,8 +55,17 @@ class MentorRepository implements MentorRepositoryInterface {
                 'mentored_company' => $request->mentored_company,
                 'hear_about_us' =>$request->hear_about_us,
                 'number_of_companies' => $request->number_of_companies,
-                'additional_information' => $request->additional_information
+                'additional_information' => $request->additional_information,
+                'experience' => $request->experience
             ];
+
+            $user_data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone
+            ];
+
+            $user->update($user_data);
 
             //saving image in db
             if($request->hasFile('profile_photo')){

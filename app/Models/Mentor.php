@@ -40,4 +40,8 @@ class Mentor extends Model
     {
         return $this->hasOne(User::class, 'functional_id', 'id');
     }
+
+    // public function company(){
+    //     return $this->hasOne(Company::class, 'id', 'company_id');
+    // }
 }

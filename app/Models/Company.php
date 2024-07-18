@@ -49,11 +49,9 @@ class Company extends Model
         return $this->hasOne(User::class, 'functional_id', 'id');
     }
 
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('uploads/'.$value),
-        );
+    public function mentor(){
+        return $this->hasMany(Mentor::class, 'id', 'mentor_id');
     }
+
 }
 

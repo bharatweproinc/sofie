@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -36,5 +37,19 @@ class DashboardController extends Controller
             "company" => $companyResponse,
 
         ]);
+    }
+
+    public function goLive($id){
+        $user = User::findOrFail($id);
+        if($user){
+            $user->is_live = 1;
+        }
+    }
+
+    public function delete($id){
+        $user = User::findOrFail($id);
+        if($user){
+            $user->delete();
+        }
     }
 }

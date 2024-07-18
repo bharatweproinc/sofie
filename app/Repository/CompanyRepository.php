@@ -57,6 +57,14 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 'contact_name' => $request->contact_name
             ];
 
+            $user_data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone
+            ];
+
+            $user->update($user_data);
+
             //saving image in db
             if($request->hasFile('profile_photo')){
                 $fileName =  $this->uploadFile($request->file('profile_photo'),'company_profile');

@@ -45,30 +45,21 @@ class LandingController extends Controller
         return Inertia::render('Landing/SignUp/View', []);
     }
 
-    // public function companyDetails($id) {
-    //     $user = User::findOrFail($id);
-    //     $company = Company::where('id', $user->functional_id)->first();
-    //     $company->link = url("storage/company_profile/{$company->profile_photo}");
-    //     return Inertia::render('Landing/CompanyDetails/View',[
-    //         'detail' => [
-    //             'user' => $user,
-    //             'company' => $company
-    //         ],
-    //     ]);
-    // }
-        public function companyDetails($id) {
-            $logged_user = Auth::user();
-            $user = User::findOrFail($id);
-            $company = Company::where('id', $user->functional_id)->first();
+    public function companyDetails($id) {
+        $logged_user = Auth::user();
+        $user = User::findOrFail($id);
+        $company = Company::where('id', $user->functional_id)->first();
+        if($company->profile_photo != null){
             $company->link = url("storage/company_profile/{$company->profile_photo}");
-            return Inertia::render('Landing/CompanyDetails/View',[
-                'detail' => [
-                    'logged_user' => $logged_user,
-                    'user' => $user,
-                    'company' => $company,
-                ],
-            ]);
         }
+        return Inertia::render('Landing/CompanyDetails/View',[
+            'detail' => [
+                'logged_user' => $logged_user,
+                'user' => $user,
+                'company' => $company,
+            ],
+        ]);
+    }
 
     public function companyList() {
         return Inertia::render('Landing/CompanyDetails/List',[]);
@@ -81,7 +72,9 @@ class LandingController extends Controller
         $logged_user = Auth::user();
         $user = User::findOrFail($id);
         $mentor = Mentor::where('id', $user->functional_id)->first();
-        $mentor->link = url("storage/mentor_profile/{$mentor->profile_photo}");
+        if($mentor->profile_photo != null){
+            $mentor->link = url("storage/mentor_profile/{$mentor->profile_photo}");
+        }
         return Inertia::render('Landing/Mentor/View',[
             'detail' => [
                 'logged_user' => $logged_user,
