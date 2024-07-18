@@ -19,8 +19,9 @@ export const Footer = () => {
             sx={{
                 borderBottom:' 1px solid #BEBEC0',
                 paddingBottom: { sm:'20px', xs:'20px'}
-                }}>
-                <Grid className="grid justify-center" mb={5} item xs={12} sm={3}>
+                }}> 
+                <Grid className="flex justify-cent  er" mb={5} item xs={12} sm={3}>
+                    <box className="w-fit">
                     <Typography
                         textAlign={{xs:'center', sm:'left'}} sx={{
                         fontWeight: "bold !important",
@@ -45,8 +46,10 @@ export const Footer = () => {
                         FAQs
                         <br />
                     </Typography>
+                    </box>
                 </Grid>
-                <Grid className="grid justify-center" item xs={12} sm={3}>
+                <Grid className="flex justify-center" item xs={12} sm={3}>
+                    <box className="w-fit">
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         sx={{
@@ -63,8 +66,6 @@ export const Footer = () => {
                         mt={1}
                         sx={linkStyle}
                     >
-                        How Shophie’s Works
-                        <br />
                         <Tooltip title="Privacy" placement="right-start">
                             <Link style={linkStyle} href={route('landing.privacy')}>Privacy</Link>
                         </Tooltip>
@@ -76,8 +77,10 @@ export const Footer = () => {
                         Press
                         <br />
                     </Typography>
+                    </box>
                 </Grid>
-                <Grid className="grid justify-center" item xs={12} sm={3}>
+                <Grid className="flex justify-center" item xs={12} sm={3}>
+                    <box className="w-fit">
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         sx={{
@@ -104,8 +107,10 @@ export const Footer = () => {
                         </Tooltip>
                         <br />
                     </Typography>
+                    </box>
                 </Grid>
-                <Grid className="grid justify-center" item xs={12} sm={3}>
+                <Grid className="flex justify-center" item xs={12} sm={3}>
+                    <box className="w-fit">
                     <Typography
                         textAlign={{xs:'center', sm:'left'}}
                         sx={{ fontWeight: "bold !important" }}
@@ -119,6 +124,7 @@ export const Footer = () => {
                         <img style={{height: '30px', width:'30px'}} src={twitter}></img>
                         <img style={{height: '30px', width:'30px'}} src={linkedin}></img>
                     </Box>
+                    </box>
                 </Grid>
             </Grid>
         </Box>

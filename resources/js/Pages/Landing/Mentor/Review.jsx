@@ -215,8 +215,8 @@ function ReviewProfilePage ({detail}){
                         </Grid>
                         </form>
                         }
+                    </Box>
                 </Box>
-            </Box>
             <DeleteAlert open={open} setOpen={setOpen}/>
 
             {/* <ReviewList/> */}

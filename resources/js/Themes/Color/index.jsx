@@ -8,7 +8,7 @@ const color = {
         greyBackground: '#F3F3F3'
     },
     templete2: {
-        primary: '#117B9E',
+        primary: '#1d6fa4',
         secondary: '#117B9E',
         textPrimaryMuteColor: '#7C7C7C',
         white: '#FFF',

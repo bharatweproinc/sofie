@@ -19,7 +19,7 @@ export default function Guide({ item }) {
                         display: 'flex',
                         margin: 'auto',
                         fontSize:'80px',
-                        background:"#008f58",
+                        background:"#1d6fa4",
                         px:3,
                         zIndex:15
                     }}

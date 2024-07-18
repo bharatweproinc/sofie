@@ -13,8 +13,6 @@ import "./style.scss";
 import Tooltip from '@mui/material/Tooltip';
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 
-
-
 const Reviewdata = ({detail}) => {
     const [open, setOpen] = React.useState(false);
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);

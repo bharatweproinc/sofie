@@ -45,7 +45,7 @@ function DrawerAppBar({list}) {
 	};
 
 	return (
-		<>
+		<>	
 			<Landing>
 				<CssBaseline/>
 				<Grid container spacing={2} mt={{ xs: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -469,7 +469,7 @@ function DrawerAppBar({list}) {
 					</Grid>
 				</Box>
 
-				<Grid container pt={10}>
+				{/* <Grid container pt={10}> */}
 					{/* <Grid item xs={12} sm={12} md={12} lg={12}>
 						<Typography sx={{
 							fontSize: { xs: '32px', sm: '24px', md: '32px' },
@@ -482,7 +482,7 @@ function DrawerAppBar({list}) {
 							Featured Mentors
 						</Typography>
 					</Grid> */}
-				</Grid>
+				{/* </Grid> */}
 
 				{/* <Grid container spacing={{ lg: 4, md: 2, sm: 1, xs: 1 }} py={{ lg: 10, md: 5, sm: 2, xs: 5 }} px={{ lg: 15, md: 6, sm: 2, xs: 2 }} >
 					<Grid item xs={12} sm={4}>

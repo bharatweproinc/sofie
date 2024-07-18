@@ -43,18 +43,19 @@ const Header = () => {
     return (
         <Box sx={{ textAlign: 'center' }}>
             <AppBar component="nav" sx={{
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "#1d6fa4",
                 boxShadow: "0px 4px 17.5px 0px #00000026",
                 zIndex:'99999'
             }}>
-                <Toolbar sx={{
+                <Toolbar sx={{  
                     display: 'flex',
                     justifyContent: 'space-between'
                 }}>
                     <Link href={route('landing.home')}>
-                        <img src={sofieLogo} alt="description" />
+                        {/* <img src={sofieLogo} alt="description" /> */}
+                        <img style={{width:'75px'}} src='./favicon.jpeg' alt="" />
                     </Link>
-                    <IconButton
+                    <IconButton 
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
@@ -64,7 +65,7 @@ const Header = () => {
                     </IconButton>
                     <Box className="flex gap-4" gap={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item, key) => (
-                            <Button
+                            <Button sx={{ color:'#ffff'}}
                                 key={key}
                                 variant={key === 3 ? 'contained' : 'text'}
                                 color={key !== 3 ? 'textBlack' : 'primary'}
