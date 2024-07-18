@@ -38,9 +38,6 @@ class Company extends Model
         'current_revenue' => 'array',
         'current_customers_base_size' => 'array',
         'industry_sector' => 'array',
-        'functional_area_1' => 'array',
-        'functional_area_2' => 'array',
-        'functional_area_3' => 'array',
         'hear_about_us' => 'array',
     ];
 

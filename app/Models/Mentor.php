@@ -25,7 +25,6 @@ class Mentor extends Model
         'qualifications' => 'array',
         'industry_sector' => 'array',
         'mentored_company' => 'array',
-        'functional_area' => 'array',
         'hear_about_us' => 'array',
         'number_of_companies' => 'array',
         'additional_information' => 'array'
