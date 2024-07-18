@@ -9,9 +9,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Repository\CompanyRepository;
 use Illuminate\Support\Facades\Auth;
-use App\Models\{
-    User
-};
 
 class DashboardController extends Controller
 {
