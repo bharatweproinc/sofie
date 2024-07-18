@@ -246,7 +246,6 @@ function Mentor({detail}) {
                         <Grid item="true" xs={12} className="profile_message_field" sx={{mb : 1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Please choose which industry sectors you would like to mentor in</Typography>
                                 <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
-                                    <InputLabel id="industrySector-label">Industry Sector</InputLabel>
                                         <Select
                                             labelId="industrySector-label"
                                             multiple
@@ -254,7 +253,7 @@ function Mentor({detail}) {
                                             variant="outlined"
                                             value={data.industry_sector }
                                             onChange={(e) => handleChange('industry_sector', e.target.value, 'select')}
-                                            input={<OutlinedInput label="Industry Sector" />}
+                                            input={<OutlinedInput  />}
                                             error={!!validationErrors.industry_sector}
                                             inputRef={inputRefs.current.industry_sector}
                                             renderValue={(selected) => selected.join(', ')}
@@ -276,7 +275,6 @@ function Mentor({detail}) {
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
                             <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
-                                <InputLabel id="functionalArea-label">Functional Area</InputLabel>
                                 <Select
                                     labelId="functionalArea-label"
                                     multiple
@@ -284,7 +282,7 @@ function Mentor({detail}) {
                                     variant="outlined"
                                     value={data.functional_area }
                                     onChange={(e) => handleChange('functional_area', e.target.value,'select')}
-                                    input={<OutlinedInput label="Functional Area" />}
+                                    input={<OutlinedInput  />}
                                     error={!!validationErrors.functional_area}
                                     inputRef={inputRefs.current.functional_area}
                                     renderValue={(selected) => selected.join(', ')}
@@ -305,7 +303,6 @@ function Mentor({detail}) {
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How did your hear about us?</Typography>
                              <FormControl sx={{width : "100%"}} error={!!validationErrors.hear_about_us}>
-                                <InputLabel id="hearAboutUs-label">Hear About Us</InputLabel>
                                 <Select
                                     labelId="hearAboutUs-label"
                                     multiple
@@ -313,7 +310,7 @@ function Mentor({detail}) {
                                     variant="outlined"
                                     value={data.hear_about_us}
                                     onChange={(e) => handleChange('hear_about_us', e.target.value,'select')}
-                                    input={<OutlinedInput label="Hear About Us" />}
+                                    input={<OutlinedInput  />}
                                     error={!!validationErrors.hear_about_us}
                                     inputRef={inputRefs.current.hear_about_us}
                                     renderValue={(selected) => selected.join(', ')}

@@ -11,8 +11,12 @@ import moment from "moment";
 import { Link } from "@inertiajs/react";
 import "./style.scss";
 import Tooltip from '@mui/material/Tooltip';
+import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
+
+
 
 const Reviewdata = ({detail}) => {
+    const [open, setOpen] = React.useState(false);
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
@@ -29,7 +33,8 @@ const Reviewdata = ({detail}) => {
                     >
                         Company Details
                     </Typography>
-                    <Box pr={5} className='edit_btn'>
+                    <Box display={'flex'} alignItems={'center'}>
+                    <Box pr={3} className='edit_btn'>
                     <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
                      <div>
                     <Button
@@ -45,6 +50,15 @@ const Reviewdata = ({detail}) => {
                   </Tooltip>
 
                     </Box>
+                    {detail?.logged_user?.user_role === "admin" &&
+                    <Box>
+                        <Button onClick={()=>setOpen(true)} variant="contained" color="error" sx={{ textTransform:"capitalize", padding:'8px 20px' }}>
+                            Delete Account
+                        </Button>
+                    </Box>}
+
+                    </Box>
+
                 </Grid>
                 <Box
                     sx={{ py: 3, pl: 2 }}
@@ -262,6 +276,7 @@ const Reviewdata = ({detail}) => {
                     </Grid>
                 </Box>
             </Box>
+            <DeleteAlert open={open} setOpen={setOpen}/>
         </Landing>
     );
 };

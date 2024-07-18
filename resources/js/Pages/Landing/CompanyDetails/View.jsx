@@ -259,7 +259,6 @@ function CompanyDetail({detail}) {
                                      Position In Company
                                 </Typography>
                                 <FormControl sx={{ width : '100%'}} error={!!validationErrors.position}>
-                                    <InputLabel id="position-label">Position in company</InputLabel>
                                         <Select
                                             labelId="position-label"
                                             multiple
@@ -267,7 +266,7 @@ function CompanyDetail({detail}) {
                                             variant="outlined"
                                             value={data.position}
                                             onChange={(e) => handleChange('position', e.target.value, 'select')}
-                                            input={<OutlinedInput label="Position in Company" />}
+                                            input={<OutlinedInput  />}
                                             error={!!validationErrors.position}
                                             inputRef={inputRefs.current.position}
                                             renderValue={(selected) => selected.join(', ')}
@@ -295,7 +294,6 @@ function CompanyDetail({detail}) {
                                         renderInput={(params) =>
                                             <TextField
                                                 {...params}
-                                                label="Founded Year"
                                                 variant="outlined"
                                                 inputRef={inputRefs.current.founded_year}
                                                 error={!!validationErrors.founded_year}
@@ -306,7 +304,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Team Size, Number Of Employees</Typography>
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.team_size}>
-                                        <InputLabel id="teamSize-label" sx={{mb : '10px'}}>Team Size</InputLabel>
                                             <Select
                                                 labelId="teamSize-label"
                                                 multiple
@@ -314,7 +311,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.team_size}
                                                 onChange={(e) => handleChange('team_size', e.target.value, 'select')}
-                                                input={<OutlinedInput label="Team Size" />}
+                                                input={<OutlinedInput />}
                                                 error={!!validationErrors.team_size}
                                                 inputRef={inputRefs.current.team_size}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -335,7 +332,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Revenue Size</Typography>
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_revenue}>
-                                        <InputLabel id="revenue-label">Revenue Size</InputLabel>
                                             <Select
                                                 labelId="revenue-label"
                                                 multiple
@@ -343,7 +339,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.current_revenue}
                                                 onChange={(e) => handleChange('current_revenue', e.target.value, 'select')}
-                                                input={<OutlinedInput label="Revenue Size" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.current_revenue}
                                                 inputRef={inputRefs.current.current_revenue}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -364,7 +360,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Customers Base Size</Typography>
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_customers_base_size}>
-                                        <InputLabel id="customerBase-label">Customers Base Size</InputLabel>
                                             <Select
                                                 labelId="customerBase-label"
                                                 multiple
@@ -372,7 +367,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.current_customers_base_size}
                                                 onChange={(e) => handleChange('current_customers_base_size', e.target.value,'select')}
-                                                input={<OutlinedInput label="Customers Base Size" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.current_customers_base_size}
                                                 inputRef={inputRefs.current.current_customers_base_size}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -393,15 +388,13 @@ function CompanyDetail({detail}) {
                             <Grid item lg={12}  xs={12} >
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Industry sector your company is in Please choose the most suitable one</Typography>
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
-                                        <InputLabel id="industrySector-label">Industry Sector</InputLabel>
                                             <Select
-                                                labelId="industrySector-label"
                                                 multiple
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.industry_sector }
                                                 onChange={(e) => handleChange('industry_sector', e.target.value,'select')}
-                                                input={<OutlinedInput label="Industry Sector" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.industry_sector}
                                                 inputRef={inputRefs.current.industry_sector}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -440,7 +433,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 1)</Typography>
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area_1}>
-                                        <InputLabel id="functionalArea1-label">Functional Area 1</InputLabel>
                                             <Select
                                                 labelId="functionalArea1-label"
                                                 multiple
@@ -448,7 +440,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.functional_area_1  }
                                                 onChange={(e) => handleChange('functional_area_1', e.target.value,'select')}
-                                                input={<OutlinedInput label="Functional Area 1" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.functional_area_1}
                                                 inputRef={inputRefs.current.functional_area_1}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -469,7 +461,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6} xs={12} className='company_select_box  ' sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 2)</Typography>
                                  <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area_2}>
-                                        <InputLabel id="functionalArea1-label">Functional Area 2</InputLabel>
                                             <Select
                                                 labelId="functionalArea1-label"
                                                 multiple
@@ -477,7 +468,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.functional_area_2}
                                                 onChange={(e) => handleChange('functional_area_2', e.target.value,'select')}
-                                                input={<OutlinedInput label="Functional Area 2" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.functional_area_2}
                                                 inputRef={inputRefs.current.functional_area_2}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -498,7 +489,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Functional Area of Help Needed (Area 3)</Typography>
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area_3}>
-                                        <InputLabel id="functionalArea3-label">Functional Area 3</InputLabel>
                                             <Select
                                                 labelId="functionalArea3-label"
                                                 multiple
@@ -506,7 +496,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.functional_area_3}
                                                 onChange={(e) => handleChange('functional_area_3', e.target.value,'select')}
-                                                input={<OutlinedInput label="Functional Area 3" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.functional_area_3}
                                                 inputRef={inputRefs.current.functional_area_3}
                                                 renderValue={(selected) => selected.join(', ')}
@@ -527,7 +517,6 @@ function CompanyDetail({detail}) {
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>How did you hear about us?</Typography>
                                   <FormControl sx={{width : "100%"}} error={!!validationErrors.hear_about_us}>
-                                        <InputLabel id="hearAbout-label">Hear About Us</InputLabel>
                                             <Select
                                                 labelId="hearAbout-label"
                                                 multiple
@@ -535,7 +524,7 @@ function CompanyDetail({detail}) {
                                                 variant="outlined"
                                                 value={data.hear_about_us  }
                                                 onChange={(e) => handleChange('hear_about_us', e.target.value,'select')}
-                                                input={<OutlinedInput label="Hear About Us" />}
+                                                input={<OutlinedInput  />}
                                                 error={!!validationErrors.hear_about_us}
                                                 inputRef={inputRefs.current.hear_about_us}
                                                 renderValue={(selected) => selected.join(', ')}

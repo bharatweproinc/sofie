@@ -9,6 +9,9 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Repository\CompanyRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Models\{
+    User
+};
 
 class DashboardController extends Controller
 {
@@ -38,25 +41,25 @@ class DashboardController extends Controller
 
         ]);
     }
+//     public function goLive($id){
+//         try{
+//             $user = User::findOrFail($id);
+//             if($user){
+//                 $user->is_live = 1;
+//             }
+//             $response = 'Is live success';
+//         }catch (\Exception $e) {
+//             dd($e);
+//             $response = $e->getMessage();
+//         }
+//         return Inertia::render('Landing/Dashboard/View',$response);
+//     }
 
-    public function goLive($id){
-        try{
-            $user = User::findOrFail($id);
-            if($user){
-                $user->is_live = 1;
-            }
-            $response = 'Is live success';
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-        return Inertia::render('Landing/Dashboard/View',$response);
-    }
-
-    public function delete($id){
-        $user = User::findOrFail($id);
-        if($user){
-            $user->delete();
-        }
-    }
+//     public function delete($id){
+//         $user = User::findOrFail($id);
+//         if($user){
+//             $user->delete();
+//         }
+//     }
 }
+

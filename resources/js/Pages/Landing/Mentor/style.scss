@@ -36,6 +36,13 @@
             background-color  : #117B9E;
             text-transform : capitalize;
         }
+        .delete_account{
+            background-color: #d32f2f !important;
+            padding: 8px 20px !important;
+        }
+        .delete_account:hover{
+            background-color: #d32f2f !important;
+        }
         .MuiButtonBase-root:hover{
             background-color: #117B9E;
         }
