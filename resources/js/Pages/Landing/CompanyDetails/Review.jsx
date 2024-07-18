@@ -227,7 +227,7 @@ const Reviewdata = ({detail}) => {
                             >
                                 Functional Area 1
                             </Typography>
-                                {detail.functional_area_1.map((item) => (<Typography key={item} fontSize={"14px"}>{item} </Typography>))}
+                            {detail.functional_area_1}
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
                             <Typography
@@ -237,7 +237,7 @@ const Reviewdata = ({detail}) => {
                             >
                                 Functional Area 2
                             </Typography>
-                                {detail.functional_area_2.map((item) => (<Typography key={item} fontSize={"14px"}>{item}</Typography>))}
+                            {detail.functional_area_2}
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
                             <Typography
@@ -247,7 +247,7 @@ const Reviewdata = ({detail}) => {
                             >
                                 Functional Area 3
                             </Typography>
-                                {detail.functional_area_3.map((item) => ( <Typography key={item} fontSize={"14px"}>{item}</Typography>))}
+                            {detail.functional_area_3}
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
                             <Typography

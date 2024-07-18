@@ -13,7 +13,6 @@ import { Card, Grid, MobileStepper, Paper, useMediaQuery, useTheme } from '@mui/
 import Button from '@/Components/Singleton/Button';
 import { Landing } from '@/Layouts/Landing';
 import theme from '@/Themes/Color';
-import Bulb from '@/Components/SVGIcons/Home/Bulb';
 import roundedImage from '../../../Assets/Images/Rectangle 28.png'
 import ImageCard from './Components/ImageCard';
 import Constants from './Constants';
@@ -35,6 +34,7 @@ function DrawerAppBar({list}) {
 	const handleStepChange = (step) => {
 		setActiveStep(step);
 	};
+	console.log('list12121', list)
 
 	return (
 		<>
@@ -92,28 +92,30 @@ function DrawerAppBar({list}) {
 					p={{ lg: 10, md: 5, sm: 2 }} mt={{ sm: 4, md: 0 }}
 				>
 					<Grid container spacing={{ lg: 4, md: 2, sm: 1, xs: 2 }} px={{ lg: 5, sm: 2, xs: 3 }} py={6}>
-						{[0, 1, 2, 3].map((item, index) => (
+						{Constants.Benefits.map((item, index) => (
 							<Grid item xs={12} sm={3} key={index}>
-								<Card variant="outlined" sx={{
-									p: { lg: 5, md: 2, sm: .5, xs: 2 },
+								<Card className='custom_padding' variant="outlined" sx={{
+									height : {sm : 300, md : '100%', lg : '100%'},
+									px : 2,
+									py : 4, 
 									borderRadius: '15px',
 								}}
 								>
-									<Bulb />
+									{item.icon}
 									<Typography
 										variant="body1"
 										mt={2}
 										color={theme.color[import.meta.env.VITE_SELECTED_THEME].secondary}
 										fontWeight="bold"
 									>
-										Empowerment
+										{item.title}
 									</Typography>
 									<Typography fontSize={{ lg: '16px', sm: '14px' }}
 										mt={1}
 										variant="body1"
 										color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 									>
-										We strive to empower entrepreneurs by offering them the tools, resources, and mentorship
+										{item.description}
 									</Typography>
 								</Card>
 							</Grid>
@@ -562,7 +564,7 @@ function DrawerAppBar({list}) {
 									onChangeIndex={handleStepChange}
 									enableMouseEvents
 								>
-									{Constants.Testimonials.map((item, index) => (
+									{list && list.testimonial.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
 											<Testimonial item={item} />
 										</Box>
@@ -570,7 +572,7 @@ function DrawerAppBar({list}) {
 								</AutoPlaySwipeableViews>
 								<MobileStepper
 									variant="dots"
-									steps={Constants.Testimonials.length}
+									steps={list?.testimonial?.length}
 									position="static"
 									activeStep={activeStep}
 									sx={{
@@ -588,7 +590,7 @@ function DrawerAppBar({list}) {
 							</Box>
 						) : (
 							<>
-								{Constants.Testimonials.map((item, key) => (
+								{list && list.testimonial.map((item, key) => (
 									<Grid item sm={4} key={key}>
 										<Testimonial item={item} />
 									</Grid>
@@ -596,7 +598,7 @@ function DrawerAppBar({list}) {
 								<Box className="flex justify-center w-full mt-9" >
 									<MobileStepper
 										variant="dots"
-										steps={Constants.Testimonials.length}
+										steps={list?.testimonial?.length}
 										position="static"
 										activeStep={activeStep}
 										sx={{

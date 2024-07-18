@@ -12,12 +12,17 @@ import Signup from '@/Components/SVGIcons/Home/Signup'
 import Create from '@/Components/SVGIcons/Home/Create'
 import Mentor from '@/Components/SVGIcons/Home/Mentor'
 import ConnectSchedule from '@/Components/SVGIcons/Home/ConnectSchedule'
+import Bulb from '@/Components/SVGIcons/Home/Bulb';
+
 
 import TestMontialUser1 from '../../../../Assets/Images/Ellipse 1.png'
 import TestMontialUser2 from '../../../../Assets/Images/Ellipse 2.png'
 import TestMontialUser3 from '../../../../Assets/Images/Ellipse 3.png'
 
 import { Avatar, Badge } from '@mui/material'
+import Support from '@/Components/SVGIcons/Home/Support'
+import Impact from '@/Components/SVGIcons/Home/Impact'
+import Connection from '@/Components/SVGIcons/Home/Connection'
 
 const ImageCard = [
     {
@@ -134,11 +139,35 @@ const Testimonials = [
     },
 ]
 
+const Benefits  = [
+    {
+        icon : <Bulb />,
+        title : 'Empowerment',
+        description : 'We strive to empower entrepreneurs by offering them the tools, resources, and mentorship'
+    },
+    {
+        icon : <Connection />,
+        title : 'Connection',
+        description : "Facilitate meaningful connections between mentors and mentees to foster collaboration and learning"
+    },
+    {
+        icon : <Impact />,
+        title : 'Impact',
+        description : 'Drive positive change by enabling entrepreneurs to implement sustanable and impactful business practices'
+    },
+    {
+        icon : <Support />,
+        title : 'Support',
+        description : 'Provide continuous support through a community of mentors who are commited to the success of their mentees'
+    }
+]
+
 const Constants = {
     ImageCard,
     guide,
     FeatureCard,
     Testimonials,
+    Benefits
 };
 
 

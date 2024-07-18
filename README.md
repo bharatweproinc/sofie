@@ -4,10 +4,9 @@
 - NPM 6.14.15
 - Apache Server/2.4.52
 - MariaDB 10.6.18-MariaDB
-- Ubuntu 22.04
+- Ubunut 22.04
 
 ## Setup
-
 ### Commands
 - clone the code from repository
 - copy .env-example to .env

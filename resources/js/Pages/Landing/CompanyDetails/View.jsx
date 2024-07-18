@@ -435,7 +435,6 @@ function CompanyDetail({detail}) {
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area_1}>
                                             <Select
                                                 labelId="functionalArea1-label"
-                                                multiple
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_1  }
@@ -443,12 +442,10 @@ function CompanyDetail({detail}) {
                                                 input={<OutlinedInput  />}
                                                 error={!!validationErrors.functional_area_1}
                                                 inputRef={inputRefs.current.functional_area_1}
-                                                renderValue={(selected) => selected.join(', ')}
                                             >
                                                 {selectData.functional_area_1.map((val) => (
                                                     <MenuItem key={val} value={val}>
-                                                        <Checkbox checked={data.functional_area_1.includes(val)} />
-                                                        <ListItemText primary={val} />
+                                                        {val}
                                                     </MenuItem>
                                                 ))}
                                                 <Button onClick={()=>handleClickOpen("functional_area_1", "Functional Area 1")}>
@@ -463,7 +460,6 @@ function CompanyDetail({detail}) {
                                  <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area_2}>
                                             <Select
                                                 labelId="functionalArea1-label"
-                                                multiple
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_2}
@@ -471,12 +467,10 @@ function CompanyDetail({detail}) {
                                                 input={<OutlinedInput  />}
                                                 error={!!validationErrors.functional_area_2}
                                                 inputRef={inputRefs.current.functional_area_2}
-                                                renderValue={(selected) => selected.join(', ')}
                                             >
                                                 {selectData.functional_area_2.map((val) => (
                                                     <MenuItem key={val} value={val}>
-                                                        <Checkbox checked={data.functional_area_2.includes(val)} />
-                                                        <ListItemText primary={val} />
+                                                        {val}
                                                     </MenuItem>
                                                 ))}
                                                 <Button onClick={()=>handleClickOpen("functional_area_2", "Functional Area 2")}>
@@ -491,7 +485,6 @@ function CompanyDetail({detail}) {
                                     <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area_3}>
                                             <Select
                                                 labelId="functionalArea3-label"
-                                                multiple
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_3}
@@ -499,12 +492,10 @@ function CompanyDetail({detail}) {
                                                 input={<OutlinedInput  />}
                                                 error={!!validationErrors.functional_area_3}
                                                 inputRef={inputRefs.current.functional_area_3}
-                                                renderValue={(selected) => selected.join(', ')}
                                             >
                                                 {selectData.functional_area_3.map((val) => (
                                                     <MenuItem key={val} value={val}>
-                                                        <Checkbox checked={data.functional_area_3.includes(val)} />
-                                                        <ListItemText primary={val} />
+                                                        {val}
                                                     </MenuItem>
                                                 ))}
                                                 <Button onClick={()=>handleClickOpen("functional_area_3", "Functional Area 3")}>

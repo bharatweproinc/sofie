@@ -109,7 +109,7 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
-            console.log("Data12", data)
+            console.log("::Data", data)
             post(route('mentor.saveDetail', detail.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
@@ -277,7 +277,6 @@ function Mentor({detail}) {
                             <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
                                 <Select
                                     labelId="functionalArea-label"
-                                    multiple
                                     fullWidth
                                     variant="outlined"
                                     value={data.functional_area }
@@ -285,12 +284,10 @@ function Mentor({detail}) {
                                     input={<OutlinedInput  />}
                                     error={!!validationErrors.functional_area}
                                     inputRef={inputRefs.current.functional_area}
-                                    renderValue={(selected) => selected.join(', ')}
                                 >
                                     {selectData.functional_area.map((val) => (
                                         <MenuItem key={val} value={val}>
-                                            <Checkbox checked={data.functional_area.includes(val)} />
-                                            <ListItemText primary={val} />
+                                            {val}
                                         </MenuItem>
                                     ))}
                                     <Button onClick={()=>handleClickOpen("functional_area", "Functional Area")}>
@@ -299,6 +296,7 @@ function Mentor({detail}) {
                                 </Select>
                                 <FormHelperText>{validationErrors.functional_area}</FormHelperText>
                             </FormControl>
+
                         </Grid>
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How did your hear about us?</Typography>

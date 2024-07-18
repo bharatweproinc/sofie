@@ -30,6 +30,14 @@
 }
 
 .review_mentor{
+    .input_fields{
+        .MuiInputBase-input{
+            padding: 16.5px 14px !important;
+        }
+        .MuiInputBase-input:focus{
+            box-shadow: none !important;
+        }
+    }
     .edit_btn{
         .MuiButtonBase-root{
             padding: 8px 32px;
@@ -42,6 +50,26 @@
         }
         .delete_account:hover{
             background-color: #d32f2f !important;
+        }
+        .MuiButtonBase-root:hover{
+            background-color: #117B9E;
+        }
+    }
+    .reset_btn{
+        .MuiButtonBase-root{
+            padding: 4px 20px;
+            background-color  : #117B9E;
+            text-transform : capitalize;
+        }
+        .MuiButtonBase-root:hover{
+            background-color: #117B9E;
+        }
+    }
+    .submit_btn {
+        .MuiButtonBase-root{
+            padding: 15px 38px;
+            background-color  : #117B9E;
+            text-transform : capitalize;
         }
         .MuiButtonBase-root:hover{
             background-color: #117B9E;

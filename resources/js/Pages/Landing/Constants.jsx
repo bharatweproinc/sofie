@@ -51,6 +51,7 @@ const initCompanyDetailForm = {
     'profile_photo' : ''
 }
 
+
  const companyInputRefs = () => ({
     company_name: useRef(null),
     contact_name: useRef(null),
@@ -90,7 +91,7 @@ const initMentorForm = {
     'mentored_company' : 'no',
     'qualifications' : '',
     'industry_sector' : [],
-    'functional_area' : [],
+    'functional_area' : '',
     'hear_about_us' : [],
     'number_of_companies' : 0,
     'additional_information' : '',
@@ -119,7 +120,7 @@ const mentorSchema = [{
     mentored_company : Joi.optional(),
     qualifications : Joi.string().label("Qulaifications").required(),
     industry_sector : Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
-    functional_area : Joi.array().items(Joi.string()).min(1).label("Functional").required(),
+    functional_area : Joi.string().label("Functional Area").required(),
     hear_about_us : Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     number_of_companies : Joi.number().label("Number of Companies").required(),
     experience : Joi.number().label("Experience").required(),
@@ -141,9 +142,9 @@ const companySchema = [{
     current_customers_base_size : Joi.array().items(Joi.string()).min(1).label('Current Customer Base Size').required(),
     industry_sector:  Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
     company_description:  Joi.string().label("Description").required(),
-    functional_area_1:  Joi.array().items(Joi.string()).min(1).label("Functional Area 1").required(),
-    functional_area_2:  Joi.array().items(Joi.string()).min(1).label("Functional Area 2").required(),
-    functional_area_3: Joi.array().items(Joi.string()).min(1).label("Functional Area 3").required(),
+    functional_area_1: Joi.string().label("Functional Area 1").required(),
+    functional_area_2: Joi.string().label("Functional Area 2").required(),
+    functional_area_3: Joi.string().label("Functional Area 3").required(),
     hear_about_us:  Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     current_problem:  Joi.string().label("Current Problem ").required(),
     additional_information : Joi.optional(),
@@ -156,6 +157,18 @@ const contactSchema = [{
     phone_number: Joi.number().min(10).label("Phone Number").required(),
     company : Joi.optional(),
     message : Joi.string().label("Message").required()
+}];
+
+const initResetPasswordField = {
+    'previous_password' : '',
+    "new_password" : '',
+    'confirm_new_password' : ''
+}
+
+const resetPasswordSchema = [{
+    previous_password : Joi.string().min(8).label("Previous Password").required(),
+    new_password : Joi.string().min(8).label("New Password").required(),
+    confirm_new_password : Joi.string().min(8).label("New Password Cofirm").required(),
 }];
 
 const icons = [
@@ -235,7 +248,7 @@ const Constants = {
     signupSchema, loginSchema, mentorSchema, companySchema, contactSchema ,
     companyInputRefs, mentorInputRefs, icons, positionInCompanyOptions, currentRevenueSizeOptions,
     currentCustomersBaseSize, teamSizeOptions, industrySectorOptions, functionalAreaOptions,
-    hearAboutUsOptions, mentoredCompanyOptions, addButton
+    hearAboutUsOptions, mentoredCompanyOptions, addButton, initResetPasswordField, resetPasswordSchema
 }
 
 export default Constants;
