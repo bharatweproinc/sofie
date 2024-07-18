@@ -84,7 +84,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $user->functional_id = $company->id;
                 $user->save();
             }
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && $user->user_role =="admin")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user()->user_role =="admin")){
                 $company->profile_photo = $fileName;
                 $company->save();
             }

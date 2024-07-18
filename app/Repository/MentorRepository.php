@@ -86,7 +86,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 $user->save();
             }
 
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && $user->user_role =="admin")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user()->user_role =="admin")){
                 $mentor->profile_photo = $fileName;
                 $mentor->save();
             }
