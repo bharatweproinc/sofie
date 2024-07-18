@@ -4,11 +4,11 @@ import { Box, Typography } from "@mui/material";
 
 function profileSettings () {
     return (
-        <Landing>
-            <Box p={8}>
+        // <Landing>
+            <Box p={2}>
                 <Typography>Profile Setting Coming Soon....</Typography>
             </Box>
-        </Landing>
+        // </Landing>
     )
 }
 

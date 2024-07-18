@@ -3,11 +3,11 @@ import { Box, Typography } from "@mui/material";
 
 function accountSettings () {
     return (
-        <Landing>
-            <Box p={8}>
+        // <Landing>
+            <Box p={2}>
                 <Typography>Account Settings Coming Soon..</Typography>
             </Box>
-        </Landing>
+        // </Landing>
     )
 }
 

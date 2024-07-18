@@ -55,7 +55,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
 
 function dashboard({list}) {
-  console.log('list123', list)
 
   const theme = useTheme();
 

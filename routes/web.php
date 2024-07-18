@@ -35,6 +35,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
     Route::get('/go-live/{id}', [DashboardController::class, 'goLive'])->name('goLive');
+    Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
+    Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 
     Route::prefix('company')->name('company.')->group(function(){
         Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
@@ -76,8 +78,6 @@ Route::name('landing.')->group(function() {
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
     Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
-    Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
-    Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
     Route::get('/admin/login', [LandingController::class, 'adminLogin'])->name('login');
     Route::get('/user/login', [LandingController::class,'userLogin'])->name('userlogin');
     Route::post('/users/login', [LandingController::class,'usersLogin'])->name('userslogin');

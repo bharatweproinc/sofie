@@ -5,7 +5,6 @@ import { Link, useForm } from "@inertiajs/react";
 import moment from "moment";
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 import { useState } from "react";
-import { useState } from "react";
 import Constants from "../Constants";
 import Joi from '@/utility/JoiValidator';
 import  { notify } from '@/Components/Notifier';
@@ -34,7 +33,7 @@ function ReviewProfilePage ({detail}){
             ...validationErrors,
             [key]: Joi.validateToPlainErrors(value, Constants.resetPasswordSchema[key])
         });
-    
+
         if (key === 'confirm_new_password' || key === 'new_password' ) {
           if (data.new_password !== value && data.confirm_new_password !== value) {
             setpasswordError(true);
@@ -42,12 +41,12 @@ function ReviewProfilePage ({detail}){
             setpasswordError(false);
           }
         }
-    
+
         setData((prev)=>({
           ...prev,
           [key]:value
         }));
-    
+
         };
 
 
@@ -177,7 +176,7 @@ function ReviewProfilePage ({detail}){
                                     error={!!validationErrors.previous_password?.[0]}
                                     helperText={validationErrors.previous_password?.[0]}
                                 />
-                            </Grid> 
+                            </Grid>
                             <Grid item px={2} xs={12} md={3}>
                                 <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>New Password</Typography>
                                 <TextField
@@ -192,7 +191,7 @@ function ReviewProfilePage ({detail}){
                                     error={!!validationErrors.new_password?.[0]}
                                     helperText={validationErrors.new_password?.[0]}
                                 />
-                            </Grid> 
+                            </Grid>
                             <Grid item px={2} xs={12} md={3}>
                                 <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Confirm New Password</Typography>
                                 <TextField
@@ -207,7 +206,7 @@ function ReviewProfilePage ({detail}){
                                     error={!!validationErrors.confirm_new_password?.[0] || passwordError}
                                     helperText={validationErrors.confirm_new_password?.[0] || (passwordError ? 'Passwords does not match' : '')}
                                 />
-                            </Grid> 
+                            </Grid>
                             <Grid item px={2} xs={12} md={3} className="submit_btn">
                                 <Button sx={{ mt : {lg : '34px'}}} type='submit' disabled={processing} variant="contained">
                                     Save

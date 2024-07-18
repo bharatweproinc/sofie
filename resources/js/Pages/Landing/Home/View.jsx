@@ -34,7 +34,6 @@ function DrawerAppBar({list}) {
 	const handleStepChange = (step) => {
 		setActiveStep(step);
 	};
-	console.log('list12121', list)
 
 	return (
 		<>
@@ -97,7 +96,7 @@ function DrawerAppBar({list}) {
 								<Card className='custom_padding' variant="outlined" sx={{
 									height : {sm : 300, md : '100%', lg : '100%'},
 									px : 2,
-									py : 4, 
+									py : 4,
 									borderRadius: '15px',
 								}}
 								>
@@ -222,7 +221,7 @@ function DrawerAppBar({list}) {
 								/>
 						</Box>
 						) : (
-							<>	
+							<>
 							<Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ xs: 5 }}>
 								{list && list.mentors.list.mentor.map((item, key) => (
 									<Grid item xs={12} sm={3} key={key}>
@@ -330,7 +329,7 @@ function DrawerAppBar({list}) {
 								/>
 						</Box>
 						) : (
-							<>	
+							<>
 							<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
 								{list && list.companies.list.company.map((item, key) => (
 									<Grid item xs={12} sm={4} my={{sm:0, xs:2}} key={key}>

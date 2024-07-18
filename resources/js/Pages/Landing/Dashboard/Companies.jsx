@@ -19,7 +19,6 @@ import NoDataFound from '@/Components/NoDataFound';
 
 const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
     let companyList = list.companies.list.company
-    console.log('companyList1212', companyList)
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);

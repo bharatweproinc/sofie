@@ -4,7 +4,6 @@ import { Box, Card, Typography } from '@mui/material'
 import React from 'react'
 
 const Testimonial = ({item}) => {
-    console.log('item', item);
     return (
             <Card variant="outlined" sx={{
                     p: {lg:5, md:2, xs:1},

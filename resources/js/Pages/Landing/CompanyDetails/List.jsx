@@ -9,14 +9,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Constants from "../Constants";
-import { Link } from "@inertiajs/react";
+import { Link ,router} from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
 import NoDataFound from "@/Components/NoDataFound";
 import { Landing } from "@/Layouts/Landing";
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useForm} from '@inertiajs/react';
+import axios from "axios";
 
 
 function CompanyList({list = []}) {
+    const {  post } = useForm();
+
     let companyList = list.company
     const [sortConfig, setSortConfig] = useState({
         key: null,
@@ -54,6 +61,7 @@ function CompanyList({list = []}) {
     };
     return (
         <Landing auth={list.user}>
+            <ToastContainer style={{ marginTop: "65px" }} />
             {
                 companyList.length > 0 ?
             <Grid
@@ -157,6 +165,19 @@ function CompanyList({list = []}) {
                                             </div>
                                         </Box>
                                     </TableCell>
+                                    <TableCell align="left">
+                                        <Box className="flex gap-3">
+                                            <Typography fontSize='14px' color='#212121' fontWeight='600'>Contact Person</Typography>
+                                            <div className='grid' onClick={() => handleSort('name')} style={{ cursor:"pointer" }}>
+                                                <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
+                                                </svg>
+                                                <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z" fill="#E4E5E7" />
+                                                </svg>
+                                            </div>
+                                        </Box>
+                                    </TableCell>
                                     <TableCell>
                                         <Box className="flex gap-3">
                                             <Typography
@@ -200,49 +221,7 @@ function CompanyList({list = []}) {
                                             </div>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>
-                                        <Box className="flex gap-3">
-                                            <Typography
-                                                fontSize="14px"
-                                                color="#212121"
-                                                fontWeight="600"
-                                            >
-                                                Functional
-                                            </Typography>
-                                            <div
-                                                className="grid"
-                                                onClick={() =>
-                                                    handleSort("functional")
-                                                }
-                                                style={{ cursor: "pointer" }}
-                                            >
-                                                <svg
-                                                    width="12"
-                                                    height="9"
-                                                    viewBox="0 0 12 9"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z"
-                                                        fill="#E4E5E7"
-                                                    />
-                                                </svg>
-                                                <svg
-                                                    width="12"
-                                                    height="9"
-                                                    viewBox="0 0 12 9"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        d="M6.79241 7.97063C6.3921 8.49064 5.6079 8.49064 5.20759 7.97063L0.311171 1.60999C-0.195026 0.952425 0.273738 0 1.10358 0L10.8964 0C11.7263 0 12.195 0.952425 11.6888 1.60999L6.79241 7.97063Z"
-                                                        fill="#E4E5E7"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </Box>
-                                    </TableCell>
+
                                     <TableCell>
                                         <Box className="flex gap-3 pl-10">
                                             <Typography
@@ -257,7 +236,8 @@ function CompanyList({list = []}) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {currentRows.map((row) => (
+                                {currentRows.map((row) => {
+                                    return (
                                     <TableRow
                                         key={row.id}
                                         sx={{
@@ -271,38 +251,46 @@ function CompanyList({list = []}) {
                                             {row?.company_name}
                                         </TableCell>
                                         <TableCell align="left">{row?.user?.phone}</TableCell>
+                                        <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
-                                        <TableCell align="left">{row?.function_area_1}</TableCell>
                                         <TableCell align="left">
                                             <Box
                                                 sx={{ gap: "10px" }}
                                                 className="flex"
                                             >
-                                                {Constants.icons.map(
-                                                    (item, index) => (
-                                                        <span key={index}>
+                                                {Constants.icons.map((item, index) => {
+
+                                                if (item.id === 4 && row.user.is_live !== 0) {
+                                                    return null;
+                                                }
+
+                                                return (
+                                                    <span key={index}>
                                                         {item.id === 1 ? (
-                                                                        <Link
-                                                                            href={route('admin.company.companydetail', row.user.id)}
-                                                                        >
-                                                                            {item.icon}
-                                                                        </Link>
-                                                                    ) : item.id === 2 ? (
-                                                                        <Link
-                                                                            href={route('admin.company.get', row.id)}
-                                                                        >
-                                                                    {item.icon}
-                                                                </Link>
-                                                            ) : (
-                                                                item.icon
-                                                            )}
-                                                        </span>
-                                                    )
-                                                )}
+                                                            <Link href={route('admin.company.companydetail', row.user.id)}>
+                                                                {item.icon}
+                                                            </Link>
+                                                        ) : item.id === 2 ? (
+                                                            <Link href={route('admin.company.get', row.id)}>
+                                                                {item.icon}
+                                                            </Link>
+                                                        ) : item.id === 4 && row.user.is_live === 0 ? (
+                                                            <Link onClick={() => handleLive(row.user.id)}
+                                                            // href={route('admin.goLive', row.user.id)}
+                                                            >
+                                                                {item.icon}
+                                                            </Link>
+                                                        ) : (
+                                                            item.icon
+                                                        )}
+                                                    </span>
+                                                );
+                                                })}
+
                                             </Box>
                                         </TableCell>
-                                    </TableRow>
-                                ))}
+                                    </TableRow>)
+                              })}
                             </TableBody>
                         </Table>
                     </TableContainer>

@@ -109,7 +109,6 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
-            console.log("::Data", data)
             post(route('mentor.saveDetail', detail.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
