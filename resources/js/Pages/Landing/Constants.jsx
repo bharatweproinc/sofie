@@ -80,6 +80,7 @@ const mentorInputRefs = () => ({
     functional_area : useRef(null),
     hear_about_us : useRef(null),
     number_of_companies : useRef(null),
+    experience:useRef(null)
 });
 
 const initMentorForm = {
@@ -93,7 +94,8 @@ const initMentorForm = {
     'hear_about_us' : [],
     'number_of_companies' : 0,
     'additional_information' : '',
-    'profile_photo':''
+    'profile_photo':'',
+    'experience':'',
 }
 
 const signupSchema = [{
@@ -120,6 +122,7 @@ const mentorSchema = [{
     functional_area : Joi.array().items(Joi.string()).min(1).label("Functional").required(),
     hear_about_us : Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     number_of_companies : Joi.number().label("Number of Companies").required(),
+    experience : Joi.number().label("Experience").required(),
     additional_information : Joi.optional(),
     profile_photo:Joi.optional(),
  }];

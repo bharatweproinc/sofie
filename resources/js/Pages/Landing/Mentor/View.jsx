@@ -347,6 +347,22 @@ function Mentor({detail}) {
                                 helperText={validationErrors.number_of_companies}
                             />
                         </Grid>
+                        <Grid item="true" xs={12} className="profile_input_fields">
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Experience</Typography>
+                            <TextField
+                                inputRef={inputRefs.current.experience}
+                                size='small'
+                                sx={{ mt:1, width: '100%'}}
+                                fullWidth
+                                type='number'
+                                variant='outlined'
+                                placeholder='Experience'
+                                value={data.experience}
+                                onChange={(e) => handleChange("experience", e.target.value)}
+                                error={!!validationErrors.experience}
+                                helperText={validationErrors.experience}
+                            />
+                        </Grid>
                         <Grid item="true" xs={12} className="profile_message_field">
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>
                                 Additional Information about You? Your skills <span style={{color:"#7C7C7C", fontWeight : '400'}}>(Optional)</span>
