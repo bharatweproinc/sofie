@@ -85,7 +85,7 @@ function BrowseCompanies ({list}) {
                                     </Typography>
 
                                     <Box mt={4} className="flex gap-2 items-center">
-                                        <img src={founderImages[key]} style={{borderRadius : '50%', height : "50px", width : '50px'}}/>
+                                        <img src={founderImages[key]} style={{borderRadius : '50%', height : "50px", width : '50px', objectFit : 'cover'}}/>
 
                                         <Box className="block">
                                             <Typography sx={{ fontWeight: 'bold !important'}}>

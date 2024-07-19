@@ -260,14 +260,14 @@ function DrawerAppBar({list}) {
 						</Typography>
 					</Grid>
 
-					<Grid container sx={{ position: 'relative' }}>
+					<Grid className='border-dashedd' container sx={{ position: 'relative' }}>
 						{Constants.guide.map((item, key) => (
 							<Grid item sm={3} key={key}>
 								<Guide item={item} />
 							</Grid>
 						))}
-						<Box className="dashed-border" sx={{
-						}}></Box>
+						{/* <Box className="dashed-border" sx={{
+						}}></Box> */}
 					</Grid>
 
 				</Grid>
@@ -356,7 +356,7 @@ function DrawerAppBar({list}) {
 						}}
 						src={joinCommunity}
 					></img>
-					<Grid container py={{ lg: 10, md: 5, sm: 2 }} px={{ lg: 15, md: 6, sm: 3 }}>
+					<Grid pb={4} container py={{ lg: 10, md: 5, sm: 2 }} px={{ lg: 15, md: 6, sm: 3 }}>
 						<Grid item xs={12}>
 							<Typography sx={{
 								fontSize: { xs: '32px', sm: '24px', md: '32px' },
@@ -539,7 +539,7 @@ function DrawerAppBar({list}) {
 						gap: 4,
 					}}
 				>
-					<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+					<Grid mt={3} container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
 						<Grid item xs={12} pb={10}>
 							<Typography textAlign="center" variant="body1" color={theme.color[import.meta.env.VITE_SELECTED_THEME].white}>
 								Testimonials

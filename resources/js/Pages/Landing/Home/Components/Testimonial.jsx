@@ -22,7 +22,7 @@ const Testimonial = ({item}) => {
                     {item.description}
                 </Typography>
                 <Box className="flex justify-center rounded-s-full mt-4">
-                    <img src={item.img} alt="" srcSet="" style={{borderRadius : '50%', height : "72px", width : '72px'}} />
+                    <img src={item.img} alt="" srcSet="" style={{borderRadius : '50%', height : "72px", width : '72px', objectFit : 'cover'}} />
                 </Box>
                 <Typography mt={2} variant="subtitle2" color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} textAlign={'center'} >
                     {item.user}

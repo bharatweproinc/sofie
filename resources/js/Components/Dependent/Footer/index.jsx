@@ -20,7 +20,7 @@ export const Footer = () => {
                 borderBottom:' 1px solid #BEBEC0',
                 paddingBottom: { sm:'20px', xs:'20px'}
                 }}> 
-                <Grid className="flex justify-cent  er" mb={5} item xs={12} sm={3}>
+                <Grid className="flex justify-center" mb={5} item xs={12} sm={3}>
                     <box className="w-fit">
                     <Typography
                         textAlign={{xs:'center', sm:'left'}} sx={{

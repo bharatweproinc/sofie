@@ -78,7 +78,7 @@ const guide = [
         icon: <Mentor/>,
         counter: "03",
         title: 'Get Matched with a Mentor',
-        caption: 'Our AI algorithm will match you with the best mentor based on your profile and needs. This ensures you get the most suitable guidance and support.',
+        caption: 'Our algorithm will match you with the best mentor based on your profile and needs. This ensures you get the most suitable guidance and support.',
     },
     {
         icon: <ConnectSchedule/>,
