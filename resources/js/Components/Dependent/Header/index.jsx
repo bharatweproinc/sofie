@@ -2,7 +2,7 @@ import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButto
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@/Components/Singleton/Button';
-import sofieLogo from '../../../Assets/Images/Sofie-logo.png';
+import logo from '../../../../../public/favicon.jpeg'
 import { Link } from '@inertiajs/react';
 
 const navItems = [
@@ -47,15 +47,15 @@ const Header = () => {
                 boxShadow: "0px 4px 17.5px 0px #00000026",
                 zIndex:'99999'
             }}>
-                <Toolbar sx={{  
+                <Toolbar sx={{
                     display: 'flex',
                     justifyContent: 'space-between'
                 }}>
                     <Link href={route('landing.home')}>
                         {/* <img src={sofieLogo} alt="description" /> */}
-                        <img style={{width:'75px'}} src='./favicon.jpeg' alt="" />
-                    </Link>
-                    <IconButton 
+                        <img style={{width:'75px'}} src={logo} alt="" />
+                        </Link>
+                    <IconButton
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}

@@ -27,8 +27,7 @@ import ImageCarousel from './Components/ImageCorousel';
 
 import t1 from '../../../Assets/Images/joyc.jpg'
 import t2 from '../../../Assets/Images/aron.jpg'
-import t3 from '../../../Assets/Images/alex.jpg'
-
+import t3 from '../../../Assets/Images/tingbel.jpg'
 const founderImages = [
     t1, t2, t3
 ]
@@ -45,7 +44,7 @@ function DrawerAppBar({list}) {
 	};
 
 	return (
-		<>	
+		<>
 			<Landing>
 				<CssBaseline/>
 				<Grid container spacing={2} mt={{ xs: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>

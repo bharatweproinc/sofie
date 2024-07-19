@@ -129,7 +129,7 @@ const FeatureCard = [
 
 const Testimonials = [
     {
-        description: `“Our mentor's insights helped us navigate retail challenges. Her support has been instrumental in our market expansion, both locally and ”`,
+        description: `“Our mentor's insights helped us navigate retail challenges. Her support has been instrumental in our market expansion, both locally and overseas.”`,
         user: `Joyce Lian`,
         img: t1,
     },
@@ -139,11 +139,12 @@ const Testimonials = [
         img: t2,
     },
     {
-        description: `"When overwhelmed with tasks, our mebtors offers clarity on key priorities for maximium impact, helping us achieve out goals effectively."`,
+        description: `"When overwhelmed with tasks, our mentor offers clarity on key priorities for maximum impact, helping us achieve our goals efficiently."`,
         user: `Alex Lim`,
         img: t3,
     },
 ]
+
 
 const Benefits  = [
     {

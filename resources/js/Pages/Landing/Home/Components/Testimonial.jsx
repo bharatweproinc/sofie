@@ -14,17 +14,17 @@ const Testimonial = ({item}) => {
                 <Box className="flex justify-center items-center">
                     <GoldQuote />
                 </Box>
-                <Typography mt={3} textAlign={'center'}
+                <Typography sx={{height: {lg:'120px', md: '150px', sm: '220px', xs: '120px'}}} mt={3} textAlign={'center'}
                     fontWeight= 'bolder'
                     variant="body1"
                     color={theme.color[import.meta.env.VITE_SELECTED_THEME].black}
                 >
                     {item.description}
                 </Typography>
-                <Box className="flex justify-center rounded-s-full mt-4">
+                <Box className="flex justify-center rounded-s-full mt-0">
                     <img src={item.img} alt="" srcSet="" style={{borderRadius : '50%', height : "72px", width : '72px', objectFit : 'cover'}} />
                 </Box>
-                <Typography mt={2} variant="subtitle2" color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} textAlign={'center'} >
+                <Typography  mt={2} variant="subtitle2" color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} textAlign={'center'} >
                     {item.user}
                 </Typography>
             </Card>

@@ -20,10 +20,12 @@ export default function FeatureCard({ item, src }) {
                 <CardMedia
                     component="img"
                     style={{
-                        height : 345
+                        height : 345,
+                        objectFit : 'contain'
                     }}
                     image={item.link}
                     alt="green iguana"
+
                 />
                 <CardContent>
                     <Typography gutterBottom component="div">
@@ -49,7 +51,7 @@ export default function FeatureCard({ item, src }) {
                     </Typography>
 
                     <Box className="flex gap-2 items-center mt-3">
-                        <img src={src} style={{borderRadius : '50%', height : "45px", width : '45px'}}/>
+                        <img src={src} style={{borderRadius : '50%', height : "45px", width : '45px', objectFit : 'cover'}}/>
                         <Box className="block">
                             <Typography sx={{ fontWeight: 'bold !important'}}>
                                 {item.user.name}

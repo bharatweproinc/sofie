@@ -13,7 +13,7 @@ import NoDataFound from '@/Components/NoDataFound';
 
 import t1 from "../../../../Assets/Images/joyc.jpg"
 import t2 from "../../../../Assets/Images/aron.jpg"
-import t3 from "../../../../Assets/Images/alex.jpg"
+import t3 from "../../../../Assets/Images/tingbel.jpg"
 
 const founderImages = [
     t1, t2, t3
@@ -47,7 +47,7 @@ function BrowseCompanies ({list}) {
                                     sx={{
                                         width: { xs: '100%', md: 345 },
                                         height : 345,
-                                        objectFit: 'cover',
+                                        objectFit: 'contain',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
                                     image={item.link}

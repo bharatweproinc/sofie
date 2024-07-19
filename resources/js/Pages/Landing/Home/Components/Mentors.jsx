@@ -10,12 +10,12 @@ import NoDataFound from '@/Components/NoDataFound';
 import Button from '@/Components/Singleton/Button';
 
 function FindMentors ({list}) {
-    
+
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
         setIsReadMore(key === isReadMore ? null : key)
     };
-    
+
     return (
       <Landing>
             <Typography sx={{ height: '95px' }}></Typography>
@@ -26,7 +26,7 @@ function FindMentors ({list}) {
                             <Card
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: { xs: 'column', md: 'row'}, 
+                                    flexDirection: { xs: 'column', md: 'row'},
                                     width: '100%',
                                     minHeight : { md : '345px'},
                                     marginBottom: '20px',
@@ -36,7 +36,7 @@ function FindMentors ({list}) {
                                 <CardMedia
                                     component="img"
                                     sx={{
-                                        width: { xs: '100%', md: 345 }, 
+                                        width: { xs: '100%', md: 345 },
                                         height : {lg : 345},
                                         objectFit: 'cover',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
@@ -52,7 +52,7 @@ function FindMentors ({list}) {
                                         flex: 1,
                                         padding: '20px',
                                         backgroundColor: '#f0f0f0',
-                                        borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' }, 
+                                        borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' },
                                     }}
                                 >
                                     <Typography fontWeight={600} gutterBottom variant="h5" component="div">
@@ -60,7 +60,7 @@ function FindMentors ({list}) {
                                     </Typography>
 
                                     <Typography pb={1} fontWeight={500} variant='body1' component="div">
-                                        {item.industry_sector}
+                                    {item.industry_sector.map(String).join(', ')}
                                     </Typography>
 
                                     <Box className="flex" gap={.5}>
@@ -89,7 +89,7 @@ function FindMentors ({list}) {
                                                 style={{ color: "#232424", cursor : 'pointer'}}
                                             >
                                                 {isReadMore === key ? " show less" : "... read more"}
-                                            </span> 
+                                            </span>
                                         }
                                     </Typography>
                                 </CardContent>
@@ -97,7 +97,7 @@ function FindMentors ({list}) {
                         </Grid>
                     ))}
                 </Grid>
-                : <NoDataFound message='No mentor Available' /> 
+                : <NoDataFound message='No mentor Available' />
             }
       </Landing>
     )

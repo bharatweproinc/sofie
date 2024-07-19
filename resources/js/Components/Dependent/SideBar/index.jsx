@@ -20,7 +20,7 @@ import {
     Button,
     Box,
 } from "@mui/material";
-import Sofie from "../../../Assets/Images/Sofie-logo.png";
+import logo from "../../../../../public/favicon.jpeg"
 import Constants from "./Constants";
 import { Link, router } from "@inertiajs/react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -105,8 +105,8 @@ const SideBar = ({children,auth}) => {
                     sx={{ display: "flex", justifyContent: "space-between", paddingLeft:"17px"}}
                 >
                     <Link href="/">
-                   <img src={Sofie} />
-                   </Link>
+                    <img src={logo} style={{height : '50px', width : 'auto'}} />
+                    </Link>
                     {isMobile && (
                         <IconButton
                             sx={{
