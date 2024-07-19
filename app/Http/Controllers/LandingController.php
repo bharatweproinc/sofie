@@ -191,4 +191,7 @@ class LandingController extends Controller
             'user' => $user
         ]);
     }
+    public function testimonials(){
+        return Inertia::render('Landing/Testimonials/Review');
+    }
 }

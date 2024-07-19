@@ -288,7 +288,7 @@ function DrawerAppBar({list}) {
 					</Grid>
 					<Grid item xs={12} py={2}>
 						<Typography textAlign={'center'} color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} variant="subtitle1">
-							Discover some of the successfvolplayul Small Medium Enterprises (SMEs) that have thrived with <br /> the help of our mentorship program.
+							Discover some of the successful Small Medium Enterprises (SMEs) that have thrived with <br /> the help of our mentorship program.
 						</Typography>
 					</Grid>
 				</Grid>

@@ -165,6 +165,17 @@ const initResetPasswordField = {
     'confirm_new_password' : ''
 }
 
+const initTestimonial = {
+    "name" : '',
+    "description" : "",
+    "profile_photo" : '',
+}
+
+const testmionialSchema = [{
+    name : Joi.string().label("Testimonial Name").required(),
+    description : Joi.string().label("Testimonial Description").required()
+}]
+
 const resetPasswordSchema = [{
     previous_password : Joi.string().min(8).label("Previous Password").required(),
     new_password : Joi.string().min(8).label("New Password").required(),
@@ -248,7 +259,8 @@ const Constants = {
     signupSchema, loginSchema, mentorSchema, companySchema, contactSchema ,
     companyInputRefs, mentorInputRefs, icons, positionInCompanyOptions, currentRevenueSizeOptions,
     currentCustomersBaseSize, teamSizeOptions, industrySectorOptions, functionalAreaOptions,
-    hearAboutUsOptions, mentoredCompanyOptions, addButton, initResetPasswordField, resetPasswordSchema
+    hearAboutUsOptions, mentoredCompanyOptions, addButton, initResetPasswordField, resetPasswordSchema,
+    initTestimonial, testmionialSchema
 }
 
 export default Constants;

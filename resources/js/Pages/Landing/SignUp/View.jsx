@@ -187,7 +187,7 @@ function Signup() {
                       data.enterpreneur_or_mentor  === "mentor" ?
                         <Grid item xs={12} className='custom_checkbox_label'>
                           <FormControlLabel required control={<Checkbox />}
-                              label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with consultation and guidance completely FREE OF CHARGE for up to 1 year." />
+                              label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to a total of 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of 1 year" />
                         </Grid>
                         :
                         <Grid item xs={12} className='custom_checkbox_label'>

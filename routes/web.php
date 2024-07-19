@@ -37,6 +37,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // Route::get('/go-live/{id}', [DashboardController::class, 'goLive'])->name('goLive');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
+    Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
 
     Route::prefix('company')->name('company.')->group(function(){
         Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
@@ -51,6 +52,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
         Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
         Route::get('/mentor-detail/{id}', [LandingController::class, 'mentorDetails'])->name('mentordetail');
     });
+    
 });
 
 // Route::get('/dashboard', function () {
