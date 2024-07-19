@@ -1,1 +1,0 @@
-import{B as s}from"./ReactToastify-CmK5ZitM.js";const c={default:r=>s(r),success:(r,o={})=>s.success(r,o),error:(r,o={})=>s.error(r,o),warn:(r,o={})=>s.warn(r,o),info:(r,o={})=>s.info(r,o),custom:(r,o={})=>s(r,o)};export{c as n};

@@ -1,0 +1,1 @@
+import{N as l,_ as n,M as m,E as u}from"./DefaultPropsProvider-BmbWfFiB.js";import{j as s}from"./app-CIxyG2IA.js";import{a as f}from"./Box-BIv8Nru8.js";function p({styles:e,themeId:o,defaultTheme:a={}}){const t=f(a),r=typeof e=="function"?e(o&&t[o]||t):e;return s.jsx(l,{styles:r})}function b(e){return s.jsx(p,n({},e,{defaultTheme:m,themeId:u}))}export{b as G};
