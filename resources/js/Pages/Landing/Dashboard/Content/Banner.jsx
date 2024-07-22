@@ -67,7 +67,7 @@ function Banner (){
                     <Grid item>
                     <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Upload Photos</Typography>
 
-                    <MutiImages />
+                    <MutiImages data={data} setData={setData} />
                     </Grid>
                     <Grid item xs={12} mt={3} className="custom_btn" textAlign={'center'}>
                         <Button disabled={processing} type="submit" variant="contained">

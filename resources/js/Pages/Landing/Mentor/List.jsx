@@ -1,5 +1,5 @@
 import SideBar from "@/Components/Dependent/SideBar";
-import { Box, Grid, Pagination, Typography } from "@mui/material";
+import { Box, Chip, Grid, Pagination, Switch, Typography } from "@mui/material";
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,6 +16,7 @@ import NoDataFound from "@/Components/NoDataFound";
 import { Landing } from "@/Layouts/Landing";
 
 function MentorList({list = []}) {
+
     const mentorList = list.mentor;
     const [sortConfig, setSortConfig] = useState({
         key: null,
@@ -268,9 +269,10 @@ function MentorList({list = []}) {
                                             >
                                                 <TableCell align="left" component="th" scope="row">
                                                     {row.user.name}
+                                                    <Chip label="new" color="primary" variant="outlined" sx={{ ml : 2, p : 0 }} />
                                                 </TableCell>
                                                 <TableCell align="left">{row.user.phone}</TableCell>
-                                                <TableCell align="left">{row.user.email}</TableCell>
+                                                <TableCell align="left">{row.user.email} </TableCell>
                                                 <TableCell align="left">{row.functional_area}</TableCell>
                                                 <TableCell align="left">
                                                     <Box
@@ -298,6 +300,7 @@ function MentorList({list = []}) {
                                                                 </span>
                                                             )
                                                         )}
+                                                        <Switch checked={row?.status === 'active' ? true : false}/>
                                                     </Box>
                                                 </TableCell>
                                             </TableRow>

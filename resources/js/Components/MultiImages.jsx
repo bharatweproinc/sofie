@@ -1,50 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 
-const UploadAndDisplayImage = () => {
-  const [images, setImages] = useState([]);
-
-  console.log('images', images)
+const UploadAndDisplayImage = ({data, setData}) => {
 
   const onImageChange = (e) => {
     const newImages = Array.from(e.target.files);
-    setImages((prevImages) => [...prevImages, ...newImages]);
+    setData({...data, ["banner_images"] : [...data["banner_images"], ...newImages]});
   };
 
   const removeImg = (index) => {
-    URL.revokeObjectURL(URL.createObjectURL(images[index]));
-
-    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    URL.revokeObjectURL(URL.createObjectURL(data["banner_images"][index]));
+    setData(prevData => {
+        const newImages = prevData["banner_images"].filter((_, i) => i !== index);
+        return { ...prevData, banner_images: newImages };
+      });
   };
 
   return (
     <>
       <input type="file" multiple accept="image/*" onChange={onImageChange} />
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {images.map((image, index) => {
-          const imageSrc = URL.createObjectURL(image);
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
-          return (
-            <div key={index} style={{ margin: '10px', position: 'relative' }}>
-              <img src={imageSrc} alt={`Uploaded preview ${index}`} width="250px" />
-              <button
-                onClick={() => removeImg(index)}
-                style={{
-                  position: 'absolute',
-                  top: '5px',
-                  right: '5px',
-                  background: 'rgba(255, 0, 0, 0.5)',
-                  border: 'none',
-                  color: 'white',
-                  cursor: 'pointer',
-                  width : '20px'
-                }}
-              >
-                X
-              </button>
-            </div>
-          );
-        })}
-      </div>
+            {data["banner_images"].map((image, index) => {
+
+                const imageSrc = URL.createObjectURL(image);
+
+                return (
+                    <div key={index} style={{ margin: '10px', position: 'relative'}}>
+
+                    <img src={imageSrc} alt={`Uploaded preview ${index}`} width="250px" style={{ height : '250px', objectFit : 'contain' }} />
+                        <button
+                            onClick={() => removeImg(index)}
+                            style={{
+                            position: 'absolute',
+                            top: '5px',
+                            right: '5px',
+                            background: 'rgba(255, 0, 0, 0.5)',
+                            border: 'none',
+                            color: 'white',
+                            cursor: 'pointer',
+                            width : '25px'
+                            }}
+                        >
+                            X
+                        </button>
+                    </div>
+                );
+            })}
+        </div>
     </>
   );
 };
