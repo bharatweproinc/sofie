@@ -7,9 +7,14 @@ import './style.scss'
 import Constants from "../Constants";
 import Joi from "@/utility/JoiValidator";
 
-const CreateOrEdit = () => {
-    const { data, setData, post, processing} = useForm(Constants.initTestimonial)
+const CreateOrEdit = ({detail}) => {
+
+   // console.log('detail1212', detail)
+
+    const { data, setData, post, processing} = useForm({...Constants.initTestimonial, ...detail.testimonial})
     const [validationErrors, setValidationErrors] = useState({});
+
+    console.log("data1212", data.id);
 
     const handleChange = (key, value) => {
 
@@ -43,15 +48,15 @@ const CreateOrEdit = () => {
         if (isError?.length > 0) {
           return;
         } else {
-                console.log("datttta", data);
-            //     post(route('mentor.saveDetail', detail.user.id),{
-            //     onSuccess:(success) => {
-            //         console.log(success, "sucesss")
-            //     },
-            //     onError:(error) => {
-            //         console.log(error,"error")
-            //     },
-            // })
+
+                post(route('admin.testimonial.updateData', data.id),{
+                onSuccess:(success) => {
+                    console.log(success, "sucesss")
+                },
+                onError:(error) => {
+                    console.log(error,"error")
+                },
+            })
             }
         }
 
@@ -89,7 +94,7 @@ const CreateOrEdit = () => {
                                 fullWidth
                                 variant='outlined'
                                 placeholder='Please Fill your Name'
-                                value={data.name}
+                                value={data?.name}
                                 onChange={(e) => handleChange("name", e.target.value)}
                                 error={!!validationErrors.name}
                                 helperText={validationErrors.name}
@@ -104,7 +109,7 @@ const CreateOrEdit = () => {
                                 variant='outlined'
                                 placeholder='Please Fill Description'
                                 multiline
-                                value={data.description}
+                                value={data?.description}
                                 onChange={(e) => handleChange("description", e.target.value)}
                                 error={!!validationErrors.description}
                                 helperText={validationErrors.description}
@@ -113,7 +118,7 @@ const CreateOrEdit = () => {
                         <Grid xs={12} m={4} textAlign={"center"} className='submit_btn'>
                             <Button type='submit' variant="contained" disabled={processing}>Save</Button>
                          </Grid>
-                    </Grid>    
+                    </Grid>
                     </form>
         </Landing>
     )

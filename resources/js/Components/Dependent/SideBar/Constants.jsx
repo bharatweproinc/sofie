@@ -34,7 +34,7 @@ const AdminmenuItem = [
     ],
   },
   { id: 3, label: 'Mentors', icon: <PeopleAltOutlinedIcon />, link: '/admin/mentor/list' },
-  {id : 4, label : "Testimonials", icon : <PeopleAltOutlinedIcon />, link : '/admin/testimonials' },
+  {id : 4, label : "Testimonials", icon : <PeopleAltOutlinedIcon />, link : '/admin/testimonial/list' },
   {
     id: 5,
     label: 'Settings',

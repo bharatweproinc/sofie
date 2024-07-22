@@ -8,7 +8,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Company;
 use App\Models\Mentor;
 use App\Models\Testimonial;
-use App\Repository\{MentorRepository, CompanyRepository};
+use App\Repository\{MentorRepository, CompanyRepository, TestimonialRepository};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -16,24 +16,20 @@ use Illuminate\Support\Facades\Redirect;
 
 class LandingController extends Controller
 {
-    private $mentorRepository, $companyRepository;
+    private $mentorRepository, $companyRepository, $testimonialRepository;
 
-    public function __construct(MentorRepository $mentorRepository, CompanyRepository $companyRepository){
+    public function __construct(MentorRepository $mentorRepository, CompanyRepository $companyRepository, TestimonialRepository $testimonialRepository){
         $this->mentorRepository = $mentorRepository;
         $this->companyRepository = $companyRepository;
+        $this->testimonialRepository = $testimonialRepository;
     }
 
     //
     public function home() {
         $companies = $this->companyRepository->getList();
         $mentors = $this->mentorRepository->getList();
-        $testimonials = Testimonial::get();
-        // $testimonials = Testimonial::get()->each(function($t) {
-        //     $t->link = url("storage/testimonial/{$t->image}");
-        // });
-        //dd($testimonials);
         return Inertia::render('Landing/Home/View',[
-            "list" => [ "companies" =>  $companies, "mentors" => $mentors, 'testimonial' => $testimonials]]);
+            "list" => [ "companies" =>  $companies, "mentors" => $mentors]]);
     }
 
     public function contactUs() {
@@ -63,6 +59,23 @@ class LandingController extends Controller
                 'logged_user' => $logged_user,
                 'user' => $user,
                 'company' => $company,
+            ],
+        ]);
+    }
+
+    public function testimonialDetail($id) {
+        //id is testimonial id
+        $logged_user = Auth::user();
+        $testimonial = Testimonial::where('id', $id)->first();
+        if($testimonial && $testimonial->image != null){
+            $testimonial->link = url("storage/testimonial/{$testimonial->image}");
+        }
+        //dd('detail()', $testimonial);
+        return Inertia::render('Landing/Testimonials/Edit',[
+            'detail' => [
+                'id' => $id,
+                'logged_user' => $logged_user,
+                'testimonial' => $testimonial,
             ],
         ]);
     }
@@ -202,6 +215,6 @@ class LandingController extends Controller
         ]);
     }
     public function testimonials(){
-        return Inertia::render('Landing/Testimonials/Review');
+        return Inertia::render('Landing/Testimonials/Create', []);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,6 +38,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // Route::get('/go-live/{id}', [DashboardController::class, 'goLive'])->name('goLive');
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
+
+    //Create new testimonial..
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
 
     Route::prefix('company')->name('company.')->group(function(){
@@ -52,7 +55,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
         Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
         Route::get('/mentor-detail/{id}', [LandingController::class, 'mentorDetails'])->name('mentordetail');
     });
-    
+
+    //existing testimonial
+    Route::prefix('testimonial')->name('testimonial.')->group(function() {
+        Route::get('/list', [TestimonialController::class, 'getList'])->name('list');
+        Route::post('/saveData', [TestimonialController::class, 'saveData'])->name('saveData');
+        Route::post('/updateData/{id}', [TestimonialController::class, 'updateData'])->name('updateData');
+        Route::get('/detail/{id}', [LandingController::class, 'testimonialDetail'])->name('detail');
+        Route::get('/view/{id}', [TestimonialController::class, 'get'])->name('get');
+    });
 });
 
 // Route::get('/dashboard', function () {
