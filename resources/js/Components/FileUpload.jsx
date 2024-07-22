@@ -12,7 +12,7 @@ const ProfilePhotoUpload = ({setData, data, photoKey}) => {
         if (file) {
             setData({...data, [photoKey] :file});
             setImg(file)
-            }
+        }
     };
 
     return (

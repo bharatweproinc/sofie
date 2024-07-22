@@ -199,7 +199,7 @@ class LandingController extends Controller
                     'detail' => $data
                 ]);
             }
-            
+
         }else if($role == "entrepreneur"){
             $user = User::findOrFail($user_id);
             return Redirect::route('landing.companydetail',[
@@ -216,5 +216,8 @@ class LandingController extends Controller
     }
     public function testimonials(){
         return Inertia::render('Landing/Testimonials/Create', []);
+    }
+    public function content(){
+        return Inertia::render('Landing/Dashboard/Content/Banner');
     }
 }

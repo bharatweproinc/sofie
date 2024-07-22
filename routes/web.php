@@ -41,6 +41,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     //Create new testimonial..
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
+    Route::get('/content', [LandingController::class, 'content'])->name('content');
+
 
     Route::prefix('company')->name('company.')->group(function(){
         Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');

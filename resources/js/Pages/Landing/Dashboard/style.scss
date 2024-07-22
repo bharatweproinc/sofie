@@ -55,3 +55,14 @@
     }
 }
 
+.custom_input {
+    .MuiInputBase-input{
+        padding: 16.5px 14px !important;
+    }
+    .MuiInputBase-input:focus{
+        box-shadow: none !important;
+    }
+    textarea:focus{
+        box-shadow: none !important;
+      }
+}
