@@ -15,6 +15,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Popup from '@/Components/Popup/index';
 import Joi from '@/utility/JoiValidator';
+import '../style.scss';
 
 const multiSelectData = {
     mentored_in_company : Constants.mentoredCompanyOptions,
@@ -48,13 +49,6 @@ function Mentor({detail}) {
         title:"",
         desc:""
     });
-    const [existingData] = useState(data);
-    const [isEdit, setIsEdit] = useState(false);
-
-    React.useEffect(() => {
-        let isEditing =  existingData !== data
-        setIsEdit(isEditing);
-    }, [data, existingData]);
 
     const handleClickOpen = (id,title) => {
         setOpen(true);
@@ -67,7 +61,7 @@ function Mentor({detail}) {
 
     const handleChange = (key, value, type) => {
 
-        if(type && type==="select"){
+        if(type && type === "select"){
             if(value?.includes(undefined)){
                 return;
             }
@@ -78,8 +72,8 @@ function Mentor({detail}) {
         });
 
         setData((prev)=>({
-        ...prev,
-        [key]:value
+            ...prev,
+            [key]:value
         }));
     };
 
@@ -98,7 +92,6 @@ function Mentor({detail}) {
                return i
               }
              })
-
         if (isError?.length > 0) {
             for (const field in inputRefs.current) {
                 if (inputRefs.current[field] && inputRefs.current[field].current && err[field]) {
@@ -278,9 +271,8 @@ function Mentor({detail}) {
                                     labelId="functionalArea-label"
                                     fullWidth
                                     variant="outlined"
-                                    value={data.functional_area }
-                                    onChange={(e) => handleChange('functional_area', e.target.value,'select')}
-                                    input={<OutlinedInput  />}
+                                    value={data.functional_area}
+                                    onChange={(e) => handleChange('functional_area', e.target.value)}
                                     error={!!validationErrors.functional_area}
                                     inputRef={inputRefs.current.functional_area}
                                 >
@@ -289,9 +281,6 @@ function Mentor({detail}) {
                                             {val}
                                         </MenuItem>
                                     ))}
-                                    <Button onClick={()=>handleClickOpen("functional_area", "Functional Area")}>
-                                        {addButton()}
-                                    </Button>
                                 </Select>
                                 <FormHelperText>{validationErrors.functional_area}</FormHelperText>
                             </FormControl>
@@ -374,8 +363,8 @@ function Mentor({detail}) {
                             />
                         </Grid>
                     </Grid>
-                    <Grid item="true" xs={12} mb={4} textAlign={"center"} className='submit_btn'>
-                        <Button type='submit' variant="contained" disabled={processing || !isEdit} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Create' : 'Update'}</Button>
+                    <Grid item="true" xs={12} mb={4} textAlign={"center"} className='custom_btn'>
+                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Create' : 'Update'}</Button>
                     </Grid>
                 </Grid>
             </form>

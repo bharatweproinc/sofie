@@ -10,7 +10,7 @@ import Joi from '@/utility/JoiValidator';
 import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import "../style.scss";
 
 const loginSchema = Constants.loginSchema
 const CenteredPaper = styled(Paper)({
@@ -114,7 +114,7 @@ function Login() {
                           <Typography>Forgot Password</Typography>
                         </Link>
                       </Grid>
-                      <Grid item xs={12} className='submit_btn'>
+                      <Grid item xs={12} className='custom_btn'>
                           <Button variant="contained" fullWidth type="submit" disabled={processing}>Log In</Button>
                           <Typography textAlign="center" mt={4}>Need an account? <Link href={route('landing.signup')}>Sign up here.</Link> </Typography>
                       </Grid>

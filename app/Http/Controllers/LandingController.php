@@ -78,7 +78,7 @@ class LandingController extends Controller
         $logged_user = Auth::user();
         $user = User::findOrFail($id);
         $mentor = Mentor::where('id', $user->functional_id)->first();
-        if($mentor->profile_photo != null){
+        if($mentor && $mentor->profile_photo != null){
             $mentor->link = url("storage/mentor_profile/{$mentor->profile_photo}");
         }
         return Inertia::render('Landing/Mentor/View',[
@@ -173,10 +173,20 @@ class LandingController extends Controller
 
         if($role == "mentor"){
             $user = User::findOrFail($user_id);
-            return Redirect::route('landing.mentordetail',[
-                'id' => $user->id
-            ]);
-
+            if($user->functional_id == null){
+                return Redirect::route('landing.mentordetail',[
+                    'id' => $user->id
+                ]);
+            }else{
+                $logged_user = Auth::user();
+                $data = Mentor::with('user')->where('id', $user->functional_id)->first();
+                $data->link = url("storage/mentor_profile/{$data->profile_photo}");
+                $data->logged_user = $logged_user;
+                return Inertia::render('Landing/Mentor/Review',[
+                    'detail' => $data
+                ]);
+            }
+            
         }else if($role == "entrepreneur"){
             $user = User::findOrFail($user_id);
             return Redirect::route('landing.companydetail',[

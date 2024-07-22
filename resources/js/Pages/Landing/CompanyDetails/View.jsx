@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
 import { notify } from '@/Components/Notifier';
+import "../style.scss";
 
 const addButton = Constants.addButton;
 const multiSelectData = {
@@ -41,15 +42,7 @@ function CompanyDetail({detail}) {
         desc:""
     });
 
-    const [existingData] = useState(data);
-    const [isEdit, setIsEdit] = useState(false);
-
-    useEffect(() => {
-        let isEditing =  existingData !== data
-        setIsEdit(isEditing);
-    }, [data, existingData]);
-
-
+    console.log("dataaaa", data.functional_area_3);
     const handleClickOpen = (id,title) => {
         setOpen(true);
         setAddMoreId(id);
@@ -105,6 +98,7 @@ function CompanyDetail({detail}) {
           setValidationErrors(err);
           return;
         } else {
+            console.log('data121212',data)
 
         post(route('company.saveData', detail?.user.id),{
             onSuccess:(success) => {
@@ -143,9 +137,32 @@ function CompanyDetail({detail}) {
                                       <ProfilePhotoUpload
                                             setData={setData}
                                             data={data}
+                                            photoKey={"profile_photo"}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
+                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
+                                    <Typography py={1} color={'#7C7C7C'}>
+                                        1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
+                                    </Typography>
+                                    <Typography py={1} color={'#7C7C7C'}>
+                                        2. Image Format: Use common image formats such as JPEG, PNG, or SVG.
+                                    </Typography>
+                                    <Typography py={1} color={'#7C7C7C'}>
+                                        3. High Resolution: Ensure the image is high resolution so that the logo appears clear and professional.
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container  gap={5} alignItems={"center"} className='upload_image_section' sx={{border:'2px solid #7C7C7C !important'}}>
+                                      <ProfilePhotoUpload
+                                            setData={setData}
+                                            data={data}
+                                            photoKey={"founder_image"}
+                                        />
+                                <Grid item xs={9} textAlign={"left"}>
+                                    <Typography fontWeight={600} fontSize="18px">Upload Founder Photo</Typography>
                                     <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
                                         1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
@@ -437,8 +454,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_1  }
-                                                onChange={(e) => handleChange('functional_area_1', e.target.value,'select')}
-                                                input={<OutlinedInput  />}
+                                                onChange={(e) => handleChange('functional_area_1', e.target.value)}
                                                 error={!!validationErrors.functional_area_1}
                                                 inputRef={inputRefs.current.functional_area_1}
                                             >
@@ -447,9 +463,6 @@ function CompanyDetail({detail}) {
                                                         {val}
                                                     </MenuItem>
                                                 ))}
-                                                <Button onClick={()=>handleClickOpen("functional_area_1", "Functional Area 1")}>
-                                                    {addButton()}
-                                                </Button>
                                             </Select>
                                         <FormHelperText>{validationErrors.functional_area_1}</FormHelperText>
                                     </FormControl>
@@ -462,8 +475,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_2}
-                                                onChange={(e) => handleChange('functional_area_2', e.target.value,'select')}
-                                                input={<OutlinedInput  />}
+                                                onChange={(e) => handleChange('functional_area_2', e.target.value)}
                                                 error={!!validationErrors.functional_area_2}
                                                 inputRef={inputRefs.current.functional_area_2}
                                             >
@@ -472,9 +484,6 @@ function CompanyDetail({detail}) {
                                                         {val}
                                                     </MenuItem>
                                                 ))}
-                                                <Button onClick={()=>handleClickOpen("functional_area_2", "Functional Area 2")}>
-                                                    {addButton()}
-                                                </Button>
                                             </Select>
                                         <FormHelperText>{validationErrors.functional_area_2}</FormHelperText>
                                     </FormControl>
@@ -487,8 +496,7 @@ function CompanyDetail({detail}) {
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.functional_area_3}
-                                                onChange={(e) => handleChange('functional_area_3', e.target.value,'select')}
-                                                input={<OutlinedInput  />}
+                                                onChange={(e) => handleChange('functional_area_3', e.target.value)}
                                                 error={!!validationErrors.functional_area_3}
                                                 inputRef={inputRefs.current.functional_area_3}
                                             >
@@ -497,9 +505,6 @@ function CompanyDetail({detail}) {
                                                         {val}
                                                     </MenuItem>
                                                 ))}
-                                                <Button onClick={()=>handleClickOpen("functional_area_3", "Functional Area 3")}>
-                                                    {addButton()}
-                                                </Button>
                                             </Select>
                                         <FormHelperText>{validationErrors.functional_area_3}</FormHelperText>
                                     </FormControl>
@@ -566,8 +571,8 @@ function CompanyDetail({detail}) {
                                         onChange={(e) => handleChange('additional_information', e.target.value)}
                                     />
                             </Grid>
-                            <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='submit_btn'>
-                                <Button variant="contained" type='submit' disabled={!isEdit}> {data.functional_id === null ? "Create" : "Update"}</Button>
+                            <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='custom_btn'>
+                                <Button variant="contained" type='submit'> {data.functional_id === null ? "Create" : "Update"}</Button>
                             </Grid>
                         </Grid>
                     </form>

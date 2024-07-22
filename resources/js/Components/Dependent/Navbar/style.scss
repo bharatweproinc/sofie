@@ -6,6 +6,10 @@
     margin-left: auto !important;
     padding-top: 26px !important;
     background-color: #fff !important;
+    
+    .MuiInputBase-input:focus{
+        box-shadow: none !important;
+    }
 }
 .navbar_main{
     position: sticky;
@@ -13,5 +17,8 @@
     background: #fff !important;
     z-index: 1300 !important;
     padding-top: 15px !important;
-
+    
+    .MuiInputBase-input:focus{
+        box-shadow: none !important;
+    }
 }

@@ -4,15 +4,15 @@ import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import { useForm } from '@inertiajs/react'
 import Constants from '../Constants';
-import './style.scss'
+import './style.scss';
 import Joi from '@/utility/JoiValidator';
+import "../style.scss";
 
 const contactSchema = Constants.contactSchema
 
 const BackgroundImageContainer = styled('div')({
   backgroundImage: 'url(./images/image7.png)',
   backgroundSize: 'cover',
-  // height: '896px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -138,7 +138,7 @@ function Contact() {
                       helperText={validationErrors.message}
                     />
                 </Grid>
-                <Grid item xs={12} className="submit_btn">
+                <Grid item xs={12} className="custom_btn">
                   <Button variant="contained" type="submit" disabled={processing}>Submit</Button>
                 </Grid>
             </Grid>

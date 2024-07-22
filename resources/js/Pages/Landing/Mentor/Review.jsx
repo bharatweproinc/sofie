@@ -10,8 +10,10 @@ import Joi from '@/utility/JoiValidator';
 import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "../style.scss";
 
 function ReviewProfilePage ({detail}){
+
     const [open, setOpen] = useState(false);
 
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
@@ -87,29 +89,23 @@ function ReviewProfilePage ({detail}){
             <Typography sx={{ height: '65px' }}></Typography>
             <ToastContainer style={{marginTop:"65px"}}/>
             <Box p={4} className="review_mentor">
-            <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2} className='edit_btn'>
-                <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
-                    <Box display={'flex'} alignItems={'center'}>
+                <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2} className='custom_btn custom_delete_btn'>
+                    <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
+                        <Box display={'flex'} alignItems={'center'}>
 
-                        <Tooltip  placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
-                        <div>
-                            <Button  disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true } component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">
-                                {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'}
+                            <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
+                                    <Button disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true } component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">
+                                        {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled For Seven Days'}
+                                    </Button>
+                            </Tooltip>
+                            {detail?.logged_user?.user_role === "admin" && <Box>
+                            <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">
+                                Delete Account
                             </Button>
-                        </div>
-                    </Tooltip>
-                    {detail?.logged_user?.user_role === "admin" && <Box>
-                    <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained" color="error" sx={{ textTransform:"capitalize", padding:'8px 20px' , ml:2 }}>
-                        Delete Account
-                    </Button>
-             </Box>}
+                        </Box>}
                 </Box>
-
-             </Box>
-
-
+            </Box>
                 <Box p={4} pr={0} sx={{border : '1px solid black', borderRadius : '10px'}}>
-
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Profile Photo</Typography>
@@ -156,8 +152,8 @@ function ReviewProfilePage ({detail}){
                             <Typography fontSize="14px">{detail.additional_information}</Typography>
                         </Grid>
                     </Grid>
-                    <Box className="reset_btn">
-                        <Button onClick={() => handleShow()} variant="contained" sx={{padding : "4px 20px", my : 2}}>Reset Password</Button>
+                    <Box className="custom_btn">
+                        <Button onClick={() => handleShow()} variant="contained" sx={{padding : "4px 20px !important", my : 2}}>Reset Password</Button>
                     </Box>
                         { show === true &&
                         <form method={"post"} onSubmit={handleSubmit}>
@@ -207,16 +203,16 @@ function ReviewProfilePage ({detail}){
                                     helperText={validationErrors.confirm_new_password?.[0] || (passwordError ? 'Passwords does not match' : '')}
                                 />
                             </Grid>
-                            <Grid item px={2} xs={12} md={3} className="submit_btn">
-                                <Button sx={{ mt : {lg : '34px'}}} type='submit' disabled={processing} variant="contained">
+                            <Grid item px={2} xs={12} md={3} className="custom_btn">
+                                <Button sx={{ mt : {lg : '32px'}, padding : '15px 25px !important'}} type='submit' disabled={processing} variant="contained">
                                     Save
                                 </Button>
                             </Grid>
                         </Grid>
                         </form>
                         }
-                    </Box>
                 </Box>
+            </Box>
             <DeleteAlert open={open} setOpen={setOpen}/>
 
             {/* <ReviewList/> */}

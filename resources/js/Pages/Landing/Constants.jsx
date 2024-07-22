@@ -234,7 +234,7 @@ const industrySectorOptions = [
 ]
 
 const functionalAreaOptions = [
-    'Accounting', "Customer Service", 'Finance',  'Human Resources', "IT (Information Technology)", 'Marketing', "Sales",  'Operations', "Production",  "Research & Development", "Strategy/Business Development"
+   "Exclusivity", 'Accounting', "Customer Service", 'Finance',  'Human Resources', "IT (Information Technology)", 'Marketing', "Sales",  'Operations', "Production",  "Research & Development", "Strategy/Business Development"
 ]
 
 const hearAboutUsOptions = [

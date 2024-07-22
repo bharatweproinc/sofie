@@ -7,19 +7,11 @@
 	width: 100%;
   }
   .banner_content{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
     left: 0;
-
-    // .container{
-    //     width: 100%;
-    //     display: flex;
-    //     justify-content: center;
-    //     /* height: 100%; */
-    //     max-width: 100%;
-    // }
   }
 
 	@media only screen and (max-width: 600px) {
@@ -41,14 +33,4 @@
     .MuiFormHelperText-root{
       margin-left: 0px !important;
     }
-    .submit_btn{
-      .MuiButtonBase-root{
-          padding: 10px 32px;
-          background-color  : #1d6fa4;
-          text-transform : capitalize;
-      }
-      .MuiButtonBase-root:hover{
-          background-color: #1d6fa4;
-      }
-  }
 }

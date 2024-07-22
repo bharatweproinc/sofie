@@ -10,10 +10,12 @@ import React from "react";
 import moment from "moment";
 import { Link } from "@inertiajs/react";
 import "./style.scss";
+import "../style.scss";
 import Tooltip from '@mui/material/Tooltip';
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 
 const Reviewdata = ({detail}) => {
+    console.log('detail1212', detail)
     const [open, setOpen] = React.useState(false);
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
@@ -32,7 +34,7 @@ const Reviewdata = ({detail}) => {
                         Company Details
                     </Typography>
                     <Box display={'flex'} alignItems={'center'}>
-                    <Box pr={3} className='edit_btn'>
+                    <Box className='custom_btn'>
                     <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
                      <div>
                     <Button
@@ -42,15 +44,15 @@ const Reviewdata = ({detail}) => {
                             type="submit"
                             variant="contained"
                             >
-                            {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disabled'}
+                            {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disable for Seven days'}
                         </Button>
                       </div>
                   </Tooltip>
 
                     </Box>
                     {detail?.logged_user?.user_role === "admin" &&
-                    <Box>
-                        <Button onClick={()=>setOpen(true)} variant="contained" color="error" sx={{ textTransform:"capitalize", padding:'8px 20px' }}>
+                    <Box className="custom_delete_btn">
+                        <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">
                             Delete Account
                         </Button>
                     </Box>}
@@ -63,7 +65,7 @@ const Reviewdata = ({detail}) => {
                     className="company_detail_review_title"
                 >
                     <Grid container sx={{ pl: 3 }}>
-                        <Grid item xs={12} mt={2}>
+                        <Grid item xs={3} mt={2}>
                             <Typography
                                 variant="h6"
                                 pb={2}
@@ -74,8 +76,24 @@ const Reviewdata = ({detail}) => {
                                 Profile Photo
                             </Typography>
                             <Avatar
-                                alt="Remy Sharp"
+                                alt="company_img"
                                 src={detail.link}
+                                sx={{ width: "100px", height: "100px"}}
+                            />
+                        </Grid>
+                        <Grid item xs={3} mt={2}>
+                            <Typography
+                                variant="h6"
+                                pb={2}
+                                fontSize={"18px"}
+                                fontWeight={600}
+                                color={"#7C7C7C"}
+                            >
+                                Founder Photo
+                            </Typography>
+                            <Avatar
+                                alt="founder_img"
+                                src={detail.founder_image}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

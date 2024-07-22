@@ -74,7 +74,7 @@ function BrowseCompanies ({list}) {
 
                                     <Typography variant="body2" color="text.secondary">
                                         {isReadMore === key ? item.company_description : item.company_description.slice(0, 600)}
-                                        { item.additional_information.length > 600 &&
+                                        { item.company_description.length > 600 &&
                                             <span
                                                 onClick={() => toggleReadMore(key)}
                                                 style={{ color: "#232424", cursor : 'pointer'}}

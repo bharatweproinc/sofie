@@ -1,0 +1,26 @@
+.custom_btn{
+    .MuiButtonBase-root{
+        padding: 8px 32px;
+        color: "#fff";
+        background-color  : #1d6fa4;
+        text-transform : capitalize;
+    }
+    .MuiButtonBase-root:hover{
+        background-color: #1d6fa4;
+    }
+    .Mui-disabled{
+        color: #fff !important;
+        background-color: #1d6fa4 !important;
+    }
+}
+.custom_delete_btn{
+    .delete_account{
+        background-color: #d32f2f !important;
+        padding: 8px 20px !important;
+        text-transform: capitalize;
+        margin-left: 15px !important;
+    }
+    .delete_account:hover{
+        background-color: #d32f2f !important;
+    }
+}

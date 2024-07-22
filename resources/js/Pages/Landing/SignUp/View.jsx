@@ -10,6 +10,7 @@ import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
+import "../style.scss";
 
 const signupSchema = Constants.signupSchema
 
@@ -196,7 +197,7 @@ function Signup() {
                                   I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance completely FREE OF CHARGE." />
                         </Grid>
                     }
-                    <Grid item xs={12} mt={2} className='submit_btn'>
+                    <Grid item xs={12} mt={2} className='custom_btn'>
                         <Button type='submit' disabled={processing} variant="contained">Sign Up</Button>
                     </Grid>
                   </Grid>
