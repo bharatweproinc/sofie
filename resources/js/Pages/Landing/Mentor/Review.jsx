@@ -188,14 +188,16 @@ function ReviewProfilePage ({detail}){
                     </Grid>
                     {
                       detail.logged_user.user_role === "admin" && 
-                      <Box className="status_box mt-3"> 
+                      <Box className="status_box  mt-3"> 
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Status</Typography>
                             <FormControlLabel control={ <Switch  
                                 checked={userStatus === 1 ? true : false} />} 
                                 label={userStatus === 1 ? "Active" : "Inactive"} 
                                 onChange={(e) => handleChangeStatus("status", e.target.checked)}    
                             />
-                            <Button onClick={() => handleUpdateStatus()} variant="contained">Save</Button>
+                            <Box className="custom_btn inline">
+                                <Button onClick={() => handleUpdateStatus()} variant="contained">Save</Button>
+                            </Box>
                       </Box>  
                     }
                     { detail.logged_user.user_role === "mentor" && 

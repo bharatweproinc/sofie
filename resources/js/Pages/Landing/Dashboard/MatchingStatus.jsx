@@ -103,7 +103,7 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
 
     return (
         <>
-            <Grid item xs={12} md={isView ? 12 : 7} sx={{ width: "100%", paddingLeft:'0px' }} className="matching_status_main">
+            <Grid item xs={12} md={isView ? 12 : 9} sx={{ width: "100%", paddingLeft:'0px' }} className="matching_status_main">
                 <Paper sx={{ height:'100%' }}>
                     {isView && (
                         <Button

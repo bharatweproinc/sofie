@@ -5,9 +5,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const ProfilePhotoUpload = ({setData, data, photoKey}) => {
 
-    console.log('link231321321', data);
     const [img, setImg] = useState(null);
-    
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -22,7 +20,7 @@ const ProfilePhotoUpload = ({setData, data, photoKey}) => {
                 <label htmlFor={`${photoKey}-upload`}>
                     <Avatar
                         alt="Avatar"
-                        src={img ? URL.createObjectURL(img) : data.link}
+                        src={img ? URL.createObjectURL(img) : data[photoKey]?.link}
                         sx={{ width: 162, height: 162 , cursor:'pointer'}}
                     />
                 </label>

@@ -28,16 +28,22 @@ function Testimonials ({list}){
     const [userId, setUserId] = useState(null);
     const [testimonialList, setTestimonialList] = useState(list.testimonial);
 
+    React.useEffect(()=> {
+        setTestimonialList(list.testimonial);
+    }, [list.testimonial])
+
     const handleDelete = () => {
         console.log('userId', userId)
         post(route('admin.testimonial.deleteTestimonial', userId),{
             onSuccess:(success) => {
                 notify.success('Testimonial Data has been deleted successfully')
                 console.log(success, "successs");
+                setOpen(false);
             },
             onError:(error) => {
                 notify.error("Error in Testimonial Delete");
                 console.log(error,"error");
+                setOpen(false);
             },
         })
     }

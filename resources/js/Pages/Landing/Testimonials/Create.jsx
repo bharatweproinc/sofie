@@ -8,11 +8,12 @@ import "../style.scss";
 import Constants from "../Constants";
 import Joi from "@/utility/JoiValidator";
 
-const CreateOrEdit = ({user}) => {
-    console.log("user121221", user);
-    const { data, setData, post, processing} = useForm({...Constants.initTestimonial, ...user})
+const Create = ({user}) => {
+
+    const { data, setData, post, processing} = useForm(Constants.initTestimonial)
     const [validationErrors, setValidationErrors] = useState({});
 
+    console.log('user2121', user)
     const handleChange = (key, value) => {
 
         setValidationErrors({
@@ -25,7 +26,6 @@ const CreateOrEdit = ({user}) => {
         [key]:value
         }));
     };
-
 
     const handleSubmit = (e) => {
 
@@ -45,7 +45,7 @@ const CreateOrEdit = ({user}) => {
         if (isError?.length > 0) {
           return;
         } else {
-
+                console.log("data", data);
                 post(route('admin.testimonial.saveData'),{
                 onSuccess:(success) => {
                     console.log(success, "sucesss")
@@ -90,8 +90,8 @@ const CreateOrEdit = ({user}) => {
                                 sx={{  mt: 1, width: '100%' }}
                                 fullWidth
                                 variant='outlined'
+                                value={data.user}
                                 placeholder='Please Fill your Name'
-                                value={data?.name}
                                 onChange={(e) => handleChange("name", e.target.value)}
                                 error={!!validationErrors.name}
                                 helperText={validationErrors.name}
@@ -106,7 +106,7 @@ const CreateOrEdit = ({user}) => {
                                 variant='outlined'
                                 placeholder='Please Fill Description'
                                 multiline
-                                value={data?.description}
+                                value={data.description}
                                 onChange={(e) => handleChange("description", e.target.value)}
                                 error={!!validationErrors.description}
                                 helperText={validationErrors.description}
@@ -120,4 +120,4 @@ const CreateOrEdit = ({user}) => {
         </Landing>
     )
 }
-export default CreateOrEdit;
+export default Create;

@@ -3,7 +3,9 @@ import {
     Avatar,
     Box,
     Button,
+    FormControlLabel,
     Grid,
+    Switch,
     TextField,
     Typography,
 } from "@mui/material";
@@ -32,6 +34,7 @@ const Reviewdata = ({detail}) => {
     const [show, setShow] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
+    const [userStatus, setUserStatus] = useState(1);
 
     const handleShow = () => {
         setShow(true)
@@ -102,6 +105,14 @@ const Reviewdata = ({detail}) => {
 
     const handleConfirm = () => {
         console.log('confirm')
+    }
+
+    const handleChangeStatus = () => {
+        setUserStatus(userStatus === 1 ? 0 : 1)
+    }
+
+    const handleUpdateStatus = () => {
+        console.log('userStatus', userStatus)
     }
 
     return (
@@ -386,6 +397,20 @@ const Reviewdata = ({detail}) => {
                             </Typography>
                         </Grid>
                     </Grid>
+                    {
+                      detail.logged_user.user_role === "admin" && 
+                      <Box className="status_box" sx={{padding : '0 0 24px 24px'}}> 
+                            <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Status</Typography>
+                            <FormControlLabel control={ <Switch  
+                                checked={userStatus === 1 ? true : false} />} 
+                                label={userStatus === 1 ? "Active" : "Inactive"} 
+                                onChange={(e) => handleChangeStatus("status", e.target.checked)}    
+                            />
+                            <Box className="custom_btn inline">
+                                <Button onClick={() => handleUpdateStatus()} variant="contained">Save</Button>
+                            </Box>
+                      </Box>  
+                    }
                     {
                         detail.logged_user.user_role === "entrepreneur" &&
                     <Box className="reset_password_container" sx={{padding : '0 0 24px 24px'}}>

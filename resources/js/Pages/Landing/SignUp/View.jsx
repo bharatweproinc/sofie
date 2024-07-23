@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Paper, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
@@ -33,6 +33,19 @@ function Signup() {
   const { data, setData, post, processing } = useForm(Constants.initSignUpForm);
   const [validationErrors, setValidationErrors] = useState({});
   const [passwordError, setpasswordError] = useState(false);
+
+  let params = new URLSearchParams(window.location.search)
+
+  let role = params.get("role");
+
+  useEffect(() => {
+    if (role !== null) {
+      setData(prevData => ({
+        ...prevData,
+        enterpreneur_or_mentor: role
+      }));
+    }
+  }, [role]);
 
   const handleChange = (key, value) => {
 
@@ -75,15 +88,16 @@ function Signup() {
             validationErrors.confirm_password = data.confirm_password !== data.password  ? 'Passwords does not match' : '';
           return;
       } else {
-        post(route('register'),{
-          onSuccess:(success) => {
-             console.log(success, "sucesss");
-          },
-          onError:(error) => {
-            console.log(error.email,"::error");
-            notify.error(error.email, { position: 'top-right' });
-          },
-      })
+        console.log("data2112121", data)
+      //   post(route('register'),{
+      //     onSuccess:(success) => {
+      //        console.log(success, "sucesss");
+      //     },
+      //     onError:(error) => {
+      //       console.log(error.email,"::error");
+      //       notify.error(error.email, { position: 'top-right' });
+      //     },
+      // })
     }}
 
   return (
@@ -184,18 +198,30 @@ function Signup() {
                           </RadioGroup>
                       </FormControl>
                     </Grid>
-                    {
-                      data.enterpreneur_or_mentor  === "mentor" ?
-                        <Grid item xs={12} className='custom_checkbox_label'>
-                          <FormControlLabel required control={<Checkbox />}
-                              label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to a total of 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of 1 year" />
-                        </Grid>
-                        :
-                        <Grid item xs={12} className='custom_checkbox_label'>
-                          <FormControlLabel required control={<Checkbox />}
-                              label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for the duration of up to 1 year.
-                                  I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance completely FREE OF CHARGE." />
-                        </Grid>
+                    { 
+                      role !== null ? (
+                       role === "mentor" ?
+                          <Grid item xs={12} className='custom_checkbox_label'>
+                            <FormControlLabel required control={<Checkbox />}
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to a total of 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of 1 year" />
+                          </Grid>
+                          :
+                          <Grid item xs={12} className='custom_checkbox_label'>
+                            <FormControlLabel required control={<Checkbox />}
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for the duration of up to 1 year.
+                                    I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance completely FREE OF CHARGE." />
+                          </Grid>
+                      ) : data.enterpreneur_or_mentor === "mentor" ? 
+                          <Grid item xs={12} className='custom_checkbox_label'>
+                            <FormControlLabel required control={<Checkbox />}
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to a total of 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of 1 year" />
+                          </Grid>
+                          :
+                          <Grid item xs={12} className='custom_checkbox_label'>
+                            <FormControlLabel required control={<Checkbox />}
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for the duration of up to 1 year.
+                                    I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance completely FREE OF CHARGE." />
+                          </Grid>
                     }
                     <Grid item xs={12} mt={2} className='custom_btn'>
                         <Button type='submit' disabled={processing} variant="contained">Sign Up</Button>

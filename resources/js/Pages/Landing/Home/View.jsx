@@ -36,7 +36,8 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar({list}) {
 
-    console.log('list.banner', list.banner)
+	const [selectedRole, setSelectedRole] = React.useState('entrepreneur');
+
 	const themes = useTheme()
 	const isMobile = useMediaQuery(themes.breakpoints.down('sm'));
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -59,9 +60,7 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-								{/* Find the Perfect Business Mentor for Your Success */}
                                 {list.banner.banner_title}
-
 							</Typography>
 							<Typography className='leading-3' sx={{
 								fontSize: '16px',
@@ -70,18 +69,16 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-								{/* Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals. */}
                                 {list.banner.banner_description}
                             </Typography>
 							<Box className="flex gap-5 mt-10">
-								<Button component={Link} href={route('landing.signup')} variant="contained" className="w-full">
+								<Button component={Link} variant="contained" href={route('landing.signup', { role: 'entrepreneur' })} onClick={() => setSelectedRole('entrepreneur')} className="w-full">
 									Sign Up to be SME
 								</Button>
-								<Button component={Link} href={route('landing.signup')} variant="outlined" className="w-full">
+								<Button component={Link}  href={route('landing.signup', { role: 'mentor' })} variant="outlined" onClick={() => setSelectedRole('mentor')} className="w-full">
 									Sign Up to be Mentor
 								</Button>
 							</Box>
-
 						</Box>
 					</Grid>
 					<Grid item sm={6} sx={{ position: 'relative', height: { lg: '693px', md: '500px', sm: '400px' } }}>
