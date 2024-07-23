@@ -7,8 +7,9 @@ import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 import MutiImages from "@/Components/MultiImages";
 
-function Banner (){
-    const { data, setData, post, processing } = useForm(Constants.initBannerForm);
+function Banner ({banner}){
+    console.log(banner,'bbb')
+    const { data, setData, post, processing } = useForm({...Constants.initBannerForm, ...banner});
 
     const handleChange = (key, value) => {
         setData((prev)=>({
@@ -17,18 +18,18 @@ function Banner (){
         }));
     }
 
-    const handleSubmit = () => {
-        console.log('data', data);
-        // post(route('company.saveData', detail?.user.id),{
-        //     onSuccess:(success) => {
-        //         notify.success('Banner Data has been updated successfully')
-        //         console.log(success, "sucesss");
-        //     },
-        //     onError:(error) => {
-        //         notify.error("Error in Banner Data, Try again");
-        //         console.log(error,"error");
-        //     },
-        // })}
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route('admin.saveSectionOne'),{
+            onSuccess:(success) => {
+                notify.success('Banner Data has been updated successfully')
+                console.log(success, "sucesss");
+            },
+            onError:(error) => {
+                notify.error("Error in Banner Data, Try again");
+                console.log(error,"error");
+            },
+        })
     }
     return(
         <Landing>
@@ -67,7 +68,7 @@ function Banner (){
                     <Grid item>
                     <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Upload Photos</Typography>
 
-                    <MutiImages data={data} setData={setData} />
+                    <MutiImages data={data} setData={setData} images={data.banner_images} />
                     </Grid>
                     <Grid item xs={12} mt={3} className="custom_btn" textAlign={'center'}>
                         <Button disabled={processing} type="submit" variant="contained">

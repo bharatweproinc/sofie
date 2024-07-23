@@ -6,8 +6,8 @@ import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
-function Banner (){
-    const { data, setData, post, processing } = useForm(Constants.initMissionStatementForm);
+function Banner ({mission}){
+    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...mission});
 
     const handleChange = (key, value) => {
         setData((prev)=>({
@@ -16,18 +16,19 @@ function Banner (){
         }));
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         console.log('data', data);
-        // post(route('company.saveData', detail?.user.id),{
-        //     onSuccess:(success) => {
-        //         notify.success('Banner Data has been updated successfully')
-        //         console.log(success, "sucesss");
-        //     },
-        //     onError:(error) => {
-        //         notify.error("Error in Banner Data, Try again");
-        //         console.log(error,"error");
-        //     },
-        // })}
+        post(route('admin.saveSectionTwo'),{
+            onSuccess:(success) => {
+                notify.success('Mission Data has been updated successfully')
+                console.log(success, "sucesss");
+            },
+            onError:(error) => {
+                notify.error("Error in Mission Data, Try again");
+                console.log(error,"error");
+            },
+        })
     }
     return(
         <Landing>

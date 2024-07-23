@@ -260,9 +260,9 @@ function CompanyList({list = []}) {
                                             >
                                                 {Constants.icons.map((item, index) => {
 
-                                                if (item.id === 4 && row.user.is_live !== 0) {
+                                                {/* if (item.id === 4 && row.user.is_live !== 0) {
                                                     return null;
-                                                }
+                                                } */}
 
                                                 return (
                                                     <span key={index}>
@@ -274,7 +274,12 @@ function CompanyList({list = []}) {
                                                             <Link href={route('admin.company.get', row.id)}>
                                                                 {item.icon}
                                                             </Link>
-                                                        ) : item.id === 4 && row.user.is_live === 0 ? (
+                                                        )
+                                                        : item.id === 4 ? (
+                                                            <Link href={route('admin.goLive', row.user.id)}>
+                                                                {item.icon}
+                                                            </Link>
+                                                        )  : item.id === 4 && row.user.is_live === 0 ? (
                                                             <Link onClick={() => handleLive(row.user.id)}
                                                             // href={route('admin.goLive', row.user.id)}
                                                             >

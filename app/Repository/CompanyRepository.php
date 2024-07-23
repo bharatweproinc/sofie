@@ -15,7 +15,6 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function getList(){
         $user = Auth::user();
-        //$list = Company::select('id','company_name','company_uen','created_at')->get();
         $company = Company::with('user')->get()->each(function($m) {
                 $m->link = url("storage/company_profile/{$m->profile_photo}");
                 $m->founderLink = url("storage/company_founder/{$m->founder_image}");
@@ -64,8 +63,6 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 'phone' => $request->phone
             ];
 
-
-
             //saving image in db
             if($request->hasFile('profile_photo')){
                 $fileName =  $this->uploadFile($request->file('profile_photo'),'company_profile');
@@ -73,9 +70,9 @@ class CompanyRepository implements CompanyRepositoryInterface {
             if($request->hasFile('founder_image')){
                 $founderImage =  $this->uploadFile($request->file('founder_image'),'company_founder');
             }
+            //dd($fileName, $founderImage);
 
             $company = Company::where('id', $user->functional_id)->first();
-
             if($company && $company->updated_at != null){
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($company->updated_at);
@@ -115,8 +112,9 @@ class CompanyRepository implements CompanyRepositoryInterface {
         try {
             $data = Company::with('user')->where('id',$id)->first();
             $data->link = url("storage/company_profile/{$data->profile_photo}");
-            $data->founderLink = url("storage/company_founder/{$data->founder_photo}");
+            $data->founderLink = url("storage/company_founder/{$data->founder_image}");
             $data->logged_user = $logged_user;
+            // dd($data);
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [

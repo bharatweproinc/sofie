@@ -10,6 +10,7 @@ use App\Http\Controllers\TestimonialController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     //Create new testimonial..
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
-    Route::get('/content', [LandingController::class, 'content'])->name('content');
 
+    //Sections for Home
+    Route::get('/section-one', [DashboardController::class, 'sectionOne'])->name('sectionOne');
+    Route::get('/section-two', [DashboardController::class, 'sectionTwo'])->name('sectionTwo');
+    Route::get('/section-three', [DashboardController::class, 'sectionThree'])->name('sectionThree');
+
+    Route::post('/saveSectionOne', [DashboardController::class, 'saveSectionOne'])->name('saveSectionOne');
+    Route::post('/saveSectionTwo', [DashboardController::class, 'saveSectionTwo'])->name('saveSectionTwo');
+    Route::post('/saveSectionThree', [DashboardController::class, 'saveSectionThree'])->name('saveSectionThree');
 
     Route::prefix('company')->name('company.')->group(function(){
         Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');

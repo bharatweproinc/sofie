@@ -35,6 +35,8 @@ const founderImages = [
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar({list}) {
+
+    console.log('list.banner', list.banner)
 	const themes = useTheme()
 	const isMobile = useMediaQuery(themes.breakpoints.down('sm'));
 	const [activeStep, setActiveStep] = React.useState(0);
@@ -57,7 +59,9 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-								Find the Perfect Business Mentor for Your Success
+								{/* Find the Perfect Business Mentor for Your Success */}
+                                {list.banner.banner_title}
+
 							</Typography>
 							<Typography className='leading-3' sx={{
 								fontSize: '16px',
@@ -66,8 +70,9 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-								Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals.
-							</Typography>
+								{/* Unlock your business potential with personalized guidance from experienced mentors. Start your journey to success today by connecting with a mentor who understands your unique challenges and goals. */}
+                                {list.banner.banner_description}
+                            </Typography>
 							<Box className="flex gap-5 mt-10">
 								<Button component={Link} href={route('landing.signup')} variant="contained" className="w-full">
 									Sign Up to be SME
@@ -80,7 +85,7 @@ function DrawerAppBar({list}) {
 						</Box>
 					</Grid>
 					<Grid item sm={6} sx={{ position: 'relative', height: { lg: '693px', md: '500px', sm: '400px' } }}>
-						<ImageCarousel />
+						<ImageCarousel images={list.banner.banner_images} />
 						<Box
 						sx={{
 							position:"absolute",
@@ -146,14 +151,15 @@ function DrawerAppBar({list}) {
 							variant="body1"
 							color="initial"
 						>
-							Mission Statement
+							{/* Mission Statement */}
+                            {list.mission.mission_title}
 						</Typography>
 						<Typography mt={{ lg: 3 }}
 							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 							variant="body1"
 						>
-							Our mission is to empower entrepreneurs by connecting them with the right mentors who can provide personalized guidance and support.
-						</Typography>
+						{list.mission.mission_description}
+                        </Typography>
 						<Typography
 							mt={{ lg: 3 }}
 							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
@@ -365,12 +371,12 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-								Join Our Community
+								{list.community.community_title}
 							</Typography>
 						</Grid>
 						<Grid item xs={12} my={1}>
 							<Typography textAlign={'center'} color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} variant="subtitle1">
-								Become a part of our dynamic and supportive community, where experienced mentors and ambitious businesses come together to achieve success.
+                            {list.community.community_description}
 							</Typography>
 						</Grid>
 
@@ -389,7 +395,7 @@ function DrawerAppBar({list}) {
 									}}
 									variant="body1"
 								>
-									Become a Mentor and Inspire Success
+									{list.community.become_mentor_title}
 								</Typography>
 								<Typography
 									textAlign={{ xs: 'center', sm: 'left' }}
@@ -397,7 +403,7 @@ function DrawerAppBar({list}) {
 									color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 									variant="body1"
 								>
-									Join our mentorship program and share your valuable experience to help entrepreneurs succeed. As a mentor, you'll provide guidance, support, and insights to aspiring business owners.
+                                {list.community.become_mentor_description}
 								</Typography>
 								<Typography
 									textAlign={{ xs: 'center', sm: 'left' }}
@@ -405,7 +411,7 @@ function DrawerAppBar({list}) {
 									color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 									variant="body1"
 								>
-									Your mentorship can make a significant impact, helping entrepreneurs overcome challenges and achieve their business goals.								</Typography>
+                                    </Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
 									<Button component={Link} href={route('landing.signup')}  variant="contained">
 										Be A Mentor
@@ -435,7 +441,7 @@ function DrawerAppBar({list}) {
 									}}
 									variant="body1"
 								>
-									Partner with Us and Empower Your Business
+									{list.community.become_partner_title}
 								</Typography>
 								<Typography
 									textAlign={{ xs: 'center', sm: 'left' }}
@@ -443,7 +449,7 @@ function DrawerAppBar({list}) {
 									color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 									variant="body1"
 								>
-									Collaborate with our platform to gain access to expert mentors who can help your business thrive. Our mentors provide personalized guidance and strategic advice tailored to your specific needs and challenges.
+                                {list.community.become_partner_description}
 								</Typography>
 								<Typography
 									textAlign={{ xs: 'center', sm: 'left' }}

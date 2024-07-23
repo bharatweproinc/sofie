@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import image1 from "../../../../Assets/HomePage/homePage1.jpg";
-import image2 from "../../../../Assets/HomePage/homepage2.jpg";
-import image3 from "../../../../Assets/HomePage/homepage3.jpg";
-import image4 from "../../../../Assets/HomePage/homepage4.jpg";
-import image5 from "../../../../Assets/HomePage/homepage5.jpg";
-import image6 from "../../../../Assets/HomePage/homepage6.jpg";
+// import image1 from "../../../../Assets/HomePage/homePage1.jpg";
+// import image2 from "../../../../Assets/HomePage/homepage2.jpg";
+// import image3 from "../../../../Assets/HomePage/homepage3.jpg";
+// import image4 from "../../../../Assets/HomePage/homepage4.jpg";
+// import image5 from "../../../../Assets/HomePage/homepage5.jpg";
+// import image6 from "../../../../Assets/HomePage/homepage6.jpg";
 
-const images = [
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image6
-]
+// const images = [
+//     image1,
+//     image2,
+//     image3,
+//     image4,
+//     image5,
+//     image6
+// ]
 
-const ImageCarousel = ({ interval = 3000 }) => {
+const ImageCarousel = ({ images, interval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToNextSlide = () => {

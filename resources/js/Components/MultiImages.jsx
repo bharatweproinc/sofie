@@ -1,6 +1,6 @@
 import React from "react";
 
-const UploadAndDisplayImage = ({data, setData}) => {
+const UploadAndDisplayImage = ({data, setData, images}) => {
 
   const onImageChange = (e) => {
     const newImages = Array.from(e.target.files);
@@ -14,6 +14,8 @@ const UploadAndDisplayImage = ({data, setData}) => {
         return { ...prevData, banner_images: newImages };
       });
   };
+
+  console.log('data.banner_images', data.banner_images)
 
   return (
     <>

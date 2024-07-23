@@ -62,9 +62,9 @@ const AdminmenuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'Section 1', link: '/admin/content' },
-      { id: 2, label: 'Section 2', link: '/admin/content' },
-      { id: 3, label: 'Section 3', link: '/admin/content' },
+      { id: 1, label: 'Section 1', link: '/admin/section-one' },
+      { id: 2, label: 'Section 2', link: '/admin/section-two' },
+      { id: 3, label: 'Section 3', link: '/admin/section-three' },
     ],
   },
   {

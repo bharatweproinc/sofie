@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\BannerSection;
 use App\Models\Company;
+use App\Models\JoinOurCommunitySection;
 use App\Models\Mentor;
+use App\Models\MissionStatementSection;
 use App\Models\Testimonial;
 use App\Repository\{MentorRepository, CompanyRepository, TestimonialRepository};
 use Inertia\Inertia;
@@ -28,8 +31,17 @@ class LandingController extends Controller
     public function home() {
         $companies = $this->companyRepository->getList();
         $mentors = $this->mentorRepository->getList();
+        $mission_contents = MissionStatementSection::where('id',1)->first();
+        $community_contents = JoinOurCommunitySection::where('id',1)->first();
+        $banner_contents = BannerSection::where('id',1)->first();
         return Inertia::render('Landing/Home/View',[
-            "list" => [ "companies" =>  $companies, "mentors" => $mentors]]);
+            "list" => [
+                "banner" => $banner_contents,
+                "mission" => $mission_contents,
+                "community" => $community_contents,
+                "companies" =>  $companies,
+                "mentors" => $mentors,
+            ]]);
     }
 
     public function contactUs() {
@@ -217,7 +229,7 @@ class LandingController extends Controller
     public function testimonials(){
         return Inertia::render('Landing/Testimonials/Create', []);
     }
-    public function content(){
-        return Inertia::render('Landing/Dashboard/Content/Banner');
-    }
+    // public function content(){
+    //     return Inertia::render('Landing/Dashboard/Content/Banner');
+    // }
 }
