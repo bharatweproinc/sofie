@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Repository\TestimonialRepository;
 use Illuminate\Support\Facades\Redirect;
@@ -46,5 +47,11 @@ class TestimonialController extends Controller
         }catch(\Exception $e){
             dd($e->getMessage());
         }
+    }
+    public function deleteTestimonial($id){
+        $testimonial = Testimonial::where('id',$id)->first();
+        $testimonial->delete();
+        return Redirect::route("admin.testimonial.list",[]);
+
     }
 }

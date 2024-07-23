@@ -30,6 +30,7 @@ const multiSelectData = {
 }
 
 function CompanyDetail({detail}) {
+    console.log('dew',detail.company)
     const inputRefs = useRef(Constants.companyInputRefs());
     const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user, ...detail.company});
     const [validationErrors, setValidationErrors] = useState({});
@@ -109,7 +110,8 @@ function CompanyDetail({detail}) {
                 notify.error("Error in Company Data");
                 console.log(error,"error");
             },
-        })}
+        })
+    }
     }
 
     return (
@@ -138,6 +140,7 @@ function CompanyDetail({detail}) {
                                             setData={setData}
                                             data={data}
                                             photoKey={"profile_photo"}
+
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
@@ -160,6 +163,7 @@ function CompanyDetail({detail}) {
                                             setData={setData}
                                             data={data}
                                             photoKey={"founder_image"}
+
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Founder Photo</Typography>

@@ -5,6 +5,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const ProfilePhotoUpload = ({setData, data, photoKey}) => {
 
+    console.log('link231321321', data);
     const [img, setImg] = useState(null);
     
     const handleImageChange = (event) => {

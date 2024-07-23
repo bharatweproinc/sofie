@@ -40,6 +40,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 
+    //delete a user
+    Route::post('/{id}/delete', [DashboardController::class, 'deleteUser'])->name('deleteUser');
+    Route::post('/{id}/company-delete', [CompanyController::class, 'deleteCompany'])->name('deleteCompany');
+
     //Create new testimonial..
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
 
@@ -73,6 +77,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
         Route::post('/updateData/{id}', [TestimonialController::class, 'updateData'])->name('updateData');
         Route::get('/detail/{id}', [LandingController::class, 'testimonialDetail'])->name('detail');
         Route::get('/view/{id}', [TestimonialController::class, 'get'])->name('get');
+        Route::post('/{id}/delete', [TestimonialController::class, 'deleteTestimonial'])->name('deleteTestimonial');
     });
 });
 

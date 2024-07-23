@@ -9,15 +9,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Constants from "../Constants";
-import { Link, router } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
 import NoDataFound from "@/Components/NoDataFound";
 import { Landing } from "@/Layouts/Landing";
 import DeleteAlert from "@/Components/Dependent/DeleteAlert";
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MentorList({list = []}) {
-
+    const {  post } = useForm()
     const [open, setOpen] = useState(false);
     const [userId, setUserId] = useState(null);
     const [mentorList, setMentorList] = useState(list.mentor);
@@ -60,9 +63,21 @@ function MentorList({list = []}) {
 
     const handleDelete = () => {
         console.log('userId', userId)
+        post(route('admin.deleteUser', userId),{
+        onSuccess:(success) => {
+            notify.success('Mentor Data has been deleted successfully')
+            console.log(success, "successs");
+        },
+        onError:(error) => {
+            notify.error("Error in Mentor Delete");
+            console.log(error,"error");
+        },
+    })
     }
+
     return (
         <Landing auth={list.user}>
+            <ToastContainer style={{marginTop:"65px"}}/>
             {
                 mentorList.length > 0 ?
                 <Grid container className="mentor_list">

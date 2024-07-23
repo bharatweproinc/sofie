@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\CompanyRepository;
@@ -33,5 +35,15 @@ class CompanyController extends Controller
         return Redirect::route("company.detail",[
             'id' => $response['data']->id
         ]);
+    }
+
+    public function deleteCompany($id){
+        $company = Company::where('id',$id)->first();
+        $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
+        if($user && $company){
+            $company->delete();
+            $user->delete();
+        }
+        return Redirect::route("admin.dashboard",[]);
     }
 }

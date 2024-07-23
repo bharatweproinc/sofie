@@ -23,11 +23,12 @@ import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 
 
 function CompanyList({list = []}) {
+    console.log('list',list);
     const {  post } = useForm();
-    
+
     const [open, setOpen] = useState(false);
     const [userId, setUserId] = useState(null);
-    const [companyList, setCompanyList] = useState(list.company) 
+    const [companyList, setCompanyList] = useState(list.company)
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -62,10 +63,22 @@ function CompanyList({list = []}) {
         }
         setSortConfig({ key, direction });
     };
-    
+
     const handleDelete = () => {
         console.log('userId', userId)
+        post(route('admin.deleteUser', userId),{
+            onSuccess:(success) => {
+                notify.success('Company Data has been deleted successfully')
+                console.log(success, "successs");
+            },
+            onError:(error) => {
+                notify.error("Error in Company Delete");
+                console.log(error,"error");
+            },
+        })
     }
+
+
     return (
         <Landing auth={list.user}>
             <ToastContainer style={{ marginTop: "65px" }} />
@@ -272,9 +285,10 @@ function CompanyList({list = []}) {
                                         <TableCell align="left">{row?.user?.phone}</TableCell>
                                         <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
-                                            <TableCell align="left">
-                                                    <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
-                                            </TableCell>
+                                        <TableCell align="left">
+                                                    {console.log('row',row)}
+                                                    <Chip label={row.user.status === 1 ? "Active" : "Inactive"} color={row.user.status === 1 ? 'success' : 'error'} />
+                                                </TableCell>
                                         <TableCell align="left">
                                             <Box
                                                 sx={{ gap: "10px" }}
@@ -307,7 +321,7 @@ function CompanyList({list = []}) {
                                                         //     >
                                                         //         {item.icon}
                                                         //     </Link>
-                                                        // ) 
+                                                        // )
                                                         : (
                                                             <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
                                                                 {item.icon}

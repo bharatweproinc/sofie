@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BannerSection;
+use App\Models\Company;
 use App\Models\JoinOurCommunitySection;
+use App\Models\Mentor;
 use App\Models\MissionStatementSection;
+use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Repository\CompanyRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class DashboardController extends Controller
 {
@@ -82,6 +86,7 @@ class DashboardController extends Controller
     public function sectionTwo(){
         $logged_user = Auth::user();
         $mission = MissionStatementSection::where('id',1)->first();
+        //dd('test',$mission);
         return Inertia::render('Landing/Dashboard/Content/MissionStatement',[
             'list' => [
                 'mission' => $mission,
@@ -183,11 +188,23 @@ class DashboardController extends Controller
         return $images;
     }
 
-//     public function delete($id){
-//         $user = User::findOrFail($id);
-//         if($user){
-//             $user->delete();
-//         }
-//     }
+    public function deleteUser($id){
+        //company id or mentor id received
+        $user = User::where('functional_id', $id)->first();
+        if($user){
+            if($user->user_role == "mentor"){
+                $mentor = Mentor::where('id', $user->functional_id)->first();
+                $mentor->delete();
+                $user->delete();
+                return Redirect::route('admin.mentor.list',[]);
+            }else if($user->user_role == "entrepreneur"){
+                $company = Company::where('id', $user->functional_id)->first();
+                $company->delete();
+                $user->delete();
+                return Redirect::route('admin.company.getList',[]);
+            }
+        }
+    }
+
 }
 

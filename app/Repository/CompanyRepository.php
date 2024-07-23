@@ -19,7 +19,6 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $m->link = url("storage/company_profile/{$m->profile_photo}");
                 $m->founderLink = url("storage/company_founder/{$m->founder_image}");
         });
-
         //dd($company);
         return ["list" => [
             "user" => $user,

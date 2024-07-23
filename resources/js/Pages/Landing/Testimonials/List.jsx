@@ -8,29 +8,43 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import NoDataFound from "@/Components/NoDataFound";
 import Constants from "@/Components/Dependent/SideBar/Constants";
 import "../style.scss"
 import DeleteAlert from "@/Components/Dependent/DeleteAlert";
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Headers = [
     "Testimonial Name", "Description", "Action"
 ]
 
 function Testimonials ({list}){
-
+    const {  post } = useForm()
     const [open, setOpen] = useState(false);
     const [userId, setUserId] = useState(null);
     const [testimonialList, setTestimonialList] = useState(list.testimonial);
 
     const handleDelete = () => {
         console.log('userId', userId)
+        post(route('admin.testimonial.deleteTestimonial', userId),{
+            onSuccess:(success) => {
+                notify.success('Testimonial Data has been deleted successfully')
+                console.log(success, "successs");
+            },
+            onError:(error) => {
+                notify.error("Error in Testimonial Delete");
+                console.log(error,"error");
+            },
+        })
     }
 
     return (
         <Landing auth={list.user}>
+          <ToastContainer style={{marginTop:"65px"}}/>
                 <Box pr={8} pt={3} sx={{display : 'flex', justifyContent : 'flex-end'}} className="custom_btn">
                     <Button component={Link} href={route('admin.testimonials')}  p={4} variant="contained">
                         Add

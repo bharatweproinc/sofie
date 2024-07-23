@@ -60,17 +60,30 @@ class LandingController extends Controller
     }
 
     public function companyDetails($id) {
+        $images = [];
         $logged_user = Auth::user();
         $user = User::findOrFail($id);
         $company = Company::where('id', $user->functional_id)->first();
-        if($company->profile_photo != null){
-            $company->link = url("storage/company_profile/{$company->profile_photo}");
+        if($company && $company->profile_photo != null){
+            $company->profileLink = url("storage/company_profile/{$company->profile_photo}");
         }
+        if($company && $company->founder_image != null){
+            $company->founderLink = url("storage/company_founder/{$company->founder_image}");
+        }
+
+        if($company && $company->profile_photo != null && $company->founder_image != null){
+            $images = [
+                'profile_photo' =>  $company->profileLink,
+                'founder_image' => $company->founderLink
+            ];
+        }
+        //dd($images);
         return Inertia::render('Landing/CompanyDetails/View',[
             'detail' => [
                 'logged_user' => $logged_user,
                 'user' => $user,
                 'company' => $company,
+                'images' => $images
             ],
         ]);
     }

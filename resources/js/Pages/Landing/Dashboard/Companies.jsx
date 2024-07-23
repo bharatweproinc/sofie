@@ -13,16 +13,19 @@ import Paper from '@mui/material/Paper';
 import "./style.scss"
 import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import NoDataFound from '@/Components/NoDataFound';
 import DeleteAlert from '@/Components/Dependent/DeleteAlert';
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
-
+    const {  post } = useForm()
     const [open, setOpen] = useState(false);
     const [userId, setUserId] = useState(null);
-    const [companyList, setCompanyList] = useState(list.companies.list.company); 
+    const [companyList, setCompanyList] = useState(list.companies.list.company);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -67,9 +70,21 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
 
      const handleDelete = () => {
         console.log('userId', userId)
+        post(route('admin.deleteCompany', userId),{
+            onSuccess:(success) => {
+                notify.success('Company Data has been deleted successfully')
+                console.log(success, "successs");
+            },
+            onError:(error) => {
+                notify.error("Error in Company Delete");
+                console.log(error,"error");
+            },
+        })
     }
 
     return (
+        <>
+        <ToastContainer style={{marginTop:"65px"}}/>
         <Grid item xs={12} md={12} sx={{ width: '100%' }} className='companies_main'>
             <Paper>
                 {
@@ -167,6 +182,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                         <TableCell align="left">{row.company_uen}</TableCell>
                                         <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
+                                        {console.log('id',row.user.id)}
                                         <TableCell align="left">
                                             <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
                                         </TableCell>
@@ -175,7 +191,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                                 {Constants.icons.map((item, index) => (
                                                     <span key={index}>
                                                     {item.id === 1 ? (
-                                                            <a 
+                                                            <a
                                                                  target='_blank'
                                                                 href={route('admin.company.companydetail', row.user.id)}
                                                             >
@@ -219,6 +235,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
             </Paper>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
         </Grid>
+        </>
     );
 };
 
