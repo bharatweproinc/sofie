@@ -54,6 +54,14 @@
         padding: 12px 20px 12px 20px;
         margin:20px 40px
     }
+    .input_fields{
+        .MuiInputBase-input{
+            padding: 16.5px 14px !important;
+        }
+        .MuiInputBase-input:focus{
+            box-shadow: none !important;
+        }
+    }
 }
 .table_pagination{
     ul{

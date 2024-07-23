@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Constants from './Constant';
-import { Grid, Button, Pagination } from '@mui/material';
+import Constants from '@/Components/Dependent/SideBar/Constants';
+import { Grid, Button, Pagination, Chip } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,10 +15,14 @@ import { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from '@inertiajs/react';
 import NoDataFound from '@/Components/NoDataFound';
+import DeleteAlert from '@/Components/Dependent/DeleteAlert';
 
 
 const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
-    let companyList = list.companies.list.company
+
+    const [open, setOpen] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [companyList, setCompanyList] = useState(list.companies.list.company); 
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +64,10 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
        }
        setSortConfig({ key, direction });
      };
+
+     const handleDelete = () => {
+        console.log('userId', userId)
+    }
 
     return (
         <Grid item xs={12} md={12} sx={{ width: '100%' }} className='companies_main'>
@@ -139,6 +147,11 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                         </Box>
                                     </TableCell>
                                     <TableCell align="center">
+                                        <Box className="flex gap-3">
+                                            <Typography fontSize='14px' color='#212121' fontWeight='600'>Status</Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell align="center">
                                         <Box className="flex gap-3 pl-10">
                                             <Typography fontSize='14px' color='#212121' fontWeight='600'>Actions</Typography>
                                         </Box>
@@ -155,23 +168,30 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                         <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
                                         <TableCell align="left">
+                                            <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
+                                        </TableCell>
+                                        <TableCell align="left">
                                             <Box sx={{ gap: '10px' }} className="flex">
                                                 {Constants.icons.map((item, index) => (
                                                     <span key={index}>
                                                     {item.id === 1 ? (
-                                                            <Link
+                                                            <a 
+                                                                 target='_blank'
                                                                 href={route('admin.company.companydetail', row.user.id)}
-                                                                >
-                                                                    {item.icon}
-                                                            </Link>
-                                                                ) : item.id === 2 ? (
-                                                                    <Link
-                                                                        href={route('admin.company.get', row.id)}
-                                                                    >
+                                                            >
                                                                 {item.icon}
-                                                            </Link>
+                                                            </a>
+                                                            ) : item.id === 2 ? (
+                                                            <a
+                                                                target='_blank'
+                                                                href={route('admin.company.get', row.id)}
+                                                            >
+                                                                {item.icon}
+                                                            </a>
                                                         ) : (
-                                                            item.icon
+                                                            <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
+                                                                {item.icon}
+                                                            </span>
                                                         )}
                                                     </span>
                                                 ))}
@@ -197,6 +217,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                 </Box> : <NoDataFound message="No company available"/>
                 }
             </Paper>
+            <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
         </Grid>
     );
 };

@@ -1,6 +1,5 @@
-import Button from "@/Components/Singleton/Button";
 import { Landing } from "@/Layouts/Landing";
-import { Avatar, Box, Typography, Grid } from "@mui/material";
+import { Avatar, Box, Typography, Grid, Button } from "@mui/material";
 import React from "react";
 import './style.scss'
 import "../style.scss";

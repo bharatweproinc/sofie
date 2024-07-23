@@ -50,6 +50,7 @@ function Mentor({detail}) {
         desc:""
     });
 
+    console.log('detail454', data)    
     const handleClickOpen = (id,title) => {
         setOpen(true);
         setAddMoreId(id);

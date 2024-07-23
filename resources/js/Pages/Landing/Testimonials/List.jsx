@@ -11,15 +11,24 @@ import Paper from "@mui/material/Paper";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import NoDataFound from "@/Components/NoDataFound";
-import Constants from "../Dashboard/Constant";
+import Constants from "@/Components/Dependent/SideBar/Constants";
 import "../style.scss"
+import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 
 const Headers = [
     "Testimonial Name", "Description", "Action"
 ]
 
 function Testimonials ({list}){
-    console.log(list,'list12121');
+
+    const [open, setOpen] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [testimonialList, setTestimonialList] = useState(list.testimonial);
+
+    const handleDelete = () => {
+        console.log('userId', userId)
+    }
+
     return (
         <Landing auth={list.user}>
                 <Box pr={8} pt={3} sx={{display : 'flex', justifyContent : 'flex-end'}} className="custom_btn">
@@ -28,7 +37,7 @@ function Testimonials ({list}){
                     </Button>
                 </Box>
                 {
-                    list.testimonial.length > 0 ?
+                    testimonialList.length > 0 ?
                 <Grid container>
                         <Grid
                             item
@@ -63,7 +72,7 @@ function Testimonials ({list}){
                                                 </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {list.testimonial.map((row) => (
+                                            {testimonialList.map((row) => (
                                                 <TableRow
                                                     key={row.id}
                                                     sx={{
@@ -87,19 +96,23 @@ function Testimonials ({list}){
                                                                 (item, index) => (
                                                                     <span key={index}>
                                                                         {item.id === 1 ? (
-                                                                            <Link
+                                                                            <a
+                                                                                target="_blank"
                                                                                 href={route('admin.testimonial.detail',row.id)}
                                                                             >
                                                                                 {item.icon}
-                                                                            </Link>
+                                                                            </a>
                                                                         ) : item.id === 2 ? (
-                                                                            <Link
+                                                                            <a
+                                                                                target="_blank"
                                                                                 href={route('admin.testimonial.get',row.id)}
                                                                             >
                                                                                 {item.icon}
-                                                                            </Link>
+                                                                            </a>
                                                                         ) : (
-                                                                            item.icon
+                                                                            <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
+                                                                                {item.icon}
+                                                                            </span>
                                                                         )}
                                                                     </span>
                                                                 )
@@ -115,7 +128,7 @@ function Testimonials ({list}){
                         </Grid>
                 </Grid> : <NoDataFound message="No Testimonial available" />
                 }
-
+            <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
         </Landing>
     )
 }

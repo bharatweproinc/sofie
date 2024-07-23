@@ -58,9 +58,9 @@ function MentorList({list = []}) {
         setSortConfig({ key, direction });
     };
 
-    const handleDelete = () => [
-        // console.log('userId', userId)
-    ]
+    const handleDelete = () => {
+        console.log('userId', userId)
+    }
     return (
         <Landing auth={list.user}>
             {
@@ -306,17 +306,19 @@ function MentorList({list = []}) {
                                                             (item, index) => (
                                                                 <span key={index}>
                                                                     {item.id === 1 ? (
-                                                                        <Link
+                                                                        <a
                                                                             href={route('admin.mentor.mentordetail',row.user.id)}
+                                                                            target="_blank"
                                                                         >
                                                                             {item.icon}
-                                                                        </Link>
+                                                                        </a>
                                                                     ) : item.id === 2 ? (
-                                                                        <Link
+                                                                        <a
                                                                             href={route('admin.mentor.detail',row.id)}
+                                                                            target="_blank"
                                                                         >
                                                                             {item.icon}
-                                                                        </Link>
+                                                                        </a>
                                                                     ) : (
                                                                         <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
                                                                             {item.icon}

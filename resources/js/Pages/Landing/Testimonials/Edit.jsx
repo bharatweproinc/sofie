@@ -7,9 +7,12 @@ import './style.scss'
 import "../style.scss";
 import Constants from "../Constants";
 import Joi from "@/utility/JoiValidator";
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+
 
 const Edit = ({detail}) => {
-    console.log('detail121212', detail)
+    console.log('detail12121212121', detail)
     const { data, setData, post, processing} = useForm({...Constants.initTestimonial, ...detail.testimonial})
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -48,9 +51,11 @@ const Edit = ({detail}) => {
                 post(route('admin.testimonial.updateData', data.id),{
                 onSuccess:(success) => {
                     console.log(success, "sucesss")
+                    notify.success("Testimonial has been updated")
                 },
                 onError:(error) => {
                     console.log(error,"error")
+                    notify.error("Error while updating testimonial");
                 },
             })
             }
@@ -59,6 +64,7 @@ const Edit = ({detail}) => {
     return (
         <Landing auth={detail.logged_user}>
              <Typography sx={{ height: '65px' }}></Typography>
+                    <ToastContainer style={{ marginTop: "65px" }} />
                     <form onSubmit={handleSubmit}>
                     <Grid container px={8} py={4} sx={{padding : "24px"}} className="testimonial_page">
                         <Grid item p={3} xs={12}>

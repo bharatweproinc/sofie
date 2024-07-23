@@ -24,6 +24,7 @@ import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 
 function CompanyList({list = []}) {
     const {  post } = useForm();
+    
     const [open, setOpen] = useState(false);
     const [userId, setUserId] = useState(null);
     const [companyList, setCompanyList] = useState(list.company) 
@@ -62,9 +63,9 @@ function CompanyList({list = []}) {
         setSortConfig({ key, direction });
     };
     
-    const handleDelete = () => [
+    const handleDelete = () => {
         console.log('userId', userId)
-    ]
+    }
     return (
         <Landing auth={list.user}>
             <ToastContainer style={{ marginTop: "65px" }} />
@@ -271,9 +272,9 @@ function CompanyList({list = []}) {
                                         <TableCell align="left">{row?.user?.phone}</TableCell>
                                         <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
-                                        <TableCell align="left">
+                                            <TableCell align="left">
                                                     <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
-                                                </TableCell>
+                                            </TableCell>
                                         <TableCell align="left">
                                             <Box
                                                 sx={{ gap: "10px" }}
@@ -288,13 +289,13 @@ function CompanyList({list = []}) {
                                                 return (
                                                     <span key={index}>
                                                         {item.id === 1 ? (
-                                                            <Link href={route('admin.company.companydetail', row.user.id)}>
+                                                            <a target="_blank" href={route('admin.company.companydetail', row.user.id)}>
                                                                 {item.icon}
-                                                            </Link>
+                                                            </a>
                                                         ) : item.id === 2 ? (
-                                                            <Link href={route('admin.company.get', row.id)}>
+                                                            <a target="_blank" href={route('admin.company.get', row.id)}>
                                                                 {item.icon}
-                                                            </Link>
+                                                            </a>
                                                         )
                                                         // : item.id === 3 ? (
                                                         //     <Link href={route('admin.goLive', row.user.id)}>
