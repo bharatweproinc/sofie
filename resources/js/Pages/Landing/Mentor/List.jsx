@@ -9,19 +9,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Constants from "../Constants";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { useState } from "react";
 import "./style.scss";
 import NoDataFound from "@/Components/NoDataFound";
 import { Landing } from "@/Layouts/Landing";
+import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 
 function MentorList({list = []}) {
 
-    const mentorList = list.mentor;
+    const [open, setOpen] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [mentorList, setMentorList] = useState(list.mentor);
+
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
     });
+
     const rowsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -52,6 +57,10 @@ function MentorList({list = []}) {
         }
         setSortConfig({ key, direction });
     };
+
+    const handleDelete = () => [
+        // console.log('userId', userId)
+    ]
     return (
         <Landing auth={list.user}>
             {
@@ -250,6 +259,17 @@ function MentorList({list = []}) {
                                                         color="#212121"
                                                         fontWeight="600"
                                                     >
+                                                        Status
+                                                    </Typography>
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Box className="flex gap-3 pl-10">
+                                                    <Typography
+                                                        fontSize="14px"
+                                                        color="#212121"
+                                                        fontWeight="600"
+                                                    >
                                                         Action
                                                     </Typography>
                                                 </Box>
@@ -275,6 +295,9 @@ function MentorList({list = []}) {
                                                 <TableCell align="left">{row.user.email} </TableCell>
                                                 <TableCell align="left">{row.functional_area}</TableCell>
                                                 <TableCell align="left">
+                                                    <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
+                                                </TableCell>
+                                                <TableCell align="left">
                                                     <Box
                                                         sx={{ gap: "10px" }}
                                                         className="flex"
@@ -295,12 +318,13 @@ function MentorList({list = []}) {
                                                                             {item.icon}
                                                                         </Link>
                                                                     ) : (
-                                                                        item.icon
+                                                                        <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
+                                                                            {item.icon}
+                                                                        </span>
                                                                     )}
                                                                 </span>
                                                             )
                                                         )}
-                                                        <Switch checked={row?.status === 'active' ? true : false}/>
                                                     </Box>
                                                 </TableCell>
                                             </TableRow>
@@ -321,6 +345,7 @@ function MentorList({list = []}) {
                     </Grid>
                 </Grid> : <NoDataFound message="No Mentor available" />
             }
+            <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
         </Landing>
     );
 }

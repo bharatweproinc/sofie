@@ -6,9 +6,9 @@ import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
-function Banner ({list}){
-    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...list.mission, ...list.user});
-console.log(data)
+function MissionStatement ({mission}){
+    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...mission});
+
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -76,4 +76,4 @@ console.log(data)
     )
 }
 
-export default Banner;
+export default MissionStatement;

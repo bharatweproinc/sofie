@@ -15,7 +15,6 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 
 const Reviewdata = ({detail}) => {
-    console.log('detail1212', detail)
     const [open, setOpen] = React.useState(false);
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
@@ -34,10 +33,19 @@ const Reviewdata = ({detail}) => {
                         Company Details
                     </Typography>
                     <Box display={'flex'} alignItems={'center'}>
-                    <Box className='custom_btn'>
+                    <Box className='custom_btn custom_delete_btn'>
+                    {
+                        <>
+                        <Button sx={{mr : 1}} className="delete_account" variant="contained">
+                            Reject
+                        </Button>
+                        <Button sx={{mr : 1}} variant="contained">
+                            Accept
+                        </Button>
+                        </>
+                    }
                     <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
-                     <div>
-                    <Button
+                        <Button
                             disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true }
                             component={Link}
                             href={route('landing.companydetail', detail.user.id)}
@@ -46,17 +54,15 @@ const Reviewdata = ({detail}) => {
                             >
                             {detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? 'Edit' : 'Disable for Seven days'}
                         </Button>
-                      </div>
                   </Tooltip>
 
                     </Box>
-                    {detail?.logged_user?.user_role === "admin" &&
-                    <Box className="custom_delete_btn">
-                        <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">
-                            Delete Account
-                        </Button>
-                    </Box>}
-
+                        {detail?.logged_user?.user_role === "admin" &&
+                        <Box className="custom_delete_btn ml-2">
+                            <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">
+                                Delete Account
+                            </Button>
+                        </Box>}
                     </Box>
 
                 </Grid>

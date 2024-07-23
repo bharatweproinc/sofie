@@ -4,12 +4,13 @@ import { useForm } from "@inertiajs/react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import './style.scss'
+import "../style.scss";
 import Constants from "../Constants";
 import Joi from "@/utility/JoiValidator";
 
-const CreateOrEdit = () => {
-
-    const { data, setData, post, processing} = useForm(Constants.initTestimonial)
+const CreateOrEdit = ({user}) => {
+    console.log("user121221", user);
+    const { data, setData, post, processing} = useForm({...Constants.initTestimonial, ...user})
     const [validationErrors, setValidationErrors] = useState({});
 
     const handleChange = (key, value) => {
@@ -57,7 +58,7 @@ const CreateOrEdit = () => {
         }
 
     return (
-        <Landing>
+        <Landing auth={user}>
              <Typography sx={{ height: '65px' }}></Typography>
                     <form onSubmit={handleSubmit}>
                     <Grid container px={8} py={4} sx={{padding : "24px"}} className="testimonial_page">
@@ -111,7 +112,7 @@ const CreateOrEdit = () => {
                                 helperText={validationErrors.description}
                             />
                         </Grid>
-                        <Grid xs={12} m={4} textAlign={"center"} className='submit_btn'>
+                        <Grid xs={12} m={4} textAlign={"center"} className='custom_btn'>
                             <Button type='submit' variant="contained" disabled={processing}>Save</Button>
                          </Grid>
                     </Grid>

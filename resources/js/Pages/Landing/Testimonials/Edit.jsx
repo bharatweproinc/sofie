@@ -4,17 +4,14 @@ import { useForm } from "@inertiajs/react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import './style.scss'
+import "../style.scss";
 import Constants from "../Constants";
 import Joi from "@/utility/JoiValidator";
 
-const CreateOrEdit = ({detail}) => {
-
-   // console.log('detail1212', detail)
-
+const Edit = ({detail}) => {
+    console.log('detail121212', detail)
     const { data, setData, post, processing} = useForm({...Constants.initTestimonial, ...detail.testimonial})
     const [validationErrors, setValidationErrors] = useState({});
-
-    console.log("data1212", data.id);
 
     const handleChange = (key, value) => {
 
@@ -48,7 +45,6 @@ const CreateOrEdit = ({detail}) => {
         if (isError?.length > 0) {
           return;
         } else {
-
                 post(route('admin.testimonial.updateData', data.id),{
                 onSuccess:(success) => {
                     console.log(success, "sucesss")
@@ -61,7 +57,7 @@ const CreateOrEdit = ({detail}) => {
         }
 
     return (
-        <Landing>
+        <Landing auth={detail.logged_user}>
              <Typography sx={{ height: '65px' }}></Typography>
                     <form onSubmit={handleSubmit}>
                     <Grid container px={8} py={4} sx={{padding : "24px"}} className="testimonial_page">
@@ -115,7 +111,7 @@ const CreateOrEdit = ({detail}) => {
                                 helperText={validationErrors.description}
                             />
                         </Grid>
-                        <Grid xs={12} m={4} textAlign={"center"} className='submit_btn'>
+                        <Grid xs={12} m={4} textAlign={"center"} className='custom_btn'>
                             <Button type='submit' variant="contained" disabled={processing}>Save</Button>
                          </Grid>
                     </Grid>
@@ -123,4 +119,4 @@ const CreateOrEdit = ({detail}) => {
         </Landing>
     )
 }
-export default CreateOrEdit;
+export default Edit;

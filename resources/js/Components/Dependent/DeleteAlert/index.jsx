@@ -9,7 +9,7 @@ import "./style.scss";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Box } from '@mui/material';
 
-function DeleteAlert({ open, setOpen }) {
+function DeleteAlert({ open, setOpen, handleDelete }) {
 
     const handleClose = () => {
         setOpen(false);
@@ -46,7 +46,7 @@ function DeleteAlert({ open, setOpen }) {
                         textTransform: 'capitalize',
                         color:'#fff'
                     }} onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose} autoFocus variant="contained" color="error" sx={{ textTransform: "capitalize", padding: '8px 20px' }}>
+                    <Button onClick={handleDelete} autoFocus variant="contained" color="error" sx={{ textTransform: "capitalize", padding: '8px 20px' }}>
                         Confirm
                     </Button>
                 </DialogActions>

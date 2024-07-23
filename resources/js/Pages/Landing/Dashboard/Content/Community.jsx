@@ -6,9 +6,9 @@ import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
-function Banner ({list}){
-    const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...list.community, ...list.user});
-    console.log('data', data);
+function Community ({community}){
+    const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...community});
+
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -132,4 +132,4 @@ function Banner ({list}){
     )
 }
 
-export default Banner;
+export default Community;

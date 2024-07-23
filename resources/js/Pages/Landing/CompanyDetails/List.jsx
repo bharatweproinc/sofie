@@ -1,5 +1,5 @@
 import SideBar from "@/Components/Dependent/SideBar";
-import { Box, Grid, Pagination, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, Pagination, Typography } from "@mui/material";
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -19,12 +19,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm} from '@inertiajs/react';
 import axios from "axios";
+import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 
 
 function CompanyList({list = []}) {
     const {  post } = useForm();
-
-    let companyList = list.company
+    const [open, setOpen] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [companyList, setCompanyList] = useState(list.company) 
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -59,6 +61,10 @@ function CompanyList({list = []}) {
         }
         setSortConfig({ key, direction });
     };
+    
+    const handleDelete = () => [
+        console.log('userId', userId)
+    ]
     return (
         <Landing auth={list.user}>
             <ToastContainer style={{ marginTop: "65px" }} />
@@ -221,6 +227,17 @@ function CompanyList({list = []}) {
                                             </div>
                                         </Box>
                                     </TableCell>
+                                    <TableCell>
+                                        <Box className="flex gap-3">
+                                            <Typography
+                                                fontSize="14px"
+                                                color="#212121"
+                                                fontWeight="600"
+                                            >
+                                                Status
+                                            </Typography>
+                                        </Box>
+                                    </TableCell>
 
                                     <TableCell>
                                         <Box className="flex gap-3 pl-10">
@@ -249,10 +266,14 @@ function CompanyList({list = []}) {
                                     >
                                         <TableCell align="left" component="th" scope="row">
                                             {row?.company_name}
+                                            <Chip label="new" color="primary" variant="outlined" sx={{ ml : 2, p : 0 }} />
                                         </TableCell>
                                         <TableCell align="left">{row?.user?.phone}</TableCell>
                                         <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
+                                        <TableCell align="left">
+                                                    <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
+                                                </TableCell>
                                         <TableCell align="left">
                                             <Box
                                                 sx={{ gap: "10px" }}
@@ -275,18 +296,21 @@ function CompanyList({list = []}) {
                                                                 {item.icon}
                                                             </Link>
                                                         )
-                                                        : item.id === 4 ? (
-                                                            <Link href={route('admin.goLive', row.user.id)}>
+                                                        // : item.id === 3 ? (
+                                                        //     <Link href={route('admin.goLive', row.user.id)}>
+                                                        //         {item.icon}
+                                                        //     </Link>
+                                                        // )  : item.id === 4 && row.user.is_live === 0 ? (
+                                                        //     <Link onClick={() => handleLive(row.user.id)}
+                                                        //     // href={route('admin.goLive', row.user.id)}
+                                                        //     >
+                                                        //         {item.icon}
+                                                        //     </Link>
+                                                        // ) 
+                                                        : (
+                                                            <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
                                                                 {item.icon}
-                                                            </Link>
-                                                        )  : item.id === 4 && row.user.is_live === 0 ? (
-                                                            <Link onClick={() => handleLive(row.user.id)}
-                                                            // href={route('admin.goLive', row.user.id)}
-                                                            >
-                                                                {item.icon}
-                                                            </Link>
-                                                        ) : (
-                                                            item.icon
+                                                            </span>
                                                         )}
                                                     </span>
                                                 );
@@ -311,6 +335,7 @@ function CompanyList({list = []}) {
                 </Paper>
             </Grid> : <NoDataFound message="No Company Available" />
             }
+            <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
         </Landing>
     );
 }

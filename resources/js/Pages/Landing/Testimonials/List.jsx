@@ -12,19 +12,19 @@ import { Link } from "@inertiajs/react";
 import { useState } from "react";
 import NoDataFound from "@/Components/NoDataFound";
 import Constants from "../Dashboard/Constant";
+import "../style.scss"
 
 const Headers = [
     "Testimonial Name", "Description", "Action"
 ]
 
 function Testimonials ({list}){
-    console.log(list.testimonial,'list');
+    console.log(list,'list12121');
     return (
-        <Landing>
-            <Typography sx={{height:'65px'}}></Typography>
-                <Box pr={8} pt={3} sx={{display : 'flex', justifyContent : 'flex-end'}}>
-                    <Button  p={4} variant="contained">
-                    <Link href={route('admin.testimonials')}>Add</Link>
+        <Landing auth={list.user}>
+                <Box pr={8} pt={3} sx={{display : 'flex', justifyContent : 'flex-end'}} className="custom_btn">
+                    <Button component={Link} href={route('admin.testimonials')}  p={4} variant="contained">
+                        Add
                     </Button>
                 </Box>
                 {

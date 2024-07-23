@@ -227,7 +227,10 @@ class LandingController extends Controller
         ]);
     }
     public function testimonials(){
-        return Inertia::render('Landing/Testimonials/Create', []);
+        $user = Auth::user();
+        return Inertia::render('Landing/Testimonials/Create',[
+            'user' => $user
+        ]);
     }
     // public function content(){
     //     return Inertia::render('Landing/Dashboard/Content/Banner');

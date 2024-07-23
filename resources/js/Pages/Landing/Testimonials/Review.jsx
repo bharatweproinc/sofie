@@ -3,17 +3,21 @@ import { Landing } from "@/Layouts/Landing";
 import { Avatar, Box, Typography, Grid } from "@mui/material";
 import React from "react";
 import './style.scss'
+import "../style.scss";
 import { Link } from "@inertiajs/react";
 
 function reviewTestimonial ({detail}) {
-    console.log('dee', detail);
     return(
-       <Landing>
+       <Landing auth={detail.logged_user}>
             <Typography sx={{ height: '65px' }}></Typography>
             <Box p={4} className='review_page'>
-                <Box py={4} sx={{display : 'flex', justifyContent : 'space-between'}} className="edit_btn">
+                <Box py={4} sx={{display : 'flex', justifyContent : 'space-between'}}>
                     <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}> Testimonial Details</Typography>
-                    <Button component={Link} variant="contained" href={route('admin.testimonial.detail', detail.id)}>Edit</Button>
+                    <Box className="custom_btn">
+                    <Button component={Link} variant="contained" href={route('admin.testimonial.detail', detail.id)}>
+                        Edit
+                    </Button>
+                    </Box>
                 </Box>
                 <Box p={4} pr={0} sx={{border : '1px solid black', borderRadius : '10px'}}>
                     <Grid container spacing={4}>
