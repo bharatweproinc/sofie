@@ -6,9 +6,9 @@ import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
-function Banner ({mission}){
-    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...mission});
-
+function Banner ({list}){
+    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...list.mission, ...list.user});
+console.log(data)
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -31,7 +31,7 @@ function Banner ({mission}){
         })
     }
     return(
-        <Landing>
+        <Landing auth={data}>
             <Typography sx={{height:'65px'}}></Typography>
             <Box p={4}>
                 <form onSubmit={handleSubmit}>

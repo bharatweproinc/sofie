@@ -6,9 +6,9 @@ import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
-function Banner ({community}){
-    const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...community});
-
+function Banner ({list}){
+    const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...list.community, ...list.user});
+    console.log('data', data);
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -31,7 +31,7 @@ function Banner ({community}){
         })
     }
     return(
-        <Landing>
+        <Landing auth={data}>
             <Typography sx={{height:'65px'}}></Typography>
             <Box p={4}>
                 <form onSubmit={handleSubmit}>

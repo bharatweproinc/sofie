@@ -69,23 +69,35 @@ class DashboardController extends Controller
     // }
 
     public function sectionOne(){
+        $logged_user = Auth::user();
         $banner = BannerSection::where('id',1)->first();
         return Inertia::render('Landing/Dashboard/Content/Banner',[
-            'banner' => $banner
+            'list' => [
+                'banner' => $banner,
+                'user' => $logged_user
+            ]
         ]);
     }
 
     public function sectionTwo(){
+        $logged_user = Auth::user();
         $mission = MissionStatementSection::where('id',1)->first();
         return Inertia::render('Landing/Dashboard/Content/MissionStatement',[
-            'mission' => $mission
+            'list' => [
+                'mission' => $mission,
+                'user' => $logged_user
+            ]
         ]);
     }
 
     public function sectionThree(){
+        $logged_user = Auth::user();
         $community = JoinOurCommunitySection::where('id',1)->first();
         return Inertia::render('Landing/Dashboard/Content/Community',[
-            'community' => $community
+            'list' => [
+                'community' => $community,
+                'user' => $logged_user
+            ]
         ]);
     }
 

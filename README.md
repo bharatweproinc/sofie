@@ -22,5 +22,8 @@ UserSeeder: php artisan db:seed --class=UserSeeder
 MentorSeeder: php artisan db:seed --class=MentorSeeder
 CompanySeeder: php artisan db:seed --class=CompanySeeder
 TestimonialSeeder: php artisan db:seed --class=TestimonialSeeder
+JoinOurCommunitySeeder : php artisan db:seed --class=JoinOurCommunitySeeder
+MissionStatementSeeder : php artisan db:seed --class=MissionStatementSeeder
+BannerSectionSeeder : php artisan db:seed --class=BannerSectionSeeder
 
 ## 

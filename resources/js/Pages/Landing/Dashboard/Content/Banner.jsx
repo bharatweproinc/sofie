@@ -7,9 +7,8 @@ import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 import MutiImages from "@/Components/MultiImages";
 
-function Banner ({banner}){
-    console.log(banner,'bbb')
-    const { data, setData, post, processing } = useForm({...Constants.initBannerForm, ...banner});
+function Banner ({list}){
+    const { data, setData, post, processing } = useForm({...Constants.initBannerForm, ...list.banner, ...list.user});
 
     const handleChange = (key, value) => {
         setData((prev)=>({
@@ -32,7 +31,7 @@ function Banner ({banner}){
         })
     }
     return(
-        <Landing>
+        <Landing auth={data}>
             <Typography sx={{height:'65px'}}></Typography>
             <Box p={4}>
                 <form onSubmit={handleSubmit}>
