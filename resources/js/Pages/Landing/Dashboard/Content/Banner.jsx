@@ -10,6 +10,7 @@ import MutiImages from "@/Components/MultiImages";
 function Banner ({list}){
     const { data, setData, post, processing } = useForm({...Constants.initBannerForm, ...list.banner, ...list.user});
 
+    console.log('data.banner_images', data.banner_images)
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -67,7 +68,7 @@ function Banner ({list}){
                     <Grid item>
                     <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Upload Photos</Typography>
 
-                    <MutiImages data={data} setData={setData} images={data.banner_images} />
+                    <MutiImages data={data} setData={setData} />
                     </Grid>
                     <Grid item xs={12} mt={3} className="custom_btn" textAlign={'center'}>
                         <Button disabled={processing} type="submit" variant="contained">

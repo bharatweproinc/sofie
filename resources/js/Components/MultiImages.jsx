@@ -1,6 +1,6 @@
 import React from "react";
 
-const UploadAndDisplayImage = ({data, setData, images}) => {
+const UploadAndDisplayImage = ({data, setData}) => {
 
   const onImageChange = (e) => {
     const newImages = Array.from(e.target.files);
@@ -15,8 +15,6 @@ const UploadAndDisplayImage = ({data, setData, images}) => {
       });
   };
 
-  console.log('data.banner_images', data.banner_images)
-
   return (
     <>
       <input type="file" multiple accept="image/*" onChange={onImageChange} />
@@ -24,7 +22,7 @@ const UploadAndDisplayImage = ({data, setData, images}) => {
 
             {data["banner_images"].map((image, index) => {
 
-                const imageSrc = URL.createObjectURL(image);
+                const imageSrc = image.length > 0 ? image : URL.createObjectURL(image);
 
                 return (
                     <div key={index} style={{ margin: '10px', position: 'relative'}}>
