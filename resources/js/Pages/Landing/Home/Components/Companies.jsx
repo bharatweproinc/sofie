@@ -20,7 +20,6 @@ import NoDataFound from '@/Components/NoDataFound';
 // ]
 
 function BrowseCompanies ({list}) {
-    console.log('view', list.company)
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
         setIsReadMore(key === isReadMore ? null : key)

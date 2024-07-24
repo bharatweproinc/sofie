@@ -10,7 +10,6 @@ import NoDataFound from '@/Components/NoDataFound';
 import Button from '@/Components/Singleton/Button';
 
 function FindMentors ({list}) {
-    console.log(list,'list')
 
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
