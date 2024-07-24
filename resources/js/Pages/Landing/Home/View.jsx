@@ -25,12 +25,7 @@ import "./style.scss"
 import { Link } from '@inertiajs/react';
 import ImageCarousel from './Components/ImageCorousel';
 
-import t1 from '../../../Assets/Images/joyc.jpg'
-import t2 from '../../../Assets/Images/aron.jpg'
-import t3 from '../../../Assets/Images/tingbel.jpg'
-const founderImages = [
-    t1, t2, t3
-]
+
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -297,7 +292,7 @@ console.log('home', list);
 								>
 									{list && list.companies.list.company.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-											<FeatureCard item={item} src={founderImages[index]} />
+											<FeatureCard item={item}  />
 										</Box>
 									))}
 								</AutoPlaySwipeableViews>
@@ -320,7 +315,7 @@ console.log('home', list);
 							<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
 								{list && list.companies.list.company.map((item, key) => (
 									<Grid item xs={12} sm={4} my={{sm:0, xs:2}} key={key}>
-										<FeatureCard item={item} src={founderImages[key]} />
+										<FeatureCard item={item} />
 									</Grid>
 								))}
 							</Grid>
@@ -550,7 +545,7 @@ console.log('home', list);
 									onChangeIndex={handleStepChange}
 									enableMouseEvents
 								>
-									{Constants.Testimonials.map((item, index) => (
+									{list && list.testimonials.list.testimonial.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
 											<Testimonial item={item}  />
 										</Box>
@@ -558,7 +553,7 @@ console.log('home', list);
 								</AutoPlaySwipeableViews>
 								<MobileStepper
 									variant="dots"
-									steps={Constants.Testimonials.length}
+									steps={list.testimonials.list.testimonial.length}
 									position="static"
 									activeStep={activeStep}
 									sx={{
@@ -576,7 +571,7 @@ console.log('home', list);
 							</Box>
 						) : (
 							<>
-								{Constants.Testimonials.map((item, key) => (
+								{list && list.testimonials.list.testimonial.map((item, key) => (
 									<Grid item sm={4} key={key}>
 										<Testimonial item={item} />
 									</Grid>
@@ -584,7 +579,7 @@ console.log('home', list);
 								<Box className="flex justify-center w-full mt-9" >
 									<MobileStepper
 										variant="dots"
-										steps={Constants.Testimonials.length}
+										steps={list.testimonials.list.testimonial.length}
 										position="static"
 										activeStep={activeStep}
 										sx={{

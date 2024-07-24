@@ -32,6 +32,7 @@ class CompanyController extends Controller
     }
 
     public function saveData(Request $request, $id){
+        // dd($request->all());
         $response = $this->companyRepository->saveData($request, $id);
         return Redirect::route("company.detail",[
             'id' => $response['data']->id

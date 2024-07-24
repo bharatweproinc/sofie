@@ -4,6 +4,7 @@ import { Box, Card, Typography } from '@mui/material'
 import React from 'react'
 
 const Testimonial = ({item}) => {
+    console.log('item4545', item)
     return (
             <Card variant="outlined" sx={{
                     p: {lg:5, md:2, xs:1},
@@ -22,10 +23,10 @@ const Testimonial = ({item}) => {
                     {item.description}
                 </Typography>
                 <Box className="flex justify-center rounded-s-full mt-0">
-                    <img src={item.img} alt="" srcSet="" style={{borderRadius : '50%', height : "72px", width : '72px', objectFit : 'cover'}} />
+                    <img src={item.profile_photo} alt="" srcSet="" style={{borderRadius : '50%', height : "72px", width : '72px', objectFit : 'cover'}} />
                 </Box>
                 <Typography  mt={2} variant="subtitle2" color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor} textAlign={'center'} >
-                    {item.user}
+                    {item.name}
                 </Typography>
             </Card>
     )

@@ -86,7 +86,7 @@ const Header = () => {
                 }}
                 sx={{
                     display: { xs: 'block', sm: 'none'},
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%', marginTop : "76px" },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%', marginTop : "56px" },
                 }}
             >
                 {drawer}

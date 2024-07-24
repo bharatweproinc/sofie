@@ -40,6 +40,7 @@ export default function FeatureCard({ item, src }) {
 
                     <Typography variant="body2" color="text.secondary"
                         style={{
+                            overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             display: '-webkit-box',
                             WebkitLineClamp: 3,

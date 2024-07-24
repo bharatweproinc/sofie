@@ -16,8 +16,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
     public function getList(){
         $user = Auth::user();
         $company = Company::with('user')->get()->each(function($m) {
-                $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
-                $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
+            $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
+            $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
         });
         //dd($company);
         return ["list" => [
@@ -28,7 +28,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function saveData(Request $request, $id){
         try {
-            // dd($request->all());
+           // dd($request->all());
             $fileName = null;
             $founderImage = null;
             $diff_in_days = 0;
