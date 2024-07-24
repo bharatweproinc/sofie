@@ -10,6 +10,7 @@ import NoDataFound from '@/Components/NoDataFound';
 import Button from '@/Components/Singleton/Button';
 
 function FindMentors ({list}) {
+    console.log(list,'list')
 
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
@@ -41,7 +42,7 @@ function FindMentors ({list}) {
                                         objectFit: 'cover',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
-                                    image={item.link}
+                                    image={item.profile_photo}
                                     alt="mentor img"
                                 />
                                 <CardContent

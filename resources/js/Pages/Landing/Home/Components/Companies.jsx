@@ -11,19 +11,22 @@ import moment from "moment";
 import User3 from '../../../../Assets/Images/Karen-Lee.png'
 import NoDataFound from '@/Components/NoDataFound';
 
-import t1 from "../../../../Assets/Images/joyc.jpg"
-import t2 from "../../../../Assets/Images/aron.jpg"
-import t3 from "../../../../Assets/Images/tingbel.jpg"
+// import t1 from "../../../../Assets/Images/joyc.jpg"
+// import t2 from "../../../../Assets/Images/aron.jpg"
+// import t3 from "../../../../Assets/Images/tingbel.jpg"
 
-const founderImages = [
-    t1, t2, t3
-]
+// const founderImages = [
+//     t1, t2, t3
+// ]
 
 function BrowseCompanies ({list}) {
+    console.log('view', list.company)
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
         setIsReadMore(key === isReadMore ? null : key)
     };
+
+    console.log('list.company',list.company)
 
     return (
         <Landing>
@@ -50,7 +53,7 @@ function BrowseCompanies ({list}) {
                                         objectFit: 'contain',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
-                                    image={item.link}
+                                    image={item.profile_photo}
                                     alt="mentor img"
                                 />
                                 <CardContent
@@ -85,7 +88,7 @@ function BrowseCompanies ({list}) {
                                     </Typography>
 
                                     <Box mt={4} className="flex gap-2 items-center">
-                                        <img src={founderImages[key]} style={{borderRadius : '50%', height : "50px", width : '50px', objectFit : 'cover'}}/>
+                                        <img src={item.founder_photo} style={{borderRadius : '50%', height : "50px", width : '50px', objectFit : 'cover'}}/>
 
                                         <Box className="block">
                                             <Typography sx={{ fontWeight: 'bold !important'}}>

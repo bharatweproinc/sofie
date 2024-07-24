@@ -552,7 +552,7 @@ console.log('home', list);
 								>
 									{Constants.Testimonials.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-											<Testimonial item={item} />
+											<Testimonial item={item}  />
 										</Box>
 									))}
 								</AutoPlaySwipeableViews>
