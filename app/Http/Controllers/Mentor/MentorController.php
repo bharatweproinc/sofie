@@ -51,18 +51,18 @@ class MentorController extends Controller
         ]);
     }
 
-    public function resetPassword(Request $request, $id){
-        try{
-            $mentor_user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
-            if($mentor_user){
-             $mentor_user->password = Hash::make($request->password);
-             $mentor_user->save();
-            }
-            return Redirect::route("mentor.detail",[
-             'id' => $id
-         ]);
-        }catch(Exception $e){
-            dd($e);
-        }
-    }
+    // public function resetPassword(Request $request, $id){
+    //     try{
+    //         $mentor_user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+    //         if($mentor_user){
+    //          $mentor_user->password = Hash::make($request->password);
+    //          $mentor_user->save();
+    //         }
+    //         return Redirect::route("mentor.detail",[
+    //          'id' => $id
+    //      ]);
+    //     }catch(Exception $e){
+    //         dd($e);
+    //     }
+    // }
 }

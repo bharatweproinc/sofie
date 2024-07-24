@@ -2,7 +2,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Grid, Typography } from "@mui/material";
 
-const Cards = () => {
+const Cards = ({list}) => {
+    console.log('list121212', list)
     return (
         <>
             <Grid
@@ -26,7 +27,7 @@ const Cards = () => {
                                 color="initial"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                11
+                                {list.companies.list.company.length}
                             </Typography>
                             <Box className="flex text-xs items-center pt-2">
                                 <svg

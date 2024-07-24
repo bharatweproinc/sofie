@@ -50,14 +50,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
 
     //update user status active/ inactive
-    Route::get('/update-company-status/{id}', [DashboardController::class, 'updateCompanyStatus'])->name('updateCompanyStatus');
-    Route::get('/update-mentor-status/{id}', [DashboardController::class, 'updateMentorStatus'])->name('updateMentorStatus');
+    Route::post('/update-company-status/{id}', [DashboardController::class, 'updateCompanyStatus'])->name('updateCompanyStatus');
+    Route::post('/update-mentor-status/{id}', [DashboardController::class, 'updateMentorStatus'])->name('updateMentorStatus');
 
     //accepted/rejected
-    Route::get('/approved-company/{id}', [DashboardController::class, 'acceptedCompanyProfile'])->name('acceptedCompanyProfile');
-    Route::get('/approved-mentor/{id}', [DashboardController::class, 'acceptedMentorProfile'])->name('acceptedMentorProfile');
-    Route::get('/rejected-mentor/{id}', [DashboardController::class, 'rejectedCompanyProfile'])->name('rejectedCompanyProfile');
-    Route::get('/rejected-company/{id}', [DashboardController::class, 'rejectedMentorProfile'])->name('rejectedMentorProfile');
+    Route::post('/approved-company/{id}', [DashboardController::class, 'acceptedCompanyProfile'])->name('acceptedCompanyProfile');
+    Route::post('/approved-mentor/{id}', [DashboardController::class, 'acceptedMentorProfile'])->name('acceptedMentorProfile');
+    Route::post('/rejected-mentor/{id}', [DashboardController::class, 'rejectedCompanyProfile'])->name('rejectedCompanyProfile');
+    Route::post('/rejected-company/{id}', [DashboardController::class, 'rejectedMentorProfile'])->name('rejectedMentorProfile');
 
 
     //Sections for Home

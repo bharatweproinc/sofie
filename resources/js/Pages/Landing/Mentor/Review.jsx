@@ -5,7 +5,7 @@ import { Link, useForm, router} from "@inertiajs/react";
 import moment from "moment";
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 import ConfirmBox from "@/Components/Dependent/ConfirmBox/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Constants from "../Constants";
 import Joi from '@/utility/JoiValidator';
 import  { notify } from '@/Components/Notifier';
@@ -15,23 +15,29 @@ import "../style.scss";
 
 function ReviewProfilePage ({detail}){
 
-    const [open, setOpen] = useState(false);
-    const [openReject, setOpenReject] = useState(false);
-    const [openConfirm, setOpenConfirm] = useState(false);
-    const [userStatus, setUserStatus] = useState(1);
+    const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
 
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
 
-    const { data, setData, post, processing} = useForm(Constants.initResetPasswordField)
+    const [open, setOpen] = useState(false);
+    const [openReject, setOpenReject] = useState(false);
+    const [openConfirm, setOpenConfirm] = useState(false);
+    const [userStatus, setUserStatus] = useState(data.status);
     const [show, setShow] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
 
+    useEffect(()=> {
+        setUserStatus(data.status);
+    }, [data.status])
+
     const handleShow = () => {
         setShow(true)
     }
+
+   
 
     const handleChange = (key, value) => {
 
@@ -53,11 +59,9 @@ function ReviewProfilePage ({detail}){
           [key]:value
         }));
 
-        };
-
+    };
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
         let err = Joi.validateToPlainErrors(data, Constants.resetPasswordSchema)
         setValidationErrors(err);
@@ -75,44 +79,81 @@ function ReviewProfilePage ({detail}){
                 validationErrors.confirm_new_password = data.confirm_new_password !== data.new_password  ? 'Passwords does not match' : '';
             return;
         } else {
-            console.log('dtaa', data)
-
-        //     post(route(''),{
-        //     onSuccess:(success) => {
-        //         console.log(success, "sucesss");
-        //         notify.error("Password has been updated successfully");
-        //     },
-        //     onError:(error) => {
-        //         console.log(error.email,"::error");
-        //         notify.error("Error while updating password");
-        //     },
-        // })
+            post(route(''),{
+            onSuccess:(success) => {
+                console.log(success, "sucesss");
+                notify.error("Password has been updated successfully");
+            },
+            onError:(error) => {
+                console.log(error.email,"::error");
+                notify.error("Error while updating password");
+            },
+        })
     }}
 
     const handleDelete = () => {
-        console.log("userId", detail.id)
+        post(route('admin.deleteMentorUser', detail.id),{
+            onSuccess:(success) => {
+                notify.success('Mentor Data has been deleted successfully')
+                console.log(success, "successs");
+                setOpen(false);
+            },
+            onError:(error) => {
+                notify.error("Error in Mentor Delete");
+                console.log(error,"error");
+                setOpen(false);
+            },
+        })
     }
 
-    const handleReject = () => {
-        console.log("rejected");
+    const handleConfirm = (e) => {
+        e.preventDefault();
+        post(route("admin.acceptedMentorProfile", detail.id), {
+            onSuccess: (success) => {
+                console.log(success, "success")
+                setOpenConfirm(false)
+            },
+            onError: (error) => {
+                console.log(error, "error")
+                setOpenConfirm(false)
+            },
+        })
     }
 
-    const handleConfirm = () => {
-        console.log('confirm')
+    const handleReject = (e) => {
+        e.preventDefault();
+        post(route("admin.rejectedMentorProfile", detail.id), {
+            onSuccess: (success) => {
+                console.log(success, "success")
+                setOpenReject(false)
+            },
+            onError: (error) => {
+                console.log(error, "error")
+                setOpenReject(false)
+            },
+        })
     }
 
-    const handleChangeStatus = () => {
-        setUserStatus(userStatus === 1 ? 0 : 1)
-    }
+    const handleChangeStatus = (e) => {
+        const status = e.target.checked ? 1 : 0;
+        setUserStatus(status);
+    };
 
-    const handleUpdateStatus = () => {
-        console.log('userStatus', userStatus)
-    }
-    // console.log(detail.id);
-    const handleUpdatePassword =() => {
-        console.log('data');
-        // post(route('mentor.resetPassword', detail.id));
-    }
+    const handleUpdateStatus = (e) => {
+        e.preventDefault();
+        router.post(route("admin.updateMentorStatus", detail.id), {
+            'userStatus': userStatus,
+            onSuccess: (success) => {
+                notify.success("Status has been updated successfully");
+                console.log(success, "success")
+            },
+            onError: (error) => {
+                notify.error("Error while updating Status");
+                console.log(error, "error")
+            },
+        })
+    }   
+
     return (
         <Landing auth={detail?.logged_user}>
             <Typography sx={{ height: '65px' }}></Typography>
@@ -197,12 +238,12 @@ function ReviewProfilePage ({detail}){
                       <Box className="status_box mt-3">
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Status</Typography>
                             <FormControlLabel control={ <Switch
-                                checked={userStatus === 1 ? true : false} />}
+                                checked={userStatus === 1} />}
                                 label={userStatus === 1 ? "Active" : "Inactive"}
-                                onChange={(e) => handleChangeStatus("status", e.target.checked)}
+                                onChange={handleChangeStatus}
                             />
                             <Box className="custom_btn inline">
-                                <Button component={Link} href={route("admin.updateMentorStatus",detail.id)} variant="contained">Save</Button>
+                                <Button onClick={handleUpdateStatus} variant="contained">Save</Button>
                             </Box>
                       </Box>
                     }

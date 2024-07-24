@@ -75,7 +75,7 @@ function dashboard({list}) {
                 <Grid className='serach-every' container spacing={4} px={2}>
                 <Navbar/>
                 {viewSection !== "matching_status" && viewSection !== "companies" &&
-                <Cards/>
+                <Cards list={list} />
                   }
                 {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
                 {viewSection !== "matching_status" && <Companies list={list} setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}

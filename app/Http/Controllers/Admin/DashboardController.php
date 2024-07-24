@@ -145,26 +145,16 @@ class DashboardController extends Controller
     }
     public function updateCompanyStatus(Request $request, $id){
         try{
-            dd("company status",$request->all());
             $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
             if($user){
-                if($request->status == 0){
+                if($request->userStatus == 0){
                     $user->status = 0;
                 }else{
                     $user->status = 1;
                 }
                 $user->save();
             }
-            $logged_user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $logged_user,
-                'success' => true,
-                'message' => 'Account status updated'
-            ]
-        ]);
+            return Redirect::back();
         }catch (\Exception $e) {
             dd($e);
             $response = $e->getMessage();
@@ -172,26 +162,16 @@ class DashboardController extends Controller
     }
     public function updateMentorStatus(Request $request, $id){
         try{
-            dd("mentor status",$request->all());
             $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
             if($user){
-                if($request->status == 0){
+                if($request->userStatus === 0){
                     $user->status = 0;
                 }else{
                     $user->status = 1;
                 }
                 $user->save();
             }
-            $logged_user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $logged_user,
-                'success' => true,
-                'message' => 'Account status updated'
-            ]
-        ]);
+            return Redirect::back();
         }catch (\Exception $e) {
             dd($e);
             $response = $e->getMessage();

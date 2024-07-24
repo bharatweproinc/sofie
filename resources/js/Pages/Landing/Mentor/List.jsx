@@ -25,6 +25,7 @@ function MentorList({list = []}) {
     const [userId, setUserId] = useState(null);
     const [mentorList, setMentorList] = useState(list.mentor);
 
+    console.log('mentorList', mentorList)
     const [sortConfig, setSortConfig] = useState({
         key: null,
         direction: "asc",
@@ -66,7 +67,6 @@ function MentorList({list = []}) {
     }, [list.mentor])
 
     const handleDelete = () => {
-        console.log('userId', userId)
         post(route('admin.deleteMentorUser', userId),{
         onSuccess:(success) => {
             notify.success('Mentor Data has been deleted successfully')
@@ -242,7 +242,7 @@ function MentorList({list = []}) {
                                                     <div
                                                         className="grid"
                                                         onClick={() =>
-                                                            handleSort("functional")
+                                                            handleSort("functional_area")
                                                         }
                                                         style={{ cursor: "pointer" }}
                                                     >

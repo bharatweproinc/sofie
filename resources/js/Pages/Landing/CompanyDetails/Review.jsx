@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import moment from "moment";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import "./style.scss";
 import "../style.scss";
 import Tooltip from '@mui/material/Tooltip';
@@ -22,19 +22,20 @@ import Joi from '@/utility/JoiValidator';
 
 const Reviewdata = ({detail}) => {
 
+    const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
 
+    console.log("accept", data)
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
 
-    const { data, setData, post, processing} = useForm(Constants.initResetPasswordField)
     const [open, setOpen] = useState(false);
     const [openReject, setOpenReject] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [show, setShow] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
-    const [userStatus, setUserStatus] = useState(1);
+    const [userStatus, setUserStatus] = useState(data.status);
 
     const handleShow = () => {
         setShow(true)
@@ -96,23 +97,69 @@ const Reviewdata = ({detail}) => {
     }}
 
     const handleDelete = () => {
-        console.log('userId', detail.id)
+        post(route('admin.deleteCompanyUser', detail.id),{
+            onSuccess:(success) => {
+                notify.success('Company Data has been deleted successfully')
+                console.log(success, "successs");
+                setOpen(false);
+            },
+            onError:(error) => {
+                notify.error("Error in Company Delete");
+                console.log(error,"error");
+                setOpen(false);
+            },
+        })
     }
 
+    
+    const handleConfirm = (e) => {
+        e.preventDefault();
+        post(route("admin.acceptedCompanyProfile", detail.id), { 
+            onSuccess:(success) => {
+                console.log(success, "sucesss");
+                notify.error("User has been Live successfully");
+            },
+            onError:(error) => {
+                console.log(error.email,"::error");
+                notify.error("Error while user Live");
+            },
+        })
+        setOpenConfirm(false);
+    }
+    
     const handleReject = () => {
-        console.log("rejected");
+        e.preventDefault();
+        post(route("admin.rejectedCompanyProfile", detail.id), { 
+            onSuccess:(success) => {
+                console.log(success, "sucesss");
+                notify.error("User has been rejected successfully");
+            },
+            onError:(error) => {
+                console.log(error.email,"::error");
+                notify.error("Error while rejecting user");
+            },
+        })
+        setOpenReject(false);
     }
 
-    const handleConfirm = () => {
-        console.log('confirm')
-    }
+    const handleChangeStatus = (e) => {
+        const status = e.target.checked ? 1 : 0;
+        setUserStatus(status);
+    };
 
-    const handleChangeStatus = () => {
-        setUserStatus(userStatus === 1 ? 0 : 1)
-    }
-
-    const handleUpdateStatus = () => {
-        console.log('userStatus', userStatus)
+    const handleUpdateStatus = (e) => {
+        e.preventDefault();
+        router.post(route("admin.updateCompanyStatus", detail.id), {
+            'userStatus': userStatus,
+            onSuccess: (success) => {
+                notify.success("Status has been updated successfully");
+                console.log(success, "success")
+            },
+            onError: (error) => {
+                notify.error("Error while updating Status");
+                console.log(error, "error")
+            },
+        })
     }
 
     return (
@@ -130,7 +177,7 @@ const Reviewdata = ({detail}) => {
                     </Typography>
                     <Box display={'flex'} alignItems={'center'}>
                         <Box className='custom_btn custom_delete_btn'>
-                            {  detail && detail.logged_user.user_role === "admin" &&
+                            {  detail && detail.logged_user.user_role === "admin" && data.is_accepted === null &&
                                 <>
                                 <Button onClick={()=>setOpenReject(true)} sx={{mr : 1}} className="delete_account" variant="contained">
                                     Reject
@@ -402,12 +449,12 @@ const Reviewdata = ({detail}) => {
                       <Box className="status_box" sx={{padding : '0 0 24px 24px'}}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Status</Typography>
                             <FormControlLabel control={ <Switch
-                                checked={userStatus === 1 ? true : false} />}
+                                 checked={userStatus === 1} />}
                                 label={userStatus === 1 ? "Active" : "Inactive"}
-                                onChange={(e) => handleChangeStatus("status", e.target.checked)}
+                                onChange={handleChangeStatus}
                             />
                             <Box className="custom_btn inline">
-                                <Button component={Link} href={route("admin.updateCompanyStatus",detail.id)} variant="contained">Save</Button>
+                                <Button onClick={handleUpdateStatus}  variant="contained">Save</Button>
                             </Box>
                       </Box>
                     }
