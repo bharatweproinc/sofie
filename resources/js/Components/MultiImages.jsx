@@ -2,17 +2,18 @@ import React from "react";
 
 const UploadAndDisplayImage = ({data, setData}) => {
 
+
   const onImageChange = (e) => {
     const newImages = Array.from(e.target.files);
     setData({...data, ["banner_images"] : [...data["banner_images"], ...newImages]});
   };
 
   const removeImg = (index) => {
-    URL.revokeObjectURL(URL.createObjectURL(data["banner_images"][index]));
-    setData(prevData => {
-        const newImages = prevData["banner_images"].filter((_, i) => i !== index);
-        return { ...prevData, banner_images: newImages };
-      });
+      setData(prevData => {
+          const newImages = prevData["banner_images"].filter((_, i) => i !== index);
+          return { ...prevData, banner_images: newImages };
+        });
+    // URL.revokeObjectURL(URL.createObjectURL(data["banner_images"][index]));
   };
 
   return (
@@ -29,7 +30,7 @@ const UploadAndDisplayImage = ({data, setData}) => {
 
                     <img src={imageSrc} alt={`Uploaded preview ${index}`} width="250px" style={{ height : '250px', objectFit : 'contain' }} />
                         <button
-                            onClick={() => removeImg(index)}
+                            onClick={() => {removeImg(index), console.log('index', index)} }
                             style={{
                             position: 'absolute',
                             top: '5px',

@@ -23,7 +23,7 @@ import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 
 
 function CompanyList({list = []}) {
-    console.log('list',list);
+
     const {  post } = useForm();
 
     const [open, setOpen] = useState(false);
@@ -69,7 +69,6 @@ function CompanyList({list = []}) {
     }, [list.company])
 
     const handleDelete = () => {
-        console.log('userId', userId)
         post(route('admin.deleteUser', userId),{
             onSuccess:(success) => {
                 notify.success('Company Data has been deleted successfully')
@@ -317,17 +316,6 @@ function CompanyList({list = []}) {
                                                                 {item.icon}
                                                             </a>
                                                         )
-                                                        // : item.id === 3 ? (
-                                                        //     <Link href={route('admin.goLive', row.user.id)}>
-                                                        //         {item.icon}
-                                                        //     </Link>
-                                                        // )  : item.id === 4 && row.user.is_live === 0 ? (
-                                                        //     <Link onClick={() => handleLive(row.user.id)}
-                                                        //     // href={route('admin.goLive', row.user.id)}
-                                                        //     >
-                                                        //         {item.icon}
-                                                        //     </Link>
-                                                        // )
                                                         : (
                                                             <span style={{cursor : 'pointer'}} onClick={()=>{setOpen(true), setUserId(row.id)}}>
                                                                 {item.icon}

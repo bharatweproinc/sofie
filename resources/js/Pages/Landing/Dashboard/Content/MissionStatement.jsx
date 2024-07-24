@@ -1,14 +1,18 @@
 import { Landing } from "@/Layouts/Landing";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import '../style.scss'
 import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
 function MissionStatement ({list}){
-    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...list.mission});
-    console.log('data',data)
+    const { data, setData, post, processing } = useForm({...Constants.initMissionStatementForm, ...list.mission, ...list.user});
+
+    useEffect(() => {
+        setData(data)
+    }, [data])
+
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -18,7 +22,7 @@ function MissionStatement ({list}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('data', data);
+        console.log('data121212', data);
         post(route('admin.saveSectionTwo'),{
             onSuccess:(success) => {
                 notify.success('Mission Data has been updated successfully')

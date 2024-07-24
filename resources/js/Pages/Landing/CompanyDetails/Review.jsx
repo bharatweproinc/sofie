@@ -421,21 +421,6 @@ const Reviewdata = ({detail}) => {
                         <form method={"post"} onSubmit={handleSubmit}>
                         <Grid container spacing={4} className="input_fields">
                             <Grid item px={2} xs={12} md={3}>
-                                <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Previous Password</Typography>
-                                <TextField
-                                    size='small'
-                                    sx={{ mt: 1, width: '100%' }}
-                                    fullWidth
-                                    variant='outlined'
-                                    type='password'
-                                    value={data.previous_password}
-                                    placeholder='Previous Password'
-                                    onChange={(e) => handleChange("previous_password", e.target.value)}
-                                    error={!!validationErrors.previous_password?.[0]}
-                                    helperText={validationErrors.previous_password?.[0]}
-                                />
-                            </Grid>
-                            <Grid item px={2} xs={12} md={3}>
                                 <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>New Password</Typography>
                                 <TextField
                                     size='small'

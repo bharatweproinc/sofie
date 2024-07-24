@@ -227,7 +227,6 @@ class DashboardController extends Controller
     }
 
     public function saveSectionOne(Request $request){
-        //dd($request->banner_images);
         $images = [];
         $data = [
             'banner_title' =>$request->banner_title,

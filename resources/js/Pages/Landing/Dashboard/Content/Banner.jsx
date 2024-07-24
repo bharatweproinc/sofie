@@ -1,6 +1,6 @@
 import { Landing } from "@/Layouts/Landing";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import '../style.scss'
 import "../../style.scss"
 import { useForm } from "@inertiajs/react";
@@ -10,7 +10,10 @@ import MutiImages from "@/Components/MultiImages";
 function Banner ({list}){
     const { data, setData, post, processing } = useForm({...Constants.initBannerForm, ...list.banner, ...list.user});
 
-    console.log('data.banner_images', data.banner_images)
+    useEffect(()=> {
+        setData(data)
+    }, [data]);
+    
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -20,6 +23,7 @@ function Banner ({list}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("data12121", data)
         post(route('admin.saveSectionOne'),{
             onSuccess:(success) => {
                 notify.success('Banner Data has been updated successfully')

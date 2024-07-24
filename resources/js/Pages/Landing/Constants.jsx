@@ -5,7 +5,6 @@ import DeleteIcon from '@/Components/SVGIcons/Home/DeleteIcon';
 import { Typography } from "@mui/material";
 import Joi from '@/utility/JoiValidator';
 
-
 const initSignUpForm = {
     'full_name' : '',
     'phone' : 0,
@@ -103,7 +102,12 @@ const signupSchema = [{
     full_name: Joi.string().label("Full Name").required(),
     phone: Joi.number().min(10).label("Phone Number").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
-    password: Joi.string().min(8).label("Password").required(),
+    password : Joi.string()
+    .min(8)
+    .regex(/[A-Z]/, 'upper-case')
+    .regex(/[a-z]/, 'lower-case')
+    .regex(/[^\w]/, 'special character')
+    .regex(/[0-9]/, "number"),
     confirm_password: Joi.string().min(8).label("Confirm Password").required(),
     enterpreneur_or_mentor : Joi.required()
 }];

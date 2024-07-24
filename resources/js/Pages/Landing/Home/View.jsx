@@ -46,6 +46,12 @@ function DrawerAppBar({list}) {
 		setActiveStep(step);
 	};
 
+	const [isReadMore, setIsReadMore] = React.useState(false);
+
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore)
+    };
+
 	return (
 		<>
 			<Landing>
@@ -148,30 +154,16 @@ function DrawerAppBar({list}) {
 							variant="body1"
 							color="initial"
 						>
-							{/* Mission Statement */}
                             {list.mission.mission_title}
 						</Typography>
 						<Typography mt={{ lg: 3 }}
 							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 							variant="body1"
 						>
-						{list.mission.mission_description}
+							{isReadMore ? list.mission.mission_description : list.mission.mission_description.slice(0, 300)}
                         </Typography>
-						<Typography
-							mt={{ lg: 3 }}
-							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
-							variant="body1"
-						>
-							We envision a world where every entrepreneur has the resources and knowledge they need to succeed and make a positive impact on their communities.
-						</Typography>
-						<Typography mb={{ lg: 5 }} mt={{ lg: 3 }}
-							color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
-							variant="body1"
-						>
-							We believe that every entrepreneur, regardless of their background or location, deserves access to high-quality mentorship. By leveraging our extensive network of experienced professionals, we aim to bridge the gap between knowledge and action.
-						</Typography>
-						<Button variant="contained" sx={{ mt: 2 }}>
-							Read more
+						<Button onClick={() => toggleReadMore()} variant="contained" sx={{ mt: 2, height : '40px' }}>
+							{isReadMore === true ? 'Read less' : "Read more"}
 						</Button>
 					</Grid>
 				</Grid>

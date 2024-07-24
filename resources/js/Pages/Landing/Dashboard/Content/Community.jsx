@@ -1,13 +1,17 @@
 import { Landing } from "@/Layouts/Landing";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import '../style.scss'
 import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 
-function Community ({community}){
-    const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...community});
+function Community ({list}){
+    const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...list.community, ...list.user});
+
+    useEffect(() => {
+        setData(data)
+    }, [data])
 
     const handleChange = (key, value) => {
         setData((prev)=>({
@@ -18,7 +22,6 @@ function Community ({community}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('data', data);
         post(route('admin.saveSectionThree'),{
             onSuccess:(success) => {
                 notify.success('Community Data has been updated successfully')
