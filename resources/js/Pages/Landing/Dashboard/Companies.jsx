@@ -190,7 +190,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                         <TableCell align="left">{row?.user?.email}</TableCell>
                                         {console.log('id',row.user.id)}
                                         <TableCell align="left">
-                                            <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
+                                        <Chip label={row.user.status === 1 ? "Active" : "Inactive"} color={row.user.status === 1 ? 'success' : 'error'} />
                                         </TableCell>
                                         <TableCell align="left">
                                             <Box sx={{ gap: '10px' }} className="flex">

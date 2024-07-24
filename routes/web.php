@@ -35,7 +35,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
-    // Route::get('/go-live/{id}', [DashboardController::class, 'goLive'])->name('goLive');
+
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 
@@ -45,6 +45,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     //Create new testimonial..
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');
+
+    //update user status active/ inactive
+    Route::get('/update-company-status/{id}', [DashboardController::class, 'updateCompanyStatus'])->name('updateCompanyStatus');
+    Route::get('/update-mentor-status/{id}', [DashboardController::class, 'updateMentorStatus'])->name('updateMentorStatus');
+
+    //accepted/rejected
+    Route::get('/approved-company/{id}', [DashboardController::class, 'acceptedCompanyProfile'])->name('acceptedCompanyProfile');
+    Route::get('/approved-mentor/{id}', [DashboardController::class, 'acceptedMentorProfile'])->name('acceptedMentorProfile');
+    Route::get('/rejected-mentor/{id}', [DashboardController::class, 'rejectedCompanyProfile'])->name('rejectedCompanyProfile');
+    Route::get('/rejected-company/{id}', [DashboardController::class, 'rejectedMentorProfile'])->name('rejectedMentorProfile');
+
 
     //Sections for Home
     Route::get('/section-one', [DashboardController::class, 'sectionOne'])->name('sectionOne');

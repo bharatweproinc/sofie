@@ -316,7 +316,7 @@ function MentorList({list = []}) {
                                                 <TableCell align="left">{row.user.email} </TableCell>
                                                 <TableCell align="left">{row.functional_area}</TableCell>
                                                 <TableCell align="left">
-                                                    <Chip label={row.status === "active" ? "Active" : "Inactive"} color={row.status === "active" ? 'success' : 'error'} />
+                                                <Chip label={row.user.status === 1 ? "Active" : "Inactive"} color={row.user.status === 1 ? 'success' : 'error'} />
                                                 </TableCell>
                                                 <TableCell align="left">
                                                     <Box

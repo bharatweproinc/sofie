@@ -45,33 +45,153 @@ class DashboardController extends Controller
 
         ]);
     }
-    // public function goLive($id){
-    //     try{
-    //         $user = User::where('id', $id)->first();
-    //         if($user){
-    //             if($user->status = 0){
-    //                 $user->status = 1;
-    //             }else{
-    //                 $user->status = 0;
-    //             }
-    //             $user->save();
-    //         }
-    //         $logged_user = Auth::user();
-    //         $companies = $this->companyRepository->getList();
-    //         return Inertia::render('Landing/Dashboard/View', [
-    //         "list" => [
-    //             'companies' => $companies,
-    //             'user' => $logged_user,
-    //             'success' => true,
-    //             'message' => 'Account status updated'
-    //         ]
-    //     ]);
-    //     }catch (\Exception $e) {
-    //         dd($e);
-    //         $response = $e->getMessage();
-    //     }
-    // }
+    public function acceptedMentorProfile($id){
+        try{
+            dd("mentor profile",$id);
+            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 1;
+                $user->save();
+            }
+            $logged_user = Auth::user();
+            $companies = $this->companyRepository->getList();
+            return Inertia::render('Landing/Dashboard/View', [
+            "list" => [
+                'companies' => $companies,
+                'user' => $logged_user,
+                'success' => true,
+                'message' => 'Accepted Mentor Profile'
+            ]
+        ]);
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function acceptedCompanyProfile($id){
+        try{
+            dd("mentor profile",$id);
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 1;
+                $user->save();
+            }
+            $logged_user = Auth::user();
+            $companies = $this->companyRepository->getList();
+            return Inertia::render('Landing/Dashboard/View', [
+            "list" => [
+                'companies' => $companies,
+                'user' => $logged_user,
+                'success' => true,
+                'message' => 'Accepted Mentor Profile'
+            ]
+        ]);
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
 
+    public function rejectedMentorProfile($id){
+        try{
+            dd("mentor profile",$id);
+            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 0;
+                $user->save();
+            }
+            $logged_user = Auth::user();
+            $companies = $this->companyRepository->getList();
+            return Inertia::render('Landing/Dashboard/View', [
+            "list" => [
+                'companies' => $companies,
+                'user' => $logged_user,
+                'success' => true,
+                'message' => 'Rejected Mentor Profile'
+            ]
+        ]);
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function rejectedCompanyProfile($id){
+        try{
+            dd("mentor profile",$id);
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 0;
+                $user->save();
+            }
+            $logged_user = Auth::user();
+            $companies = $this->companyRepository->getList();
+            return Inertia::render('Landing/Dashboard/View', [
+            "list" => [
+                'companies' => $companies,
+                'user' => $logged_user,
+                'success' => true,
+                'message' => 'Rejected Company Profile'
+            ]
+        ]);
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function updateCompanyStatus(Request $request, $id){
+        try{
+            dd("company status",$request->all());
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            if($user){
+                if($request->status == 0){
+                    $user->status = 0;
+                }else{
+                    $user->status = 1;
+                }
+                $user->save();
+            }
+            $logged_user = Auth::user();
+            $companies = $this->companyRepository->getList();
+            return Inertia::render('Landing/Dashboard/View', [
+            "list" => [
+                'companies' => $companies,
+                'user' => $logged_user,
+                'success' => true,
+                'message' => 'Account status updated'
+            ]
+        ]);
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function updateMentorStatus(Request $request, $id){
+        try{
+            dd("mentor status",$request->all());
+            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            if($user){
+                if($request->status == 0){
+                    $user->status = 0;
+                }else{
+                    $user->status = 1;
+                }
+                $user->save();
+            }
+            $logged_user = Auth::user();
+            $companies = $this->companyRepository->getList();
+            return Inertia::render('Landing/Dashboard/View', [
+            "list" => [
+                'companies' => $companies,
+                'user' => $logged_user,
+                'success' => true,
+                'message' => 'Account status updated'
+            ]
+        ]);
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
     public function sectionOne(){
         $logged_user = Auth::user();
         $banner = BannerSection::where('id',1)->first();

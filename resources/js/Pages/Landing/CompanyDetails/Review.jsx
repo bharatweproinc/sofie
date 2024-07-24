@@ -22,11 +22,11 @@ import Joi from '@/utility/JoiValidator';
 
 const Reviewdata = ({detail}) => {
 
-    
+
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
-    
+
     const { data, setData, post, processing} = useForm(Constants.initResetPasswordField)
     const [open, setOpen] = useState(false);
     const [openReject, setOpenReject] = useState(false);
@@ -398,18 +398,18 @@ const Reviewdata = ({detail}) => {
                         </Grid>
                     </Grid>
                     {
-                      detail.logged_user.user_role === "admin" && 
-                      <Box className="status_box" sx={{padding : '0 0 24px 24px'}}> 
+                      detail.logged_user.user_role === "admin" &&
+                      <Box className="status_box" sx={{padding : '0 0 24px 24px'}}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Status</Typography>
-                            <FormControlLabel control={ <Switch  
-                                checked={userStatus === 1 ? true : false} />} 
-                                label={userStatus === 1 ? "Active" : "Inactive"} 
-                                onChange={(e) => handleChangeStatus("status", e.target.checked)}    
+                            <FormControlLabel control={ <Switch
+                                checked={userStatus === 1 ? true : false} />}
+                                label={userStatus === 1 ? "Active" : "Inactive"}
+                                onChange={(e) => handleChangeStatus("status", e.target.checked)}
                             />
                             <Box className="custom_btn inline">
-                                <Button onClick={() => handleUpdateStatus()} variant="contained">Save</Button>
+                                <Button component={Link} href={route("admin.updateCompanyStatus",detail.id)} variant="contained">Save</Button>
                             </Box>
-                      </Box>  
+                      </Box>
                     }
                     {
                         detail.logged_user.user_role === "entrepreneur" &&
@@ -474,7 +474,7 @@ const Reviewdata = ({detail}) => {
                         </form>
                         }
                     </Box>
-                    }   
+                    }
                 </Box>
             </Box>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>

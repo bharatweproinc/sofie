@@ -1,7 +1,7 @@
 import { Landing } from "@/Layouts/Landing";
 import { Avatar, Box, Button, FormControlLabel, Grid, Switch, TextField, Tooltip, Typography } from "@mui/material";
 import "./style.scss"
-import { Link, useForm } from "@inertiajs/react";
+import { Link, useForm, router} from "@inertiajs/react";
 import moment from "moment";
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 import ConfirmBox from "@/Components/Dependent/ConfirmBox/index";
@@ -202,7 +202,7 @@ function ReviewProfilePage ({detail}){
                                 onChange={(e) => handleChangeStatus("status", e.target.checked)}
                             />
                             <Box className="custom_btn inline">
-                                <Button onClick={() => handleUpdateStatus()} variant="contained">Save</Button>
+                                <Button component={Link} href={route("admin.updateMentorStatus",detail.id)} variant="contained">Save</Button>
                             </Box>
                       </Box>
                     }
