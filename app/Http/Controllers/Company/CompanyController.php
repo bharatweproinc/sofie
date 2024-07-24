@@ -52,7 +52,7 @@ class CompanyController extends Controller
     public function resetPassword(Request $request, $id){
         $company_user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
         if($company_user){
-         $company_user->password = Hash::make($request->password);
+         $company_user->password = Hash::make($request->new_password);
          $company_user->save();
         }
         return Redirect::route("company.detail",[

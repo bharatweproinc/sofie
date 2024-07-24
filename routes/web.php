@@ -131,7 +131,7 @@ Route::prefix('mentor')->name('mentor.')->group(function() {
     Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
     Route::post('/saveDetail/{id}', [MentorController::class, 'saveDetail'])->name('saveDetail');
     Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
-    //Route::post('/reset-password/{id}', [MentorController::class, 'resetPassword'])->name('resetPassword');
+    Route::post('/reset-password/{id}', [MentorController::class, 'resetPassword'])->name('resetPassword');
 
 });
 
@@ -139,7 +139,7 @@ Route::prefix('company')->name('company.')->group(function(){
     Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
     Route::post('/saveData/{id}', [CompanyController::class, 'saveData'])->name('saveData');
     Route::get('/detail/{id}', [CompanyController::class, 'get'])->name('detail');
-    //Route::post('/reset-password/{id}', [CompanyController::class, 'resetPassword'])->name('resetPassword');
+    Route::post('/reset-password/{id}', [CompanyController::class, 'resetPassword'])->name('resetPassword');
 
 });
 

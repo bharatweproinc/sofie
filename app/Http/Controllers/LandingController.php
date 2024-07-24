@@ -209,19 +209,39 @@ class LandingController extends Controller
                 ]);
             }else{
                 $logged_user = Auth::user();
-                $data = Mentor::with('user')->where('id', $user->functional_id)->first();
-                $data->link = url("storage/mentor_profile/{$data->profile_photo}");
-                $data->logged_user = $logged_user;
+                $mentor = Mentor::with('user')->where('id', $user->functional_id)->first();
+                if($mentor && $mentor->profile_photo != null){
+                    $mentor->profile_photo = url("storage/company_profile/{$mentor->profile_photo}");
+                }
+                if($mentor && $mentor->founder_image != null){
+                    $mentor->founder_photo = url("storage/company_founder/{$mentor->founder_image}");
+                }
+                $mentor->logged_user = $logged_user;
                 return Inertia::render('Landing/Mentor/Review',[
-                    'detail' => $data
+                    'detail' => $mentor
                 ]);
             }
 
         }else if($role == "entrepreneur"){
             $user = User::findOrFail($user_id);
-            return Redirect::route('landing.companydetail',[
-                'id' => $user->id
-            ]);
+            if($user->functional_id == null){
+                return Redirect::route('landing.companydetail',[
+                    'id' => $user->id
+                ]);
+            }else{
+                $logged_user = Auth::user();
+                $company = Company::with('user')->where('id', $user->functional_id)->first();
+                if($company && $company->profile_photo != null){
+                    $company->profile_photo = url("storage/company_profile/{$company->profile_photo}");
+                }
+                if($company && $company->founder_image != null){
+                    $company->founder_photo = url("storage/company_founder/{$company->founder_image}");
+                }
+                $company->logged_user = $logged_user;
+                return Inertia::render('Landing/CompanyDetails/Review',[
+                    'detail' => $company
+                ]);
+            }
         }
     }
 

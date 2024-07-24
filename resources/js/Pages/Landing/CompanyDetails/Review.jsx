@@ -24,7 +24,6 @@ const Reviewdata = ({detail}) => {
 
     const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
 
-    console.log("accept", data)
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
@@ -83,17 +82,16 @@ const Reviewdata = ({detail}) => {
                 validationErrors.confirm_new_password = data.confirm_new_password !== data.new_password  ? 'Passwords does not match' : '';
             return;
         } else {
-            console.log('dtaa', data)
-        //     post(route(''),{
-        //     onSuccess:(success) => {
-        //         console.log(success, "sucesss");
-        //         notify.error("Password has been updated successfully");
-        //     },
-        //     onError:(error) => {
-        //         console.log(error.email,"::error");
-        //         notify.error("Error while updating password");
-        //     },
-        // })
+            post(route('company.resetPassword', detail.id),{
+            onSuccess:(success) => {
+                console.log(success, "sucesss");
+                notify.success("Password has been updated successfully");
+            },
+            onError:(error) => {
+                console.log(error.email,"::error");
+                notify.error("Error while updating password");
+            },
+        })
     }}
 
     const handleDelete = () => {

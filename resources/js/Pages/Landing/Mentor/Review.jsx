@@ -15,7 +15,7 @@ import "../style.scss";
 
 function ReviewProfilePage ({detail}){
 
-    const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
+    const { data, setData, post, processing} = useForm(Constants.initResetPasswordField)
 
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
@@ -79,10 +79,10 @@ function ReviewProfilePage ({detail}){
                 validationErrors.confirm_new_password = data.confirm_new_password !== data.new_password  ? 'Passwords does not match' : '';
             return;
         } else {
-            post(route(''),{
+            post(route('mentor.resetPassword', detail.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss");
-                notify.error("Password has been updated successfully");
+                notify.success("Password has been updated successfully");
             },
             onError:(error) => {
                 console.log(error.email,"::error");
@@ -163,7 +163,7 @@ function ReviewProfilePage ({detail}){
                     <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
                         <Box display={'flex'} alignItems={'center'}>
                             <Box className='custom_btn custom_delete_btn'>
-                                {   detail.logged_user.user_role === "admin" &&
+                                {   detail.logged_user.user_role === "admin" && data.is_accepted === null &&
                                     <>
                                     <Button onClick={()=>setOpenReject(true)} sx={{mr : 1}} className="delete_account" variant="contained">
                                         Reject

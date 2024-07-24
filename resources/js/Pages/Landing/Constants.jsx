@@ -180,8 +180,16 @@ const testmionialSchema = [{
 }]
 
 const resetPasswordSchema = [{
-    new_password : Joi.string().min(8).label("New Password").required(),
-    confirm_new_password : Joi.string().min(8).label("New Password Cofirm").required(),
+    new_password : Joi.string()
+        .min(8)
+        .regex(/[A-Z]/, 'upper-case')
+        .regex(/[a-z]/, 'lower-case')
+        .regex(/[^\w]/, 'special character'),
+    confirm_new_password :Joi.string()
+        .min(8)
+        .regex(/[A-Z]/, 'upper-case')
+        .regex(/[a-z]/, 'lower-case')
+        .regex(/[^\w]/, 'special character'),
 }];
 
 const icons = [
