@@ -52,8 +52,7 @@ const Header = () => {
                     justifyContent: 'space-between'
                 }}>
                     <Link href={route('landing.home')}>
-                        {/* <img src={sofieLogo} alt="description" /> */}
-                        <img style={{width:'75px'}} src={logo} alt="" />
+                        <img style={{height:'50px'}} src={logo} alt="" />
                         </Link>
                     <IconButton
                         aria-label="open drawer"
