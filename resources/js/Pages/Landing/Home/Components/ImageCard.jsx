@@ -22,7 +22,7 @@ export default function ImageCard({item}) {
             <CardMedia
                 component="img"
                 sx={{borderRadius : '8px', height : '345px'}}
-                image={item.link}
+                image={item.profile_photo}
                 alt="mentor_img"
             />
             <CardContent sx={{pl:0}}>
@@ -40,7 +40,7 @@ export default function ImageCard({item}) {
                             {item.experience} Years Experience
                     </Typography>
                 </Box>
-                
+
                 <Box className="flex" gap={1}>
                     <Group />
                     <Typography variant="caption" color="text.secondary">

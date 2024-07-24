@@ -23,7 +23,7 @@ export default function FeatureCard({ item, src }) {
                         height : 345,
                         objectFit : 'contain'
                     }}
-                    image={item.link}
+                    image={item.profile_photo}
                     alt="green iguana"
 
                 />
@@ -40,7 +40,6 @@ export default function FeatureCard({ item, src }) {
 
                     <Typography variant="body2" color="text.secondary"
                         style={{
-                            overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             display: '-webkit-box',
                             WebkitLineClamp: 3,
@@ -51,7 +50,7 @@ export default function FeatureCard({ item, src }) {
                     </Typography>
 
                     <Box className="flex gap-2 items-center mt-3">
-                        <img src={src} style={{borderRadius : '50%', height : "45px", width : '45px', objectFit : 'cover'}}/>
+                        <img src={item.founder_photo} style={{borderRadius : '50%', height : "45px", width : '45px', objectFit : 'cover'}}/>
                         <Box className="block">
                             <Typography sx={{ fontWeight: 'bold !important'}}>
                                 {item.user.name}
