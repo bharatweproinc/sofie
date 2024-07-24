@@ -161,7 +161,7 @@ function CompanyDetail({detail}) {
                                       <ProfilePhotoUpload
                                             setData={setData}
                                             data={data}
-                                            photoKey={"founder_image"}
+                                            photoKey={"founder_photo"}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Founder Photo</Typography>

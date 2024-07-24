@@ -67,7 +67,7 @@ function MentorList({list = []}) {
 
     const handleDelete = () => {
         console.log('userId', userId)
-        post(route('admin.deleteUser', userId),{
+        post(route('admin.deleteMentorUser', userId),{
         onSuccess:(success) => {
             notify.success('Mentor Data has been deleted successfully')
             console.log(success, "successs");

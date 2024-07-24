@@ -26,7 +26,7 @@ const Cards = () => {
                                 color="initial"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                10
+                                11
                             </Typography>
                             <Box className="flex text-xs items-center pt-2">
                                 <svg

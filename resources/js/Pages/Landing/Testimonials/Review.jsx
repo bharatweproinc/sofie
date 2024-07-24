@@ -25,7 +25,7 @@ function reviewTestimonial ({detail}) {
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Testimonial Photo</Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                src={detail.testimonial_image}
+                                src={detail.profile_photo}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

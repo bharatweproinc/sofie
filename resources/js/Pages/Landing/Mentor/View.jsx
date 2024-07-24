@@ -38,6 +38,7 @@ const DetailBox = styled('div')(() => ({
 
 
 function Mentor({detail}) {
+    console.log('view',detail);
     const { data, setData, post, processing} = useForm({...Constants.initMentorForm, ...detail.mentor, ...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
     const inputRefs = useRef(Constants.mentorInputRefs());
@@ -50,7 +51,6 @@ function Mentor({detail}) {
         desc:""
     });
 
-    console.log('detail454', data)    
     const handleClickOpen = (id,title) => {
         setOpen(true);
         setAddMoreId(id);
@@ -142,6 +142,7 @@ function Mentor({detail}) {
                                 <ProfilePhotoUpload
                                     setData={setData}
                                     data={data}
+                                    photoKey={'profile_photo'}
                                 />
                                 <Grid item="true" xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>

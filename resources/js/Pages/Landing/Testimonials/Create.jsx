@@ -13,7 +13,6 @@ const Create = ({user}) => {
     const { data, setData, post, processing} = useForm(Constants.initTestimonial)
     const [validationErrors, setValidationErrors] = useState({});
 
-    console.log('user2121', user)
     const handleChange = (key, value) => {
 
         setValidationErrors({
@@ -67,6 +66,7 @@ const Create = ({user}) => {
                                       <ProfilePhotoUpload
                                             setData={setData}
                                             data={data}
+                                            photoKey={'profile_photo'}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Testimonial Photo</Typography>

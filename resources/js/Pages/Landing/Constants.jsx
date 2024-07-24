@@ -47,7 +47,8 @@ const initCompanyDetailForm = {
     'hear_about_us' : [],
     'current_problem' : '',
     'additional_information' : '',
-    'profile_photo' : ''
+    'profile_photo' : '',
+    'founder_photo' : ''
 }
 
 

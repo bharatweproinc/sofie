@@ -31,6 +31,7 @@ class LandingController extends Controller
     public function home() {
         $companies = $this->companyRepository->getList();
         $mentors = $this->mentorRepository->getList();
+        $testimonials = $this->testimonialRepository->getList();
         $mission_contents = MissionStatementSection::where('id',1)->first();
         $community_contents = JoinOurCommunitySection::where('id',1)->first();
         $banner_contents = BannerSection::where('id',1)->first();
@@ -41,6 +42,7 @@ class LandingController extends Controller
                 "community" => $community_contents,
                 "companies" =>  $companies,
                 "mentors" => $mentors,
+                "testimonials" =>$testimonials
             ]]);
     }
 
@@ -60,30 +62,20 @@ class LandingController extends Controller
     }
 
     public function companyDetails($id) {
-        $images = [];
         $logged_user = Auth::user();
         $user = User::findOrFail($id);
         $company = Company::where('id', $user->functional_id)->first();
         if($company && $company->profile_photo != null){
-            $company->profileLink = url("storage/company_profile/{$company->profile_photo}");
+            $company->profile_photo = url("storage/company_profile/{$company->profile_photo}");
         }
         if($company && $company->founder_image != null){
-            $company->founderLink = url("storage/company_founder/{$company->founder_image}");
+            $company->founder_photo = url("storage/company_founder/{$company->founder_image}");
         }
-
-        if($company && $company->profile_photo != null && $company->founder_image != null){
-            $images = [
-                'profile_photo' =>  $company->profileLink,
-                'founder_image' => $company->founderLink
-            ];
-        }
-        //dd($images);
         return Inertia::render('Landing/CompanyDetails/View',[
             'detail' => [
                 'logged_user' => $logged_user,
                 'user' => $user,
                 'company' => $company,
-                'images' => $images
             ],
         ]);
     }
@@ -93,7 +85,7 @@ class LandingController extends Controller
         $logged_user = Auth::user();
         $testimonial = Testimonial::where('id', $id)->first();
         if($testimonial && $testimonial->image != null){
-            $testimonial->testimonial_image = url("storage/testimonial/{$testimonial->image}");
+            $testimonial->profile_photo = url("storage/testimonial/{$testimonial->image}");
         }
         //dd('detail()', $testimonial);
         return Inertia::render('Landing/Testimonials/Edit',[
@@ -117,7 +109,7 @@ class LandingController extends Controller
         $user = User::findOrFail($id);
         $mentor = Mentor::where('id', $user->functional_id)->first();
         if($mentor && $mentor->profile_photo != null){
-            $mentor->link = url("storage/mentor_profile/{$mentor->profile_photo}");
+            $mentor->profile_photo = url("storage/mentor_profile/{$mentor->profile_photo}");
         }
         return Inertia::render('Landing/Mentor/View',[
             'detail' => [

@@ -41,7 +41,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     //delete a user
     Route::post('/{id}/delete', [DashboardController::class, 'deleteUser'])->name('deleteUser');
-    Route::post('/{id}/company-delete', [CompanyController::class, 'deleteCompany'])->name('deleteCompany');
+    Route::post('/{id}/delete-mentor', [DashboardController::class, 'deleteMentorUser'])->name('deleteMentorUser');
+    Route::post('/{id}/delete-company', [DashboardController::class, 'deleteCompanyUser'])->name('deleteCompanyUser');
+
+    Route::post('/{id}/dashboard-company/delete', [CompanyController::class, 'deleteCompany'])->name('deleteDashCompany');
 
     //Create new testimonial..
     Route::get('/testimonials', [LandingController::class, 'testimonials'])->name('testimonials');

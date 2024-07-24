@@ -5,6 +5,9 @@ import '../style.scss'
 import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Community ({list}){
     const { data, setData, post, processing } = useForm({...Constants.initCommunityForm, ...list.community, ...list.user});
@@ -35,6 +38,7 @@ function Community ({list}){
     }
     return(
         <Landing auth={data}>
+            <ToastContainer style={{marginTop:"65px"}}/>
             <Typography sx={{height:'65px'}}></Typography>
             <Box p={4}>
                 <form onSubmit={handleSubmit}>

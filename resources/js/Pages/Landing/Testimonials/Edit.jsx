@@ -12,7 +12,6 @@ import { ToastContainer } from 'react-toastify';
 
 
 const Edit = ({detail}) => {
-    console.log('detail12121212121', detail)
     const { data, setData, post, processing} = useForm({...Constants.initTestimonial, ...detail.testimonial})
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -72,7 +71,7 @@ const Edit = ({detail}) => {
                                       <ProfilePhotoUpload
                                             setData={setData}
                                             data={data}
-                                            photoKey={"testimonial_image"}
+                                            photoKey={"profile_photo"}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Testimonial Photo</Typography>

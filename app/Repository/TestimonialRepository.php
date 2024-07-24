@@ -14,7 +14,7 @@ class TestimonialRepository implements TestimonialRepositoryInterface {
     public function getList(){
         $user = Auth::user();
         $testimonial = Testimonial::get()->each(function($t) {
-            $t->link = url("storage/testimonial/{$t->image}");
+            $t->profile_photo = url("storage/testimonial/{$t->image}");
         });
         return ["list" => [
             "user" => $user,
@@ -27,7 +27,7 @@ class TestimonialRepository implements TestimonialRepositoryInterface {
             $logged_user = Auth::user();
             $data = Testimonial::where('id', $id)->first();
             if($data && $data->image != null){
-                $data->testimonial_image = url("storage/testimonial/{$data->image}");
+                $data->profile_photo = url("storage/testimonial/{$data->image}");
             }
             $data->logged_user = $logged_user;
             //dd($data);

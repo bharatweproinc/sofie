@@ -6,6 +6,9 @@ import "../../style.scss"
 import { useForm } from "@inertiajs/react";
 import Constants from "../Constant";
 import MutiImages from "@/Components/MultiImages";
+import { notify } from "@/Components/Notifier";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Banner ({list}){
     const { data, setData, post, processing } = useForm({...Constants.initBannerForm, ...list.banner, ...list.user});
@@ -13,7 +16,7 @@ function Banner ({list}){
     useEffect(()=> {
         setData(data)
     }, [data]);
-    
+
     const handleChange = (key, value) => {
         setData((prev)=>({
             ...prev,
@@ -37,6 +40,7 @@ function Banner ({list}){
     }
     return(
         <Landing auth={data}>
+         <ToastContainer style={{marginTop:"65px"}}/>
             <Typography sx={{height:'65px'}}></Typography>
             <Box p={4}>
                 <form onSubmit={handleSubmit}>

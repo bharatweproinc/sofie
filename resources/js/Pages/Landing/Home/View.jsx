@@ -35,7 +35,7 @@ const founderImages = [
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar({list}) {
-
+console.log('home', list);
 	const [selectedRole, setSelectedRole] = React.useState('entrepreneur');
 
 	const themes = useTheme()

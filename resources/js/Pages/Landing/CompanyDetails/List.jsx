@@ -69,7 +69,7 @@ function CompanyList({list = []}) {
     }, [list.company])
 
     const handleDelete = () => {
-        post(route('admin.deleteUser', userId),{
+        post(route('admin.deleteCompanyUser', userId),{
             onSuccess:(success) => {
                 notify.success('Company Data has been deleted successfully')
                 console.log(success, "successs");

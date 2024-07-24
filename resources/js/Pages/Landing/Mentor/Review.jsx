@@ -151,7 +151,7 @@ function ReviewProfilePage ({detail}){
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Profile Photo</Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                src={detail.link}
+                                src={detail.profile_photo}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

@@ -178,7 +178,7 @@ const Reviewdata = ({detail}) => {
                             </Typography>
                             <Avatar
                                 alt="company_img"
-                                src={detail.link}
+                                src={detail.profile_photo}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>
@@ -194,7 +194,7 @@ const Reviewdata = ({detail}) => {
                             </Typography>
                             <Avatar
                                 alt="founder_img"
-                                src={detail.founderLink}
+                                src={detail.founder_photo}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

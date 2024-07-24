@@ -66,8 +66,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
             if($request->hasFile('profile_photo')){
                 $fileName =  $this->uploadFile($request->file('profile_photo'),'company_profile');
             }
-            if($request->hasFile('founder_image')){
-                $founderImage =  $this->uploadFile($request->file('founder_image'),'company_founder');
+            if($request->hasFile('founder_photo')){
+                $founderImage =  $this->uploadFile($request->file('founder_photo'),'company_founder');
             }
             //dd($fileName, $founderImage);
 
@@ -110,8 +110,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
         $logged_user = Auth::user();
         try {
             $data = Company::with('user')->where('id',$id)->first();
-            $data->link = url("storage/company_profile/{$data->profile_photo}");
-            $data->founderLink = url("storage/company_founder/{$data->founder_image}");
+            $data->profile_photo = url("storage/company_profile/{$data->profile_photo}");
+            $data->founder_photo = url("storage/company_founder/{$data->founder_image}");
             $data->logged_user = $logged_user;
             // dd($data);
             return [ 'detail' => $data ];

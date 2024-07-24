@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Repository\CompanyRepository;
+use App\Repository\MentorRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,17 +24,21 @@ class DashboardController extends Controller
      * load admin dashboard page.
      */
     private CompanyRepository $companyRepository;
+    private MentorRepository $mentorRepository;
 
-    public function __construct(CompanyRepository $companyRepository){
+    public function __construct(CompanyRepository $companyRepository, MentorRepository $mentorRepository ){
         $this->companyRepository = $companyRepository;
+        $this->mentorRepository = $mentorRepository;
     }
 
     public function index() {
         $user = Auth::user();
         $companies = $this->companyRepository->getList();
+        $mentors = $this->mentorRepository->getList();
         return Inertia::render('Landing/Dashboard/View', [
             "list" => [
                 'companies' => $companies,
+                'mentors' => $mentors,
                 'user' => $user
             ]
         ]);
@@ -227,44 +232,48 @@ class DashboardController extends Controller
     }
 
     public function saveSectionOne(Request $request){
-        $images = [];
+        $logged_user = Auth::user();
+        $images_links = [];
+        $banner = BannerSection::where('id',1)->first();
         $data = [
             'banner_title' =>$request->banner_title,
             'banner_description' => $request->banner_description
         ];
-        $banner = BannerSection::where('id',1)->update($data);
+        $banner->update($data);
         if($request->banner_images != null){
-            $images = $this->uploadFile($request->file('banner_images'),'all_banner_images');
-            $banner->banner_images = $images;
+            foreach($request->banner_images as $image){
+                if(is_file($image)){
+                    $file = $this->uploadFile($image,'all_banner_images');
+                    array_push($images_links, $file);
+                }else{
+                    array_push($images_links, $image);
+                }
+            }
+            $banner->banner_images = $images_links;
             $banner->save();
         }
-        $user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $user,
-                'success' => true,
-                'message' => 'Banner section saved'
+        return Inertia::render('Landing/Dashboard/Content/Banner',[
+            'list' => [
+                'banner' => $banner,
+                'user' => $logged_user
             ]
         ]);
     }
 
     public function saveSectionTwo(Request $request){
         try{
+            $mission = MissionStatementSection::where('id',1)->first();
+            $logged_user = Auth::user();
             $data = [
                 'mission_title' => $request->mission_title,
                 'mission_description' => $request->mission_description
             ];
-            $mission_stmt = MissionStatementSection::where('id',1)->update($data);
-            $user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $user,
-                'success' => true,
-                'message' => 'Mission section saved'
+
+            $mission->update($data);
+            return Inertia::render('Landing/Dashboard/Content/MissionStatement',[
+            'list' => [
+                'mission' => $mission,
+                'user' => $logged_user
             ]
         ]);
         }catch(\Exception $e){
@@ -274,6 +283,8 @@ class DashboardController extends Controller
     }
 
     public function saveSectionThree(Request $request){
+        $logged_user = Auth::user();
+        $community = JoinOurCommunitySection::where('id',1)->first();
         $data = [
             'community_title' => $request->community_title,
             'community_description' => $request->community_description,
@@ -282,29 +293,20 @@ class DashboardController extends Controller
             'become_partner_title' => $request->become_partner_title,
             'become_partner_description' => $request->become_partner_description
         ];
-        $community = JoinOurCommunitySection::where('id',1)->update($data);
-        $user = Auth::user();
-        $companies = $this->companyRepository->getList();
-        return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $user,
-                'success' => true,
-                'message' => 'Community section saved'
+        $community->update($data);
+        return Inertia::render('Landing/Dashboard/Content/Community',[
+            'list' => [
+                'community' => $community,
+                'user' => $logged_user
             ]
         ]);
     }
 
-    public function uploadFile($files, $folderName) {
-        $images = [];
-        foreach($files as $file){
-            $fileName = uniqid() . '_' . time() . '_' . $file->getClientOriginalName();
-            $fileType = $file->getClientOriginalExtension();
-            $file->storeAs("public/{$folderName}", $fileName);
-            $link = url("storage/all_banner_images/{$fileName}");
-            array_push($images, $link);
-        }
-        return $images;
+    public function uploadFile($file, $folderName) {
+        $fileName = uniqid() . '_' . time() . '_' . $file->getClientOriginalName();
+        $fileType = $file->getClientOriginalExtension();
+        $file->storeAs("public/{$folderName}", $fileName);
+        return url("storage/all_banner_images/{$fileName}");
     }
 
     public function deleteUser($id){
@@ -325,5 +327,22 @@ class DashboardController extends Controller
         }
     }
 
+    public function deleteMentorUser($id){
+        $user = User::where('user_role','mentor')->where('functional_id', $id)->first();
+        if($user){
+            $mentor = Mentor::where('id', $user->functional_id)->first();
+            $mentor->delete();
+            $user->delete();
+      }
+}
+
+    public function deleteCompanyUser($id){
+        $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
+        if($user){
+            $company = Company::where('id', $user->functional_id)->first();
+            $company->delete();
+            $user->delete();
+    }
+    }
 }
 
