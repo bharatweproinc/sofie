@@ -47,7 +47,6 @@ function Testimonials ({list}){
             },
         })
     }
-
     return (
         <Landing auth={list.user}>
           <ToastContainer style={{marginTop:"65px"}}/>
@@ -118,14 +117,15 @@ function Testimonials ({list}){
                                                                         {item.id === 1 ? (
                                                                             <a
                                                                                 target="_blank"
-                                                                                href={route('admin.testimonial.detail',row.id)}
+
+                                                                                href={route('admin.testimonial.get',row.id)}
                                                                             >
                                                                                 {item.icon}
                                                                             </a>
                                                                         ) : item.id === 2 ? (
                                                                             <a
                                                                                 target="_blank"
-                                                                                href={route('admin.testimonial.get',row.id)}
+                                                                                href={route('admin.testimonial.detail',row.id)}
                                                                             >
                                                                                 {item.icon}
                                                                             </a>

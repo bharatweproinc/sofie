@@ -93,7 +93,7 @@ class LandingController extends Controller
         $logged_user = Auth::user();
         $testimonial = Testimonial::where('id', $id)->first();
         if($testimonial && $testimonial->image != null){
-            $testimonial->link = url("storage/testimonial/{$testimonial->image}");
+            $testimonial->testimonial_image = url("storage/testimonial/{$testimonial->image}");
         }
         //dd('detail()', $testimonial);
         return Inertia::render('Landing/Testimonials/Edit',[

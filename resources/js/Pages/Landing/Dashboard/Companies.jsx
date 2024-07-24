@@ -68,16 +68,22 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
        setSortConfig({ key, direction });
      };
 
+     React.useEffect(()=> {
+        setCompanyList(list.companies.list.company);
+    }, [list.companies.list.company])
+
      const handleDelete = () => {
         console.log('userId', userId)
         post(route('admin.deleteCompany', userId),{
             onSuccess:(success) => {
                 notify.success('Company Data has been deleted successfully')
                 console.log(success, "successs");
+                setOpen(false);
             },
             onError:(error) => {
                 notify.error("Error in Company Delete");
                 console.log(error,"error");
+                setOpen(false);
             },
         })
     }

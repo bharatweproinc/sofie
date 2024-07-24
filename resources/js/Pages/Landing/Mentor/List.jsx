@@ -61,16 +61,22 @@ function MentorList({list = []}) {
         setSortConfig({ key, direction });
     };
 
+    React.useEffect(()=> {
+        setMentorList(list.mentor);
+    }, [list.mentor])
+
     const handleDelete = () => {
         console.log('userId', userId)
         post(route('admin.deleteUser', userId),{
         onSuccess:(success) => {
             notify.success('Mentor Data has been deleted successfully')
             console.log(success, "successs");
+            setOpen(false);
         },
         onError:(error) => {
             notify.error("Error in Mentor Delete");
             console.log(error,"error");
+            setOpen(false);
         },
     })
     }

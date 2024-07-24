@@ -52,6 +52,5 @@ class TestimonialController extends Controller
         $testimonial = Testimonial::where('id',$id)->first();
         $testimonial->delete();
         return Redirect::route("admin.testimonial.list",[]);
-
     }
 }

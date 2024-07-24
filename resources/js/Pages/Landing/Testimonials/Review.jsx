@@ -6,6 +6,7 @@ import "../style.scss";
 import { Link } from "@inertiajs/react";
 
 function reviewTestimonial ({detail}) {
+    console.log('dee',detail);
     return(
        <Landing auth={detail.logged_user}>
             <Typography sx={{ height: '65px' }}></Typography>
@@ -24,7 +25,7 @@ function reviewTestimonial ({detail}) {
                             <Typography mb={2} fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Testimonial Photo</Typography>
                             <Avatar
                                 alt="Remy Sharp"
-                                src={detail.link}
+                                src={detail.testimonial_image}
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>

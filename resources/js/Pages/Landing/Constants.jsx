@@ -160,7 +160,6 @@ const contactSchema = [{
 }];
 
 const initResetPasswordField = {
-    'previous_password' : '',
     "new_password" : '',
     'confirm_new_password' : ''
 }
@@ -177,7 +176,6 @@ const testmionialSchema = [{
 }]
 
 const resetPasswordSchema = [{
-    previous_password : Joi.string().min(8).label("Previous Password").required(),
     new_password : Joi.string().min(8).label("New Password").required(),
     confirm_new_password : Joi.string().min(8).label("New Password Cofirm").required(),
 }];

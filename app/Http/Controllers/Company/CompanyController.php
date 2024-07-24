@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\CompanyRepository;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -46,4 +47,15 @@ class CompanyController extends Controller
         }
         return Redirect::route("admin.dashboard",[]);
     }
+
+    public function resetPassword(Request $request, $id){
+        $company_user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+        if($company_user){
+         $company_user->password = Hash::make($request->password);
+         $company_user->save();
+        }
+        return Redirect::route("company.detail",[
+         'id' => $id
+     ]);
+     }
 }

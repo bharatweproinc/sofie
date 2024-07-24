@@ -72,6 +72,7 @@ const Edit = ({detail}) => {
                                       <ProfilePhotoUpload
                                             setData={setData}
                                             data={data}
+                                            photoKey={"testimonial_image"}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Testimonial Photo</Typography>

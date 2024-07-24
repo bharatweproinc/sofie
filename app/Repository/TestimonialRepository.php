@@ -27,9 +27,10 @@ class TestimonialRepository implements TestimonialRepositoryInterface {
             $logged_user = Auth::user();
             $data = Testimonial::where('id', $id)->first();
             if($data && $data->image != null){
-                $data->link = url("storage/testimonial/{$data->image}");
+                $data->testimonial_image = url("storage/testimonial/{$data->image}");
             }
             $data->logged_user = $logged_user;
+            //dd($data);
             return [ 'detail' => $data ];
         }catch (\Exception $e) {
             return [

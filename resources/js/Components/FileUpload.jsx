@@ -20,7 +20,7 @@ const ProfilePhotoUpload = ({setData, data, photoKey}) => {
                 <label htmlFor={`${photoKey}-upload`}>
                     <Avatar
                         alt="Avatar"
-                        src={img ? URL.createObjectURL(img) : data[photoKey]?.link}
+                        src={img ? URL.createObjectURL(img) : data[photoKey]}
                         sx={{ width: 162, height: 162 , cursor:'pointer'}}
                     />
                 </label>

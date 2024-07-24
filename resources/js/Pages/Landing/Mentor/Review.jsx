@@ -76,6 +76,7 @@ function ReviewProfilePage ({detail}){
             return;
         } else {
             console.log('dtaa', data)
+
         //     post(route(''),{
         //     onSuccess:(success) => {
         //         console.log(success, "sucesss");
@@ -91,7 +92,7 @@ function ReviewProfilePage ({detail}){
     const handleDelete = () => {
         console.log("userId", detail.id)
     }
-    
+
     const handleReject = () => {
         console.log("rejected");
     }
@@ -106,6 +107,11 @@ function ReviewProfilePage ({detail}){
 
     const handleUpdateStatus = () => {
         console.log('userStatus', userStatus)
+    }
+    // console.log(detail.id);
+    const handleUpdatePassword =() => {
+        console.log('data');
+        // post(route('mentor.resetPassword', detail.id));
     }
     return (
         <Landing auth={detail?.logged_user}>
@@ -187,20 +193,20 @@ function ReviewProfilePage ({detail}){
                         </Grid>
                     </Grid>
                     {
-                      detail.logged_user.user_role === "admin" && 
-                      <Box className="status_box  mt-3"> 
+                      detail.logged_user.user_role === "admin" &&
+                      <Box className="status_box mt-3">
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Status</Typography>
-                            <FormControlLabel control={ <Switch  
-                                checked={userStatus === 1 ? true : false} />} 
-                                label={userStatus === 1 ? "Active" : "Inactive"} 
-                                onChange={(e) => handleChangeStatus("status", e.target.checked)}    
+                            <FormControlLabel control={ <Switch
+                                checked={userStatus === 1 ? true : false} />}
+                                label={userStatus === 1 ? "Active" : "Inactive"}
+                                onChange={(e) => handleChangeStatus("status", e.target.checked)}
                             />
                             <Box className="custom_btn inline">
                                 <Button onClick={() => handleUpdateStatus()} variant="contained">Save</Button>
                             </Box>
-                      </Box>  
+                      </Box>
                     }
-                    { detail.logged_user.user_role === "mentor" && 
+                    { detail.logged_user.user_role === "mentor" &&
                         <Box className="reset_password_container">
                             <Box className="custom_btn">
                                 <Button onClick={() => handleShow()} variant="contained" sx={{padding : "4px 20px !important", my : 2}}>Reset Password</Button>
@@ -208,7 +214,7 @@ function ReviewProfilePage ({detail}){
                                 { show === true &&
                                 <form method={"post"} onSubmit={handleSubmit}>
                                 <Grid container spacing={4} className="input_fields">
-                                    <Grid item px={2} xs={12} md={3}>
+                                    {/* <Grid item px={2} xs={12} md={3}>
                                         <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Previous Password</Typography>
                                         <TextField
                                             size='small'
@@ -222,7 +228,7 @@ function ReviewProfilePage ({detail}){
                                             error={!!validationErrors.previous_password?.[0]}
                                             helperText={validationErrors.previous_password?.[0]}
                                         />
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item px={2} xs={12} md={3}>
                                         <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>New Password</Typography>
                                         <TextField
