@@ -1,0 +1,1 @@
+const t={banner_title:"",banner_description:"",banner_images:[]},n={mission_title:"",mission_description:""},e={community_title:"",community_description:"",become_mentor_title:"",become_mentor_description:"",become_partner_title:"",become_partner_description:""},i={initBannerForm:t,initCommunityForm:e,initMissionStatementForm:n};export{i as default};
