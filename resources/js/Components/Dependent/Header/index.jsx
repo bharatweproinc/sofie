@@ -2,7 +2,7 @@ import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButto
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@/Components/Singleton/Button';
-import logo from '../../../../../public/favicon.jpeg'
+import logo from '../../../../../public/favicon.png'
 import { Link } from '@inertiajs/react';
 
 const navItems = [

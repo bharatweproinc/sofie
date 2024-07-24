@@ -88,16 +88,15 @@ function Signup() {
             validationErrors.confirm_password = data.confirm_password !== data.password  ? 'Passwords does not match' : '';
           return;
       } else {
-        console.log("data2112121", data)
-      //   post(route('register'),{
-      //     onSuccess:(success) => {
-      //        console.log(success, "sucesss");
-      //     },
-      //     onError:(error) => {
-      //       console.log(error.email,"::error");
-      //       notify.error(error.email, { position: 'top-right' });
-      //     },
-      // })
+        post(route('register'),{
+          onSuccess:(success) => {
+             console.log(success, "sucesss");
+          },
+          onError:(error) => {
+            console.log(error.email,"::error");
+            notify.error(error.email, { position: 'top-right' });
+          },
+      })
     }}
 
   return (

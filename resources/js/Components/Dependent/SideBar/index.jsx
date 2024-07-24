@@ -20,7 +20,7 @@ import {
     Button,
     Box,
 } from "@mui/material";
-import logo from "../../../../../public/favicon.jpeg"
+import logo from "../../../../../public/favicon.png"
 import Constants from "./Constants";
 import { Link, router } from "@inertiajs/react";
 import MenuIcon from "@mui/icons-material/Menu";

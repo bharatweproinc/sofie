@@ -107,8 +107,7 @@ const signupSchema = [{
     .min(8)
     .regex(/[A-Z]/, 'upper-case')
     .regex(/[a-z]/, 'lower-case')
-    .regex(/[^\w]/, 'special character')
-    .regex(/[0-9]/, "number"),
+    .regex(/[^\w]/, 'special character'),
     confirm_password: Joi.string().min(8).label("Confirm Password").required(),
     enterpreneur_or_mentor : Joi.required()
 }];
