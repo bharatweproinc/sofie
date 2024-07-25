@@ -63,6 +63,7 @@ function ForgetPassword({open, setOpen, routeLink}) {
 
     return (
         <React.Fragment>
+            <ToastContainer style={{marginTop:"65px"}}/>
             <Dialog
                 open={open}
                 onClose={handleClose}

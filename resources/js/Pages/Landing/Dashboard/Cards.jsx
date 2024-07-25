@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import { Grid, Typography } from "@mui/material";
 
 const Cards = ({list}) => {
-    console.log('list121212', list)
     return (
         <>
             <Grid
@@ -27,7 +26,7 @@ const Cards = ({list}) => {
                                 color="initial"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                {list.companies.list.company.length}
+                                {list && list.companies.list.company.length}
                             </Typography>
                             <Box className="flex text-xs items-center pt-2">
                                 <svg
@@ -98,7 +97,7 @@ const Cards = ({list}) => {
                                 color="initial"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                50
+                                {list && list.mentors.list.mentor.length}
                             </Typography>
                             <Box className="flex text-xs items-center pt-2">
                                 <svg

@@ -12,10 +12,11 @@ import  { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../style.scss";
+import MatchedSME from "./MatchedSME";
 
 function ReviewProfilePage ({detail}){
 
-    const { data, setData, post, processing} = useForm(Constants.initResetPasswordField)
+    const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
 
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
@@ -302,6 +303,7 @@ function ReviewProfilePage ({detail}){
                         </Box>
                     }
                 </Box>
+                <MatchedSME />
             </Box>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
             <ConfirmBox open={openReject} setOpen={setOpenReject} handleSubmit={handleReject} message={`Do you really want to reject ${detail.user.name}`} />

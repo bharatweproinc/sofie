@@ -1,7 +1,7 @@
-import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@/Components/Singleton/Button';
+// import Button from '@/Components/Singleton/Button';
 import logo from '../../../../../public/favicon.png'
 import { Link } from '@inertiajs/react';
 
@@ -64,14 +64,20 @@ const Header = () => {
                     </IconButton>
                     <Box className="flex gap-4" gap={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item, key) => (
-                            <Button sx={{ color:'#ffff'}}
+                            <Button
                                 key={key}
-                                variant={key === 3 ? 'contained' : 'text'}
-                                color={key !== 3 ? 'textBlack' : 'primary'}
                                 component={Link}
                                 href={route(`landing.${item.link}`)}
-                            >
-                              {item.name}
+                                variant={key === 3 ? 'contained' : 'text'}
+                                sx={{ 
+                                    backgroundColor : key === 3 ? '#FAF6D2' : '', 
+                                    color : key === 3 ? 'black' : 'white', 
+                                    textTransform : 'capitalize',
+                                    borderRadius : 0,
+                                    '&:hover': { bgcolor : key === 3 ? '#FAF6D2' : '' }
+                                }}
+                            > 
+                                {item.name}
                             </Button>
                         ))}
                     </Box>

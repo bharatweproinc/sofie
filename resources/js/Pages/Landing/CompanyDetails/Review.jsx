@@ -19,11 +19,12 @@ import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 import ConfirmBox from "@/Components/Dependent/ConfirmBox/index";
 import Constants from "../Constants";
 import Joi from '@/utility/JoiValidator';
+import MatchedMentors from "./MatchedMentors";
 
 const Reviewdata = ({detail}) => {
 
     const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
-
+    
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
@@ -512,6 +513,7 @@ const Reviewdata = ({detail}) => {
                     </Box>
                     }
                 </Box>
+                <MatchedMentors/>
             </Box>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
             <ConfirmBox open={openReject} setOpen={setOpenReject} handleSubmit={handleReject} message={`Do you really want to reject ${detail.company_name}`} />

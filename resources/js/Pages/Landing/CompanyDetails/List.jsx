@@ -50,6 +50,7 @@ function CompanyList({list = []}) {
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = sortedRows.slice(indexOfFirstRow, indexOfLastRow);
+    
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };

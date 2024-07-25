@@ -199,15 +199,15 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                                     <span key={index}>
                                                     {item.id === 1 ? (
                                                             <a
-                                                                 target='_blank'
-                                                                href={route('admin.company.companydetail', row.user.id)}
+                                                                target='_blank'
+                                                                href={route('admin.company.get', row.id)}
                                                             >
                                                                 {item.icon}
                                                             </a>
                                                             ) : item.id === 2 ? (
                                                             <a
                                                                 target='_blank'
-                                                                href={route('admin.company.get', row.id)}
+                                                                href={route('admin.company.companydetail', row.user.id)}
                                                             >
                                                                 {item.icon}
                                                             </a>

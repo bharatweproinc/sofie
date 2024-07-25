@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Grid, Tooltip, Typography } from "@mui/material";
 import facebook from "../../../Assets/Images/icon-facebook@2x.png"
-import twitter from "../../../Assets/Images/icon-twitter@2x.png"
-import linkedin from "../../../Assets/Images/icon-linkedin@2x.png"
+import instagram from "../../../Assets/Images/instagram.png"
 
 import { Link } from "@inertiajs/react";
 
@@ -120,9 +119,12 @@ export const Footer = () => {
                         Connect
                     </Typography>
                     <Box className="flex gap-2 justify-center sm:justify-start align-baseline" mt={1}>
-                        <img style={{height: '30px', width:'30px'}} src={facebook}></img>
-                        <img style={{height: '30px', width:'30px'}} src={twitter}></img>
-                        <img style={{height: '30px', width:'30px'}} src={linkedin}></img>
+                        <a target="_blank" href="https://www.facebook.com/people/upcie-Singapore/61562568227695/">
+                            <img style={{height: '30px', width:'30px'}} src={facebook}></img>
+                        </a>
+                        <a target="_blank" href="https://www.instagram.com/upcie_sg/">
+                            <img style={{height: '30px', width:'30px'}} src={instagram}></img>
+                        </a>
                     </Box>
                     </box>
                 </Grid>
