@@ -1,0 +1,16 @@
+.forget_password_popup{
+    .MuiDialog-container {
+        .MuiPaper-root{
+            align-items: center !important;
+            padding: 12px 32px !important;
+        }
+    }
+    .input_fields{
+        .MuiInputBase-input{
+            padding: 16.5px 14px !important;
+        }
+        .MuiInputBase-input:focus{
+            box-shadow: none !important;
+        }
+    }
+}

@@ -35,6 +35,8 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
         setViewSection("");
     };
 
+    console.log('companyList', companyList)
+
     const sortedRows = [...companyList].sort((a, b) => {
        if (sortConfig.key !== null) {
          const key = sortConfig.key;
@@ -58,7 +60,6 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
-
 
     const handleSort = (key) => {
        let direction = 'asc';
@@ -131,7 +132,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                     <TableCell align="left">
                                         <Box className="flex gap-3">
                                             <Typography fontSize='14px' color='#212121' fontWeight='600'>UEN Number</Typography>
-                                            <div className='grid' onClick={() => handleSort('uen_number')} style={{ cursor:"pointer" }}>
+                                            <div className='grid' onClick={() => handleSort('company_uen')} style={{ cursor:"pointer" }}>
                                                 <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.20759 1.02937C5.6079 0.509358 6.3921 0.509358 6.79241 1.02937L11.6888 7.39001C12.195 8.04757 11.7263 9 10.8964 9H1.10358C0.273737 9 -0.195026 8.04757 0.311171 7.39001L5.20759 1.02937Z" fill="#E4E5E7" />
                                                 </svg>

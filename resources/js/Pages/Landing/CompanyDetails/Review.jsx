@@ -7,6 +7,7 @@ import {
     Grid,
     Switch,
     TextField,
+    Tooltip,
     Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -14,7 +15,6 @@ import moment from "moment";
 import { Link, router, useForm } from "@inertiajs/react";
 import "./style.scss";
 import "../style.scss";
-import Tooltip from '@mui/material/Tooltip';
 import DeleteAlert from "@/Components/Dependent/DeleteAlert/index";
 import ConfirmBox from "@/Components/Dependent/ConfirmBox/index";
 import Constants from "../Constants";
@@ -185,18 +185,24 @@ const Reviewdata = ({detail}) => {
                                 </Button>
                                 </>
                             }
-                            <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
-                                <Button
-                                    disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true }
-                                    component={Link}
-                                    href={route('landing.companydetail', detail.user.id)}
-                                    type="submit"
-                                    variant="contained"
-                                    >
-                                    Edit
-                                </Button>
-                            </Tooltip>
 
+                            <Tooltip
+                                placement="top"
+                                title="Edit will be enabled after 7 days"
+                                disableHoverListener={ detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}
+                            >
+                                <span>
+                                    <Button
+                                        disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true }
+                                        component={Link}
+                                        href={route('landing.companydetail', detail.user.id)}
+                                        type="submit"
+                                        variant="contained"
+                                        >
+                                        Edit
+                                    </Button>
+                                </span>
+                            </Tooltip>
                         </Box>
                         <Box className="custom_delete_btn ml-2">
                             <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">

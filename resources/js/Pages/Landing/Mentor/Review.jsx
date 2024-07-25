@@ -163,7 +163,7 @@ function ReviewProfilePage ({detail}){
                     <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
                         <Box display={'flex'} alignItems={'center'}>
                             <Box className='custom_btn custom_delete_btn'>
-                                {   detail.logged_user.user_role === "admin" && data.is_accepted === null &&
+                                { detail && detail.logged_user &&  detail.logged_user.user_role === "admin" && data.is_accepted === null &&
                                     <>
                                     <Button onClick={()=>setOpenReject(true)} sx={{mr : 1}} className="delete_account" variant="contained">
                                         Reject
@@ -173,10 +173,16 @@ function ReviewProfilePage ({detail}){
                                     </Button>
                                     </>
                                 }
-                                <Tooltip placement="top" title="Edit will be enable after 7 days" disableInteractive disableHoverListener={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? true : false} >
-                                    <Button disabled={detail?.logged_user.user_role == "admin" || currentDate.isAfter(enableDate) ? false : true } component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">
-                                        Edit
-                                    </Button>
+                                <Tooltip 
+                                    placement="top"
+                                    title="Edit will be enable after 7 days"
+                                    disableHoverListener={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}
+                                 >
+                                    <span>
+                                        <Button disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true} component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">
+                                            Edit
+                                        </Button>
+                                    </span>
                                 </Tooltip>
                             </Box>
                             <Box className="custom_delete_btn ml-2">
