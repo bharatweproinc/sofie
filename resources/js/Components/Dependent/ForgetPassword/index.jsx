@@ -16,6 +16,7 @@ import Constants from './constant';
 import { useForm } from '@inertiajs/react';
 
 function ForgetPassword({open, setOpen, routeLink}) {
+    console.log(routeLink,'route');
 
     const { data, setData, post, processing } = useForm(Constants.initEmail);
     const [validationErrors, setValidationErrors] = React.useState({});
@@ -46,13 +47,16 @@ function ForgetPassword({open, setOpen, routeLink}) {
             return;
         }
         console.log("data", data);
-        post(route({routeLink}),{
+        post(route(`${routeLink}`),{
             onSuccess:(success) => {
                 console.log(success, "sucesss");
+                notify.success('Email sent successfully');
+                setOpen(false);
             },
             onError:(error) => {
-              console.log(error,"error");
-              notify.error(error.email, { position: 'top-right' });
+              console.log(error.message,"error");
+              notify.error(error.message);
+              setOpen(false);
             },
           });
     }

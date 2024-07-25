@@ -31,7 +31,7 @@ function Login() {
   const { data, setData, post, processing } = useForm(Constants.initLoginForm);
   const [validationErrors, setValidationErrors] = useState({});
   const [open, setOpen ] = useState(false);
- 
+
   const handleChange = (key, value) => {
 
       setValidationErrors({
@@ -121,7 +121,7 @@ function Login() {
               </div>
           </div>
         </BackgroundImageContainer>
-        <ForgetPassword open={open} setOpen={setOpen} routeLink={""}/>
+        <ForgetPassword open={open} setOpen={setOpen} routeLink={('landing.forgetPassword')}/>
     </Landing>
   );
 }

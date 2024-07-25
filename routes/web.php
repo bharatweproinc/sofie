@@ -125,6 +125,8 @@ Route::name('landing.')->group(function() {
     Route::get('/notification', [LandingController::class,'notification'])->name('notification');
     Route::get('/find-mentors', [LandingController::class,'findMentors'])->name('findmentors');
     Route::get('/find-companies', [LandingController::class,'findCompanies'])->name('findcompanies');
+    Route::post('/forget-password', [LandingController::class,'forgetPassword'])->name('forgetPassword');
+
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {

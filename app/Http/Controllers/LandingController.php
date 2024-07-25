@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Mail\ForgetPasswordEmail;
 use App\Models\BannerSection;
 use App\Models\Company;
+use App\Models\EmailController;
 use App\Models\JoinOurCommunitySection;
 use App\Models\Mentor;
 use App\Models\MissionStatementSection;
@@ -14,6 +16,8 @@ use App\Models\Testimonial;
 use App\Repository\{MentorRepository, CompanyRepository, TestimonialRepository};
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -246,7 +250,45 @@ class LandingController extends Controller
             'user' => $user
         ]);
     }
-    // public function content(){
-    //     return Inertia::render('Landing/Dashboard/Content/Banner');
-    // }
+
+    public function forgetPassword(Request $request){
+        try{
+            //dd($request->all());
+            $registered_email = $request->email;
+            $existing_user = User::where('email', $registered_email)->first();
+            if($existing_user){
+                $new_password = $this->passwordGenerator();
+                $existing_user->password = Hash::make($new_password);
+                $existing_user->save();
+                Mail::to($registered_email)->send(new ForgetPasswordEmail($new_password));
+            }else{
+                return Redirect::back()->withErrors(['message' => 'Email not registered with Upcie']);
+            }
+        }catch(\Exception $e){
+            dd($e);
+            return $e->getMessage();
+        }
+
+    }
+
+    public function passwordGenerator(){
+        $len = 8;
+        $sets = array();
+        $sets[] = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+        $sets[] = 'abcdefghjkmnpqrstuvwxyz';
+        $sets[] = '123456789';
+        $sets[]  = '!@#$%&*/?';
+
+        $new_password = '';
+        foreach ($sets as $set) {
+            $new_password .= $set[array_rand(str_split($set))];
+        }
+
+        while(strlen($new_password) < $len) {
+            $randomSet = $sets[array_rand($sets)];
+            $new_password .= $randomSet[array_rand(str_split($randomSet))];
+        }
+
+        return str_shuffle($new_password);
+    }
 }
