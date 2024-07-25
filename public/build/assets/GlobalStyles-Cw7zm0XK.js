@@ -1,0 +1,1 @@
+import{I as l,_ as n,H as m,E as u}from"./Typography-DQvRHjr3.js";import{j as s}from"./app-D8U5PHYV.js";import{a as f}from"./Box-q44rX2z1.js";function p({styles:e,themeId:o,defaultTheme:a={}}){const t=f(a),r=typeof e=="function"?e(o&&t[o]||t):e;return s.jsx(l,{styles:r})}function b(e){return s.jsx(p,n({},e,{defaultTheme:m,themeId:u}))}export{b as G};

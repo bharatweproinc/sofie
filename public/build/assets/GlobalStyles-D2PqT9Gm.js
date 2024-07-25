@@ -1,1 +1,0 @@
-import{G as n,J as r,_ as u,H as m,D as f}from"./Typography-CrtmTfc4.js";import{j as o}from"./app-Cs_eN147.js";function p({styles:e,themeId:s,defaultTheme:a={}}){const t=n(a),l=typeof e=="function"?e(s&&t[s]||t):e;return o.jsx(r,{styles:l})}function c(e){return o.jsx(p,u({},e,{defaultTheme:m,themeId:f}))}export{c as G};
