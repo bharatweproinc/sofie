@@ -170,20 +170,32 @@ class LandingController extends Controller
     public function userLogin(){
         //Auth::logout();
         if(Auth::user()){
+            $user = Auth::user();
             $role = Auth::user()->user_role;
-            if($role == "mentor"){
-                return Redirect::route('landing.mentordetail',[
-                    'id' => Auth::id()
-                ]);
-
-            }else if($role == "entrepreneur"){
-                return Redirect::route('landing.companydetail',[
-                    'id' => Auth::id()
-                ]);
-            }
-            else if($role == "admin"){
+            if($role == "entrepreneur"){
+                if($user->functional_id == null){
+                    return Redirect::route('landing.companydetail',[
+                        'id' => $user->id
+                    ]);
+                }else{
+                    return Redirect::route('company.detail',[
+                        'id' => $user->functional_id
+                    ]);
+                }
+            }else if($role == "mentor"){
+                if($user->functional_id == null){
+                    return Redirect::route('landing.mentordetail',[
+                        'id' => $user->id
+                    ]);
+                }else{
+                    return Redirect::route('mentor.detail',[
+                        'id' => $user->functional_id
+                    ]);
+                }
+            }else if($role == "admin"){
                 return Redirect::route('admin.dashboard',[]);
             }
+
         }else{
             return Inertia::render('Landing/Login/View', []);
         }
@@ -195,51 +207,28 @@ class LandingController extends Controller
             $request->authenticate();
             $request->session()->regenerate();
             $user = Auth::user();
-            $user_id = Auth::id();
+            $role = $user->user_role;
+        }else{
+            $role = $user->user_role;
         }
-
-        $user_id = $user->id;
-        $role = $user->user_role;
-
-        if($role == "mentor"){
-            $user = User::findOrFail($user_id);
-            if($user->functional_id == null){
-                return Redirect::route('landing.mentordetail',[
-                    'id' => $user->id
-                ]);
-            }else{
-                $logged_user = Auth::user();
-                $mentor = Mentor::with('user')->where('id', $user->functional_id)->first();
-                if($mentor && $mentor->profile_photo != null){
-                    $mentor->profile_photo = url("storage/company_profile/{$mentor->profile_photo}");
-                }
-                if($mentor && $mentor->founder_image != null){
-                    $mentor->founder_photo = url("storage/company_founder/{$mentor->founder_image}");
-                }
-                $mentor->logged_user = $logged_user;
-                return Inertia::render('Landing/Mentor/Review',[
-                    'detail' => $mentor
-                ]);
-            }
-
-        }else if($role == "entrepreneur"){
-            $user = User::findOrFail($user_id);
+        if($role == "entrepreneur"){
             if($user->functional_id == null){
                 return Redirect::route('landing.companydetail',[
                     'id' => $user->id
                 ]);
             }else{
-                $logged_user = Auth::user();
-                $company = Company::with('user')->where('id', $user->functional_id)->first();
-                if($company && $company->profile_photo != null){
-                    $company->profile_photo = url("storage/company_profile/{$company->profile_photo}");
-                }
-                if($company && $company->founder_image != null){
-                    $company->founder_photo = url("storage/company_founder/{$company->founder_image}");
-                }
-                $company->logged_user = $logged_user;
-                return Inertia::render('Landing/CompanyDetails/Review',[
-                    'detail' => $company
+                return Redirect::route('company.detail',[
+                    'id' => $user->functional_id
+                ]);
+            }
+        }else if($role == "mentor"){
+            if($user->functional_id == null){
+                return Redirect::route('landing.mentordetail',[
+                    'id' => $user->id
+                ]);
+            }else{
+                return Redirect::route('mentor.detail',[
+                    'id' => $user->functional_id
                 ]);
             }
         }
