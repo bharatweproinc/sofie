@@ -23,8 +23,9 @@ import MatchedMentors from "./MatchedMentors";
 
 const Reviewdata = ({detail}) => {
 
+    console.log('review',detail);
     const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
-    
+
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
     let enableDate = initialDate.clone().add(7, 'days');
     let currentDate = moment();
@@ -65,7 +66,6 @@ const Reviewdata = ({detail}) => {
 
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
         let err = Joi.validateToPlainErrors(data, Constants.resetPasswordSchema)
         setValidationErrors(err);
@@ -110,10 +110,10 @@ const Reviewdata = ({detail}) => {
         })
     }
 
-    
+
     const handleConfirm = (e) => {
         e.preventDefault();
-        post(route("admin.acceptedCompanyProfile", detail.id), { 
+        post(route("admin.acceptedCompanyProfile", detail.id), {
             onSuccess:(success) => {
                 console.log(success, "sucesss");
                 notify.error("User has been Live successfully");
@@ -125,10 +125,10 @@ const Reviewdata = ({detail}) => {
         })
         setOpenConfirm(false);
     }
-    
-    const handleReject = () => {
+
+    const handleReject = (e) => {
         e.preventDefault();
-        post(route("admin.rejectedCompanyProfile", detail.id), { 
+        post(route("admin.rejectedCompanyProfile", detail.id), {
             onSuccess:(success) => {
                 console.log(success, "sucesss");
                 notify.error("User has been rejected successfully");

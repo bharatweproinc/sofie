@@ -20,6 +20,6 @@ class Role
         if ($role == $request->user()->user_role) {
             return $next($request);
         }
-        return new Response('You are Unauthorized. Can not visit the Admin Dashboard.', 403);
+        return new Response('You are Unauthorized to perform this action.', 403);
     }
 }

@@ -44,8 +44,6 @@ class MentorController extends Controller
     public function saveDetail(Request $request, $id) {
 
         $response = $this->mentorRepository->saveData($request, $id);
-        //dd($response['data']->id);
-        //dd("mentor save success", $response);
         return Redirect::route("mentor.detail",[
             'id' => $response['data']->id
         ]);

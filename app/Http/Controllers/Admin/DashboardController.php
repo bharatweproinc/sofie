@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RejectedProfileMail;
 use App\Models\BannerSection;
 use App\Models\Company;
 use App\Models\JoinOurCommunitySection;
@@ -15,7 +16,9 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Repository\CompanyRepository;
 use App\Repository\MentorRepository;
+use App\Services\MatchSmeMentor;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class DashboardController extends Controller
@@ -43,140 +46,8 @@ class DashboardController extends Controller
             ]
         ]);
     }
-    public function getList() {
-        $companyResponse = $this->companyRepository->getList();
-        return Inertia::render('Landing/Dashboard/Companies',[
-            "company" => $companyResponse,
 
-        ]);
-    }
-    public function acceptedMentorProfile($id){
-        try{
-            dd("mentor profile",$id);
-            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
-            if($user){
-                $user->is_accepted = 1;
-                $user->save();
-            }
-            $logged_user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $logged_user,
-                'success' => true,
-                'message' => 'Accepted Mentor Profile'
-            ]
-        ]);
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-    }
-    public function acceptedCompanyProfile($id){
-        try{
-            dd("mentor profile",$id);
-            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
-            if($user){
-                $user->is_accepted = 1;
-                $user->save();
-            }
-            $logged_user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $logged_user,
-                'success' => true,
-                'message' => 'Accepted Mentor Profile'
-            ]
-        ]);
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-    }
-
-    public function rejectedMentorProfile($id){
-        try{
-            dd("mentor profile",$id);
-            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
-            if($user){
-                $user->is_accepted = 0;
-                $user->save();
-            }
-            $logged_user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $logged_user,
-                'success' => true,
-                'message' => 'Rejected Mentor Profile'
-            ]
-        ]);
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-    }
-    public function rejectedCompanyProfile($id){
-        try{
-            dd("mentor profile",$id);
-            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
-            if($user){
-                $user->is_accepted = 0;
-                $user->save();
-            }
-            $logged_user = Auth::user();
-            $companies = $this->companyRepository->getList();
-            return Inertia::render('Landing/Dashboard/View', [
-            "list" => [
-                'companies' => $companies,
-                'user' => $logged_user,
-                'success' => true,
-                'message' => 'Rejected Company Profile'
-            ]
-        ]);
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-    }
-    public function updateCompanyStatus(Request $request, $id){
-        try{
-            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
-            if($user){
-                if($request->userStatus == 0){
-                    $user->status = 0;
-                }else{
-                    $user->status = 1;
-                }
-                $user->save();
-            }
-            return Redirect::back();
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-    }
-    public function updateMentorStatus(Request $request, $id){
-        try{
-            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
-            if($user){
-                if($request->userStatus === 0){
-                    $user->status = 0;
-                }else{
-                    $user->status = 1;
-                }
-                $user->save();
-            }
-            return Redirect::back();
-        }catch (\Exception $e) {
-            dd($e);
-            $response = $e->getMessage();
-        }
-    }
+    //Dynamic HomePage rendering and Updating
     public function sectionOne(){
         $logged_user = Auth::user();
         $banner = BannerSection::where('id',1)->first();
@@ -289,24 +160,111 @@ class DashboardController extends Controller
         return url("storage/all_banner_images/{$fileName}");
     }
 
-    public function deleteUser($id){
-        //company id or mentor id received
-        $user = User::where('functional_id', $id)->first();
-        if($user){
-            if($user->user_role == "mentor"){
-                $mentor = Mentor::where('id', $user->functional_id)->first();
-                $mentor->delete();
-                $user->delete();
-                return Redirect::route('admin.mentor.list',[]);
-            }else if($user->user_role == "entrepreneur"){
-                $company = Company::where('id', $user->functional_id)->first();
-                $company->delete();
-                $user->delete();
-                return Redirect::route('admin.company.getList',[]);
+    // Accepting / Rejecting Mentors Or SME
+    public function acceptedMentorProfile($id){
+        try{
+            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 1;
+                $user->save();
+                $matches = new MatchSmeMentor();
+                $mentor_ids =  $matches->matchingSme($id);
+                // dd($mentor_ids);
+                //match sme with same functional area
+            }return Redirect::back();
+
+        }catch (\Exception $e) {
+            dd($e);
+            return $e->getMessage();
+        }
+    }
+    public function acceptedCompanyProfile($id){
+        try{
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 1;
+                $user->save();
+                //match all mentors having same functional area as 1,2,3
+
             }
+            return Redirect::back();
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function rejectedMentorProfile($id){
+        try{
+            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 0;
+                $user->save();
+                Mail::to($user->email)->send(new RejectedProfileMail($user->name));
+                return Redirect::back()->with(['message' => 'Email sent succesfully']);
+            }else{
+                return Redirect::back()->with(['message' => 'Error in sending email']);
+            }
+
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function rejectedCompanyProfile($id){
+        try{
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            if($user){
+                $user->is_accepted = 0;
+                $user->save();
+                Mail::to($user->email)->send(new RejectedProfileMail($user->name));
+                return Redirect::back()->with(['message' => 'Email sent succesfully']);
+            }else{
+                return Redirect::back()->with(['message' => 'Error in sending email']);
+            }
+
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
         }
     }
 
+    // Is live Status for Mentor and SME
+    public function updateCompanyStatus(Request $request, $id){
+        try{
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            if($user){
+                if($request->userStatus == 0){
+                    $user->status = 0;
+                }else{
+                    $user->status = 1;
+                }
+                $user->save();
+            }
+            return Redirect::back();
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+    public function updateMentorStatus(Request $request, $id){
+        try{
+            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            if($user){
+                if($request->userStatus === 0){
+                    $user->status = 0;
+                }else{
+                    $user->status = 1;
+                }
+                $user->save();
+            }
+            return Redirect::back();
+        }catch (\Exception $e) {
+            dd($e);
+            $response = $e->getMessage();
+        }
+    }
+
+    //Deleting Mentor and SME
     public function deleteMentorUser($id){
         $user = User::where('user_role','mentor')->where('functional_id', $id)->first();
         if($user){
@@ -314,7 +272,7 @@ class DashboardController extends Controller
             $mentor->delete();
             $user->delete();
       }
-}
+    }
 
     public function deleteCompanyUser($id){
         $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
@@ -322,7 +280,9 @@ class DashboardController extends Controller
             $company = Company::where('id', $user->functional_id)->first();
             $company->delete();
             $user->delete();
+        }
+
     }
-    }
+
 }
 

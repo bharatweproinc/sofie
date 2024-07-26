@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Mail\PendingProfileMail;
 use App\Repository\Interface\MentorRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\{
@@ -9,7 +10,8 @@ use App\Models\{
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class MentorRepository implements MentorRepositoryInterface {
 
@@ -85,6 +87,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 $mentor = Mentor::create($data);
                 $user->functional_id = $mentor->id;
                 $user->save();
+                Mail::to($user->email)->send(new PendingProfileMail($user->name));
             }
 
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user()->user_role =="admin")){

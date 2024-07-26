@@ -38,7 +38,7 @@ function ReviewProfilePage ({detail}){
         setShow(true)
     }
 
-   
+
 
     const handleChange = (key, value) => {
 
@@ -153,7 +153,7 @@ function ReviewProfilePage ({detail}){
                 console.log(error, "error")
             },
         })
-    }   
+    }
 
     return (
         <Landing auth={detail?.logged_user}>
@@ -174,7 +174,7 @@ function ReviewProfilePage ({detail}){
                                     </Button>
                                     </>
                                 }
-                                <Tooltip 
+                                <Tooltip
                                     placement="top"
                                     title="Edit will be enable after 7 days"
                                     disableHoverListener={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}

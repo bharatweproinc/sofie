@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Mail\PendingProfileMail;
 use App\Repository\Interface\CompanyRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\{
@@ -10,6 +11,8 @@ use App\Models\{
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class CompanyRepository implements CompanyRepositoryInterface {
 
@@ -84,6 +87,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $company = Company::create($data);
                 $user->functional_id = $company->id;
                 $user->save();
+                Mail::to($user->email)->send(new PendingProfileMail($user->name));
             }
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user()->user_role =="admin")){
                 $company->profile_photo = $fileName;
@@ -110,10 +114,14 @@ class CompanyRepository implements CompanyRepositoryInterface {
         $logged_user = Auth::user();
         try {
             $data = Company::with('user')->where('id',$id)->first();
-            $data->profile_photo = url("storage/company_profile/{$data->profile_photo}");
-            $data->founder_photo = url("storage/company_founder/{$data->founder_image}");
+            if($data->profile_photo != null){
+                $data->profile_photo = url("storage/company_profile/{$data->profile_photo}");
+            }
+            if($data->founder_photo != null){
+                $data->founder_photo = url("storage/company_founder/{$data->founder_image}");
+            }
             $data->logged_user = $logged_user;
-            // dd($data);
+
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [
