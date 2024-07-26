@@ -20,9 +20,9 @@ const MenuItem = ({Constants, auth})=>{
                                 <ListItemButton
                                     component={item.subItems ? "button" : Link}
                                     href={
-                                       auth.user_role === "mentor" ? route('landing.mentordetail',auth?.id
+                                       auth.user_role === "mentor" ? route('mentor.detail',auth?.functional_id
                                        ):
-                                       route('landing.companydetail', auth?.id)
+                                       route('company.detail', auth?.functional_id)
                                     }
                                     onClick={() =>
                                         item.subItems
