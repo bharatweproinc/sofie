@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AcceptedMentorProfileMail;
 use App\Mail\RejectedProfileMail;
 use App\Models\BannerSection;
 use App\Models\Company;
@@ -161,18 +162,19 @@ class DashboardController extends Controller
     }
 
     // Accepting / Rejecting Mentors Or SME
-    public function acceptedMentorProfile($id){
+    public function acceptedMentorProfile($mentor_id){
         try{
-            $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
+            $user = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->first();
             if($user){
                 $user->is_accepted = 1;
                 $user->save();
                 $matches = new MatchSmeMentor();
-                $mentor_ids =  $matches->matchingSme($id);
-                // dd($mentor_ids);
-                //match sme with same functional area
-            }return Redirect::back();
-
+                $data =  $matches->matchingSme($mentor_id);
+                Mail::to($user->email)->send(new AcceptedMentorProfileMail($user->name, $data));
+                return Redirect::back();
+            }else{
+                return Redirect::back()->withErrors(['message' => 'Error Sending Email']);
+            }
         }catch (\Exception $e) {
             dd($e);
             return $e->getMessage();

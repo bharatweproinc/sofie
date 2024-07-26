@@ -8,7 +8,7 @@ use App\Models\Mentor;
 class MatchSmeMentor{
 
     public function matchingSme($id){
-        $list = [];
+        $data = [];
         $matched_sme_ids = [];
         $mentor = Mentor::where('id', $id)->first();
 
@@ -16,13 +16,17 @@ class MatchSmeMentor{
         ->orWhere('functional_area_2', $mentor->functional_area)
         ->orWhere('functional_area_3', $mentor->functional_area)->pluck('id')->toArray();
 
-        $list = Company::with('user')->whereIn('id',$matched_sme_ids)->get()->each(function($m) {
-            $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
-            $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
-        });
+        $matched_sme_names = Company::whereIn('id',$matched_sme_ids)->pluck('company_name')->toArray();
+        $matched_sme_person = Company::whereIn('id',$matched_sme_ids)->pluck('contact_name')->toArray();
+        $matched_sme_image = Company::whereIn('id',$matched_sme_ids)->pluck('profile_photo')->toArray();
 
-        dd($list);
-        return $list;
+        $data = [
+            'matched_sme_ids' => $matched_sme_ids,
+            'matched_sme_names' => $matched_sme_names,
+            'matched_sme_person' => $matched_sme_person,
+            'matched_sme_image' => $matched_sme_image,
+        ];
+        return $data;
     }
 
     public function matchingMentors($id){
