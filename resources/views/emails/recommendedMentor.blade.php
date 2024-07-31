@@ -65,9 +65,17 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+            margin-right: 10px;
+            text-align: center;
         }
         .button:hover {
             background-color: #0056b3;
+        }
+        .decline-button {
+            background-color: #dc3545;
+        }
+        .decline-button:hover {
+            background-color: #c82333;
         }
         .footer {
             margin-top: 20px;
@@ -83,42 +91,34 @@
     <div class="container">
         <h2>Hello {{ $data['user_name'] }},</h2>
         <p>We hope this message finds you well! 🎉</p>
-        <p>We are thrilled to welcome you to our Mentor community. Your account has been successfully accepted and you are now part of our exclusive group of Mentor members! We're excited to help you connect with potential SMEs.</p>
-
-        @if(count($data['matched_smes']) == 0)
-            <p>At the moment, our system hasn't identified any new matches for your provided functional area. But don’t worry, our team is diligently working to find the best possible matches for you. Please bear with us a little longer!</p>
-        @else
-            <h4>Here's a List of Your New Matches:</h4>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Profile Photo</th>
-                        <th>Company Name</th>
-                        <th>Contact Person</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($data['matched_smes'] as $company)
-                        <tr>
-                            <td><img src="{{ $company->profile_photo }}" alt="Profile Photo"></td>
-                            <td>{{ $company->company_name }}</td>
-                            <td>{{ $company->contact_name }}</td>
-                            <td>
-                                <a href="{{ route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a>
-                                {{-- <a href={{$company->link}} class="button">Accept</a> --}}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
+        <p>We are excited to tell you that an Upcie Mentor has shortlisted you and is willing to work with you. We have attached their profile below and would like you to Accept or Decline their initiation request.</p>
+        <h4>Here are the details</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Profile Photo</th>
+                    <th>Contact Person</th>
+                    <th>Matched Functional Area</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="{{ $data['mentor']->profile_photo }}" alt="Profile Photo"></td>
+                    <td>{{ $data['mentor']->name }}</td>
+                    <td>{{ $data['mentor']->functional_area }}</td>
+                    <td>
+                        <a href="{{ route('connect.sendMentorDetails', ['company_id' => $data['company_id'], 'mentor_id' => urlencode($data['mentor']['id'])]) }}" class="button">Accept</a>
+                        <a href="#" class="button decline-button">Decline</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="footer">
             <p>Thank you for choosing Upcie! If you have any questions or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
             <p>Warm regards,<br>The Upcie Team</p>
         </div>
     </div>
-
 </body>
 </html>

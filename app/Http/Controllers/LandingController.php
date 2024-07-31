@@ -172,11 +172,12 @@ class LandingController extends Controller
         return Inertia::render('Landing/AdminLogin/View', []);
     }
     public function userLogin(){
-        //Auth::logout();
+        Auth::logout();
         if(Auth::user()){
             $user = Auth::user();
             $role = Auth::user()->user_role;
-            if($role == "entrepreneur"){
+            $status = Auth::user()->status;
+            if($role == "entrepreneur" && $status == 1){
                 if($user->functional_id == null){
                     return Redirect::route('landing.companydetail',[
                         'id' => $user->id
@@ -186,7 +187,7 @@ class LandingController extends Controller
                         'id' => $user->functional_id
                     ]);
                 }
-            }else if($role == "mentor"){
+            }else if($role == "mentor" && $status == 1){
                 if($user->functional_id == null){
                     return Redirect::route('landing.mentordetail',[
                         'id' => $user->id
@@ -196,7 +197,7 @@ class LandingController extends Controller
                         'id' => $user->functional_id
                     ]);
                 }
-            }else if($role == "admin"){
+            }else if($role == "admin" ){
                 return Redirect::route('admin.dashboard',[]);
             }
 
@@ -212,10 +213,11 @@ class LandingController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             $role = $user->user_role;
+            $status = $user->status;
         }else{
             $role = $user->user_role;
         }
-        if($role == "entrepreneur"){
+        if($role == "entrepreneur" && $status == 1){
             if($user->functional_id == null){
                 return Redirect::route('landing.companydetail',[
                     'id' => $user->id
@@ -225,7 +227,7 @@ class LandingController extends Controller
                     'id' => $user->functional_id
                 ]);
             }
-        }else if($role == "mentor"){
+        }else if($role == "mentor" && $status == 1){
             if($user->functional_id == null){
                 return Redirect::route('landing.mentordetail',[
                     'id' => $user->id
@@ -235,6 +237,8 @@ class LandingController extends Controller
                     'id' => $user->functional_id
                 ]);
             }
+        }else{
+            return Redirect::back()->withErrors(['msg' => 'Your account has been suspended by our team.']);
         }
     }
 
@@ -262,7 +266,8 @@ class LandingController extends Controller
                 $existing_user->save();
                 Mail::to($registered_email)->send(new ForgetPasswordEmail($new_password));
             }else{
-                return Redirect::back()->withErrors(['message' => 'Email not registered with Upcie']);
+                Auth::logout();
+                return response()->withErrors(['message' => 'Email not registered with Upcie']);
             }
         }catch(\Exception $e){
             dd($e);

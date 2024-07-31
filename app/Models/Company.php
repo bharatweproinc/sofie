@@ -29,7 +29,10 @@ class Company extends Model
         'hear_about_us',
         'current_problem',
         'additional_information',
-        'profile_photo'
+        'profile_photo',
+        'assigned_mentor_1',
+        'assigned_mentor_2',
+        'assigned_mentor_3',
     ];
 
     protected $casts = [
@@ -44,10 +47,6 @@ class Company extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'functional_id', 'id');
-    }
-
-    public function mentor(){
-        return $this->hasMany(Mentor::class, 'id', 'mentor_id');
     }
 
 }

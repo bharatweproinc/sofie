@@ -83,39 +83,36 @@
     <div class="container">
         <h2>Hello {{ $data['user_name'] }},</h2>
         <p>We hope this message finds you well! 🎉</p>
-        <p>We are thrilled to welcome you to our Mentor community. Your account has been successfully accepted and you are now part of our exclusive group of Mentor members! We're excited to help you connect with potential SMEs.</p>
-
-        @if(count($data['matched_smes']) == 0)
-            <p>At the moment, our system hasn't identified any new matches for your provided functional area. But don’t worry, our team is diligently working to find the best possible matches for you. Please bear with us a little longer!</p>
-        @else
-            <h4>Here's a List of Your New Matches:</h4>
+        <p>We are happy to know that you have accepted the initiation request of one of our Mentors for betterment and excellence of your firm. We are hereby attaching the complete details of your choosen mentor so that you can contact them right away.
+            We have also added the same mentor to your profile so that you can review them later.
+        </p>
+            <h4>Here are the details</h4>
             <table>
                 <thead>
                     <tr>
                         <th>Profile Photo</th>
-                        <th>Company Name</th>
                         <th>Contact Person</th>
-                        <th>Action</th>
+                        <th>Matched Functional Area</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Industry Sector</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data['matched_smes'] as $company)
                         <tr>
-                            <td><img src="{{ $company->profile_photo }}" alt="Profile Photo"></td>
-                            <td>{{ $company->company_name }}</td>
-                            <td>{{ $company->contact_name }}</td>
-                            <td>
-                                <a href="{{ route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a>
-                                {{-- <a href={{$company->link}} class="button">Accept</a> --}}
-                            </td>
+                            <td><img src="{{ $data['mentor']->profile_photo }}" alt="Profile Photo"></td>
+                            <td>{{ $data['mentor']->name }}</td>
+                            <td>{{ $data['mentor']->functional_area }}</td>
+                            <td>{{ $data['mentor']->email}}</td>
+                            <td>{{ $data['mentor']->phone}}</td>
+                            <td>{{ $data['mentor']->industry_sector[0]}}</td>
                         </tr>
-                    @endforeach
                 </tbody>
             </table>
-        @endif
-
+            <p>{{ $data['mentor']->qualifications }}</p>
+            <p>{{ $data['mentor']->additional_information }}</p>
         <div class="footer">
-            <p>Thank you for choosing Upcie! If you have any questions or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
+            <p>Thank you for choosing Upcie! If you have any problems or questions to be addressed or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
             <p>Warm regards,<br>The Upcie Team</p>
         </div>
     </div>

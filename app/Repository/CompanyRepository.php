@@ -7,12 +7,13 @@ use App\Repository\Interface\CompanyRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\{
     Company,
+    MatchingMentorSme,
+    Mentor,
     User,
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 
 class CompanyRepository implements CompanyRepositoryInterface {
 
@@ -117,11 +118,16 @@ class CompanyRepository implements CompanyRepositoryInterface {
             if($data->profile_photo != null){
                 $data->profile_photo = url("storage/company_profile/{$data->profile_photo}");
             }
-            if($data->founder_photo != null){
+            if($data->founder_image != null){
                 $data->founder_photo = url("storage/company_founder/{$data->founder_image}");
             }
             $data->logged_user = $logged_user;
-
+            //$matches = MatchingMentorSme::where('comapany_id', $id)->pluck('mentor_id')->toArray();
+            // $mentors = Mentor::with('user')->whereIn('id', $matches)
+            // ->get()->each(function($m) {
+            //     $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
+            // });
+            // $data->mentors = $mentors;
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [

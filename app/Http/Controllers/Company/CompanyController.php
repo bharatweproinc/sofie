@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MentorDetailsMail;
+use App\Mail\SmeDetailsMail;
 use App\Models\Company;
+use App\Models\MatchingMentorSme;
+use App\Models\MatchingQueue;
+use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\CompanyRepository;
+use App\Services\MatchSmeMentor;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -59,4 +66,54 @@ class CompanyController extends Controller
          'id' => $id
      ]);
      }
+
+     public function sendMentorDetails($company_id, $mentor_id){
+        $mentor = Mentor::with('user')->where('id', $mentor_id)->first();
+        $company = Company::findOrFail($company_id);
+        $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
+        $matches = new MatchSmeMentor();
+        $data = $matches->sendMentorDetails($company_id, $mentor_id);
+        if($company && $user && $mentor){
+            $existing_match = MatchingMentorSme::where('mentor_id', $mentor_id)->where('company_id', $company_id)->where('functional_area', $mentor->functional_area)->first();
+            if($existing_match){
+                $existing_match->update([
+                    'mentor_id' =>$mentor_id,
+                    'company_id' => $company_id,
+                    'functional_area' => $mentor->functional_area
+                ]);
+            }else{
+                MatchingMentorSme::create([
+                    'mentor_id' =>$mentor_id,
+                    'company_id' => $company_id,
+                    'functional_area' => $mentor->functional_area
+                ]);
+            }
+            $not_matched_mentor = MatchingQueue::where('mentor_id',$mentor_id)->where('status', 'not matched')->first();
+            if(!$not_matched_mentor){
+               MatchingQueue::create([
+                    'mentor_id' => $mentor_id,
+                    'status' => 'matched'
+               ]);
+            }else{
+                $not_matched_mentor->update(['status' => 'matched']);
+            }
+            Mail::to($user->email)->send(new MentorDetailsMail($data));
+
+            //send sme details to mentor as well
+            $mentorEmail = $mentor->user->email;
+            $sme_data = $matches->sendSmeDetails($company_id, $mentor_id);
+            Mail::to($mentorEmail)->send(new SmeDetailsMail($sme_data));
+
+            if($company->functional_area_1 == $mentor->functional_area){
+                $company->update(['assigned_mentor_1' => $mentor_id]);
+            }else if($company->functional_area_2 == $mentor->functional_area){
+                $company->update(['assigned_mentor_2' => $mentor_id]);
+            }else{
+                $company->update(['assigned_mentor_3' => $mentor_id]);
+            }
+            return Redirect::route("company.detail",[
+                'id' => $company_id
+            ]);
+        }
+    }
 }

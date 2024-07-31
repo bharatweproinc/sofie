@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AcceptedMentorProfileMail;
+use App\Mail\AcceptedSmeProfileMail;
 use App\Mail\RejectedProfileMail;
-use App\Models\BannerSection;
-use App\Models\Company;
-use App\Models\JoinOurCommunitySection;
-use App\Models\Mentor;
-use App\Models\MissionStatementSection;
-use App\Models\Testimonial;
-use App\Models\User;
+use App\Models\{BannerSection,Company, JoinOurCommunitySection, MatchingQueue, Mentor, MissionStatementSection, User};
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Inertia\Response;
 use App\Repository\CompanyRepository;
 use App\Repository\MentorRepository;
 use App\Services\MatchSmeMentor;
@@ -168,30 +162,33 @@ class DashboardController extends Controller
             if($user){
                 $user->is_accepted = 1;
                 $user->save();
+                MatchingQueue::create([
+                    'mentor_id' => $mentor_id,
+                    'status' => 'not matched'
+                ]);
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($mentor_id);
-                Mail::to($user->email)->send(new AcceptedMentorProfileMail($user->name, $data));
-                return Redirect::back();
+                Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
             }else{
                 return Redirect::back()->withErrors(['message' => 'Error Sending Email']);
             }
         }catch (\Exception $e) {
-            dd($e);
             return $e->getMessage();
         }
     }
-    public function acceptedCompanyProfile($id){
+    public function acceptedCompanyProfile($sme_id){
         try{
-            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
+            $user = User::where('user_role', 'entrepreneur')->where('functional_id', $sme_id)->first();
             if($user){
                 $user->is_accepted = 1;
                 $user->save();
-                //match all mentors having same functional area as 1,2,3
-
+                Mail::to($user->email)->send(new AcceptedSmeProfileMail($user));
+            }else{
+                return Redirect::back()->withErrors(['message' => 'Error Sending Email']);
             }
             return Redirect::back();
         }catch (\Exception $e) {
-            dd($e);
+            //dd($e);
             $response = $e->getMessage();
         }
     }
@@ -200,6 +197,7 @@ class DashboardController extends Controller
             $user = User::where('user_role', 'mentor')->where('functional_id', $id)->first();
             if($user){
                 $user->is_accepted = 0;
+                $user->status = 0;
                 $user->save();
                 Mail::to($user->email)->send(new RejectedProfileMail($user->name));
                 return Redirect::back()->with(['message' => 'Email sent succesfully']);
@@ -217,6 +215,7 @@ class DashboardController extends Controller
             $user = User::where('user_role', 'entrepreneur')->where('functional_id', $id)->first();
             if($user){
                 $user->is_accepted = 0;
+                $user->status = 0;
                 $user->save();
                 Mail::to($user->email)->send(new RejectedProfileMail($user->name));
                 return Redirect::back()->with(['message' => 'Email sent succesfully']);

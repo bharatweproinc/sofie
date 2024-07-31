@@ -2,13 +2,11 @@
 
 namespace App\Mail;
 
-use App\Models\EmailController;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-
 use Illuminate\Queue\SerializesModels;
 
-class AcceptedMentorProfileMail extends Mailable
+class AcceptedSmeProfileMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
@@ -16,10 +14,10 @@ class AcceptedMentorProfileMail extends Mailable
     {
         $this->data = $data;
     }
+
     public function build()
     {
-        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.acceptedMentor')->subject("We are delighted to have you onboard as our Mentor!");
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.acceptedSme')->subject("We are delighted to have you onboard as our SME!");
     }
-
 
 }

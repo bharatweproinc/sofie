@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
-use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\MentorRepository;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
@@ -22,7 +20,6 @@ class MentorController extends Controller
     public function __construct(MentorRepository $mentorRepository){
         $this->mentorRepository = $mentorRepository;
     }
-
     public function view() {
         $response = $this->mentorRepository->getList();
         return Inertia::render('Landing/Mentor/List',$response);
@@ -33,11 +30,14 @@ class MentorController extends Controller
         return Inertia::render('Landing/Mentor/Review',$response);
     }
 
+    public function connectedSme($company_id, $mentor_id){
+        $response = $this->mentorRepository->connectedSme($company_id, $mentor_id);
+        return Redirect::back();
+    }
+
     public function getList() {
         $response = $this->mentorRepository->getList();
-        return Inertia::render('Landing/Mentor/List',[
-            'data' => $response,
-            ]
+        return Inertia::render('Landing/Mentor/List',['data' => $response]
         );
     }
 

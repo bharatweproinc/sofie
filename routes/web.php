@@ -151,5 +151,10 @@ Route::prefix('verify')->group(function(){
     Route::get('/mentor/{id}', [RegisteredUserController::class, 'mentorlogin'])->name('mentorlogin');
 });
 
+Route::prefix('connect')->name('connect.')->group(function(){
+    Route::get('/{company_id}/and/{mentor_id}', [MentorController::class, 'connectedSme'])->name('connectedSme');
+    Route::get('/{company_id}/matched/{mentor_id}', [MentorController::class, 'recommendedMentor'])->name('recommendedMentor');
+    Route::get('/{company_id}/{mentor_id}', [CompanyController::class, 'sendMentorDetails'])->name('sendMentorDetails');
+});
 
 require __DIR__.'/auth.php';

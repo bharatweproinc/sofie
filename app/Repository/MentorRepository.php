@@ -3,16 +3,17 @@
 namespace App\Repository;
 
 use App\Mail\PendingProfileMail;
+use App\Mail\RecommendedMentorMail;
 use App\Repository\Interface\MentorRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\{
+    Company,
     User,Mentor
 };
+use App\Services\MatchSmeMentor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
-
 class MentorRepository implements MentorRepositoryInterface {
 
     public function getList(){
@@ -34,7 +35,16 @@ class MentorRepository implements MentorRepositoryInterface {
             $data = Mentor::with('user')->where('id', $id)->first();
             $data->profile_photo = url("storage/mentor_profile/{$data->profile_photo}");
             $data->logged_user = $logged_user;
-            return [ 'detail' => $data ];
+            //$matches = MatchingMentorSme::where('mentor_id', $id)->pluck('company_id')->toArray();
+            // $companies = Company::with('user')->whereIn('id', $matches)
+            // ->get()->each(function($m) {
+            //     $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
+            // });
+            // $data->companies = $companies;
+            //dd($data);
+            return [
+                'detail' => $data
+            ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -42,6 +52,27 @@ class MentorRepository implements MentorRepositoryInterface {
             ];
         }
     }
+
+    public function connectedSme($company_id, $mentor_id) {
+        try {
+            $data = [];
+            $company = Company::findOrFail($company_id);
+            $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
+            $matches = new MatchSmeMentor();
+            $data =  $matches->recommendedMentor($company_id, $mentor_id);
+            //dd($data);
+            if($company && $user){
+                Mail::to($user->email)->send(new RecommendedMentorMail($data));
+            }
+            //Show a notifier that company has been notified about the connect request
+        }catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
+
 
     public function saveData(Request $request, $id)
     {

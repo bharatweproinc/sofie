@@ -81,44 +81,16 @@
 </head>
 <body>
     <div class="container">
-        <h2>Hello {{ $data['user_name'] }},</h2>
-        <p>We hope this message finds you well! 🎉</p>
-        <p>We are thrilled to welcome you to our Mentor community. Your account has been successfully accepted and you are now part of our exclusive group of Mentor members! We're excited to help you connect with potential SMEs.</p>
-
-        @if(count($data['matched_smes']) == 0)
-            <p>At the moment, our system hasn't identified any new matches for your provided functional area. But don’t worry, our team is diligently working to find the best possible matches for you. Please bear with us a little longer!</p>
-        @else
-            <h4>Here's a List of Your New Matches:</h4>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Profile Photo</th>
-                        <th>Company Name</th>
-                        <th>Contact Person</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($data['matched_smes'] as $company)
-                        <tr>
-                            <td><img src="{{ $company->profile_photo }}" alt="Profile Photo"></td>
-                            <td>{{ $company->company_name }}</td>
-                            <td>{{ $company->contact_name }}</td>
-                            <td>
-                                <a href="{{ route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a>
-                                {{-- <a href={{$company->link}} class="button">Accept</a> --}}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
-
+        <h2>Hello {{ $data->name }}! 🎉</h2>
+        <p>We’re excited to reconnect with you!</p>
+        <p>Your account has been successfully approved, and you are now officially part of our SME network.
+            We’re thrilled to have you on board and are already on the lookout for the perfect Mentors to assist you.
+            Once we get a perfect match for your firm, we'll be sending you the details right away, till then stay connected with us.
+        </p>
         <div class="footer">
-            <p>Thank you for choosing Upcie! If you have any questions or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
+            <p>Thank you for being a part of Upcie! If you have any questions or need further assistance, don’t hesitate to get in touch. We're here to support you every step of the way!</p>
             <p>Warm regards,<br>The Upcie Team</p>
         </div>
     </div>
-
 </body>
 </html>
