@@ -35,8 +35,6 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
         setViewSection("");
     };
 
-    console.log('companyList', companyList)
-
     const sortedRows = [...companyList].sort((a, b) => {
        if (sortConfig.key !== null) {
          const key = sortConfig.key;
@@ -74,7 +72,6 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
     }, [list.companies.list.company])
 
      const handleDelete = () => {
-        console.log('userId', userId)
         post(route('admin.deleteDashCompany', userId),{
             onSuccess:(success) => {
                 notify.success('Company Data has been deleted successfully')
@@ -189,7 +186,6 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
                                         <TableCell align="left">{row.company_uen}</TableCell>
                                         <TableCell align="left">{row?.user?.name}</TableCell>
                                         <TableCell align="left">{row?.user?.email}</TableCell>
-                                        {console.log('id',row.user.id)}
                                         <TableCell align="left">
                                         <Chip label={row.user.status === 1 ? "Active" : "Inactive"} color={row.user.status === 1 ? 'success' : 'error'} />
                                         </TableCell>

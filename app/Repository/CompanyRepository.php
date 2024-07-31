@@ -22,14 +22,27 @@ class CompanyRepository implements CompanyRepositoryInterface {
         $company = Company::with('user')->get()->each(function($m) {
             $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
             $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
+            $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);
+            $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
+            $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
         });
-        //dd($company);
+        // dd($company);
         return ["list" => [
-            "user" => $user,
+            "user" => $user,    
             "company" => $company
         ]];
     }
 
+    public function getMentorName($mentor_id){
+        if($mentor_id != null){
+            $mentor = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->select('name')->first();
+            $name = $mentor->name;
+            return $name;
+        }else{
+            return null;
+        }
+    }
+    
     public function saveData(Request $request, $id){
         try {
            // dd($request->all());
@@ -122,12 +135,12 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $data->founder_photo = url("storage/company_founder/{$data->founder_image}");
             }
             $data->logged_user = $logged_user;
-            //$matches = MatchingMentorSme::where('comapany_id', $id)->pluck('mentor_id')->toArray();
-            // $mentors = Mentor::with('user')->whereIn('id', $matches)
-            // ->get()->each(function($m) {
-            //     $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
-            // });
-            // $data->mentors = $mentors;
+            $matches = MatchingMentorSme::where('company_id', $id)->pluck('mentor_id')->toArray();
+            $mentors = Mentor::with('user')->whereIn('id', $matches)
+            ->get()->each(function($m) {
+                $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
+            });
+            $data->mentors = $mentors;
             return [ 'detail' => $data ];
         } catch (\Exception $e) {
             return [

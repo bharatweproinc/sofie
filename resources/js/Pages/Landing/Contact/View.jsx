@@ -7,6 +7,7 @@ import Constants from '../Constants';
 import './style.scss';
 import Joi from '@/utility/JoiValidator';
 import "../style.scss";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const contactSchema = Constants.contactSchema
 
@@ -60,6 +61,7 @@ function Contact() {
   return (
 	<Landing>
 	<Typography sx={{height:'65px'}}></Typography>
+      {processing && <LinearProgress />}
       <BackgroundImageContainer sx={{paddingToo:'65px'}}>
         <CenteredPaper sx={{width:'650px !important', margin:'60px',}} elevation={4}>
           <form onSubmit={handleSubmit} className='contact_page'>

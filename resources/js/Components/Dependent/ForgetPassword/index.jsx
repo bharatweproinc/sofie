@@ -16,7 +16,6 @@ import Constants from './constant';
 import { useForm } from '@inertiajs/react';
 
 function ForgetPassword({open, setOpen, routeLink}) {
-    console.log(routeLink,'route');
 
     const { data, setData, post, processing } = useForm(Constants.initEmail);
     const [validationErrors, setValidationErrors] = React.useState({});
@@ -46,7 +45,6 @@ function ForgetPassword({open, setOpen, routeLink}) {
         if (isError) {
             return;
         }
-        console.log("data", data);
         post(route(`${routeLink}`),{
             onSuccess:(success) => {
                 console.log(success, "sucesss");
@@ -108,7 +106,7 @@ function ForgetPassword({open, setOpen, routeLink}) {
                                     variant='contained'
                                     disabled={processing}
                                     >
-                                        Email Password Reset Link
+                                    Password Reset Link
                                 </Button>
                         </Box>
                     </form>

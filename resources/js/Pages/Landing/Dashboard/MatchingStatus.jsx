@@ -18,48 +18,9 @@ import "./style.scss";
 import { useState } from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-
-const rows = [
-    createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'lana', 'Rahman', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'Nita', 'nitakamil', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 1', 'Niken', 'Ang', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'donny', 'Niken', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Kmail', 'nitakamil', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 1', 'Test 1', 'Test 2', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 7', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-    createData('Company 1', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Nita Kamil", "nitakamil@email.comm"),
-    createData('Company 2', 'Anam', 'Donny', 'Lina Rahman', .0, "123456789B", "Adam Ang", "angadam@email.comm"),
-    createData('Company 4', 'Anam', 'Donny', 'Lina Rahman', .0, "782665982C", "Niken", "nikenn@email.comm"),
-    createData('Company 5', 'Anam', 'Donny', 'Lina Rahman', .0, "729832968D", "Donny", "donnys@email.comm"),
-    createData('Company 6', 'Anam', 'Donny', 'Lina Rahman', .0, "1231212", "Test 1", "nitakamil@email.comm"),
-];
-
-function createData(
-    company_name,
-    Area1,
-    Area2,
-    Area3
-) {
-    return {
-        company_name,
-        Area1,
-        Area2,
-        Area3
-
-    };
-}
-
-const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
+const MatchingStatus = ({list, handleViewAll, section, setViewSection }) => {
+    let matchingStatus = list.companies.list.company;
+    console.log('list45454', matchingStatus)
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +30,7 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
         setViewSection("");
     };
 
-    const sortedRows = [...rows].sort((a, b) => {
+    const sortedRows = [...matchingStatus].sort((a, b) => {
        if (sortConfig.key !== null) {
          const key = sortConfig.key;
          if (a[key] < b[key]) {
@@ -86,7 +47,7 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = !isView ?
-        sortedRows.slice(0, 7) :
+        sortedRows.slice(0, 4) :
         sortedRows.slice(indexOfFirstRow, indexOfLastRow);
 
     const handlePageChange = (event, page) => {
@@ -302,13 +263,13 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                                             {row.company_name}
                                         </TableCell>
                                         <TableCell align="left">
-                                            {row.Area1}
+                                            {row.assigned_mentor_1 ? row.assigned_mentor_1 : 'Pending...'}
                                         </TableCell>
                                         <TableCell align="left">
-                                            {row.Area2}
+                                            {row.assigned_mentor_2 ? row.assigned_mentor_2 : 'Pending...'}
                                         </TableCell>
                                         <TableCell align="left">
-                                            {row.Area3}
+                                            {row.assigned_mentor_3 ? row.assigned_mentor_3 : 'Pending...'}
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -319,7 +280,7 @@ const MatchingStatus = ({ handleViewAll, section, setViewSection }) => {
                         <Box p={2} display="flex" justifyContent="center">
                             <Pagination
                                 className="table_pagination"
-                                count={Math.ceil(rows.length / rowsPerPage)}
+                                count={Math.ceil(matchingStatus.length / rowsPerPage)}
                                 page={currentPage}
                                 onChange={handlePageChange}
                                 sx={{ mt: 3, color: "#117B9E" }}

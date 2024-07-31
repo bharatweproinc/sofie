@@ -26,19 +26,19 @@ function ReviewProfilePage ({detail}){
     const [openReject, setOpenReject] = useState(false);
     const [openConfirm, setOpenConfirm] = useState(false);
     const [userStatus, setUserStatus] = useState(data.status);
+    const [accepted, setAccepted] = useState(data.is_accepted);
     const [show, setShow] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
 
     useEffect(()=> {
-        setUserStatus(data.status);
-    }, [data.status])
+        setUserStatus(detail.user.status);
+        setAccepted(detail.user.is_accepted)
+    }, [detail.user.status, detail.user.is_accepted])
 
     const handleShow = () => {
         setShow(true)
     }
-
-
 
     const handleChange = (key, value) => {
 
@@ -111,10 +111,12 @@ function ReviewProfilePage ({detail}){
         e.preventDefault();
         post(route("admin.acceptedMentorProfile", detail.id), {
             onSuccess: (success) => {
+                notify.success("User has been Live successfully");
                 console.log(success, "success")
                 setOpenConfirm(false)
             },
             onError: (error) => {
+                notify.error("Error while user Live");
                 console.log(error, "error")
                 setOpenConfirm(false)
             },
@@ -125,12 +127,14 @@ function ReviewProfilePage ({detail}){
         e.preventDefault();
         post(route("admin.rejectedMentorProfile", detail.id), {
             onSuccess: (success) => {
-                console.log(success, "success")
                 setOpenReject(false)
+                notify.success("User has been rejected successfully");
+                console.log(success, "success")
             },
             onError: (error) => {
-                console.log(error, "error")
                 setOpenReject(false)
+                notify.error("Error while rejecting user");
+                console.log(error, "error")
             },
         })
     }
@@ -156,20 +160,20 @@ function ReviewProfilePage ({detail}){
     }
 
     return (
-        <Landing auth={detail?.logged_user}>
+        <Landing auth={detail?.logged_user ? detail.logged_user : detail.user}>
             <Typography sx={{ height: '65px' }}></Typography>
             <ToastContainer style={{marginTop:"65px"}}/>
             <Box p={4} className="review_mentor">
-                <Box sx={{display : 'flex', justifyContent : 'space-between'}} px={4} my={2}>
+                <Box sx={{display : 'flex', flexDirection : { xs : 'column' , md : 'row' }, justifyContent : {md : 'space-between'}}} px={4} my={2}>
                     <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Details</Typography>
-                        <Box display={'flex'} alignItems={'center'}>
-                            <Box className='custom_btn custom_delete_btn'>
-                                { detail && detail.logged_user &&  detail.logged_user.user_role === "admin" && data.is_accepted === null &&
+                        <Box display={'flex'} sx={{flexDirection :{ xs : 'column' , md : 'row' }, alignItems : 'center'}}>
+                            <Box className='custom_btn custom_delete_btn flex flex-col md:flex-row items-center'>
+                                { detail && detail.logged_user &&  detail.logged_user.user_role === "admin" && accepted === null &&
                                     <>
-                                    <Button onClick={()=>setOpenReject(true)} sx={{mr : 1}} className="delete_account" variant="contained">
+                                    <Button onClick={()=>setOpenReject(true)} sx={{mr : 1, mb : {md : 0, xs : 1}}} className="delete_account" variant="contained">
                                         Reject
                                     </Button>
-                                    <Button onClick={()=>setOpenConfirm(true)} sx={{mr : 1}} variant="contained">
+                                    <Button onClick={()=>setOpenConfirm(true)} sx={{mr : 1, mb : {md : 0, xs : 1}}} variant="contained">
                                         Accept
                                     </Button>
                                     </>
@@ -180,13 +184,19 @@ function ReviewProfilePage ({detail}){
                                     disableHoverListener={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}
                                  >
                                     <span>
-                                        <Button disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true} component={Link} href={route('landing.mentordetail', detail.user.id)} variant="contained">
+                                        <Button 
+                                            disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true} 
+                                            component={Link} 
+                                            href={route('landing.mentordetail', detail.user.id)} 
+                                            variant="contained"
+                                            sx={{mr : 1, mb : {md : 0, xs : 1}}}
+                                        >
                                             Edit
                                         </Button>
                                     </span>
                                 </Tooltip>
                             </Box>
-                            <Box className="custom_delete_btn ml-2">
+                            <Box className="custom_delete_btn">
                                 <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">
                                     Delete Account
                                 </Button>
@@ -303,7 +313,7 @@ function ReviewProfilePage ({detail}){
                         </Box>
                     }
                 </Box>
-                <MatchedSME />
+                <MatchedSME companies={detail.companies}/>
             </Box>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
             <ConfirmBox open={openReject} setOpen={setOpenReject} handleSubmit={handleReject} message={`Do you really want to reject ${detail.user.name}`} />

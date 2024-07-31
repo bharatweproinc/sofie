@@ -23,3 +23,17 @@
         background-color: #d32f2f !important;
     }
 }
+.custom_table_pagination{
+    ul{
+        li{
+            .MuiButtonBase-root{
+                border:1px solid #D3D3D3 !important;
+            }
+            .Mui-selected{
+                background-color: #117B9E !important;
+                border: 1px solid #117B9E !important;
+                color: #fff !important;
+            }
+        }
+    }
+}

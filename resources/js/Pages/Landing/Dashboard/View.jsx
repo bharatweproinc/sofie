@@ -55,11 +55,11 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
 
 function dashboard({list}) {
-
+  console.log('list5454545', list)
   const theme = useTheme();
 
-    const [viewSection , setViewSection] = useState('')
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [viewSection , setViewSection] = useState('')
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleViewAll = (section)=>{
     setViewSection(section)
@@ -77,7 +77,7 @@ function dashboard({list}) {
                 {viewSection !== "matching_status" && viewSection !== "companies" &&
                 <Cards list={list} />
                   }
-                {viewSection !== 'companies' && <MatchingStatus setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
+                {viewSection !== 'companies' && <MatchingStatus list={list} setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
                 {viewSection !== "matching_status" && <Companies list={list} setViewSection={setViewSection} section={viewSection} handleViewAll={handleViewAll}/>}
                 </Grid>
             </Box>

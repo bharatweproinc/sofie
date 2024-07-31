@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
 import ForgetPassword from '@/Components/Dependent/ForgetPassword';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const CenteredPaper = styled(Paper)({
   padding: '40px',
@@ -55,7 +56,8 @@ function Login() {
       }
       post(route('login'),{
         onSuccess:(success) => {
-            console.log(success, "sucesss");
+          console.log(success, "sucesss");
+          notify.success("login successfully")
         },
         onError:(error) => {
           console.log(error,"error");
@@ -68,6 +70,7 @@ function Login() {
     <Landing>
         <Typography sx={{ height: '65px' }}></Typography>
         <ToastContainer style={{marginTop:"65px"}}/>
+        {processing && <LinearProgress />}
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
             <div style={{ position: 'relative', width : '100%'}} className='admin_login_page'>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>

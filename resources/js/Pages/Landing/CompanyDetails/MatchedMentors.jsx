@@ -14,8 +14,8 @@ const Headers = [
     "Profile Photo", "Contact Name", "Contact Number", "Contact Email" ,"Functional Area", "Review" 
 ]
 
-function MatchedMentors ({}) {
-    // const MatchedSme = list;
+function MatchedMentors ({mentors}) {
+    console.log('mentors', mentors);
     return(
         <Box px={4} pb={6}>
             <Box p={3}>
@@ -23,7 +23,7 @@ function MatchedMentors ({}) {
             </Box>
             <Box>
             {
-                MatchedMentors.length > 0 ?
+                mentors.length > 0 ?
                 <Grid container>
                         <Grid
                             item
@@ -59,7 +59,7 @@ function MatchedMentors ({}) {
                                                 </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {/* {MatchedSme.map((row) => (
+                                            {mentors.map((row) => (
                                                 <TableRow
                                                     key={row.id}
                                                     sx={{
@@ -69,40 +69,31 @@ function MatchedMentors ({}) {
                                                             },
                                                     }}
                                                 >
-                                                    <TableCell align="left" component="th" scope="row">
-                                                        Company Name
+                                                    <TableCell>
+                                                        <Avatar 
+                                                            alt={''}
+                                                            src={row.profile_photo}
+                                                        />
                                                     </TableCell>
-                                                    <TableCell align="left">Compnay Uen</TableCell>
-                                                    <TableCell align="left">User Name</TableCell>
-                                                    <TableCell align="left">User Email</TableCell>
-                                                    <TableCell align="left">User Phone</TableCell>
-                                                </TableRow>
-                                            ))} */}
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Avatar 
-                                                        alt={''}
-                                                        src={''}
-                                                    />
-                                                </TableCell>
                                                     <TableCell align="left" component="th" scope="row">
-                                                        Company Name
+                                                        {row.user.name}
                                                     </TableCell>
-                                                    <TableCell align="left">Compnay Uen</TableCell>
-                                                    <TableCell align="left">User Name</TableCell>
-                                                    <TableCell align="left">User Email</TableCell>
+                                                    <TableCell align="left">{row.user.phone}</TableCell>
+                                                    <TableCell align="left">{row.user.email}</TableCell>
+                                                    <TableCell align="left">{row.functional_area}</TableCell>
                                                     <TableCell align="left">
-                                                        <a href="" target="_blank">
+                                                        <a href={route("mentor.detail", row.id)} target="_blank">
                                                             <CheckIcon/>
                                                         </a>
                                                     </TableCell>
-                                            </TableRow>
+                                                </TableRow>
+                                            ))}
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
                             </Paper>
                         </Grid>
-                </Grid> : <NoDataFound message="No Matched Sme available" />
+                </Grid> : <NoDataFound message="No Matched Mentor available" />
                 }
             </Box>
         </Box>

@@ -30,7 +30,7 @@ const multiSelectData = {
 }
 
 function CompanyDetail({detail}) {
-    console.log('dew212121',detail.company)
+    console.log('detail787887', detail)
     const inputRefs = useRef(Constants.companyInputRefs());
     const { data, setData, post, processing} = useForm({...Constants.initCompanyDetailForm, ...detail.user, ...detail.company});
     const [validationErrors, setValidationErrors] = useState({});
@@ -43,7 +43,6 @@ function CompanyDetail({detail}) {
         desc:""
     });
 
-    console.log("dataaaa", data.functional_area_3);
     const handleClickOpen = (id,title) => {
         setOpen(true);
         setAddMoreId(id);
@@ -115,7 +114,7 @@ function CompanyDetail({detail}) {
     }
 
     return (
-        <Landing auth={detail?.logged_user}>
+        <Landing auth={detail.user}>
             <Popup
                 title={selectPopup.title}
                 dsec={selectPopup.desc}
@@ -440,7 +439,7 @@ function CompanyDetail({detail}) {
                                         rows={4}
                                         value={data.company_description}
                                         variant='outlined'
-                                        placeholder='Please fill your company current problems'
+                                        placeholder='Please describe your company'
                                         onChange={(e) => handleChange('company_description', e.target.value)}
                                         error={!!validationErrors.company_description}
                                         helperText={validationErrors.company_description}
@@ -574,7 +573,7 @@ function CompanyDetail({detail}) {
                                     />
                             </Grid>
                             <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='custom_btn'>
-                                <Button variant="contained" type='submit'> {data.functional_id === null ? "Create" : "Update"}</Button>
+                                <Button variant="contained" disabled={processing} type='submit'> {data.functional_id === null ? "Create" : "Update"}</Button>
                             </Grid>
                         </Grid>
                     </form>

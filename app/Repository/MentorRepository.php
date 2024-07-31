@@ -8,6 +8,7 @@ use App\Repository\Interface\MentorRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\{
     Company,
+    MatchingMentorSme,
     User,Mentor
 };
 use App\Services\MatchSmeMentor;
@@ -35,12 +36,12 @@ class MentorRepository implements MentorRepositoryInterface {
             $data = Mentor::with('user')->where('id', $id)->first();
             $data->profile_photo = url("storage/mentor_profile/{$data->profile_photo}");
             $data->logged_user = $logged_user;
-            //$matches = MatchingMentorSme::where('mentor_id', $id)->pluck('company_id')->toArray();
-            // $companies = Company::with('user')->whereIn('id', $matches)
-            // ->get()->each(function($m) {
-            //     $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
-            // });
-            // $data->companies = $companies;
+            $matches = MatchingMentorSme::where('mentor_id', $id)->pluck('company_id')->toArray();
+            $companies = Company::with('user')->whereIn('id', $matches)
+            ->get()->each(function($m) {
+                $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
+            });
+            $data->companies = $companies;
             //dd($data);
             return [
                 'detail' => $data
@@ -130,7 +131,6 @@ class MentorRepository implements MentorRepositoryInterface {
                 'data' => $mentor
             ];
         }catch (\Exception $e) {
-            dd($e);
             return [
                 'success' => false,
                 'error' => $e->getMessage()

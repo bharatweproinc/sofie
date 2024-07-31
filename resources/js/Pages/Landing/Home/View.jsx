@@ -30,7 +30,6 @@ import ImageCarousel from './Components/ImageCorousel';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function DrawerAppBar({list}) {
-console.log('home', list);
 	const [selectedRole, setSelectedRole] = React.useState('entrepreneur');
 
 	const themes = useTheme()
@@ -397,7 +396,7 @@ console.log('home', list);
 								>
                                     </Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
-									<Button component={Link} href={route('landing.signup')}  variant="contained">
+									<Button component={Link} href={route('landing.signup', { role: 'mentor' })}  variant="contained">
 										Be A Mentor
 									</Button>
 								</Box>

@@ -283,7 +283,6 @@ function CompanyList({list = []}) {
                                     >
                                         <TableCell align="left" component="th" scope="row">
                                             {row.company_name}
-                                            {console.log(row.user.status)}
                                             {
                                                 row.user.is_accepted === null &&
                                                 <Chip label="new" color="primary" variant="outlined" sx={{ ml : 2, p : 0 }} />

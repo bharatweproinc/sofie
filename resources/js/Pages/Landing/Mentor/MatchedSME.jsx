@@ -14,8 +14,7 @@ const Headers = [
    "Profile Photo", "Company Name", "Company UEN", "User Name", "User Email" ,"User Phone", "Review" 
 ]
 
-function MatchedSME ({}) {
-    // const MatchedSme = list;
+function MatchedSME ({companies}) {
     return(
         <Box>
             <Box p={3}>
@@ -23,7 +22,7 @@ function MatchedSME ({}) {
             </Box>
             <Box>
             {
-                MatchedSME.length > 0 ?
+                companies.length > 0 ?
                 <Grid container>
                         <Grid
                             item
@@ -40,11 +39,12 @@ function MatchedSME ({}) {
                                         <TableHead>
                                             <TableRow>
                                             {
-                                                Headers.map((item) => {
+                                                Headers.map((item, index) => {
                                                     return (
                                                         <TableCell>
                                                             <Box className="flex gap-3">
                                                                 <Typography
+                                                                    key={index}
                                                                     fontSize="14px"
                                                                     color="#212121"
                                                                     fontWeight="600"
@@ -59,7 +59,7 @@ function MatchedSME ({}) {
                                                 </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {/* {MatchedSme.map((row) => (
+                                            {companies.map((row) => (
                                                 <TableRow
                                                     key={row.id}
                                                     sx={{
@@ -69,35 +69,26 @@ function MatchedSME ({}) {
                                                             },
                                                     }}
                                                 >
-                                                    <TableCell align="left" component="th" scope="row">
-                                                        Company Name
-                                                    </TableCell>
-                                                    <TableCell align="left">Compnay Uen</TableCell>
-                                                    <TableCell align="left">User Name</TableCell>
-                                                    <TableCell align="left">User Email</TableCell>
-                                                    <TableCell align="left">User Phone</TableCell>
-                                                </TableRow>
-                                            ))} */}
-                                            <TableRow>
-                                                    <TableCell>
+                                                     <TableCell>
                                                         <Avatar 
-                                                            alt={''}
-                                                            src={''}
+                                                            alt={'company_photo'}
+                                                            src={row.profile_photo}
                                                         />
                                                     </TableCell>
                                                     <TableCell align="left" component="th" scope="row">
-                                                        Company Name
+                                                        {row.company_name}
                                                     </TableCell>
-                                                    <TableCell align="left">Compnay Uen</TableCell>
-                                                    <TableCell align="left">User Name</TableCell>
-                                                    <TableCell align="left">User Email</TableCell>
-                                                    <TableCell align="left">User Phone</TableCell>
+                                                    <TableCell align="left">{row.company_uen}</TableCell>
+                                                    <TableCell align="left">{row.user.name}</TableCell>
+                                                    <TableCell align="left">{row.user.email}</TableCell>
+                                                    <TableCell align="left">{row.user.phone}</TableCell>
                                                     <TableCell>
-                                                        <a href="" target="_blank">
+                                                        <a href={route('company.detail', row.id)} target="_blank">
                                                             <CheckIcon/>
                                                         </a>
                                                     </TableCell>
-                                            </TableRow>
+                                                </TableRow>
+                                            ))}
                                         </TableBody>
                                     </Table>
                                 </TableContainer>

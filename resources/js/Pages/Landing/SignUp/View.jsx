@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
 import "../style.scss";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const signupSchema = Constants.signupSchema
 
@@ -102,7 +103,8 @@ function Signup() {
   return (
     <Landing>
     <Typography sx={{height:'65px'}}></Typography>
-    <ToastContainer style={{marginTop:"65px"}}/>
+      <ToastContainer style={{marginTop:"65px"}}/>
+      {processing && <LinearProgress />}
         <BackgroundImageContainer>
             <CenteredPaper elevation={4}
               sx={{

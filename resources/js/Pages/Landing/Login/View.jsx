@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../style.scss";
 import ForgetPassword from '@/Components/Dependent/ForgetPassword';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const CenteredPaper = styled(Paper)({
   padding: '40px',
@@ -57,11 +58,13 @@ function Login() {
       }
       post(route('landing.userslogin'),{
         onSuccess:(success) => {
-            console.log(success, "sucesss");
+          console.log(success, "sucesss");
+          notify.success("Successfully login");
         },
         onError:(error) => {
           console.log(error,"error");
           notify.error(error.email, { position: 'top-right' });
+          notify.error(error.msg, {position: "top-right"});
         },
       });
     }
@@ -70,12 +73,13 @@ function Login() {
     <Landing>
         <Typography sx={{ height: '65px' }}></Typography>
         <ToastContainer style={{marginTop:"65px"}}/>
+        {processing && <LinearProgress />}
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
           <div style={{ position: 'relative', width : '100%'}} className='login_page'>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
                   <CenteredPaper elevation={4} sx={{ margin: '60px', width: '650px !important'}}>
                       <form onSubmit={handleSubmit}>
-                        <Grid container spacing={4}>
+                          <Grid container spacing={4}>
                             <Grid item xs={12}>
                                 <Typography fontWeight={700} fontSize="28px" textAlign="center">Log In</Typography>
                             </Grid>

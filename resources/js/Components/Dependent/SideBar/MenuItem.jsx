@@ -18,6 +18,7 @@ const MenuItem = ({Constants, auth})=>{
                         <React.Fragment key={index}>
                             <ListItem disablePadding>
                                 <ListItemButton
+                                    disabled={auth.functional_id === null}
                                     component={item.subItems ? "button" : Link}
                                     href={
                                        auth.user_role === "mentor" ? route('mentor.detail',auth?.functional_id

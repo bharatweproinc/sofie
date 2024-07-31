@@ -17,7 +17,7 @@ import DeleteAlert from "@/Components/Dependent/DeleteAlert";
 import { notify } from "@/Components/Notifier";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 const Headers = [
     "Testimonial Name", "Description", "Action"
 ]
@@ -50,9 +50,10 @@ function Testimonials ({list}){
     return (
         <Landing auth={list.user}>
           <ToastContainer style={{marginTop:"65px"}}/>
+                <Typography sx={{ height: {xs : '95px', sm : '0px'} }}></Typography> 
                 <Box pr={8} pt={3} sx={{display : 'flex', justifyContent : 'flex-end'}} className="custom_btn">
-                    <Button component={Link} href={route('admin.testimonials')}  p={4} variant="contained">
-                        Add
+                    <Button component={Link} href={route('admin.testimonials')} variant="contained">
+                      Add
                     </Button>
                 </Box>
                 {

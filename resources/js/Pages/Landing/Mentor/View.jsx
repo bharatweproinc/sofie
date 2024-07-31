@@ -11,11 +11,12 @@ import { useState } from 'react';
 import ProfilePhotoUpload from '@/Components/FileUpload';
 import { useRef } from 'react';
 import { scrollToInput } from '@/utility/ScrollToInput';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Popup from '@/Components/Popup/index';
 import Joi from '@/utility/JoiValidator';
 import '../style.scss';
+import { notify } from '@/Components/Notifier';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const multiSelectData = {
     mentored_in_company : Constants.mentoredCompanyOptions,
@@ -38,7 +39,7 @@ const DetailBox = styled('div')(() => ({
 
 
 function Mentor({detail}) {
-    console.log('view',detail);
+    console.log('detail', detail )
     const { data, setData, post, processing} = useForm({...Constants.initMentorForm, ...detail.mentor, ...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
     const inputRefs = useRef(Constants.mentorInputRefs());
@@ -103,18 +104,21 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
+            console.log('data87787', data)
             post(route('mentor.saveDetail', detail.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
+                notify.success("Mentor data updtad successfully")
             },
             onError:(error) => {
                 console.log(error,"error")
+                notify.error("Error while updating Mentor")
             },
         })}
         }
 
   return (
-    <Landing auth={detail?.logged_user}>
+    <Landing auth={detail.user}>
         <Popup
             title={selectPopup.title}
             dsec={selectPopup.desc}

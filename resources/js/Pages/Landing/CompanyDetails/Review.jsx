@@ -10,7 +10,7 @@ import {
     Tooltip,
     Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Link, router, useForm } from "@inertiajs/react";
 import "./style.scss";
@@ -20,10 +20,11 @@ import ConfirmBox from "@/Components/Dependent/ConfirmBox/index";
 import Constants from "../Constants";
 import Joi from '@/utility/JoiValidator';
 import MatchedMentors from "./MatchedMentors";
+import { notify } from '@/Components/Notifier';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Reviewdata = ({detail}) => {
-
-    console.log('review',detail);
     const { data, setData, post, processing} = useForm({...Constants.initResetPasswordField, ...detail.user})
 
     let initialDate = moment(detail?.updated_at ? detail.updated_at : detail.created_at);
@@ -37,6 +38,12 @@ const Reviewdata = ({detail}) => {
     const [validationErrors, setValidationErrors] = useState({});
     const [passwordError, setpasswordError] = useState(false);
     const [userStatus, setUserStatus] = useState(data.status);
+    const [accepted, setAccepted] = useState(data.is_accepted);
+
+    useEffect(()=> {
+        setAccepted(detail.user.is_accepted);
+        setUserStatus(detail.user.status);
+    }, [detail.user.status, detail.user.is_accepted])
 
     const handleShow = () => {
         setShow(true)
@@ -110,17 +117,18 @@ const Reviewdata = ({detail}) => {
         })
     }
 
-
     const handleConfirm = (e) => {
         e.preventDefault();
         post(route("admin.acceptedCompanyProfile", detail.id), {
             onSuccess:(success) => {
                 console.log(success, "sucesss");
-                notify.error("User has been Live successfully");
+                notify.success("User has been Live successfully");
+                setOpenConfirm(false)
             },
             onError:(error) => {
                 console.log(error.email,"::error");
                 notify.error("Error while user Live");
+                setOpenConfirm(false)
             },
         })
         setOpenConfirm(false);
@@ -131,7 +139,7 @@ const Reviewdata = ({detail}) => {
         post(route("admin.rejectedCompanyProfile", detail.id), {
             onSuccess:(success) => {
                 console.log(success, "sucesss");
-                notify.error("User has been rejected successfully");
+                notify.success("User has been rejected successfully");
             },
             onError:(error) => {
                 console.log(error.email,"::error");
@@ -163,9 +171,10 @@ const Reviewdata = ({detail}) => {
 
     return (
         <Landing auth={detail.logged_user}>
+            <ToastContainer style={{ marginTop:"53px" }}/>
             <Box className="company_detail_review">
                 <Typography sx={{ height: "65px" }}></Typography>
-                <Grid item xs={12} px={5} pt={4} pb={0} sx={{display : 'flex', justifyContent : 'space-between'}}>
+                <Grid item xs={12} px={5} pt={4} pb={0} sx={{display : 'flex', flexDirection : { xs : 'column' , md : 'row' }, justifyContent : {md : 'space-between'}}}>
                     <Typography
                         pl={4}
                         fontWeight={700}
@@ -174,14 +183,14 @@ const Reviewdata = ({detail}) => {
                     >
                         Company Details
                     </Typography>
-                    <Box display={'flex'} alignItems={'center'}>
-                        <Box className='custom_btn custom_delete_btn'>
-                            {  detail && detail.logged_user.user_role === "admin" && data.is_accepted === null &&
+                    <Box sx={{display : 'flex',alignItems : 'center', flexDirection :{ xs : 'column' , md : 'row' }}}>
+                        <Box className='custom_btn custom_delete_btn flex  flex-col sm:flex-row items-center' >
+                            {  detail && detail.logged_user.user_role === "admin" && accepted === null &&
                                 <>
-                                <Button onClick={()=>setOpenReject(true)} sx={{mr : 1}} className="delete_account" variant="contained">
+                                <Button onClick={()=>setOpenReject(true)} sx={{mr : 1, mb : {md : 0, xs : 1}}} className="delete_account" variant="contained">
                                     Reject
                                 </Button>
-                                <Button onClick={()=>setOpenConfirm(true)} sx={{mr : 1}} variant="contained">
+                                <Button onClick={()=>setOpenConfirm(true)} sx={{mr : 1, mb : {md : 0, xs : 1}}} variant="contained">
                                     Accept
                                 </Button>
                                 </>
@@ -199,13 +208,14 @@ const Reviewdata = ({detail}) => {
                                         href={route('landing.companydetail', detail.user.id)}
                                         type="submit"
                                         variant="contained"
+                                        sx={{mr : 1, mb : {md : 0, xs : 1}}}
                                         >
                                         Edit
                                     </Button>
                                 </span>
                             </Tooltip>
                         </Box>
-                        <Box className="custom_delete_btn ml-2">
+                        <Box className="custom_delete_btn">
                             <Button className="delete_account" onClick={()=>setOpen(true)} variant="contained">
                                 Delete Account
                             </Button>
@@ -218,7 +228,7 @@ const Reviewdata = ({detail}) => {
                     className="company_detail_review_title"
                 >
                     <Grid container sx={{ pl: 3 }}>
-                        <Grid item xs={3} mt={2}>
+                        <Grid item xs={12} md={3} mt={2}>
                             <Typography
                                 variant="h6"
                                 pb={2}
@@ -234,7 +244,7 @@ const Reviewdata = ({detail}) => {
                                 sx={{ width: "100px", height: "100px"}}
                             />
                         </Grid>
-                        <Grid item xs={3} mt={2}>
+                        <Grid item xs={12} md={3} mt={2}>
                             <Typography
                                 variant="h6"
                                 pb={2}
@@ -513,7 +523,7 @@ const Reviewdata = ({detail}) => {
                     </Box>
                     }
                 </Box>
-                <MatchedMentors/>
+                <MatchedMentors mentors={detail.mentors}/>
             </Box>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
             <ConfirmBox open={openReject} setOpen={setOpenReject} handleSubmit={handleReject} message={`Do you really want to reject ${detail.company_name}`} />
