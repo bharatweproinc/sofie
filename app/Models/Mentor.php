@@ -18,7 +18,8 @@ class Mentor extends Model
         'hear_about_us',
         'number_of_companies',
         'additional_information',
-        'profile_photo'
+        'profile_photo',
+        'experience'
     ];
 
     protected $casts = [

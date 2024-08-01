@@ -62,12 +62,15 @@ class LandingController extends Controller
     }
 
     public function signup() {
+        //dd('test', Auth::user());
         return Inertia::render('Landing/SignUp/View', []);
     }
 
     public function companyDetails($id) {
         $logged_user = Auth::user();
         $user = User::findOrFail($id);
+        $user->status = 1;
+        $user->save();
         $company = Company::where('id', $user->functional_id)->first();
         if($company && $company->profile_photo != null){
             $company->profile_photo = url("storage/company_profile/{$company->profile_photo}");
@@ -110,7 +113,10 @@ class LandingController extends Controller
 
     public function mentorDetails($id) {
         $logged_user = Auth::user();
+        //dd($id,$logged_user);
         $user = User::findOrFail($id);
+        $user->status = 1;
+        $user->save();
         $mentor = Mentor::where('id', $user->functional_id)->first();
         if($mentor && $mentor->profile_photo != null){
             $mentor->profile_photo = url("storage/mentor_profile/{$mentor->profile_photo}");
@@ -172,7 +178,7 @@ class LandingController extends Controller
         return Inertia::render('Landing/AdminLogin/View', []);
     }
     public function userLogin(){
-        Auth::logout();
+        // Auth::logout();
         if(Auth::user()){
             $user = Auth::user();
             $role = Auth::user()->user_role;
@@ -192,15 +198,20 @@ class LandingController extends Controller
                     return Redirect::route('landing.mentordetail',[
                         'id' => $user->id
                     ]);
-                }else{
+                }else if($user->functional_id){
                     return Redirect::route('mentor.detail',[
                         'id' => $user->functional_id
                     ]);
                 }
             }else if($role == "admin" ){
                 return Redirect::route('admin.dashboard',[]);
+            }else if($role == "mentor" && $status == 0){
+                Auth::logout();
+                return Inertia::render('Landing/Login/View', []);
+            }else if($role == "entrepreneur" && $status == 0){
+                Auth::logout();
+                return Inertia::render('Landing/Login/View', []);
             }
-
         }else{
             return Inertia::render('Landing/Login/View', []);
         }
@@ -216,6 +227,7 @@ class LandingController extends Controller
             $status = $user->status;
         }else{
             $role = $user->user_role;
+            $status = $user->status;
         }
         if($role == "entrepreneur" && $status == 1){
             if($user->functional_id == null){
@@ -238,7 +250,7 @@ class LandingController extends Controller
                 ]);
             }
         }else{
-            return Redirect::back()->withErrors(['msg' => 'Your account has been suspended by our team.']);
+            return Redirect::back()->withErrors(['msg' => 'Your account has been either suspended or under verification by our team.']);
         }
     }
 

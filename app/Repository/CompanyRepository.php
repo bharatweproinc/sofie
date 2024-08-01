@@ -28,21 +28,24 @@ class CompanyRepository implements CompanyRepositoryInterface {
         });
         // dd($company);
         return ["list" => [
-            "user" => $user,    
+            "user" => $user,
             "company" => $company
         ]];
     }
 
     public function getMentorName($mentor_id){
+        $name = null;
         if($mentor_id != null){
             $mentor = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->select('name')->first();
-            $name = $mentor->name;
+            if($mentor){
+                $name = $mentor->name;
+            }
             return $name;
         }else{
             return null;
         }
     }
-    
+
     public function saveData(Request $request, $id){
         try {
            // dd($request->all());
@@ -99,19 +102,27 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 }
             }else {
                 $company = Company::create($data);
+                if($fileName != null){
+                    $company->profile_photo = $fileName;
+                    $company->save();
+                }
+                if($founderImage != null){
+                    $company->founder_image = $founderImage;
+                    $company->save();
+                }
                 $user->functional_id = $company->id;
+                $user->status = 0;
                 $user->save();
                 Mail::to($user->email)->send(new PendingProfileMail($user->name));
             }
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user()->user_role =="admin")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
                 $company->profile_photo = $fileName;
                 $company->save();
             }
-            if(($founderImage != null && $diff_in_days >= 7) || ($founderImage != null && Auth::user()->user_role =="admin")){
+            if(($founderImage != null && $diff_in_days >= 7) || ($founderImage != null && Auth::user() && Auth::user()->user_role =="admin")){
                 $company->founder_image = $founderImage;
                 $company->save();
             }
-
             return [
                 'success' => true,
                 'data' => $company
@@ -125,8 +136,12 @@ class CompanyRepository implements CompanyRepositoryInterface {
     }
 
     public function getData($id) {
-        $logged_user = Auth::user();
         try {
+            if(Auth::user()){
+                $logged_user = Auth::user();
+            }else{
+                $logged_user = User::where('user_role','mentor')->where('functional_id', $id)->first();
+            }
             $data = Company::with('user')->where('id',$id)->first();
             if($data->profile_photo != null){
                 $data->profile_photo = url("storage/company_profile/{$data->profile_photo}");

@@ -32,7 +32,11 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function get($id) {
         try {
-            $logged_user = Auth::user();
+            if(Auth::user()){
+                $logged_user = Auth::user();
+            }else{
+                $logged_user = User::where('user_role','mentor')->where('functional_id', $id)->first();
+            }
             $data = Mentor::with('user')->where('id', $id)->first();
             $data->profile_photo = url("storage/mentor_profile/{$data->profile_photo}");
             $data->logged_user = $logged_user;
@@ -77,7 +81,7 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function saveData(Request $request, $id)
     {
-        // dd($request->all());
+        //dd($request->experience);
         try{
             $fileName = null;
             $diff_in_days = 0;
@@ -99,8 +103,6 @@ class MentorRepository implements MentorRepositoryInterface {
                 'phone' => $request->phone
             ];
 
-
-
             //saving image in db
             if($request->hasFile('profile_photo')){
                 $fileName =  $this->uploadFile($request->file('profile_photo'),'mentor_profile');
@@ -111,21 +113,27 @@ class MentorRepository implements MentorRepositoryInterface {
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($mentor->updated_at);
                 $diff_in_days = $updated_at->diffInDays($current_day);
-                if($diff_in_days >= 7 || Auth::user()->user_role =="admin"){
+                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin")){
                     $mentor->update($data);
                     $user->update($user_data);
                 }
             }else {
                 $mentor = Mentor::create($data);
+                if($fileName != null){
+                    $mentor->profile_photo = $fileName;
+                    $mentor->save();
+                }
                 $user->functional_id = $mentor->id;
+                $user->status = 0;
                 $user->save();
                 Mail::to($user->email)->send(new PendingProfileMail($user->name));
             }
 
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user()->user_role =="admin")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
                 $mentor->profile_photo = $fileName;
                 $mentor->save();
             }
+
             return [
                 'success' => true,
                 'data' => $mentor

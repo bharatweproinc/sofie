@@ -184,10 +184,10 @@ function ReviewProfilePage ({detail}){
                                     disableHoverListener={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}
                                  >
                                     <span>
-                                        <Button 
-                                            disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true} 
-                                            component={Link} 
-                                            href={route('landing.mentordetail', detail.user.id)} 
+                                        <Button
+                                            disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true}
+                                            component={Link}
+                                            href={route('landing.mentordetail', detail.user.id)}
                                             variant="contained"
                                             sx={{mr : 1, mb : {md : 0, xs : 1}}}
                                         >

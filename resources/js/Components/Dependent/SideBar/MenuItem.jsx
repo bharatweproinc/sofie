@@ -21,9 +21,9 @@ const MenuItem = ({Constants, auth})=>{
                                     disabled={auth.functional_id === null}
                                     component={item.subItems ? "button" : Link}
                                     href={
-                                       auth.user_role === "mentor" ? route('mentor.detail',auth?.functional_id
+                                       auth.user_role === "mentor" ? route('mentor.detail',auth?.functional_id === null ? auth.id : auth.functional_id
                                        ):
-                                       route('company.detail', auth?.functional_id)
+                                       route('company.detail', auth?.functional_id === null ? auth.id : auth.functional_id)
                                     }
                                     onClick={() =>
                                         item.subItems
