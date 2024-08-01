@@ -69,7 +69,7 @@ class TestimonialRepository implements TestimonialRepositoryInterface {
 
 
         }catch (\Exception $e) {
-            dd($e);
+            //dd($e);
             return [
                 'success' => false,
                 'error' => $e->getMessage()
@@ -102,7 +102,7 @@ class TestimonialRepository implements TestimonialRepositoryInterface {
             ];
 
         }catch (\Exception $e) {
-            dd($e);
+            //dd($e);
             return [
                 'success' => false,
                 'error' => $e->getMessage()

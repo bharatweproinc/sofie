@@ -60,7 +60,8 @@ class MentorController extends Controller
              'id' => $id
          ]);
         }catch(Exception $e){
-            dd($e);
+            return $e->getMessage();
+            //dd($e);
         }
     }
 }

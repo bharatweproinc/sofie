@@ -45,7 +45,7 @@ class TestimonialController extends Controller
                 'id' => $testimonial['data']->id
             ]);
         }catch(\Exception $e){
-            dd($e->getMessage());
+            return $e->getMessage();
         }
     }
     public function deleteTestimonial($id){

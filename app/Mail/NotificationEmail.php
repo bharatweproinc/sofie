@@ -29,7 +29,7 @@ class NotificationEmail extends Mailable
 
     public function build()
     {
-        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.notification')->subject("Notification");
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.notification')->subject("Email Verification");
     }
 
 }

@@ -282,7 +282,6 @@ class LandingController extends Controller
                 return response()->withErrors(['message' => 'Email not registered with Upcie']);
             }
         }catch(\Exception $e){
-            dd($e);
             return $e->getMessage();
         }
 

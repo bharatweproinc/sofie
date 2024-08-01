@@ -206,7 +206,6 @@ class DashboardController extends Controller
             }
 
         }catch (\Exception $e) {
-            dd($e);
             $response = $e->getMessage();
         }
     }
@@ -243,7 +242,6 @@ class DashboardController extends Controller
             }
             return Redirect::back();
         }catch (\Exception $e) {
-            dd($e);
             $response = $e->getMessage();
         }
     }
@@ -260,7 +258,6 @@ class DashboardController extends Controller
             }
             return Redirect::back();
         }catch (\Exception $e) {
-            dd($e);
             $response = $e->getMessage();
         }
     }
