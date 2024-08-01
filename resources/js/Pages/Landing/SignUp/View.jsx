@@ -171,8 +171,8 @@ function Signup() {
                             variant='outlined'
                             placeholder='Password'
                             onChange={(e) => handleChange("password", e.target.value)}
-                            error={!!validationErrors.password?.[0]}
-                            helperText={validationErrors.password?.[0]}
+                            error={!!validationErrors.password?.[2]}
+                            helperText={validationErrors.password?.[2]}
                           />
                     </Grid>
                     <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
@@ -199,8 +199,8 @@ function Signup() {
                           </RadioGroup>
                       </FormControl>
                     </Grid>
-                    { 
-                      data.enterpreneur_or_mentor === "mentor" ? 
+                    {
+                      data.enterpreneur_or_mentor === "mentor" ?
                           <Grid item xs={12} className='custom_checkbox_label'>
                             <FormControlLabel required control={<Checkbox />}
                                 label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to a total of 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of 1 year" />
