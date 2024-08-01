@@ -107,7 +107,7 @@ const signupSchema = [{
     .min(8)
     .regex(/[A-Z]/, 'upper-case')
     .regex(/[a-z]/, 'lower-case')
-    .regex(/[^\w]/, 'special character').label('Password must be 8-16 characters long, and contain one uppercase and one lowercase character '),
+    .regex(/[^\w]/, 'special character'),
     confirm_password: Joi.string().min(8).label("Confirm Password").required(),
     enterpreneur_or_mentor : Joi.required()
 }];

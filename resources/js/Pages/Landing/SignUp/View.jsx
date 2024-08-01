@@ -189,6 +189,11 @@ function Signup() {
                             helperText={validationErrors.confirm_password?.[0] || (passwordError ? 'Passwords does not match' : '')}
                           />
                     </Grid>
+                    <Grid item xs={12}>
+                          <Box>
+                              <Typography fontSize={"14px"} color={"#7C7C7C"}> Password Tip : Password must be 8-16 characters long, and contain one uppercase and one lowercase character.</Typography>
+                          </Box>
+                      </Grid>
                     <Grid  item lg={6} sm={12} md={6} xs={12} textAlign={"start"}>
                       <FormControl sx={{marginLeft : '-10px'}}>
                           <RadioGroup value={data.enterpreneur_or_mentor} name="radio-buttons-group" sx={{flexDirection:{ sm : "row"}, alignItems:{sm : "center", xs : 'flex-start' }}}
