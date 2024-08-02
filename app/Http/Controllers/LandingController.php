@@ -67,7 +67,11 @@ class LandingController extends Controller
     }
 
     public function companyDetails($id) {
-        $logged_user = Auth::user();
+        if(Auth::user()){
+            $logged_user = Auth::user();
+        }else{
+            $logged_user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
+        }
         $user = User::findOrFail($id);
         $user->status = 1;
         $user->save();
@@ -112,7 +116,11 @@ class LandingController extends Controller
     }
 
     public function mentorDetails($id) {
-        $logged_user = Auth::user();
+        if(Auth::user()){
+            $logged_user = Auth::user();
+        }else{
+            $logged_user = User::where('user_role','mentor')->where('functional_id', $id)->first();
+        }
         //dd($id,$logged_user);
         $user = User::findOrFail($id);
         $user->status = 1;
@@ -178,6 +186,7 @@ class LandingController extends Controller
         return Inertia::render('Landing/AdminLogin/View', []);
     }
     public function userLogin(){
+        //dd('login check', Auth::user());
         // Auth::logout();
         if(Auth::user()){
             $user = Auth::user();

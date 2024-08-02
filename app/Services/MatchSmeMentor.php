@@ -14,21 +14,13 @@ class MatchSmeMentor{
         $mentor = Mentor::findOrFail($id);
         $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
 
-        $companies = Company::where('assigned_mentor_1', null)->where('functional_area_1' , $mentor->functional_area)
+        $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
+        $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->where('functional_area_1' , $mentor->functional_area)
         ->orWhere('assigned_mentor_2',null)->where('functional_area_2', $mentor->functional_area)
         ->orWhere('assigned_mentor_3',null)->where('functional_area_3', $mentor->functional_area)->get()->each(function($sme) {
                 $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
                 $sme->link = url("/connect/company/".$sme->id);
             });
-
-        // $companies = Company::where(function($query) use ($mentor) {
-        //     $query->where('functional_area_1', $mentor->functional_area)
-        //         ->orWhere('functional_area_2', $mentor->functional_area)
-        //         ->orWhere('functional_area_3', $mentor->functional_area);
-        // })->get()->each(function($sme) {
-        //     $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
-        //     $sme->link = url("/connect/company/".$sme->id);
-        // });
         $data = [
             'matched_smes' => $companies,
             'user_name' => $user->name,
@@ -94,7 +86,5 @@ class MatchSmeMentor{
         $user = User::where('user_role', 'mentor')->where('functional_id', $id)->select('name')->first();
         return $user->name;
     }
-
-
 
 }

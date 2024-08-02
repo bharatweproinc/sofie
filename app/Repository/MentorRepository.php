@@ -32,6 +32,7 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function get($id) {
         try {
+            //dd('review', Auth::user());
             if(Auth::user()){
                 $logged_user = Auth::user();
             }else{
@@ -102,7 +103,6 @@ class MentorRepository implements MentorRepositoryInterface {
                 'email' => $request->email,
                 'phone' => $request->phone
             ];
-
             //saving image in db
             if($request->hasFile('profile_photo')){
                 $fileName =  $this->uploadFile($request->file('profile_photo'),'mentor_profile');

@@ -161,6 +161,7 @@ class DashboardController extends Controller
             $user = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->first();
             if($user){
                 $user->is_accepted = 1;
+                $user->status = 1;
                 $user->save();
                 MatchingQueue::create([
                     'mentor_id' => $mentor_id,
@@ -181,6 +182,7 @@ class DashboardController extends Controller
             $user = User::where('user_role', 'entrepreneur')->where('functional_id', $sme_id)->first();
             if($user){
                 $user->is_accepted = 1;
+                $user->status = 1;
                 $user->save();
                 Mail::to($user->email)->send(new AcceptedSmeProfileMail($user));
             }else{

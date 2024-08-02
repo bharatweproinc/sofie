@@ -114,7 +114,7 @@ function CompanyDetail({detail}) {
     }
 
     return (
-        <Landing auth={detail.user}>
+        <Landing auth={detail.logged_user !== null ? detail.logged_user : detail.user}>
             <Popup
                 title={selectPopup.title}
                 dsec={selectPopup.desc}

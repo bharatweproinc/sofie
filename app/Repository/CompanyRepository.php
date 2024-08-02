@@ -48,7 +48,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function saveData(Request $request, $id){
         try {
-           // dd($request->all());
+           //dd($request->all());
             $fileName = null;
             $founderImage = null;
             $diff_in_days = 0;
@@ -89,7 +89,6 @@ class CompanyRepository implements CompanyRepositoryInterface {
             if($request->hasFile('founder_photo')){
                 $founderImage =  $this->uploadFile($request->file('founder_photo'),'company_founder');
             }
-            //dd($fileName, $founderImage);
 
             $company = Company::where('id', $user->functional_id)->first();
             if($company && $company->updated_at != null){
@@ -140,7 +139,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
             if(Auth::user()){
                 $logged_user = Auth::user();
             }else{
-                $logged_user = User::where('user_role','mentor')->where('functional_id', $id)->first();
+                $logged_user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
             }
             $data = Company::with('user')->where('id',$id)->first();
             if($data->profile_photo != null){
