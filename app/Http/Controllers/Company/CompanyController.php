@@ -47,13 +47,14 @@ class CompanyController extends Controller
     }
 
     public function deleteCompany($id){
-        $company = Company::where('id',$id)->first();
-        $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
-        if($user && $company){
-            $company->delete();
-            $user->delete();
-        }
-        return Redirect::route("admin.dashboard",[]);
+        //delete after 72 hrs from table and cron
+        // $company = Company::where('id',$id)->first();
+        // $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
+        // if($user && $company){
+        //     $company->delete();
+        //     $user->delete();
+        // }
+        // return Redirect::route("admin.dashboard",[]);
     }
 
     public function resetPassword(Request $request, $id){

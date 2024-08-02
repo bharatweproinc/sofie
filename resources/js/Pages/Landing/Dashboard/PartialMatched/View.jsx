@@ -12,51 +12,24 @@ import NoDataFound from "@/Components/NoDataFound";
 import CheckIcon from "@/Components/SVGIcons/Home/CheckIcon";
 import "../../style.scss"
 
-const user = {
-    id : 12,
-    user_role : 'admin'
-}
-
 const Headers = [
-    "Company Profile Photo", "Company Name", "Company UEN", "Mentor 1", "Mentor 2" ,"Mentor 3", "Action" 
-]
-const list = [
-    {
-    'id' : 1, 
-    'profile_photo' : 'none',
-    'company_name' : 'Testing Company 1',
-    'company_uen' : '45646546A',
-    'partial_matched_1' : "Mentor 1",
-    'partial_matched_2' : "Mentor 2",
-    'partial_matched_3' : "Mentor 3",
-    },
-    {
-    'id' : 2,
-    'profile_photo' : 'none',
-    'company_name' : 'Testing Company 2',
-    'company_uen' : '45646546A',
-    'partial_matched_1' : "Mentor 1",
-    'partial_matched_2' : "Mentor 2",
-    'partial_matched_3' : "Mentor 3",
-    },
-
+    "Company Profile Photo", "Company Name", "Company UEN", "Mentor 1", "Mentor 2" ,"Mentor 3", "Action"
 ]
 
-function partialMatched () {
-
+function partialMatched ({list = []}) {
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = React.useState(1);
 
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = list.slice(indexOfFirstRow, indexOfLastRow);
+    const currentRows = list.company.slice(indexOfFirstRow, indexOfLastRow);
 
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
 
     return (
-        <Landing auth={user}>
+        <Landing auth={list.user}>
             <Typography sx={{ height: {xs : '65px', sm : '0px'} }}></Typography>
              <Box p={3}>
                 <Box p={3}>
@@ -64,7 +37,7 @@ function partialMatched () {
                 </Box>
                 <Box>
                 {
-                    list.length > 0 ? 
+                    list.company.length > 0 ?
                     <Grid container>
                             <Grid
                                 item
@@ -111,7 +84,7 @@ function partialMatched () {
                                                         }}
                                                     >
                                                         <TableCell>
-                                                            <Avatar 
+                                                            <Avatar
                                                                 alt={'company_photo'}
                                                                 src={row.profile_photo}
                                                             />
@@ -120,11 +93,12 @@ function partialMatched () {
                                                             {row.company_name}
                                                         </TableCell>
                                                         <TableCell align="left">{row.company_uen}</TableCell>
-                                                        <TableCell align="left">{row.partial_matched_1}</TableCell>
-                                                        <TableCell align="left">{row.partial_matched_2}</TableCell>
-                                                        <TableCell align="left">{row.partial_matched_3}</TableCell>
+                                                        <TableCell align="left">{row.assigned_mentor_1 == null ? <em>{"Unassigned"}</em>: row.assigned_mentor_1}</TableCell>
+                                                        <TableCell align="left">{row.assigned_mentor_2 == null ? <em>{"Unassigned"}</em> : row.assigned_mentor_2}</TableCell>
+                                                        <TableCell align="left">{row.assigned_mentor_3 == null ? <em>{"Unassigned"}</em> : row.assigned_mentor_3}</TableCell>
                                                         <TableCell>
-                                                            <a href={''} target="_blank">
+                                                        {/* href={route('admin.company.get',row.id)} */}
+                                                            <a href={route('admin.company.get',row.id)} target="_blank">
                                                                 <CheckIcon/>
                                                             </a>
                                                         </TableCell>
@@ -135,7 +109,7 @@ function partialMatched () {
                                     </TableContainer>
                                     <Box p={2} display="flex" justifyContent="center">
                                         <Pagination
-                                            count={Math.ceil(list.length / rowsPerPage)} 
+                                            count={Math.ceil(list.length / rowsPerPage)}
                                             page={currentPage}
                                             className="custom_table_pagination"
                                             onChange={handlePageChange}

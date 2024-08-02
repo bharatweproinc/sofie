@@ -266,21 +266,23 @@ class DashboardController extends Controller
 
     //Deleting Mentor and SME
     public function deleteMentorUser($id){
-        $user = User::where('user_role','mentor')->where('functional_id', $id)->first();
-        if($user){
-            $mentor = Mentor::where('id', $user->functional_id)->first();
-            $mentor->delete();
-            $user->delete();
-      }
+        //Deletion table and cron job for delete
+    //     $user = User::where('user_role','mentor')->where('functional_id', $id)->first();
+    //     if($user){
+    //         $mentor = Mentor::where('id', $user->functional_id)->first();
+    //         $mentor->delete();
+    //         $user->delete();
+    //   }
     }
 
     public function deleteCompanyUser($id){
-        $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
-        if($user){
-            $company = Company::where('id', $user->functional_id)->first();
-            $company->delete();
-            $user->delete();
-        }
+         //Deletion table and cron job for delete
+        // $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
+        // if($user){
+        //     $company = Company::where('id', $user->functional_id)->first();
+        //     $company->delete();
+        //     $user->delete();
+        // }
 
     }
 

@@ -31,7 +31,6 @@ class LandingController extends Controller
         $this->testimonialRepository = $testimonialRepository;
     }
 
-    //
     public function home() {
         $companies = $this->companyRepository->getList();
         $mentors = $this->mentorRepository->getList();
@@ -144,11 +143,41 @@ class LandingController extends Controller
         return Inertia::render('Landing/Mentor/Review',[]);
     }
     public function partialMatched() {
-        return Inertia::render('Landing/Dashboard/PartialMatched/View');
+        $response = $this->companyRepository->getList();
+        return Inertia::render('Landing/Dashboard/PartialMatched/View', $response);
     }
     public function matched() {
-        return Inertia::render('Landing/Dashboard/Matched/View');
+        $response = $this->companyRepository->getList();
+       // $response['list']['company']
+
+        $matched = Company::with('user')->whereNotNull('assigned_mentor_1')
+        ->whereNotNull('assigned_mentor_2')
+        ->whereNotNull('assigned_mentor_3')
+        ->get()
+        ->each(function($m) {
+            $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
+            $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
+            $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);
+            $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
+            $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
+        });
+        $response['list']['company'] = $matched;
+        return Inertia::render('Landing/Dashboard/Matched/View', $response);
     }
+
+    public function getMentorName($mentor_id){
+        $name = null;
+        if($mentor_id != null){
+            $mentor = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->select('name')->first();
+            if($mentor){
+                $name = $mentor->name;
+            }
+            return $name;
+        }else{
+            return null;
+        }
+    }
+
     public function profile() {
         return Inertia::render('Landing/Profile/View',[]);
     }

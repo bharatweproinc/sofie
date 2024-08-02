@@ -12,40 +12,24 @@ import NoDataFound from "@/Components/NoDataFound";
 import CheckIcon from "@/Components/SVGIcons/Home/CheckIcon";
 import "../../style.scss"
 
-const user = {
-    id : 12,
-    user_role : 'admin'
-}
-
 const Headers = [
-    "Company Profile Photo", "Company Name", "Company UEN", "Mentor 1", "Mentor 2" ,"Mentor 3", "Action" 
+    "Company Profile Photo", "Company Name", "Company UEN", "Mentor 1", "Mentor 2" ,"Mentor 3", "Action"
 ]
 
-const list = [{
-    'key' : 1,
-    'profile_photo' : 'none',
-    'company_name' : 'Testing Company',
-    'company_uen' : '45646546A',
-    'matched_1' : "Mentor 1",
-    'matched_2' : "Mentor 2",
-    'matched_3' : "Mentor 3",
-}]
-
-function matched () {
-
+function matched ({list =[]}) {
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = React.useState(1);
 
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = list.slice(indexOfFirstRow, indexOfLastRow);
+    const currentRows = list.company.slice(indexOfFirstRow, indexOfLastRow);
 
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
 
     return (
-        <Landing auth={user}>
+        <Landing auth={list.user}>
             <Typography sx={{ height: {xs : '65px', sm : '0px'} }}></Typography>
             <Box p={3}>
                 <Box p={3}>
@@ -53,7 +37,7 @@ function matched () {
                 </Box>
                 <Box>
                 {
-                    list.length > 0 ?
+                    list.company.length > 0 ?
                     <Grid container>
                             <Grid
                                 item
@@ -100,7 +84,7 @@ function matched () {
                                                         }}
                                                     >
                                                         <TableCell>
-                                                            <Avatar 
+                                                            <Avatar
                                                                 alt={'company_photo'}
                                                                 src={row.profile_photo}
                                                             />
@@ -109,11 +93,11 @@ function matched () {
                                                             {row.company_name}
                                                         </TableCell>
                                                         <TableCell align="left">{row.company_uen}</TableCell>
-                                                        <TableCell align="left">{row.matched_1}</TableCell>
-                                                        <TableCell align="left">{row.matched_2}</TableCell>
-                                                        <TableCell align="left">{row.matched_3}</TableCell>
+                                                        <TableCell align="left">{row.assigned_mentor_1}</TableCell>
+                                                        <TableCell align="left">{row.assigned_mentor_2}</TableCell>
+                                                        <TableCell align="left">{row.assigned_mentor_3}</TableCell>
                                                         <TableCell>
-                                                            <a href={''} target="_blank">
+                                                            <a href={route('admin.company.get',row.id)} target="_blank">
                                                                 <CheckIcon/>
                                                             </a>
                                                         </TableCell>
