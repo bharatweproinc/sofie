@@ -440,7 +440,6 @@ function DrawerAppBar({list}) {
 									color={theme.color[import.meta.env.VITE_SELECTED_THEME].textPrimaryMuteColor}
 									variant="body1"
 								>
-									By partnering with us, you'll be equipped with the tools and knowledge necessary to drive growth and innovation within your company.
 								</Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
 									<Button variant="contained">
