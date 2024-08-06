@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('users:delete-scheduled')->everyMinute();
+        $schedule->command('app:match-mentors-to-sme')->everyMinute();
     }
 
     /**

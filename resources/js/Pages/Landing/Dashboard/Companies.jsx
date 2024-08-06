@@ -74,7 +74,7 @@ const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
      const handleDelete = () => {
         post(route('admin.deleteDashCompany', userId),{
             onSuccess:(success) => {
-                notify.success('Company Data has been deleted successfully')
+                notify.success('Company Data successfully sent for deletion')
                 console.log(success, "successs");
                 setOpen(false);
             },

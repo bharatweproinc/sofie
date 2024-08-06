@@ -63,7 +63,7 @@ function FindMentors ({list}) {
                                     {item.industry_sector.map(String).join(', ')}
                                     </Typography>
 
-                                    <Box className="flex" gap={.5}>
+                                    {/* <Box className="flex" gap={.5}>
                                         <Experience/>
                                         <Typography variant="caption" color="text.secondary">
                                                 {item.experience} Years Experience
@@ -74,7 +74,7 @@ function FindMentors ({list}) {
                                         <Typography variant="caption" color="text.secondary">
                                             {item.user.email}
                                         </Typography>
-                                    </Box>
+                                    </Box> */}
 
                                     <Typography pt={2} variant="body2" color="text.secondary">
                                         {item.qualifications}

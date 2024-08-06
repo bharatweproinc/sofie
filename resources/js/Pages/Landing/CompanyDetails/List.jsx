@@ -50,7 +50,7 @@ function CompanyList({list = []}) {
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = sortedRows.slice(indexOfFirstRow, indexOfLastRow);
-    
+
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
@@ -70,7 +70,7 @@ function CompanyList({list = []}) {
     const handleDelete = () => {
         post(route('admin.deleteCompanyUser', userId),{
             onSuccess:(success) => {
-                notify.success('Company Data has been deleted successfully')
+                notify.success('Company Data successfully sent for deletion')
                 console.log(success, "successs");
                 setOpen(false);
             },

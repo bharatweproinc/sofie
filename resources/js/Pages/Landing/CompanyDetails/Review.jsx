@@ -103,9 +103,9 @@ const Reviewdata = ({detail}) => {
     }}
 
     const handleDelete = () => {
-        post(route('admin.deleteCompanyUser', detail.id),{
+        post(route('landing.deleteCompanyUser', detail.id),{
             onSuccess:(success) => {
-                notify.success('Company Data has been deleted successfully')
+                notify.success('Company Data successfully sent for deletion')
                 console.log(success, "successs");
                 setOpen(false);
             },

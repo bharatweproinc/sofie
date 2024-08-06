@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\AcceptedMentorProfileMail;
 use App\Mail\AcceptedSmeProfileMail;
 use App\Mail\RejectedProfileMail;
-use App\Models\{BannerSection,Company, JoinOurCommunitySection, MatchingQueue, Mentor, MissionStatementSection, User};
+use App\Models\{BannerSection,Company, Deletion, JoinOurCommunitySection, MatchingQueue, Mentor, MissionStatementSection, User};
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\CompanyRepository;
@@ -98,12 +98,18 @@ class DashboardController extends Controller
             $banner->banner_images = $images_links;
             $banner->save();
         }
-        return Inertia::render('Landing/Dashboard/Content/Banner',[
+        return Redirect::route('admin.sectionOne', [
             'list' => [
                 'banner' => $banner,
                 'user' => $logged_user
             ]
         ]);
+        // return Inertia::render('Landing/Dashboard/Content/Banner',[
+        //     'list' => [
+        //         'banner' => $banner,
+        //         'user' => $logged_user
+        //     ]
+        // ]);
     }
 
     public function saveSectionTwo(Request $request){
@@ -163,13 +169,16 @@ class DashboardController extends Controller
                 $user->is_accepted = 1;
                 $user->status = 1;
                 $user->save();
-                MatchingQueue::create([
-                    'mentor_id' => $mentor_id,
-                    'status' => 'not matched'
-                ]);
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($mentor_id);
-                Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+                if(count($data['matched_smes']) == 0){
+                    MatchingQueue::create([
+                        'mentor_id' => $mentor_id,
+                        'status' => 'not matched'
+                   ]);
+                }else{
+                    Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+                }
             }else{
                 return Redirect::back()->withErrors(['message' => 'Error Sending Email']);
             }
@@ -190,8 +199,7 @@ class DashboardController extends Controller
             }
             return Redirect::back();
         }catch (\Exception $e) {
-            //dd($e);
-            $response = $e->getMessage();
+          return $e->getMessage();
         }
     }
     public function rejectedMentorProfile($id){
@@ -208,7 +216,7 @@ class DashboardController extends Controller
             }
 
         }catch (\Exception $e) {
-            $response = $e->getMessage();
+            return $e->getMessage();
         }
     }
     public function rejectedCompanyProfile($id){
@@ -225,8 +233,8 @@ class DashboardController extends Controller
             }
 
         }catch (\Exception $e) {
-            dd($e);
             $response = $e->getMessage();
+            return $response;
         }
     }
 
@@ -266,24 +274,21 @@ class DashboardController extends Controller
 
     //Deleting Mentor and SME
     public function deleteMentorUser($id){
-        //Deletion table and cron job for delete
-    //     $user = User::where('user_role','mentor')->where('functional_id', $id)->first();
-    //     if($user){
-    //         $mentor = Mentor::where('id', $user->functional_id)->first();
-    //         $mentor->delete();
-    //         $user->delete();
-    //   }
+        if($id){
+            $newDeletion = new Deletion();
+            $newDeletion->scheduleMentorDeletion($id);
+        }else{
+            return Redirect::back()->withError(['msg' => 'Deletion Failed']);
+        }
     }
 
     public function deleteCompanyUser($id){
-         //Deletion table and cron job for delete
-        // $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
-        // if($user){
-        //     $company = Company::where('id', $user->functional_id)->first();
-        //     $company->delete();
-        //     $user->delete();
-        // }
-
+        if($id){
+            $newDeletion = new Deletion();
+            $newDeletion->scheduleCompanyDeletion($id);
+        }else{
+            return Redirect::back()->withError(['msg' => 'Deletion Failed']);
+        }
     }
 
 }

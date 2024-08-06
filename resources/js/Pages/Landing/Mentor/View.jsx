@@ -108,7 +108,7 @@ function Mentor({detail}) {
             post(route('mentor.saveDetail', detail.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
-                notify.success("Mentor data updtad successfully")
+                notify.success("Mentor data successfully sent for deletion")
             },
             onError:(error) => {
                 console.log(error,"error")

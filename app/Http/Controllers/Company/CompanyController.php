@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\MentorDetailsMail;
 use App\Mail\SmeDetailsMail;
 use App\Models\Company;
+use App\Models\Deletion;
 use App\Models\MatchingMentorSme;
 use App\Models\MatchingQueue;
 use App\Models\Mentor;
@@ -47,14 +48,12 @@ class CompanyController extends Controller
     }
 
     public function deleteCompany($id){
-        //delete after 72 hrs from table and cron
-        // $company = Company::where('id',$id)->first();
-        // $user = User::where('user_role','entrepreneur')->where('functional_id', $id)->first();
-        // if($user && $company){
-        //     $company->delete();
-        //     $user->delete();
-        // }
-        // return Redirect::route("admin.dashboard",[]);
+        if($id){
+            $newDeletion = new Deletion();
+            $newDeletion->scheduleCompanyDeletion($id);
+        }else{
+            return Redirect::back()->withError(['msg' => 'Deletion Failed']);
+        }
     }
 
     public function resetPassword(Request $request, $id){

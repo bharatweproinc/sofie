@@ -185,6 +185,9 @@ class LandingController extends Controller
     public function privacy() {
         return Inertia::render('Landing/Privacy/View',[]);
     }
+    public function faq() {
+        return Inertia::render('Landing/FAQ/View',[]);
+    }
 
     public function terminology() {
         return Inertia::render('Landing/Terminology/View',[]);

@@ -69,14 +69,14 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-                                {list.banner.banner_description}
+                                {list.banner.banner_description}I
                             </Typography>
 							<Box className="flex gap-5 mt-10">
 								<Button component={Link} variant="contained" href={route('landing.signup', { role: 'entrepreneur' })} onClick={() => setSelectedRole('entrepreneur')} className="w-full">
-									Sign Up to be SME
+									Sign Up as SME
 								</Button>
 								<Button component={Link}  href={route('landing.signup', { role: 'mentor' })} variant="outlined" onClick={() => setSelectedRole('mentor')} className="w-full">
-									Sign Up to be Mentor
+									Sign Up as Mentor
 								</Button>
 							</Box>
 						</Box>

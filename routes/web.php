@@ -117,6 +117,7 @@ Route::name('landing.')->group(function() {
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
     Route::get('/privacy', [LandingController::class, 'privacy'])->name('privacy');
+    Route::get('/faq', [LandingController::class, 'faq'])->name('faq');
     Route::get('/terminology', [LandingController::class, 'terminology'])->name('terminology');
     Route::get('/signup', [LandingController::class, 'signup'])->name('signup');
     Route::get('/admin/login', [LandingController::class, 'adminLogin'])->name('login');
@@ -126,6 +127,10 @@ Route::name('landing.')->group(function() {
     Route::get('/find-mentors', [LandingController::class,'findMentors'])->name('findmentors');
     Route::get('/find-companies', [LandingController::class,'findCompanies'])->name('findcompanies');
     Route::post('/forget-password', [LandingController::class,'forgetPassword'])->name('forgetPassword');
+
+    Route::post('/{id}/delete', [DashboardController::class, 'deleteUser'])->name('deleteUser');
+    Route::post('/{id}/delete-mentor', [DashboardController::class, 'deleteMentorUser'])->name('deleteMentorUser');
+    Route::post('/{id}/delete-company', [DashboardController::class, 'deleteCompanyUser'])->name('deleteCompanyUser');
 
 });
 

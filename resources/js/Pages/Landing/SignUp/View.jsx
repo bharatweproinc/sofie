@@ -208,13 +208,13 @@ function Signup() {
                       data.enterpreneur_or_mentor === "mentor" ?
                           <Grid item xs={12} className='custom_checkbox_label'>
                             <FormControlLabel required control={<Checkbox />}
-                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with a SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to a total of 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of 1 year" />
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentor, that upon being matched with an SME through upcie, and upon my acceptance of the match, I will provide the matched SME with up to 10 hours of consultation and guidance completely FREE OF CHARGE within the time period of one year." />
                           </Grid>
                           :
                           <Grid item xs={12} className='custom_checkbox_label'>
                             <FormControlLabel required control={<Checkbox />}
-                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for the duration of up to 1 year.
-                                    I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance completely FREE OF CHARGE." />
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for upto 10 hours per year.
+                                    I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance to me." />
                           </Grid>
                     }
                     <Grid item xs={12} mt={2} className='custom_btn'>

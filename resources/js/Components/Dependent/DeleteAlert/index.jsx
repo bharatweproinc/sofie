@@ -28,12 +28,12 @@ function DeleteAlert({ open, setOpen, handleDelete }) {
                     <HighlightOffIcon sx={{ fontSize: "7rem" }} />
                 </Box>
                 <DialogTitle id="alert-dialog-title" sx={{ fontSize: '32px', fontWeight: 600, paddingTop: "0px", paddingBottom: "0px" }}>
-                    Are You sure ?
+                    Are You sure to delete ?
                 </DialogTitle>
 
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description" sx={{ color: '#7C7C7C', fontSize: '19px' }}>
-                        You want to Delete the Account.
+                    <DialogContentText id="alert-dialog-description" sx={{ color: '#7C7C7C', fontSize: '15px' }}>
+                        We would take 72 hours to permanently delete your account after you confirm this action.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

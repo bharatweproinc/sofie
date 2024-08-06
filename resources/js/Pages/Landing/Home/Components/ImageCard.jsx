@@ -37,16 +37,16 @@ export default function ImageCard({item}) {
                 <Box className="flex" gap={.5}>
                     <Experience/>
                     <Typography variant="caption" color="text.secondary">
-                            {item.experience} Years Experience
+                        Expert Area: {item.functional_area}
                     </Typography>
                 </Box>
 
-                <Box className="flex" gap={1}>
+                {/* <Box className="flex" gap={1}>
                     <Group />
                     <Typography variant="caption" color="text.secondary">
                         {item.user.email}
                     </Typography>
-                </Box>
+                </Box> */}
             </CardContent>
         </Card>
     );

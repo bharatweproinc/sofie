@@ -109,7 +109,7 @@
                     <td>{{ $data['mentor']->functional_area }}</td>
                     <td>
                         <a href="{{ route('connect.sendMentorDetails', ['company_id' => $data['company_id'], 'mentor_id' => urlencode($data['mentor']['id'])]) }}" class="button">Accept</a>
-                        <a href="#" class="button decline-button">Decline</a>
+                        <a href="" class="button decline-button">Decline</a>
                     </td>
                 </tr>
             </tbody>

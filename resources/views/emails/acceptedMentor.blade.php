@@ -105,7 +105,7 @@
                             <td>{{ $company->company_name }}</td>
                             <td>{{ $company->contact_name }}</td>
                             <td>
-                                <a href="{{ route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a>
+                                <a href="{{route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a>
                                 {{-- <a href={{$company->link}} class="button">Accept</a> --}}
                             </td>
                         </tr>

@@ -102,7 +102,7 @@ function CompanyDetail({detail}) {
 
         post(route('company.saveData', detail?.user.id),{
             onSuccess:(success) => {
-                notify.success('Company Data has been updated successfully')
+                notify.success('Company Data successfully sent for deletion')
                 console.log(success, "sucesss");
             },
             onError:(error) => {

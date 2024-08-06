@@ -93,9 +93,9 @@ function ReviewProfilePage ({detail}){
     }}
 
     const handleDelete = () => {
-        post(route('admin.deleteMentorUser', detail.id),{
+        post(route('landing.deleteMentorUser', detail.id),{
             onSuccess:(success) => {
-                notify.success('Mentor Data has been deleted successfully')
+                notify.success('Mentor Data successfully sent for deletion')
                 console.log(success, "successs");
                 setOpen(false);
             },

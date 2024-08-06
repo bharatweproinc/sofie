@@ -18,7 +18,7 @@ export const Footer = () => {
             sx={{
                 borderBottom:' 1px solid #BEBEC0',
                 paddingBottom: { sm:'20px', xs:'20px'}
-                }}> 
+                }}>
                 <Grid className="flex justify-center" mb={5} item xs={12} sm={3}>
                     <box className="w-fit">
                     <Typography
@@ -42,7 +42,7 @@ export const Footer = () => {
                             <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
                         </Tooltip>
                         <br />
-                        FAQs
+                        <Link style={linkStyle} href={route('landing.faq')}>FAQs</Link>
                         <br />
                     </Typography>
                     </box>
