@@ -112,7 +112,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $user->functional_id = $company->id;
                 $user->status = 0;
                 $user->save();
-                Mail::to($user->email)->send(new PendingProfileMail($user->name));
+                $user_type = "Mentee";
+                Mail::to($user->email)->send(new PendingProfileMail($user_type));
             }
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
                 $company->profile_photo = $fileName;

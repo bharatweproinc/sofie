@@ -218,8 +218,6 @@ class LandingController extends Controller
         return Inertia::render('Landing/AdminLogin/View', []);
     }
     public function userLogin(){
-        //dd('login check', Auth::user());
-        // Auth::logout();
         if(Auth::user()){
             $user = Auth::user();
             $role = Auth::user()->user_role;
@@ -244,15 +242,19 @@ class LandingController extends Controller
                         'id' => $user->functional_id
                     ]);
                 }
+
             }else if($role == "admin" ){
                 return Redirect::route('admin.dashboard',[]);
+
             }else if($role == "mentor" && $status == 0){
                 Auth::logout();
                 return Inertia::render('Landing/Login/View', []);
+
             }else if($role == "entrepreneur" && $status == 0){
                 Auth::logout();
                 return Inertia::render('Landing/Login/View', []);
             }
+
         }else{
             return Inertia::render('Landing/Login/View', []);
         }
@@ -262,6 +264,7 @@ class LandingController extends Controller
         $user = Auth::user();
         if(!$user){
             $request->authenticate();
+            //dd(Auth::attempt());
             $request->session()->regenerate();
             $user = Auth::user();
             $role = $user->user_role;

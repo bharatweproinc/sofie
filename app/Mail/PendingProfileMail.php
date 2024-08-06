@@ -15,16 +15,16 @@ class PendingProfileMail extends Mailable
     use Queueable, SerializesModels;
 
     public $template;
-    public $user_name;
-    public function __construct($user_name)
+    public $user_type;
+    public function __construct($user_type)
     {
         $this->template = EmailController::where('name','pending profile')->first();
-        $this->user_name = $user_name;
+        $this->user_type = $user_type;
     }
 
     public function build()
     {
-        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.rejectedProfile')->subject("Your Request is in process..");
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.pendingProfile')->subject("Your Request is in process..");
     }
 
 }

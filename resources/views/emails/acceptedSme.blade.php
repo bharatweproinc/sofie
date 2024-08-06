@@ -81,15 +81,14 @@
 </head>
 <body>
     <div class="container">
-        <h2>Hello {{ $data->name }}! 🎉</h2>
-        <p>We’re excited to reconnect with you!</p>
-        <p>Your account has been successfully approved, and you are now officially part of our SME network.
-            We’re thrilled to have you on board and are already on the lookout for the perfect Mentors to assist you.
-            Once we get a perfect match for your firm, we'll be sending you the details right away, till then stay connected with us.
+        <h2>Hello {{ $data->name }}!</h2>
+        <p>Congratulations! You're in!</p>
+        <p>You can now login to your upcie profile. If at any point in time you would like to delete your profile, you can do so by requesting to delete your profile from your homepage.
         </p>
+        <p>Your matching process will begin shortly. Should there be a suitable match for a Mentor, we will notify you via email as soon as we can. </p>
         <div class="footer">
-            <p>Thank you for being a part of Upcie! If you have any questions or need further assistance, don’t hesitate to get in touch. We're here to support you every step of the way!</p>
-            <p>Warm regards,<br>The Upcie Team</p>
+            <p>Stay tuned!</p>
+            <p>Team upcie</p>
         </div>
     </div>
 </body>

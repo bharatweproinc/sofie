@@ -126,7 +126,8 @@ class MentorRepository implements MentorRepositoryInterface {
                 $user->functional_id = $mentor->id;
                 $user->status = 0;
                 $user->save();
-                Mail::to($user->email)->send(new PendingProfileMail($user->name));
+                $user_type = "Mentor";
+                Mail::to($user->email)->send(new PendingProfileMail($user_type));
             }
 
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
