@@ -16,6 +16,8 @@
 - php artisan migrate
 - php artisan optimize
 - php artisan storage:link
+- php artisan app:match-mentors-to-sme
+- php artisan users:delete-scheduled
 
 ## Seeders
 UserSeeder: php artisan db:seed --class=UserSeeder

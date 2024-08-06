@@ -85,9 +85,9 @@
         <p>We hope this message finds you well! 🎉</p>
         <p>We are thrilled to welcome you to our Mentor community. Your account has been successfully accepted and you are now part of our exclusive group of Mentor members! We're excited to help you connect with potential SMEs.</p>
 
-        @if(count($data['matched_smes']) == 0)
+        {{-- @if(count($data['matched_smes']) == 0)
             <p>At the moment, our system hasn't identified any new matches for your provided functional area. But don’t worry, our team is diligently working to find the best possible matches for you. Please bear with us a little longer!</p>
-        @else
+        @else --}}
             <h4>Here's a List of Your New Matches:</h4>
             <table>
                 <thead>
@@ -105,14 +105,14 @@
                             <td>{{ $company->company_name }}</td>
                             <td>{{ $company->contact_name }}</td>
                             <td>
-                                <a href="{{route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a>
-                                {{-- <a href={{$company->link}} class="button">Accept</a> --}}
+                                {{-- <a href="{{route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a> --}}
+                                <a href={{ $company->link }} class="button">Accept</a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @endif
+        {{-- @endif --}}
 
         <div class="footer">
             <p>Thank you for choosing Upcie! If you have any questions or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
