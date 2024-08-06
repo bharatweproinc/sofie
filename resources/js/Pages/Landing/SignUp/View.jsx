@@ -49,7 +49,6 @@ function Signup() {
   }, [role]);
 
   const handleChange = (key, value) => {
-
     setValidationErrors({
         ...validationErrors,
         [key]: Joi.validateToPlainErrors(value, signupSchema[key])
@@ -77,16 +76,12 @@ function Signup() {
     setValidationErrors(err);
 
       const isError = Object.keys(err)?.map((val,i)=>{
-          if(err[val]== null){
-              return 0
-            }
-            else{
-              return i
-            }
-          })
-
+        if(err[val]== null) return 0
+        else return i
+      })
+      
       if (isError?.length > 0 || data.confirm_password !== data.password) {
-            validationErrors.confirm_password = data.confirm_password !== data.password  ? 'Passwords does not match' : '';
+          validationErrors.confirm_password = data.confirm_password !== data.password  ? 'Passwords does not match' : '';
           return;
       } else {
         post(route('register'),{
@@ -99,6 +94,7 @@ function Signup() {
           },
       })
     }}
+  console.log("test",validationErrors.password)
 
   return (
     <Landing>
@@ -171,8 +167,8 @@ function Signup() {
                             variant='outlined'
                             placeholder='Password'
                             onChange={(e) => handleChange("password", e.target.value)}
-                            error={!!validationErrors.password?.[2]}
-                            helperText={validationErrors.password?.[2]}
+                            error={!!validationErrors.password?.[0]}
+                            helperText={validationErrors.password?.[0]}
                           />
                     </Grid>
                     <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
