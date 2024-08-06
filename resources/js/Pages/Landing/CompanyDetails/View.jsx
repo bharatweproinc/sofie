@@ -568,7 +568,7 @@ function CompanyDetail({detail}) {
                                         multiline
                                         rows={4}
                                         variant='outlined'
-                                        placeholder='Please fill your company current problems'
+                                        placeholder='Please fill your company additional information'
                                         onChange={(e) => handleChange('additional_information', e.target.value)}
                                     />
                             </Grid>
