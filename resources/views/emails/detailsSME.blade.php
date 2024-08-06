@@ -83,38 +83,26 @@
     <div class="container">
 
         <h2>Hello {{ $data['user_name'] }},</h2>
-        <p>We hope this message finds you well! 🎉</p>
-        <p>We are happy to know that your initiation request of one of our SMEs has been accepted. We are hereby attaching the complete details of your choosen SME so that you can contact them right away.
-            We have also added the same SME to your profile so that you can review them later.
-        </p>
-            <h4>Here are the details</h4>
+        <p>We are pleased to inform you that the match with the Mentee below has been successful!</p>
             <table>
                 <thead>
                     <tr>
                         <th>Profile Photo</th>
+                        <th>Company Name</th>
                         <th>Contact Person</th>
-                        <th>Matched Functional Area</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Industry Sector</th>
                     </tr>
                 </thead>
                 <tbody>
                         <tr>
                             <td><img src="{{ $data['company']->profile_photo }}" alt="Profile Photo"></td>
+                            <td>{{ $data['company']->company_name }}</td>
                             <td>{{ $data['company']->name }}</td>
-                            <td>{{ $data['functional_area']}}</td>
-                            <td>{{ $data['company']->email}}</td>
-                            <td>{{ $data['company']->phone}}</td>
-                            <td>{{ $data['company']->industry_sector[0]}}</td>
                         </tr>
                 </tbody>
             </table>
-            <p>{{ $data['company']->company_description }}</p>
-            <p>{{ $data['company']->additional_information }}</p>
         <div class="footer">
-            <p>Thank you for choosing Upcie! If you have any problems or questions to be addressed or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
-            <p>Warm regards,<br>The Upcie Team</p>
+            <p>The Mentee will be in touch with you shortly via the email you have provided. </p>
+            <p>Wishing you a fruitful Mentorship journey!<br>Team upcie</p>
         </div>
     </div>
 

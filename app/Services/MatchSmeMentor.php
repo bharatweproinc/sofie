@@ -16,6 +16,7 @@ class MatchSmeMentor{
             $mentor = Mentor::findOrFail($id);
             if($mentor){
                 $mentor_id = $id;
+                $mentor_functional = $mentor->functional_area;
                 $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
                 $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
                 $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->where('functional_area_1' , $mentor->functional_area)
@@ -29,7 +30,8 @@ class MatchSmeMentor{
                 $data = [
                     'matched_smes' => $companies,
                     'user_name' => $user->name,
-                    'mentor_id' => $id
+                    'mentor_id' => $id,
+                    'functional' => $mentor_functional
                 ];
                 return $data;
             }else{
@@ -87,6 +89,7 @@ class MatchSmeMentor{
             $recomm_sme->name = $recomm_sme->user->name;
             $recomm_sme->email = $recomm_sme->user->email;
             $recomm_sme->phone = $recomm_sme->user->phone;
+            $recomm_sme->company_name = $recomm_sme->company_name;
         }
         $data = [
             'company' => $recomm_sme,

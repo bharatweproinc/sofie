@@ -82,20 +82,20 @@
 <body>
     <div class="container">
         <h2>Hello {{ $data['user_name'] }},</h2>
-        <p>We hope this message finds you well! 🎉</p>
-        <p>We are thrilled to welcome you to our Mentor community. Your account has been successfully accepted and you are now part of our exclusive group of Mentor members! We're excited to help you connect with potential SMEs.</p>
-
+        <p>We are pleased to introduce you to your matched Mentee. Please kindly review their profile.</p>
         {{-- @if(count($data['matched_smes']) == 0)
             <p>At the moment, our system hasn't identified any new matches for your provided functional area. But don’t worry, our team is diligently working to find the best possible matches for you. Please bear with us a little longer!</p>
         @else --}}
-            <h4>Here's a List of Your New Matches:</h4>
             <table>
                 <thead>
                     <tr>
                         <th>Profile Photo</th>
                         <th>Company Name</th>
                         <th>Contact Person</th>
-                        <th>Action</th>
+                        <th>Functional Area</th>
+                        <th>Current Problems</th>
+                        <th>Approve</th>
+                        <th>Disapprove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,10 +104,13 @@
                             <td><img src="{{ $company->profile_photo }}" alt="Profile Photo"></td>
                             <td>{{ $company->company_name }}</td>
                             <td>{{ $company->contact_name }}</td>
+                            <td>{{ $data['functional'] }}</td>
+                            <td>{{ $company->current_problem }}</td>
                             <td>
                                 {{-- <a href="{{route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a> --}}
                                 <a href={{ $company->link }} class="button">Accept</a>
                             </td>
+                            <td>   <a href="{{ route('landing.home') }}" class="button decline-button">Decline</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -115,8 +118,9 @@
         {{-- @endif --}}
 
         <div class="footer">
-            <p>Thank you for choosing Upcie! If you have any questions or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
-            <p>Warm regards,<br>The Upcie Team</p>
+            <p>If you choose to accept this Mentee, please click on the “Accept” button. From thereon, your Mentee will receive your profile to review. If they accept your mentorship, we will send them your email contact details, and they will initiate contact with you. </p>
+            <p>If you choose to decline this Mentee, please click on the “Decline” button, a dropdown will appear, and we request that you select why you declined this Mentee. We will provide this feedback to the SME Mentee. </p>
+            <p>Thank you for your response,<br>Team upcie</p>
         </div>
     </div>
 

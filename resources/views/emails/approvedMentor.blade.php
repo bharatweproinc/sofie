@@ -65,17 +65,9 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
-            margin-right: 10px;
-            text-align: center;
         }
         .button:hover {
             background-color: #0056b3;
-        }
-        .decline-button {
-            background-color: #dc3545;
-        }
-        .decline-button:hover {
-            background-color: #c82333;
         }
         .footer {
             margin-top: 20px;
@@ -89,37 +81,13 @@
 </head>
 <body>
     <div class="container">
-        <h2>Hello {{ $data['user_name'] }},</h2>
-        <p>We are pleased to introduce you to your matched Mentor. They have accepted to Mentor you. Please kindly review their profile. </p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Profile Photo</th>
-                    <th>Contact Person</th>
-                    <th>Matched Functional Area</th>
-                    <th>Years of Experience</th>
-                    <th>Approve</th>
-                    <th>Disapprove</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="{{ $data['mentor']->profile_photo }}" alt="Profile"></td>
-                    <td>{{ $data['mentor']->name }}</td>
-                    <td>{{ $data['mentor']->functional_area }}</td>
-                    <td>{{ $data['mentor']->experience }}</td>
-                    <td>
-                        <a href="{{ route('connect.sendMentorDetails', ['company_id' => $data['company_id'], 'mentor_id' => urlencode($data['mentor']['id'])]) }}" class="button">Accept</a>
-                    </td>
-                    <td><a href="{{ route('landing.home') }}" class="button decline-button">Decline</a></td>
-                </tr>
-            </tbody>
-        </table>
-
+        <p>Congratulations! You're in!</p>
+        <p>You can now login to your upcie profile. If at any point in time you would like to delete your profile, you can do so by requesting to delete your profile from your homepage.
+        </p>
+        <p>Your matching process will begin shortly. Should there be a suitable match for a Mentee, we will notify you via email as soon as we can. </p>
         <div class="footer">
-            <p>If you choose to accept this Mentor, please click on the “Accept” button. We will send you the email contact for your matched Mentor. From there, please initiate contact with your Mentor first.</p>
-            <p>If you choose to decline this Mentor, please click on the “Decline” button, a dropdown will appear, and we request that you select why you declined this Mentor. We will provide this feedback to the Mentor. </p>
-            <p>Thank you for your response,<br>Team upcie</p>
+            <p>Stay tuned!</p>
+            <p>Team upcie</p>
         </div>
     </div>
 </body>

@@ -82,11 +82,7 @@
 <body>
     <div class="container">
         <h2>Hello {{ $data['user_name'] }},</h2>
-        <p>We hope this message finds you well! 🎉</p>
-        <p>We are happy to know that you have accepted the initiation request of one of our Mentors for betterment and excellence of your firm. We are hereby attaching the complete details of your choosen mentor so that you can contact them right away.
-            We have also added the same mentor to your profile so that you can review them later.
-        </p>
-            <h4>Here are the details</h4>
+        <p>We are pleased to inform you that the match has been successful! Here is your Mentor’s contact details.</p>
             <table>
                 <thead>
                     <tr>
@@ -94,8 +90,7 @@
                         <th>Contact Person</th>
                         <th>Matched Functional Area</th>
                         <th>Email</th>
-                        <th>Phone</th>
-                        <th>Industry Sector</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -104,16 +99,12 @@
                             <td>{{ $data['mentor']->name }}</td>
                             <td>{{ $data['mentor']->functional_area }}</td>
                             <td>{{ $data['mentor']->email}}</td>
-                            <td>{{ $data['mentor']->phone}}</td>
-                            <td>{{ $data['mentor']->industry_sector[0]}}</td>
                         </tr>
                 </tbody>
             </table>
-            <p>{{ $data['mentor']->qualifications }}</p>
-            <p>{{ $data['mentor']->additional_information }}</p>
         <div class="footer">
-            <p>Thank you for choosing Upcie! If you have any problems or questions to be addressed or need further assistance, don't hesitate to reach out to us. We're here to help!</p>
-            <p>Warm regards,<br>The Upcie Team</p>
+            <p>Please initiate contact first via email to your Mentor within the next 5 working days. Please kindly remember to respect your Mentor and their time.</p>
+            <p>Wishing you a fruitful Mentorship journey!<br>Team upcie</p>
         </div>
     </div>
 

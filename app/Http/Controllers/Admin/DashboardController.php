@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\AcceptedMentorProfileMail;
 use App\Mail\AcceptedSmeProfileMail;
+use App\Mail\ApprovedMentorProfileMail;
 use App\Mail\RejectedProfileMail;
 use App\Models\{BannerSection,Company, Deletion, JoinOurCommunitySection, MatchingQueue, Mentor, MissionStatementSection, User};
 use Illuminate\Http\Request;
@@ -169,6 +170,7 @@ class DashboardController extends Controller
                 $user->is_accepted = 1;
                 $user->status = 1;
                 $user->save();
+                Mail::to($user->email)->send(new ApprovedMentorProfileMail());
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($mentor_id);
                 if(count($data['matched_smes']) == 0){
