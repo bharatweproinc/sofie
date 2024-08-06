@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Mail\AcceptedMentorProfileMail;
+use App\Models\CronLog;
 use App\Models\MatchingQueue;
 use App\Models\User;
 use App\Services\MatchSmeMentor;
@@ -30,21 +31,38 @@ class MatchMentorsToSme extends Command
      */
     public function handle()
     {
-        //timestamp = 1
-
-        $not_matched = MatchingQueue::where('status', 'not matched')->get();
-        foreach($not_matched as $not_matched_mentor){
-            $not_matched_mentor->status = "matching";
-            $matches = new MatchSmeMentor();
-            $data =  $matches->matchingSme($not_matched_mentor->mentor_id);
-            $user = User::where('user_role', 'mentor')->where('functional_id', $not_matched_mentor->mentor_id)->first();
-            if(count($data['matched_smes']) == 0){
-                $not_matched_mentor->status = "not matched";
-            }else{
-                $not_matched_mentor->status = "matched";
-                Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+        try{
+            //timestamp = 1
+            $timestamp = now()->timestamp;
+            $log = new CronLog();
+            $not_matched = MatchingQueue::where('status', 'not matched')->get();
+            foreach($not_matched as $not_matched_mentor){
+                $not_matched_mentor->status = "matching";
+                $matches = new MatchSmeMentor();
+                $data =  $matches->matchingSme($not_matched_mentor->mentor_id);
+                $user = User::where('user_role', 'mentor')->where('functional_id', $not_matched_mentor->mentor_id)->first();
+                if(count($data['matched_smes']) == 0){
+                    $not_matched_mentor->status = "not matched";
+                    $log->timestamp = $timestamp;
+                    $log->mentor_id = $not_matched_mentor->mentor_id;
+                    $log->status = 'Not matched with existing SMEs';
+                    $log->save();
+                }else{
+                    $not_matched_mentor->status = "matched";
+                    $log->timestamp = $timestamp;
+                    $log->mentor_id = $not_matched_mentor->mentor_id;
+                    $log->status = 'Matched with existing SMEs';
+                    $log->save();
+                    Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+                }
             }
-        }
 
+        }catch(\Exception $e){
+            $log = new CronLog();
+            $log->timestamp = now()->timestamp;
+            $log->mentor_id = $not_matched_mentor->mentor_id;
+            $log->status = 'Error occured while matching'. $e->getMessage();
+            return $e->getMessage();
+        }
     }
 }
