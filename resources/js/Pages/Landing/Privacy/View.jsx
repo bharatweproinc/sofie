@@ -530,7 +530,7 @@ function Privacy() {
                 </li><br/>
                 <li>
                     <strong>CONTACT US</strong>
-                    <p>f you have any questions about this Privacy Policy, You can contact us via email at: hello@upcie.net</p>
+                    <p>If you have any questions about this Privacy Policy, You can contact us via email at: hello@upcie.net</p>
                 </li>
 
 
