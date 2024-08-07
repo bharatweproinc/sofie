@@ -79,7 +79,7 @@ function Signup() {
         if(err[val]== null) return 0
         else return i
       })
-      
+
       if (isError?.length > 0 || data.confirm_password !== data.password) {
           validationErrors.confirm_password = data.confirm_password !== data.password  ? 'Passwords does not match' : '';
           return;

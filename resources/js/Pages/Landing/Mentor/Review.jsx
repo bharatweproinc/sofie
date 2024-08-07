@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../style.scss";
 import MatchedSME from "./MatchedSME";
+import { Details } from "@mui/icons-material";
 
 function ReviewProfilePage ({detail}){
 
@@ -158,7 +159,7 @@ function ReviewProfilePage ({detail}){
             },
         })
     }
-
+console.log("datetewt",detail)
     return (
         <Landing auth={detail?.logged_user ? detail.logged_user : detail.user}>
             <Typography sx={{ height: '65px' }}></Typography>
@@ -313,7 +314,7 @@ function ReviewProfilePage ({detail}){
                         </Box>
                     }
                 </Box>
-                <MatchedSME companies={detail.companies}/>
+                <MatchedSME companies={detail.companies} id={detail.id} />
             </Box>
             <DeleteAlert open={open} setOpen={setOpen} handleDelete={handleDelete}/>
             <ConfirmBox open={openReject} setOpen={setOpenReject} handleSubmit={handleReject} message={`Do you really want to reject ${detail.user.name}`} />

@@ -21,6 +21,16 @@ class TestimonialRepository implements TestimonialRepositoryInterface {
             "testimonial" => $testimonial
         ]];
     }
+    public function getListLimit(){
+        $user = Auth::user();
+        $testimonial = Testimonial::take(3)->get()->each(function($t) {
+            $t->profile_photo = url("storage/testimonial/{$t->image}");
+        });
+        return ["list" => [
+            "user" => $user,
+            "testimonial" => $testimonial
+        ]];
+    }
 
     public function get($id) {
         try {

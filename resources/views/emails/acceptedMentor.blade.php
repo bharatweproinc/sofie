@@ -110,7 +110,7 @@
                                 {{-- <a href="{{route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a> --}}
                                 <a href={{ $company->link }} class="button">Accept</a>
                             </td>
-                            <td>   <a href="{{ route('landing.home') }}" class="button decline-button">Decline</a></td>
+                            <td>   <a href="{{ route('landing.declineSme', ['mentor_id' => $data['mentor_id'], 'company_id' => $company->id]) }}" class="button decline-button">Decline</a></td>
                         </tr>
                     @endforeach
                 </tbody>

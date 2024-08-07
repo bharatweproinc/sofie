@@ -158,7 +158,6 @@ const companySchema = [{
 const contactSchema = [{
     name : Joi.string().label("Name").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
-    phone_number: Joi.number().min(10).label("Phone Number").required(),
     company : Joi.optional(),
     message : Joi.string().label("Message").required()
 }];

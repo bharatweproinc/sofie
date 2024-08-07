@@ -3,6 +3,7 @@ import { Box, Button, Grid, Paper, Radio, RadioGroup, TextField, Typography } fr
 import { styled } from '@mui/system';
 import { Landing } from '@/Layouts/Landing';
 import { Link } from '@inertiajs/react';
+import image from "../../../../../public/images/image7.png"
 
 const CenteredPaper = styled(Paper)({
   padding: '80px',
@@ -10,7 +11,7 @@ const CenteredPaper = styled(Paper)({
 });
 
 const BackgroundImageContainer = styled('div')({
-    backgroundImage: 'url(./images/image7.png)',
+    backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     display: 'flex',
     justifyContent: 'center',

@@ -111,7 +111,7 @@
                     <td>
                         <a href="{{ route('connect.sendMentorDetails', ['company_id' => $data['company_id'], 'mentor_id' => urlencode($data['mentor']['id'])]) }}" class="button">Accept</a>
                     </td>
-                    <td><a href="{{ route('landing.home') }}" class="button decline-button">Decline</a></td>
+                    <td><a href="{{ route('landing.declineMentor', ['mentor_id' => $data['mentor']['id'], 'company_id' => $data['company_id']]) }}" class="button decline-button">Decline</a></td>
                 </tr>
             </tbody>
         </table>

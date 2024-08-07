@@ -116,4 +116,8 @@ class CompanyController extends Controller
             ]);
         }
     }
+
+    public function removeMentor($id){
+        //dd($id); //company ->user->id
+    }
 }

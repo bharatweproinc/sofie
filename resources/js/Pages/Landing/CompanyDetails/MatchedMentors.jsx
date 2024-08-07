@@ -9,9 +9,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NoDataFound from "@/Components/NoDataFound";
 import CheckIcon from "@/Components/SVGIcons/Home/CheckIcon";
+import DeleteIcon from "@/Components/SVGIcons/Home/DeleteIcon";
 
 const Headers = [
-    "Profile Photo", "Contact Name", "Contact Number", "Contact Email" ,"Functional Area", "Review" 
+    "Profile Photo", "Contact Name", "Contact Number", "Contact Email" ,"Functional Area", "Review", "Remove"
 ]
 
 function MatchedMentors ({mentors}) {
@@ -70,7 +71,7 @@ function MatchedMentors ({mentors}) {
                                                     }}
                                                 >
                                                     <TableCell>
-                                                        <Avatar 
+                                                        <Avatar
                                                             alt={''}
                                                             src={row.profile_photo}
                                                         />
@@ -84,6 +85,11 @@ function MatchedMentors ({mentors}) {
                                                     <TableCell align="left">
                                                         <a href={route("mentor.detail", row.id)} target="_blank">
                                                             <CheckIcon/>
+                                                        </a>
+                                                    </TableCell>
+                                                    <TableCell align="left">
+                                                        <a href={route("mentor.removeMentor", row.id)} target="_blank">
+                                                            <DeleteIcon/>
                                                         </a>
                                                     </TableCell>
                                                 </TableRow>

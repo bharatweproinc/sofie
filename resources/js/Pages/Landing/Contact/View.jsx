@@ -55,7 +55,17 @@ function Contact() {
       if (isError?.length > 0) {
           return;
       } else {
-        console.log("data", data)
+        post(route('landing.contact'),{
+            onSuccess:(success) => {
+               console.log(success, "sucesss");
+                notify.success("Email Sent Successfully");
+            },
+            onError:(error) => {
+              console.log(error.email,"::error");
+              notify.error("Error While Sending Email");
+              notify.error(error.email, { position: 'top-right' });
+            },
+        })
     }}
 
   return (
@@ -95,21 +105,6 @@ function Contact() {
                       onChange={(e) => handleChange("email", e.target.value)}
                       error={!!validationErrors.email?.[0]}
                       helperText={validationErrors.email?.[0]}
-                    />
-                </Grid>
-                <Grid item lg={6} sm={12} md={12} xs={12} className='contact_input_fields'>
-                    <Typography mb={1}>Phone Number</Typography>
-                    <TextField
-                      size='small'
-                      sx={{ mb: 1, width: '100%' }}
-                      fullWidth
-                      type='text'
-                      variant='outlined'
-                      value={data.phone_number || ''}
-                      placeholder='Your Phone Number'
-                      onChange={(e) => handleChange('phone_number', e.target.value.replace(/\D/, '').slice(0, 10))}
-                      error={!!validationErrors.phone_number}
-                      helperText={validationErrors.phone_number}
                     />
                 </Grid>
                 <Grid item lg={6} sm={12} md={6} xs={12} className='contact_input_fields'>

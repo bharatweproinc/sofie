@@ -37,3 +37,11 @@
         }
     }
 }
+.custom_input_field{
+    .MuiInputBase-input{
+        padding: 16.5px 14px !important;
+    }
+    .MuiInputBase-input:focus{
+        box-shadow: none !important;
+    }
+}

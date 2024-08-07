@@ -9,12 +9,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NoDataFound from "@/Components/NoDataFound";
 import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
+import DeleteIcon from "@/Components/SVGIcons/Home/DeleteIcon";
 
 const Headers = [
-   "Profile Photo", "Company Name", "Company UEN", "User Name", "User Email" ,"User Phone", "Review" 
+   "Profile Photo", "Company Name", "Company UEN", "User Name", "User Email" ,"User Phone", "Review", "Remove"
 ]
 
-function MatchedSME ({companies}) {
+function MatchedSME ({companies,id}) {
     return(
         <Box>
             <Box p={3}>
@@ -70,7 +71,7 @@ function MatchedSME ({companies}) {
                                                     }}
                                                 >
                                                      <TableCell>
-                                                        <Avatar 
+                                                        <Avatar
                                                             alt={'company_photo'}
                                                             src={row.profile_photo}
                                                         />
@@ -85,6 +86,11 @@ function MatchedSME ({companies}) {
                                                     <TableCell>
                                                         <a href={route('company.detail', row.id)} target="_blank">
                                                             <CheckIcon/>
+                                                        </a>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <a href={route("mentor.removeMentor", id)} target="_blank">
+                                                            <DeleteIcon/>
                                                         </a>
                                                     </TableCell>
                                                 </TableRow>
