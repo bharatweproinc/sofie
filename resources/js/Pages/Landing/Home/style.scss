@@ -12,6 +12,19 @@
     margin: auto;
   }
 
+  .settings-Testimonial{
+    padding-left: 0 !important;
+    .MuiBox-root.css-18fs5nb{
+      padding-left: 0 !important;
+    }
+    .MuiGrid-spacing-xs-2.css-p8vvht-MuiGrid-root{
+      padding-left: 0 !important;
+    }
+    .MuiGrid-spacing-xs-2.css-vxvroc-MuiGrid-root{
+      padding-left: 0 !important;
+    }
+  }
+
   @media screen and (max-width: 600px){
     .border-dashedd::after{
         display: none;

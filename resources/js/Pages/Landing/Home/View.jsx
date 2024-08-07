@@ -24,7 +24,9 @@ import SwipeableViews from 'react-swipeable-views';
 import "./style.scss"
 import { Link } from '@inertiajs/react';
 import ImageCarousel from './Components/ImageCorousel';
-
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -34,18 +36,46 @@ function DrawerAppBar({list}) {
 
 	const themes = useTheme()
 	const isMobile = useMediaQuery(themes.breakpoints.down('sm'));
-	const [activeStep, setActiveStep] = React.useState(0);
 
-	const handleStepChange = (step) => {
-		setActiveStep(step);
+
+	// Slick slider settings
+	const settings = {
+		dots: true,
+		infinite: true,
+		// speed: 500,
+		slidesToShow: isMobile ? 1 : 4,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 2000, 
+		arrows: false,
 	};
+
+	const settingsCompany = {
+		dots: true,
+		infinite: true,
+		slidesToShow: isMobile ? 1 : 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 2000, 
+		arrows: false,
+	  };
+
+	  const settingsTestimonial = {
+		dots: true,
+		infinite: true,
+		slidesToShow: isMobile ? 1 : 3,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 2000, 
+		arrows: false,
+	  };
+
 
 	const [isReadMore, setIsReadMore] = React.useState(false);
 
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)
     };
-
 	return (
 		<>
 			<Landing>
@@ -181,60 +211,18 @@ function DrawerAppBar({list}) {
 					</Grid>
 				</Grid>
 
-				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
-					{isMobile ? (
-						<Box sx={{ width: '100%', pl: 2, py: 4 }}>
-								<AutoPlaySwipeableViews
-									index={activeStep}
-									onChangeIndex={handleStepChange}
-									enableMouseEvents
-								>
-									{list && list.mentors.list.mentor.map((item, index) => (
-										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-											<ImageCard item={item} />
-										</Box>
-									))}
-								</AutoPlaySwipeableViews>
-								<MobileStepper
-									variant="dots"
-									steps={list.mentors.list.mentor.length}
-									position="static"
-									activeStep={activeStep}
-									sx={{
-										maxWidth: 400,
-										mt: 2,
-										justifyContent: "center",
-										flexGrow: 1,
-										mx: 'auto',
-									}}
-								/>
-						</Box>
-						) : (
-							<>
-							<Grid container spacing={4} px={{ lg: 8, md: 4, xs: 2 }} pb={{ xs: 5 }}>
-								{list && list.mentors.list.mentor.map((item, key) => (
-									<Grid item xs={12} sm={6} md={3} key={key}>
-										<ImageCard item={item} />
-									</Grid>
-								))}
-							</Grid>
-								<Box className="flex justify-center w-full" >
-									<MobileStepper
-										variant="dots"
-										steps={list.mentors.list.mentor.length}
-										position="static"
-										activeStep={activeStep}
-										sx={{
-											maxWidth: 400,
-											justifyContent: "center",
-											flexGrow: 1,
-										}}
-									/>
-								</Box>
-							</>
+				 <Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+					<Box sx={{ width: '100%', pl: 2, py: 4 }}>
+						<Slider {...settings}>
+						{list && list.mentors.list.mentor.map((item, index) => {
+							return	<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
+							<ImageCard item={item} />
+							</Box>
+						}
 						)}
+						</Slider>
+					</Box>
 				</Grid>
-
 				<Grid container bgcolor={theme.color[import.meta.env.VITE_SELECTED_THEME].primary}
 					py={{ lg: 10, md: 5, xs: 2 }}
 					px={{ lg: 15, md: 6, xs: 3 }}
@@ -282,58 +270,18 @@ function DrawerAppBar({list}) {
 				</Grid>
 
 				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
-					{isMobile ? (
-						<Box sx={{ width: '100%', pl: 2, py: 4 }}>
-								<AutoPlaySwipeableViews
-									index={activeStep}
-									onChangeIndex={handleStepChange}
-									enableMouseEvents
-								>
-									{list && list.companies.list.company.map((item, index) => (
-										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-											<FeatureCard item={item}  />
-										</Box>
-									))}
-								</AutoPlaySwipeableViews>
-								<MobileStepper
-									variant="dots"
-									steps={list.companies.list.company.length}
-									position="static"
-									activeStep={activeStep}
-									sx={{
-										maxWidth: 400,
-										mt: 2,
-										justifyContent: "center",
-										flexGrow: 1,
-										mx: 'auto',
-									}}
-								/>
-						</Box>
-						) : (
-							<>
-							<Grid container spacing={{ lg: 4, sm: 1 }} px={{ lg: 10, md: 5, xs: 2 }} pb={{ lg: 10, md: 5, xs: 2 }}>
-								{list && list.companies.list.company.map((item, key) => (
-									<Grid item xs={12} sm={4} my={{sm:0, xs:2}} key={key}>
-										<FeatureCard item={item} />
-									</Grid>
-								))}
-							</Grid>
-								<Box className="flex justify-center w-full" >
-									<MobileStepper
-										variant="dots"
-										steps={list.companies.list.company.length}
-										position="static"
-										activeStep={activeStep}
-										sx={{
-											maxWidth: 400,
-											justifyContent: "center",
-											flexGrow: 1,
-										}}
-									/>
-								</Box>
-							</>
+					<Box sx={{ width: '100%', pl: 2, py: 4 }}>
+						<Slider {...settingsCompany}>
+						{list && list.companies.list.company.map((item, index) => {
+							return	<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
+							<FeatureCard item={item}  />
+							</Box>
+						}
 						)}
+						</Slider>
+					</Box>
 				</Grid>
+
 				<Box className="relative">
 					<img
 						style={{
@@ -536,63 +484,18 @@ function DrawerAppBar({list}) {
 							</Typography>
 						</Grid>
 
-						{isMobile ? (
+						<Grid className='settings-Testimonial' container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
 							<Box sx={{ width: '100%', pl: 2, py: 4 }}>
-								<AutoPlaySwipeableViews
-									index={activeStep}
-									onChangeIndex={handleStepChange}
-									enableMouseEvents
-								>
-									{list && list.testimonials.list.testimonial.map((item, index) => (
+								<Slider {...settingsTestimonial}>
+								{list && list.testimonials.list.testimonial.map((item, index) => (
 										<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
 											<Testimonial item={item}  />
 										</Box>
 									))}
-								</AutoPlaySwipeableViews>
-								<MobileStepper
-									variant="dots"
-									steps={list.testimonials.list.testimonial.length}
-									position="static"
-									activeStep={activeStep}
-									sx={{
-										maxWidth: 400,
-										mt: 2,
-										justifyContent: "center",
-										flexGrow: 1,
-										bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].primary,
-										'& .MuiMobileStepper-dotActive': {
-											bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].white,
-										},
-										mx: 'auto',
-									}}
-								/>
+								</Slider>
 							</Box>
-						) : (
-							<>
-								{list && list.testimonials.list.testimonial.map((item, key) => (
-									<Grid item sm={4} key={key}>
-										<Testimonial item={item} />
-									</Grid>
-								))}
-								<Box className="flex justify-center w-full mt-9" >
-									<MobileStepper
-										variant="dots"
-										steps={list.testimonials.list.testimonial.length}
-										position="static"
-										activeStep={activeStep}
-										sx={{
-											maxWidth: 400,
-											justifyContent: "center",
-											flexGrow: 1,
-											bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].primary,
-											'& .MuiMobileStepper-dotActive': {
-												bgcolor: theme.color[import.meta.env.VITE_SELECTED_THEME].white,
-											},
-										}}
-									/>
-								</Box>
-							</>
-						)}
+						</Grid>
+
 					</Grid>
 				</Box>
 			</Landing>
