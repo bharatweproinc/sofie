@@ -79,7 +79,7 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We sent an email with a matching mentor to one of the functional areas where you needed mentorship.
+                            We sent an email with a matching mentee to one of the expert areas where you wanted to offer mentorship.
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
@@ -104,8 +104,8 @@ const handleSubmit = (e) => {
                                     error={!!validationErrors.reason}
                                     helperText={validationErrors.reason}
                                 >
-                                    <MenuItem value="Mismatch of specific expertise - broad skills of Mentor may not be specific enoughor closely aligned with the problem the SME is facing">Mismatch of specific expertise - broad skills of Mentor may not be specific enough or closely aligned with the problem the SME is facing</MenuItem>
-                                    <MenuItem value='Personality fit and communication style - seem incompatible due to perceived personality traits'>Personality fit and communication style - seem incompatible due to perceived personality traits</MenuItem>
+                                    <MenuItem value="Mismatch of specific expertise">Mismatch of specific expertise</MenuItem>
+                                    <MenuItem value='Personality fit and communication style'>Personality fit and communication style</MenuItem>
                                         <Button class="btn px-4" onClick={() => setShowField(true)}>
                                         Add Other Reason
                                         </Button>

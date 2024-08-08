@@ -25,7 +25,7 @@ const multiSelectData = {
     functional_area_1:Constants.functionalAreaOptions,
     functional_area_2:Constants.functionalAreaOptions,
     functional_area_3:Constants.functionalAreaOptions,
-    industry_sector:Constants.industrySectorOptions,
+    industry_sector:Constants.industrySMESectorOptions,
     team_size: Constants.teamSizeOptions
 }
 
@@ -142,7 +142,7 @@ function CompanyDetail({detail}) {
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
-                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
+                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's profile photo that meets the following criteria:</Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
                                         1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
                                     </Typography>
@@ -422,9 +422,9 @@ function CompanyDetail({detail}) {
                                                         <ListItemText primary={val.description} />
                                                     </MenuItem>
                                                 ))}
-                                                <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
+                                                {/* <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
                                                     {addButton()}
-                                                </Button>
+                                                </Button> */}
                                             </Select>
                                         <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
                                     </FormControl>

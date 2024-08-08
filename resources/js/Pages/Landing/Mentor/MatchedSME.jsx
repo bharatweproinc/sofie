@@ -100,7 +100,7 @@ function MatchedSME ({companies,id}) {
                                 </TableContainer>
                             </Paper>
                         </Grid>
-                </Grid> : <NoDataFound message="No Matched Sme available" />
+                </Grid> : <NoDataFound message="No Matched SME yet" />
                 }
             </Box>
         </Box>

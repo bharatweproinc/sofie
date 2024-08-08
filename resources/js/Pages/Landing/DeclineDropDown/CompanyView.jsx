@@ -104,8 +104,8 @@ const handleSubmit = (e) => {
                                         error={!!validationErrors.reason}
                                         helperText={validationErrors.reason}
                                     >
-                                        <MenuItem value="Lack of experience in mentoring - Mentor is not able to deal with/help with the SME's business issue based on the information provided">Lack of experience in mentoring - Mentor is not able to deal with/help with the SME's business issue based on the information provided</MenuItem>
-                                        <MenuItem value='Conflict of interest t - Mentor already has a similar SME(s) that they are mentoring'>Conflict of interest t - Mentor already has a similar SME(s) that they are mentoring</MenuItem>
+                                        <MenuItem value="Lack of experience in mentoring">Lack of experience in mentoring</MenuItem>
+                                        <MenuItem value='Conflict of interest'>Conflict of interest</MenuItem>
                                             <Button class="btn px-4" onClick={() => setShowField(true)}>
                                             Add Other Reason
                                             </Button>

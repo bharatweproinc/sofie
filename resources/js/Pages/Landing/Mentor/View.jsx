@@ -137,7 +137,7 @@ function Mentor({detail}) {
                     <Grid item="true" xs={12} px={8}>
                         <HeadingBox>
                             <Typography fontWeight={700} fontSize="28px" textAlign="left" color={'#223049'}>Mentor Detail</Typography>
-                            <Typography fontWeight={400} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Tell us about Mentor you need</Typography>
+                            <Typography fontWeight={400} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Tell us about yourself</Typography>
                         </HeadingBox>
                     </Grid>
                     <Grid item="true" xs={12} px={8}>
@@ -262,16 +262,16 @@ function Mentor({detail}) {
                                                     <ListItemText primary={val.description} />
                                                 </MenuItem>
                                             ))}
-                                            <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
+                                            {/* <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
                                                 {addButton()}
-                                            </Button>
+                                            </Button> */}
                                         </Select>
                                     <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
                                 </FormControl>
                         </Grid>
 
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
-                            <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional</Typography>
+                            <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional Area you willing to mentor in?</Typography>
                             <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
                                 <Select
                                     labelId="functionalArea-label"
@@ -321,7 +321,7 @@ function Mentor({detail}) {
                             </FormControl>
                         </Grid>
                         <Grid item="true" xs={12} className="profile_input_fields">
-                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How Many Companies are the mentors willing to mentor ?</Typography>
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How many Companies are you willing to mentor ?</Typography>
                             <TextField
                                 inputRef={inputRefs.current.number_of_companies}
                                 size='small'
@@ -337,7 +337,7 @@ function Mentor({detail}) {
                             />
                         </Grid>
                         <Grid item="true" xs={12} className="profile_input_fields">
-                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Experience</Typography>
+                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>How many years of experience do you have?</Typography>
                             <TextField
                                 inputRef={inputRefs.current.experience}
                                 size='small'
@@ -370,7 +370,7 @@ function Mentor({detail}) {
                         </Grid>
                     </Grid>
                     <Grid item="true" xs={12} mb={4} textAlign={"center"} className='custom_btn'>
-                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Create' : 'Update'}</Button>
+                        <Button type='submit' variant="contained" disabled={processing} onClick={(e)=>handleSubmit(e)}>{ data.functional_id === null ? 'Submit' : 'Update'}</Button>
                     </Grid>
                 </Grid>
             </form>

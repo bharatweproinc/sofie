@@ -99,7 +99,7 @@ function MatchedMentors ({mentors}) {
                                 </TableContainer>
                             </Paper>
                         </Grid>
-                </Grid> : <NoDataFound message="No Matched Mentor available" />
+                </Grid> : <NoDataFound message="No Matched Mentor yet" />
                 }
             </Box>
         </Box>

@@ -236,6 +236,17 @@ const teamSizeOptions = [
 ]
 
 const industrySectorOptions = [
+    {name : 'Open to Any Industry', value : 'Open to Any Industry', description : 'Open to Any Industry'},
+    {name : 'Manufacturing', value : 'Manufacturing', description : 'Manufacturing (includes Energy and Chemicals, Precision Engineering, Marine and Offshore, AeroSpace, Electronics)'},
+    {name : 'Build Environment', value : 'Build Environment', description : 'Build Environment (includes Construction, Architecture, Engineering, Real Estate, Cleaning, Security)'},
+    {name : 'Trade and Connectivity', value : 'Trade and Connectivity', description : 'Trade and Connectivity (includes Logistics, Air Transport, Sea Transport, Land Transport, Public Transport, Wholesale Trade)'},
+    {name : 'Essential Domestic Services', value : 'Essential Domestic Services', description : 'Essential Domestic Services (includes Healthcare, Early Childhood Education, Private Education)'},
+    {name : 'Professional Services', value : 'Professional Services', description : 'Professional Services (includes Professional Services, ICT and Media, Financial Services)'},
+    {name : 'Lifestyle', value : 'Lifestyle', description : 'Lifestyle (includes Food Services, F & B, Retail, Hotels, Food Manufacturing)'}
+]
+
+
+const industrySMESectorOptions = [
     {name : 'Manufacturing', value : 'Manufacturing', description : 'Manufacturing (includes Energy and Chemicals, Precision Engineering, Marine and Offshore, AeroSpace, Electronics)'},
     {name : 'Build Environment', value : 'Build Environment', description : 'Build Environment (includes Construction, Architecture, Engineering, Real Estate, Cleaning, Security)'},
     {name : 'Trade and Connectivity', value : 'Trade and Connectivity', description : 'Trade and Connectivity (includes Logistics, Air Transport, Sea Transport, Land Transport, Public Transport, Wholesale Trade)'},
@@ -271,7 +282,7 @@ const Constants = {
     companyInputRefs, mentorInputRefs, icons, positionInCompanyOptions, currentRevenueSizeOptions,
     currentCustomersBaseSize, teamSizeOptions, industrySectorOptions, functionalAreaOptions,
     hearAboutUsOptions, mentoredCompanyOptions, addButton, initResetPasswordField, resetPasswordSchema,
-    initTestimonial, testmionialSchema
+    initTestimonial, testmionialSchema,industrySMESectorOptions
 }
 
 export default Constants;
