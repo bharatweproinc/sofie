@@ -160,12 +160,12 @@ const Benefits  = [
     {
         icon : <Impact />,
         title : 'Impact',
-        description : 'Drive positive change by enabling entrepreneurs to implement sustanable and impactful business practices'
+        description : 'Drive positive change by enabling entrepreneurs to implement sustainable and impactful business practices'
     },
     {
         icon : <Support />,
         title : 'Support',
-        description : 'Provide continuous support through a community of mentors who are commited to the success of their mentees'
+        description : 'Provide continuous support through a community of mentors who are committed to the success of their mentees'
     }
 ]
 
