@@ -573,7 +573,7 @@ function CompanyDetail({detail}) {
                                     />
                             </Grid>
                             <Grid item xs={12} mt={3} mb={4} textAlign={"center"} className='custom_btn'>
-                                <Button variant="contained" disabled={processing} type='submit'> {data.functional_id === null ? "Create" : "Update"}</Button>
+                                <Button variant="contained" disabled={processing} type='submit'> {data.functional_id === null ? "Submit" : "Update"}</Button>
                             </Grid>
                         </Grid>
                     </form>

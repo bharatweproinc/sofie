@@ -215,6 +215,10 @@ function Signup() {
                           </RadioGroup>
                       </FormControl>
                     </Grid>
+                    <Grid item xs={12} className='custom_privacy'>
+                            <FormControlLabel required control={<Checkbox />}
+                                label="I have read and accepted upcie's Privacy Policy and Terms & Conditions." />
+                          </Grid>
                     {
                       data.enterpreneur_or_mentor === "mentor" ?
                           <Grid item xs={12} className='custom_checkbox_label'>

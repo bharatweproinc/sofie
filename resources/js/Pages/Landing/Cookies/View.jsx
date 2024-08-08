@@ -11,11 +11,9 @@ function Cookie() {
 
   return (
     <div>
-      <h1>Welcome to Our Website</h1>
       <CookieConsent
         onAccept={handleAccept}
         buttonText="Agree"
-
       >
         This website uses cookies for analytics and functionality purposes. To find out more, view our <a href={route('landing.termsconditions')}>Cookie Policy</a> & <a href={route('landing.privacy')}>Privacy Policy.</a>
       </CookieConsent>
