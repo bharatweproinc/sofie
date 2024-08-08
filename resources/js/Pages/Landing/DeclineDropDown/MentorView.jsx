@@ -104,8 +104,8 @@ const handleSubmit = (e) => {
                                     error={!!validationErrors.reason}
                                     helperText={validationErrors.reason}
                                 >
-                                    <MenuItem value="reason 1">Reason 1</MenuItem>
-                                    <MenuItem value='Option 2'>Option 2</MenuItem>
+                                    <MenuItem value="Mismatch of specific expertise - broad skills of Mentor may not be specific enoughor closely aligned with the problem the SME is facing">Mismatch of specific expertise - broad skills of Mentor may not be specific enough or closely aligned with the problem the SME is facing</MenuItem>
+                                    <MenuItem value='Personality fit and communication style - seem incompatible due to perceived personality traits'>Personality fit and communication style - seem incompatible due to perceived personality traits</MenuItem>
                                         <Button class="btn px-4" onClick={() => setShowField(true)}>
                                         Add Other Reason
                                         </Button>

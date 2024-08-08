@@ -27,6 +27,7 @@ import ImageCarousel from './Components/ImageCorousel';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Cookie from '../Cookies/View';
 
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -80,6 +81,7 @@ function DrawerAppBar({list}) {
 		<>
 			<Landing>
 				<CssBaseline/>
+                <Cookie />
 				<Grid container spacing={2} mt={{ xs: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>
 					<Grid item sm={6}>
 						<Box pl={{ lg: 15, md: 5, sm: 2 }} p={{ xs: 2 }}>

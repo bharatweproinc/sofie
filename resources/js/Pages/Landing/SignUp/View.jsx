@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
 import "../style.scss";
 import LinearProgress from '@mui/material/LinearProgress';
+import Cookie from '../Cookies/View';
 
 const signupSchema = Constants.signupSchema
 
@@ -98,6 +99,7 @@ function Signup() {
 
   return (
     <Landing>
+    <Cookie />
     <Typography sx={{height:'65px'}}></Typography>
       <ToastContainer style={{marginTop:"65px"}}/>
       {processing && <LinearProgress />}
@@ -117,19 +119,32 @@ function Signup() {
                           </Box>
                       </Grid>
                     <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
-                          <Typography mb={1}>Full Name</Typography>
+                          <Typography mb={1}>First Name</Typography>
                           <TextField
                             size='small'
                             sx={{ width: '100%' }}
                             fullWidth
                             variant='outlined'
-                            placeholder='Full Name'
+                            placeholder='First Name'
                             onChange={(e) => handleChange("full_name", e.target.value)}
                             error={!!validationErrors.full_name}
                             helperText={validationErrors.full_name}
                           />
                     </Grid>
                     <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
+                          <Typography mb={1}>Last Name</Typography>
+                          <TextField
+                            size='small'
+                            sx={{ width: '100%' }}
+                            fullWidth
+                            variant='outlined'
+                            placeholder='Last Name'
+                            onChange={(e) => handleChange("last_name", e.target.value)}
+                            error={!!validationErrors.last_name}
+                            helperText={validationErrors.last_name}
+                          />
+                    </Grid>
+                    {/* <Grid item lg={6} sm={12} md={6} xs={12} className='signup_input_fields'>
                         <Typography mb={1}>Phone</Typography>
                           <TextField
                             size='small'
@@ -143,7 +158,7 @@ function Signup() {
                             error={!!validationErrors.phone}
                             helperText={validationErrors.phone}
                           />
-                    </Grid>
+                    </Grid> */}
                     <Grid item lg={12} sm={12} md={12} xs={12} className='signup_input_fields'>
                           <Typography mb={1}>Email</Typography>
                           <TextField
@@ -187,7 +202,7 @@ function Signup() {
                     </Grid>
                     <Grid item xs={12}>
                           <Box>
-                              <Typography fontSize={"14px"} color={"#7C7C7C"}> Password Tip : Password must be 8-16 characters long, and contain one uppercase and one lowercase character.</Typography>
+                              <Typography fontSize={"14px"} color={"#7C7C7C"}> Password Tip : Password must be 8-16 characters long, and contain one uppercase and one lowercase character and one special character.</Typography>
                           </Box>
                       </Grid>
                     <Grid  item lg={6} sm={12} md={6} xs={12} textAlign={"start"}>

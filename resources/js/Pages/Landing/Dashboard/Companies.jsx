@@ -22,6 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Companies = ({ handleViewAll, section, setViewSection, list = []}) => {
+    console.log('list',list);
     const {  post } = useForm()
     const [open, setOpen] = useState(false);
     const [userId, setUserId] = useState(null);

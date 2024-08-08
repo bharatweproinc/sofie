@@ -38,21 +38,21 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //dd($request->all());
+        // dd($request->full_name." ". $request->last_name);
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => ['required', Rules\Password::defaults()],
-            'phone' => 'required|string|max:20',
             'enterpreneur_or_mentor' =>'required'
         ]);
         if ($validator->fails()) {
             return redirect('signup')->withErrors($validator)->withInput();
         }
         $user = new User;
-        $user->name = $request->full_name;
+        $user->name = $request->full_name." ". $request->last_name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
+        //$user->phone = $request->phone;
         $user->password = Hash::make($request->password);
         $user->user_role = $request->enterpreneur_or_mentor;
         $user->hash_login = md5(time().$user->email);

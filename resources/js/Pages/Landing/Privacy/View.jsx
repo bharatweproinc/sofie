@@ -232,7 +232,7 @@ function Privacy() {
                     <p>The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.</p>
                 </li>
             </ol>
-
+<br/>
             <div className='text-center justify-center'>
                 <strong>DETAILED INFORMATION ON THE PROCESSING OF YOUR PERSONAL DATA</strong>
             </div>

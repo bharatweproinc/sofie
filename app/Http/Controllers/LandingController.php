@@ -79,6 +79,10 @@ class LandingController extends Controller
     }
 
     public function signup() {
+        if(Auth::user()){
+           Auth::logout();
+           return Inertia::render('Landing/SignUp/View', []);
+        }
         return Inertia::render('Landing/SignUp/View', []);
     }
 
@@ -384,7 +388,7 @@ class LandingController extends Controller
                     $decline2 = new DeclinedMentorsSme();
                     $decline2->mentor_id = $mentor_id;
                     $decline2->company_id = $company_id;
-                    $decline->decline_type = "mentor";
+                    $decline2->decline_type = "mentor";
                     $decline2->save();
                 }else{
                     $decline->mentor_id = $mentor_id;

@@ -7,7 +7,8 @@ import Joi from '@/utility/JoiValidator';
 
 const initSignUpForm = {
     'full_name' : '',
-    'phone' : 0,
+    'last_name' : '',
+    // 'phone' : 0,
     'email' : '',
     'password' : '',
     'confirm_password' : '',
@@ -101,7 +102,8 @@ const initMentorForm = {
 
 const signupSchema = [{
     full_name: Joi.string().label("Full Name").required(),
-    phone: Joi.number().min(10).label("Phone Number").required(),
+    last_name: Joi.string().label("Last Name").required(),
+    //phone: Joi.number().min(10).label("Phone Number").required(),
     email: Joi.string().email({ tlds: { allow: false } }).label("Email").required(),
     password : Joi.string()
     .min(8)

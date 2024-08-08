@@ -38,10 +38,10 @@ export const Footer = () => {
                     >
                         Terms & Conditions
                         <br />
-                        <Tooltip title="Funding Terminology" placement="right-start">
+                        {/* <Tooltip title="Funding Terminology" placement="right-start">
                             <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
                         </Tooltip>
-                        <br />
+                        <br /> */}
                         <Link style={linkStyle} href={route('landing.faq')}>FAQs</Link>
                         <br />
                     </Typography>
@@ -66,7 +66,7 @@ export const Footer = () => {
                         sx={linkStyle}
                     >
                         <Tooltip title="Privacy" placement="right-start">
-                            <Link style={linkStyle} href={route('landing.privacy')}>Privacy</Link>
+                            <Link style={linkStyle} href={route('landing.privacy')}>Privacy Policy</Link>
                         </Tooltip>
                         <br />
                         <Tooltip title="Contact Us" placement="right-start">

@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "../style.scss";
 import ForgetPassword from '@/Components/Dependent/ForgetPassword';
 import LinearProgress from '@mui/material/LinearProgress';
+import Cookie from '../Cookies/View';
 
 const CenteredPaper = styled(Paper)({
   padding: '40px',
@@ -71,6 +72,7 @@ function Login() {
 
   return (
     <Landing>
+     <Cookie />
         <Typography sx={{ height: '65px' }}></Typography>
         <ToastContainer style={{marginTop:"65px"}}/>
         {processing && <LinearProgress />}
