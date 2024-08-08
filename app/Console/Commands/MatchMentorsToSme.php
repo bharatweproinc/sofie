@@ -38,6 +38,7 @@ class MatchMentorsToSme extends Command
             $not_matched = MatchingQueue::where('status', 'not matched')->get();
             foreach($not_matched as $not_matched_mentor){
                 $not_matched_mentor->status = "matching";
+                $not_matched_mentor->save();
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($not_matched_mentor->mentor_id);
                 $user = User::where('user_role', 'mentor')->where('functional_id', $not_matched_mentor->mentor_id)->first();

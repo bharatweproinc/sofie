@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('users:delete-scheduled')->everyMinute();
-        $schedule->command('app:match-mentors-to-sme')->everyMinute();
+        $schedule->command('app:match-mentors-to-sme')->everyFiveMinute();
     }
 
     /**
