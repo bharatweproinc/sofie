@@ -36,7 +36,7 @@ export const Footer = () => {
                         mt={1}
                         sx={linkStyle}
                     >
-                        Funding Resources
+                        Terms & Conditions
                         <br />
                         <Tooltip title="Funding Terminology" placement="right-start">
                             <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
@@ -97,9 +97,14 @@ export const Footer = () => {
                         sx={linkStyle}
                         color="black"
                     >
-                        Browse Companies
+                    <Tooltip title="Browse Companies" placement="right-start">
+                        <Link style={linkStyle} href={route('landing.findcompanies')}>Browse Companies</Link>
+                        </Tooltip>
+
                         <br />
-                        Find a Mentor
+                        <Tooltip title="Find a Mentor" placement="right-start">
+                        <Link style={linkStyle} href={route('landing.findmentors')}>Find a Mentor</Link>
+                        </Tooltip>
                         <br />
                         <Tooltip title="Sign up" placement="right-start">
                         <Link style={linkStyle} href={route('landing.signup')}>Sign up</Link>

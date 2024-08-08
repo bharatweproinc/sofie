@@ -36,8 +36,11 @@ export default function ImageCard({item}) {
 
                 <Box className="flex" gap={.5}>
                     <Experience/>
-                    <Typography variant="caption" color="text.secondary">
+                    {/* <Typography variant="caption" color="text.secondary">
                         Expert Area: {item.functional_area}
+                    </Typography> */}
+                    <Typography pb={1} fontWeight={500} variant='body1' component="div">
+                    {item.industry_sector.map(String).join(', ')}
                     </Typography>
                 </Box>
 

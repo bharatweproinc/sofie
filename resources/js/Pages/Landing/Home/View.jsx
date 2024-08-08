@@ -46,7 +46,7 @@ function DrawerAppBar({list}) {
 		slidesToShow: isMobile ? 1 : 4,
 		slidesToScroll: 1,
 		autoplay: true,
-		autoplaySpeed: 2000, 
+		autoplaySpeed: 2000,
 		arrows: false,
 	};
 
@@ -56,7 +56,7 @@ function DrawerAppBar({list}) {
 		slidesToShow: isMobile ? 1 : 3,
 		slidesToScroll: 1,
 		autoplay: true,
-		autoplaySpeed: 2000, 
+		autoplaySpeed: 2000,
 		arrows: false,
 	  };
 
@@ -66,7 +66,7 @@ function DrawerAppBar({list}) {
 		slidesToShow: isMobile ? 1 : 3,
 		slidesToScroll: 1,
 		autoplay: true,
-		autoplaySpeed: 2000, 
+		autoplaySpeed: 2000,
 		arrows: false,
 	  };
 
@@ -99,7 +99,7 @@ function DrawerAppBar({list}) {
 								variant="body1"
 								color="initial"
 							>
-                                {list.banner.banner_description}I
+                                {list.banner.banner_description}
                             </Typography>
 							<Box className="flex gap-5 mt-10">
 								<Button component={Link} variant="contained" href={route('landing.signup', { role: 'entrepreneur' })} onClick={() => setSelectedRole('entrepreneur')} className="w-full">
@@ -390,7 +390,7 @@ function DrawerAppBar({list}) {
 								>
 								</Typography>
 								<Box mt={3} display={{ xs: 'flex', sm: 'block' }} justifyContent={`center`}>
-									<Button variant="contained">
+									<Button variant="contained" component={Link} href={route('landing.signup')}>
 										Improve Your Business
 									</Button>
 								</Box>
