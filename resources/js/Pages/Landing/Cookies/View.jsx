@@ -14,9 +14,9 @@ function Cookie() {
       <h1>Welcome to Our Website</h1>
       <CookieConsent
         onAccept={handleAccept}
-        buttonText="Accept All Cookies"
+        buttonText="Agree"
       >
-        This website uses cookies to enhance the user experience.
+        This website uses cookies for analytics and functionality purposes. To find out more, view our <a href={route('landing.termsconditions')}>Cookie Policy</a> & <a href={route('landing.privacy')}>Privacy Policy.</a>
       </CookieConsent>
     </div>
   );

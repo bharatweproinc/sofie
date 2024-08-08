@@ -71,6 +71,10 @@ class LandingController extends Controller
         }
     }
 
+    public function termsconditions(){
+        return Inertia::render('Landing/TermsAndConditions/View',[]);
+    }
+
     public function login() {
         if (Auth::user() && Auth::user()->user_role == "admin") {
             return Redirect::route('admin.dashboard');

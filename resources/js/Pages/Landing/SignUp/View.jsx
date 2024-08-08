@@ -224,7 +224,7 @@ function Signup() {
                           :
                           <Grid item xs={12} className='custom_checkbox_label'>
                             <FormControlLabel required control={<Checkbox />}
-                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for upto 10 hours per year.
+                                label="I acknowledge that by creating an account on upcie and participating in upcie's matching program as a mentee/SME, that upon being matched with a mentor through upcie, and upon my acceptance of the match, I will recieve consultation and guidance from the matched mentor completely FREE OF CHARGE for up to 10 hours per year.
                                     I acknowledge that if I contact mentors that appear on upcie website that I, as a mentee/SME on the upcie platform, have not been matched with, there is no obligation for the mentor to provide consultation and guidance to me." />
                           </Grid>
                     }

@@ -36,7 +36,10 @@ export const Footer = () => {
                         mt={1}
                         sx={linkStyle}
                     >
-                        Terms & Conditions
+                        <Tooltip title=" Terms & Conditions" placement="right-start">
+                            <Link style={linkStyle} href={route("landing.termsconditions")}>Terms & Conditions</Link>
+                        </Tooltip>
+
                         <br />
                         {/* <Tooltip title="Funding Terminology" placement="right-start">
                             <Link style={linkStyle} href={route("landing.terminology")}>Funding Terminology</Link>
