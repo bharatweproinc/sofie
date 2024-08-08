@@ -196,7 +196,7 @@ function TermsAndConditions() {
 
                 <p><strong> Criteria for Matching </strong></p>
                 <p>Matches between SMEs or Mentees and Mentors are made based on the information provided during registration, including but not limited to industry sector and functional areas of help (for SMEs), and industry sector experience and mentorship experience (for Mentors).</p>
-
+                <br/>
                 <p><strong>Acceptance of Match</strong></p>
                 <p>Both SMEs and Mentors will be notified of a potential match via their registered email and must accept or decline the recommended match within 10 business days from the date the email notification was sent out. Declining a recommended match will not affect future matching opportunities. </p>
                 <br/>
@@ -208,13 +208,13 @@ function TermsAndConditions() {
 
                 <p><strong>Time Commitment</strong></p>
                 <p>Once mentorship is accepted by both SME and recommended Mentor, both parties agree to meet in-person or virtually for a total of up to 10 hours over the course of 12-month period, with the time count starting from a mutually-agreed-upon first meeting. The scheduling and mode of communication for these mentorship meetings are to be arranged directly between the SME and Mentor based on their scheduling convenience. The Company will not be involved in any arrangement of meeting or communication process. </p>
-
+                <br/>
                 <p><strong>Responsibilities of SMEs</strong></p>
                 <p>Once accepted into the Website, SMEs are encouraged to provide accurate and up-to-date information on their page profile, to actively participate in the mentorship process, and to respect their Mentor's time and expertise. </p>
-
+                <br/>
                 <p><strong>Responsibilities of Mentors</strong></p>
                 <p>Once accepted into the Website, Mentors are encouraged to provide accurate and up-to-date information on their page profile, to actively participate in the mentorship process, and to respect the SME's goals and challenges.</p>
-
+                <br/>
                 <p><strong>Communication Expectations</strong></p>
                 <p>Both SMEs and Mentors are expected to maintain regular communication and be responsive to each other's outreach in order to ensure a smooth and fruitful mentorship process. </p>
                 <br/>
@@ -225,14 +225,14 @@ function TermsAndConditions() {
 
                 <p><strong>Professionalism </strong></p>
                 <p>Both SMEs and Mentors are expected to conduct themselves professionally and respectfully at all times. Should there be any incident of unprofessional conduct, You may report the incident to us at feeback@upcie.net</p>
-
+                <br/>
                 <p><strong>Confidentiality </strong></p>
                 <p>Both SMEs and Mentors agree that any information shared during the mentoring relationship must be kept confidential unless both parties agree otherwise. Signing of a Non-Disclosure Agreement is optional, unless one party deems it necessary and get the consent of the other party to execute.</p>
-                
+                <br/>
                 <p><strong>Respect and Non-Discrimination </strong></p>
                 <p>Both SMEs and Mentors are expected to treat each other with mutual respect and must not
                 engage in discriminatory behavior of any kind.</p>
-
+                <br/>
                 <p><strong>Intellectual Property</strong></p>
                 <p>The Service and its original content (excluding Content provided by You or other users),
                 features and functionality are and will remain the exclusive property of the Company and its
@@ -242,12 +242,14 @@ function TermsAndConditions() {
                 <p>Our trademarks and trade dress may not be used in connection with any product or service
                 without the prior written consent of the Company.</p>
 
+                <br/>
+
                 <p><strong>Your Feedback to Usrong/tr</strong></p>
                 <p>You assign all rights, title and interest in any Feedback You provide the Company. If for any
 reason such assignment is ineffective, You agree to grant the Company a non-exclusive,
 perpetual, irrevocable, royalty free, worldwide right and license to use, reproduce, disclose,
 sub-license, distribute, modify and exploit such Feedback without restriction.</p>
-
+<br/>
                 <p><strong>Links to Other Websitesstrong</strong></p>
                 <p>Our Service may contain links to third-party web sites or services that are not owned or
 controlled by the Company.</p><p>The Company has no control over, and assumes no responsibility for, the content, privacy
@@ -257,14 +259,14 @@ damage or loss caused or alleged to be caused by or in connection with the use o
 reliance on any such content, goods or services available on or through any such web sites
 or services.</p><p>We strongly advise You to read the terms and conditions and privacy policies of any third-
 party web sites or services that You visit.</p>
-
+<br/>
                 <p><strong>Termination</strong></p>
                 <p>We may terminate or suspend Your Account immediately, without prior notice or liability,
 for any reason whatsoever, including without limitation if You breach these Terms and
 Conditions.</p>
 <p>Upon termination, Your right to use the Service will cease immediately. If You wish to
 terminate Your Account, You may simply discontinue using the Service.</p>
-
+<br/>
                 <p><strong>Limitation of Liabilitystrong</strong></p>
                 <p>Notwithstanding any damages that You might incur, the entire liability of the Company and
 any of its suppliers under any provision of this Terms and Your exclusive remedy for all of
@@ -293,7 +295,7 @@ requirements, achieve any intended results, be compatible or work with any other
 applications, systems or services, operate without interruption, meet any performance or
 reliability standards or be error free or that any errors or defects can or will be corrected.</p>
 
-
+<br/>
                 <p><strong>"AS IS" and "AS AVAILABLE" Disclaimer</strong></p>
                 <p>   The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects
 without warranty of any kind. To the maximum extent permitted under applicable law, the
@@ -322,36 +324,39 @@ on applicable statutory rights of a consumer, so some or all of the above exclus
 limitations may not apply to You. But in such a case the exclusions and limitations set forth
 in this section shall be applied to the greatest extent enforceable under applicable law.  </p>
 
-               
+<br/>
                 <p><strong> Governing Law   </strong></p>
                 <p> The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and
 Your use of the Service. Your use of the Application may also be subject to other local, state,
 national, or international laws.    </p>
-
-                <p><strong> Disputes Resolution   </strong></p><br/>
+<br/>
+<div className='text-center'>
+                    <strong>Disputes Resolution</strong>
+                </div><hr/><br/>
+               
                
                 <p><strong>Process for Addressing Issues Between SMEs and Mentors</strong>    </p>
 
                 <p>If any issues arise between the SMEs and Mentors, both parties agree to attempt to resolve the
 issues directly. If unresolved, the Company may mediate, but its involvement will be limited. For
 any unresolved issues, You can email the Company at feedback@upcie.net</p>
-                <p></p>
+<br/>
 
                 <p><strong>  Role of Company  </strong></p>
                 <p>  The Company acts as a facilitator and is not responsible for resolving disputes between parties.
 If You have any concern or dispute about the Service, You agree to first try to resolve the dispute
 informally by contacting the Company at feedback@upcie.net   </p>
-
+<br/>
                 <p><strong>  For European Union (EU) Users  </strong></p>
                 <p> If You are a European Union consumer, you will benefit from any mandatory provisions of
                 the law of the country in which You are resident.    </p>
-
+                <br/>
                 <p><strong>  United States Legal Compliance  </strong></p>
                 <p>You represent and warrant that (i) You are not located in a country that is subject to the
 United States government embargo, or that has been designated by the United States
 government as a "terrorist supporting" country, and (ii) You are not listed on any United
 States government list of prohibited or restricted parties. </p>
-               
+<br/>
                 
 <div className='text-center'>
                     <strong>Severability and Waiver</strong>
@@ -362,18 +367,18 @@ States government list of prohibited or restricted parties. </p>
 changed and interpreted to accomplish the objectives of such provision to the greatest
 extent possible under applicable law and the remaining provisions will continue in full force
 and effect. </p>
-
+<br/>
                 <p><strong>  Waiver  </strong></p>
                 <p> Except as provided herein, the failure to exercise a right or to require performance of an
 obligation under these Terms shall not affect a party's ability to exercise such right or
 require such performance at any time thereafter nor shall the waiver of a breach constitute
 a waiver of any subsequent breach.    </p>
-
+<br/>
                 <p><strong>  Translation Interpretation  </strong></p>
                 <p>   These Terms and Conditions may have been translated if We have made them available to
 You on our Service. You agree that the original English text shall prevail in the case of a
 dispute.  </p>
-
+<br/>
                 <p><strong>  Changes to These Terms and Conditions  </strong></p>
                 <p>  We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If
 a revision is material We will make reasonable efforts to provide at least 30 days' notice
@@ -382,7 +387,7 @@ at Our sole discretion.   </p>
 <p>By continuing to access or use Our Service after those revisions become effective, You agree
 to be bound by the revised terms. If You do not agree to the new terms, in whole or in part,
 please stop using the website and the Service.</p>
-
+<br/>
                 <p><strong>    Contact Us</strong></p>
                 <p> If you have any questions about these Terms and Conditions, You can contact us by email:
                 hello@upcie.net    </p>
