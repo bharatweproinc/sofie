@@ -29,7 +29,8 @@ export default function FeatureCard({ item, src }) {
                 />
                 <CardContent>
                     <Typography gutterBottom component="div">
-                        {item.industry_sector.map(String).join(' , ')}
+                        {/* {item.industry_sector.map(String).join(' , ')} */}
+                        {item.industry_sector}
                     </Typography>
 
                     <Typography gutterBottom variant="h5" component="div" sx={{

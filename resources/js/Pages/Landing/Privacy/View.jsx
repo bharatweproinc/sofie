@@ -176,7 +176,7 @@ function Privacy() {
                     <p><strong>Purpose: </strong>These Cookies are used to track information about traffic to the Website and how users use the Website. The information gathered via these Cookies may directly or indirectly identify you as an individual visitor. This is because the information collected is typically linked to a pseudonymous identifier associated with the device you use to access the Website. We may also use these Cookies to test new pages, features or new functionality of the Website to see how our users react to them.</p>
                     <br/>
 
-                    <p>For more information on cookies, You can view this article: <a href ="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies" target='_blank'>What are cookies?</a></p>
+                    <p>For more information on cookies, You can view this article <a href ="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies" target='_blank'><em>"What are cookies?"</em></a></p>
                 </li><br/>
                 <li>
                     <strong>Use of Your Personal Data</strong>
@@ -248,7 +248,7 @@ function Privacy() {
                     <strong>Email Marketing</strong>
                     <p>We may use Your Personal Data to contact You with newsletters, marketing or promotional materials and other information that may be of interest to You. You may opt-out of receiving any, or all, of these communications from Us by following the unsubscribe link or instructions provided in any email We send or by contacting Us.</p>
                     <p>We may use Email Marketing Service Providers to manage and send emails to You.</p>
-                    <p><strong>* Twilio SendGrid</strong> Their Privacy Policy can be viewed at Website Privacy Notice | Twilio</p>
+                    <p><strong>* Twilio SendGrid</strong> Their Privacy Policy can be viewed at <a href="https://www.twilio.com/en-us/legal/privacy" target="_blank"><em>Website Privacy Notice | Twilio</em></a></p>
                 </li><br/>
                 <li>
                     <p><strong>GDPR PRIVACY:</strong> Legal Basis for Processing Personal Data under GDPR</p>

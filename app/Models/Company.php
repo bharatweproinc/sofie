@@ -37,10 +37,10 @@ class Company extends Model
 
     protected $casts = [
         'position' => 'array',
-        'team_size' => 'array',
-        'current_revenue' => 'array',
-        'current_customers_base_size' => 'array',
-        'industry_sector' => 'array',
+        // 'team_size' => 'array',
+        // 'current_revenue' => 'array',
+        // 'current_customers_base_size' => 'array',
+        //'industry_sector' => 'array',
         'hear_about_us' => 'array',
     ];
 

@@ -76,8 +76,8 @@ export const Footer = () => {
                             <Link style={linkStyle} href={route('landing.contactus')}>Contact Us</Link>
                         </Tooltip>
                         <br />
-                        Press
-                        <br />
+                        {/* Press
+                        <br /> */}
                     </Typography>
                     </box>
                 </Grid>

@@ -413,30 +413,12 @@ class LandingController extends Controller
     }
     public function declineSme($mentor_id, $company_id){
         try{
-            $mentor = Mentor::where('id', $mentor_id)->first();
-            $company = Company::where('id', $company_id)->first();
-            if($mentor && $company){
-                $decline = DeclinedMentorsSme::where('mentor_id', $mentor_id)->where('company_id', $company_id)->where('decline_type', 'sme')->first();
-                if($decline == null){
-                    $decline2 = new DeclinedMentorsSme();
-                    $decline2->mentor_id = $mentor_id;
-                    $decline2->company_id = $company_id;
-                    $decline2->decline_type = "sme";
-                    $decline2->save();
-                }else{
-                    $decline->mentor_id = $mentor_id;
-                    $decline->company_id = $company_id;
-                    $decline->decline_type = "sme";
-                    $decline->save();
-                }
-
-                return Inertia::render('Landing/DeclineDropDown/CompanyView',[
-                    'details' =>[
-                        'mentor_id' =>$mentor_id,
-                        'company_id' => $company_id
-                   ]
-                ]);
-            }
+            return Inertia::render('Landing/DeclineDropDown/CompanyView',[
+                'details' =>[
+                    'mentor_id' =>$mentor_id,
+                    'company_id' => $company_id
+                ]
+            ]);
         }catch(\Exception $e){
             return $e->getMessage();
         }
@@ -460,20 +442,22 @@ class LandingController extends Controller
     }
 
     public function declineSmeReason(Request $request){
+
         $data = [
             'mentor_id' => $request->mentor_id,
             'company_id' => $request->company_id,
-            'decline_type' => "Mentee(SME) rejected by Mentor: REASON:". $request->reason
+            'decline_type' => "Mentee(SME) rejected by Mentor",
+            'decline_message' => $request->reason
         ];
-        $decline = DeclinedMentorsSme::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('decline_type', 'sme')->first();
-        // $decline->decline_type = "Mentee(SME) rejected by Mentor: REASON: ". $request->reason;
-        // $decline->save();
+        $decline = DeclinedMentorsSme::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('decline_type', 'Mentee(SME) rejected by Mentor')->first();
         if($decline){
             $decline->update($data);
         }else{
             $decline2 = new DeclinedMentorsSme();
             $decline2->create($data);
         }
+        //mail to sme
+        //dd('success');
         return Redirect::route('landing.home');
     }
 

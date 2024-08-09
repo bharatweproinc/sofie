@@ -67,7 +67,8 @@ function BrowseCompanies ({list}) {
                                     }}
                                 >
                                     <Typography pb={.5} variant='body1' component="div">
-                                        {item.industry_sector.map(String).join(' , ')}
+                                        {/* {item.industry_sector.map(String).join(' , ')} */}
+                                        {item.industry_sector}
                                     </Typography>
 
                                     <Typography fontWeight={600} gutterBottom variant="h5" component="div">

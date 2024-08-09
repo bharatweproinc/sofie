@@ -233,7 +233,11 @@ function TermsAndConditions() {
                 <p>Both SMEs and Mentors are expected to treat each other with mutual respect and must not
                 engage in discriminatory behavior of any kind.</p>
                 <br/>
-                <p><strong>Intellectual Property</strong></p>
+
+                <div className='text-center'>
+                    <strong>Intellectual Property</strong>
+                </div><hr/><br/>
+
                 <p>The Service and its original content (excluding Content provided by You or other users),
                 features and functionality are and will remain the exclusive property of the Company and its
                 licensors.</p>
@@ -244,13 +248,13 @@ function TermsAndConditions() {
 
                 <br/>
 
-                <p><strong>Your Feedback to Usrong/tr</strong></p>
+                <p><strong>Your Feedback to Us</strong></p>
                 <p>You assign all rights, title and interest in any Feedback You provide the Company. If for any
 reason such assignment is ineffective, You agree to grant the Company a non-exclusive,
 perpetual, irrevocable, royalty free, worldwide right and license to use, reproduce, disclose,
 sub-license, distribute, modify and exploit such Feedback without restriction.</p>
 <br/>
-                <p><strong>Links to Other Websitesstrong</strong></p>
+                <p><strong>Links to Other Websites</strong></p>
                 <p>Our Service may contain links to third-party web sites or services that are not owned or
 controlled by the Company.</p><p>The Company has no control over, and assumes no responsibility for, the content, privacy
 policies, or practices of any third party web sites or services. You further acknowledge and
@@ -267,7 +271,7 @@ Conditions.</p>
 <p>Upon termination, Your right to use the Service will cease immediately. If You wish to
 terminate Your Account, You may simply discontinue using the Service.</p>
 <br/>
-                <p><strong>Limitation of Liabilitystrong</strong></p>
+                <p><strong>Limitation of Liability</strong></p>
                 <p>Notwithstanding any damages that You might incur, the entire liability of the Company and
 any of its suppliers under any provision of this Terms and Your exclusive remedy for all of
 the foregoing shall be limited to the amount actually paid by You through the Service.</p><p>To the maximum extent permitted by applicable law, in no event shall the Company or its
@@ -333,8 +337,8 @@ national, or international laws.    </p>
 <div className='text-center'>
                     <strong>Disputes Resolution</strong>
                 </div><hr/><br/>
-               
-               
+
+
                 <p><strong>Process for Addressing Issues Between SMEs and Mentors</strong>    </p>
 
                 <p>If any issues arise between the SMEs and Mentors, both parties agree to attempt to resolve the
@@ -357,11 +361,11 @@ United States government embargo, or that has been designated by the United Stat
 government as a "terrorist supporting" country, and (ii) You are not listed on any United
 States government list of prohibited or restricted parties. </p>
 <br/>
-                
+
 <div className='text-center'>
                     <strong>Severability and Waiver</strong>
                 </div><hr/><br/>
-               
+
                 <p><strong>  Severability  </strong></p>
                 <p>  If any provision of these Terms is held to be unenforceable or invalid, such provision will be
 changed and interpreted to accomplish the objectives of such provision to the greatest
@@ -392,7 +396,7 @@ please stop using the website and the Service.</p>
                 <p> If you have any questions about these Terms and Conditions, You can contact us by email:
                 hello@upcie.net    </p>
 
-                
+
 
             </Typography>
           </div>

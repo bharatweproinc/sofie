@@ -159,6 +159,20 @@ function ReviewProfilePage ({detail}){
             },
         })
     }
+
+    const handleAddToFeatured =() =>{
+        router.post(route("admin.addFeaturedMentor", detail.id), {
+            onSuccess: (success) => {
+                notify.success("Added to featured section successfully");
+                console.log(success, "success")
+            },
+            onError: (error) => {
+                notify.error("Error while adding");
+                console.log(error, "error")
+            },
+        })
+    }
+
 console.log("datetewt",detail)
     return (
         <Landing auth={detail?.logged_user ? detail.logged_user : detail.user}>
@@ -178,6 +192,14 @@ console.log("datetewt",detail)
                                         Accept
                                     </Button>
                                     </>
+                                }
+                                {detail && detail.logged_user &&  detail.logged_user.user_role === "admin" &&
+                                <Button onClick={()=>handleAddToFeatured()} sx={{mr : 1, mb : {md : 0, xs : 1}}} variant="contained">
+                                   {
+                                    detail &&  detail.featured_mentor == "yes" ? "Remove from featured" :
+                                    "Add to featured"
+                                   }
+                                    </Button>
                                 }
                                 <Tooltip
                                     placement="top"

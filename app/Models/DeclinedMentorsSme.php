@@ -11,6 +11,7 @@ class DeclinedMentorsSme extends Model
     protected $fillable = [
         'mentor_id',
         'company_id',
-        'decline_type'
+        'decline_type',
+        'decline_message'
     ];
 }

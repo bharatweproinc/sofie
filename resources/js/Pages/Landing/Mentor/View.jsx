@@ -150,15 +150,12 @@ function Mentor({detail}) {
                                 />
                                 <Grid item="true" xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
-                                    <Typography fontWeight={400} fontSize="16px" color={'#7C7C7C'} py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
+                                    <Typography fontWeight={400} fontSize="16px" color={'#7C7C7C'} py={1} pt={2}>Please upload your profile photo that meets the following criteria:</Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
-                                        1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
+                                        1. Image Format: Use common image formats such as JPEG, PNG, or SVG.
                                     </Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
-                                        2. Image Format: Use common image formats such as JPEG, PNG, or SVG.
-                                    </Typography>
-                                    <Typography py={1} color={'#7C7C7C'}>
-                                        3. High Resolution: Ensure the image is high resolution so that the logo appears clear and professional.
+                                        2. High Resolution: Ensure the image is high resolution so that the image appears clear and professional.
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -271,7 +268,7 @@ function Mentor({detail}) {
                         </Grid>
 
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
-                            <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>What Functional Area you willing to mentor in?</Typography>
+                            <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Which Functional Area are you willing to mentor in?</Typography>
                             <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
                                 <Select
                                     labelId="functionalArea-label"
@@ -290,6 +287,48 @@ function Mentor({detail}) {
                                 </Select>
                                 <FormHelperText>{validationErrors.functional_area}</FormHelperText>
                             </FormControl>
+                            {/* <FormControl sx={{width : "100%"}} error={!!validationErrors.functional_area}>
+                                <Select
+                                    labelId="functionalArea-label"
+                                    // multiple
+                                    fullWidth
+                                    variant="outlined"
+                                    value={data.functional_area}
+                                    onChange={(e) => handleChange('functional_area', e.target.value,'select')}
+                                    input={<OutlinedInput  />}
+                                    error={!!validationErrors.functional_area}
+                                    inputRef={inputRefs.current.functional_area}
+                                    //renderValue={(selected) => selected.join(', ')}
+                                >
+                                    {selectData.functional_area.map((val) => (
+                                        <MenuItem key={val} value={val}>
+                                            <Checkbox checked={data.functional_area.includes(val)} />
+                                            <ListItemText primary={val} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                <Select
+                                    labelId="functionalArea-label"
+                                    multiple
+                                    fullWidth
+                                    variant="outlined"
+                                    value={data.functional_area}
+                                    onChange={(e) => handleChange('functional_area', e.target.value,'select')}
+                                    input={<OutlinedInput  />}
+                                    error={!!validationErrors.functional_area}
+                                    inputRef={inputRefs.current.functional_area}
+                                    renderValue={(selected) => selected.join(', ')}
+                                >
+                                    {selectData.functional_area.map((val) => (
+                                        <MenuItem key={val} value={val}>
+                                            <Checkbox checked={data.functional_area.includes(val)} />
+                                            <ListItemText primary={val} />
+                                        </MenuItem>
+                                    ))}
+
+                                </Select>
+                                <FormHelperText>{validationErrors.functional_area}</FormHelperText>
+                            </FormControl> */}
 
                         </Grid>
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
@@ -347,7 +386,13 @@ function Mentor({detail}) {
                                 variant='outlined'
                                 placeholder='Experience'
                                 value={data.experience}
-                                onChange={(e) => handleChange("experience", e.target.value)}
+                                // onChange={(e) => handleChange("experience", e.target.value)}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (value === '' || (Number(value) > 0 && Number.isInteger(Number(value)))) {
+                                        handleChange("experience", value);
+                                    }
+                                }}
                                 error={!!validationErrors.experience}
                                 helperText={validationErrors.experience}
                             />

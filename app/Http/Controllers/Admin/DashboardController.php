@@ -13,6 +13,7 @@ use Inertia\Inertia;
 use App\Repository\CompanyRepository;
 use App\Repository\MentorRepository;
 use App\Services\MatchSmeMentor;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -290,6 +291,41 @@ class DashboardController extends Controller
             $newDeletion->scheduleCompanyDeletion($id);
         }else{
             return Redirect::back()->withError(['msg' => 'Deletion Failed']);
+        }
+    }
+
+    //Featured mentors and Sme
+    public function addFeaturedMentor($id){
+        try{
+            $mentor = Mentor::where('id',$id)->first();
+            if($mentor && $mentor->featured_mentor == "no"){
+                $mentor->featured_mentor = "yes";
+                $mentor->save();
+            }else if($mentor && $mentor->featured_mentor == "yes"){
+                $mentor->featured_mentor = "no";
+                $mentor->save();
+            }
+            return Redirect::back();
+
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function addFeaturedSme($id){
+        try{
+            $company = Company::where('id',$id)->first();
+            if($company && $company->featured_sme == "no"){
+                $company->featured_sme = "yes";
+                $company->save();
+            }else if($company && $company->featured_sme == "yes"){
+                $company->featured_mentor = "no";
+                $company->save();
+            }
+            return Redirect::back();
+
+        }catch(\Exception $e){
+            return $e->getMessage();
         }
     }
 

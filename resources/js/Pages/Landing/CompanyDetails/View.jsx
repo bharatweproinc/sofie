@@ -141,8 +141,8 @@ function CompanyDetail({detail}) {
                                             photoKey={"profile_photo"}
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
-                                    <Typography fontWeight={600} fontSize="18px">Upload Profile Photo</Typography>
-                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's profile photo that meets the following criteria:</Typography>
+                                    <Typography fontWeight={600} fontSize="18px">Upload Logo Photo</Typography>
+                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
                                         1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
                                     </Typography>
@@ -164,7 +164,7 @@ function CompanyDetail({detail}) {
                                         />
                                 <Grid item xs={9} textAlign={"left"}>
                                     <Typography fontWeight={600} fontSize="18px">Upload Founder Photo</Typography>
-                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's logo photo that meets the following criteria:</Typography>
+                                    <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's founder photo that meets the following criteria:</Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
                                         1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
                                     </Typography>
@@ -320,7 +320,7 @@ function CompanyDetail({detail}) {
                                </Grid>
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Team Size, Number Of Employees</Typography>
-                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.team_size}>
+                                    {/* <FormControl sx={{ width : '100%' }} error={!!validationErrors.team_size}>
                                             <Select
                                                 labelId="teamSize-label"
                                                 multiple
@@ -344,14 +344,32 @@ function CompanyDetail({detail}) {
                                                 </Button>
                                             </Select>
                                         <FormHelperText>{validationErrors.team_size}</FormHelperText>
+                                    </FormControl> */}
+                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.team_size}>
+                                            <Select
+                                                labelId="teamSize-label"
+                                                fullWidth
+                                                variant="outlined"
+                                                value={data.team_size  }
+                                                onChange={(e) => handleChange('team_size', e.target.value)}
+                                                error={!!validationErrors.team_size}
+                                                inputRef={inputRefs.current.team_size}
+                                            >
+                                                {selectData.team_size.map((val) => (
+                                                    <MenuItem key={val} value={val}>
+                                                        {val}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        <FormHelperText>{validationErrors.team_size}</FormHelperText>
                                     </FormControl>
                             </Grid>
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Revenue Size</Typography>
-                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_revenue}>
+                                    {/* <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_revenue}>
                                             <Select
                                                 labelId="revenue-label"
-                                                multiple
+                                                // multiple
                                                 fullWidth
                                                 variant="outlined"
                                                 value={data.current_revenue}
@@ -372,11 +390,30 @@ function CompanyDetail({detail}) {
                                                 </Button>
                                             </Select>
                                         <FormHelperText>{validationErrors.current_revenue}</FormHelperText>
+                                    </FormControl> */}
+                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_revenue}>
+                                            <Select
+                                                labelId="revenue-label"
+                                                fullWidth
+                                                variant="outlined"
+                                                value={data.current_revenue  }
+                                                onChange={(e) => handleChange('current_revenue', e.target.value)}
+                                                error={!!validationErrors.current_revenue}
+                                                inputRef={inputRefs.current.current_revenue}
+                                            >
+                                                {selectData.current_revnue.map((val) => (
+                                                    <MenuItem key={val} value={val}>
+                                                        {val}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        <FormHelperText>{validationErrors.current_revenue}</FormHelperText>
                                     </FormControl>
+
                             </Grid>
                             <Grid item lg={6}  xs={12}  sx={{mb:1}}>
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Current Customers Base Size</Typography>
-                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_customers_base_size}>
+                                    {/* <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_customers_base_size}>
                                             <Select
                                                 labelId="customerBase-label"
                                                 multiple
@@ -400,11 +437,29 @@ function CompanyDetail({detail}) {
                                                 </Button>
                                             </Select>
                                         <FormHelperText>{validationErrors.current_customers_base_size}</FormHelperText>
+                                    </FormControl> */}
+                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.current_customers_base_size}>
+                                            <Select
+                                                labelId="customerBase-label"
+                                                fullWidth
+                                                variant="outlined"
+                                                value={data.current_customers_base_size  }
+                                                onChange={(e) => handleChange('current_customers_base_size', e.target.value)}
+                                                error={!!validationErrors.current_customers_base_size}
+                                                inputRef={inputRefs.current.current_customers_base_size}
+                                            >
+                                                {selectData.current_customers_base_size.map((val) => (
+                                                    <MenuItem key={val} value={val}>
+                                                        {val}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        <FormHelperText>{validationErrors.current_customers_base_size}</FormHelperText>
                                     </FormControl>
                             </Grid>
                             <Grid item lg={12}  xs={12} >
                                 <Typography mb={1} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Industry sector your company is in Please choose the most suitable one</Typography>
-                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
+                                    {/* <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
                                             <Select
                                                 multiple
                                                 fullWidth
@@ -422,12 +477,32 @@ function CompanyDetail({detail}) {
                                                         <ListItemText primary={val.description} />
                                                     </MenuItem>
                                                 ))}
-                                                {/* <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
+                                                <Button onClick={()=>handleClickOpen("industry_sector", "Industry Sector")}>
                                                     {addButton()}
-                                                </Button> */}
+                                                </Button>
+                                            </Select>
+                                        <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
+                                    </FormControl> */}
+
+                                    <FormControl sx={{ width : '100%' }} error={!!validationErrors.industry_sector}>
+                                            <Select
+                                                // labelId="industrySector-label"
+                                                fullWidth
+                                                variant="outlined"
+                                                value={data.industry_sector  }
+                                                onChange={(e) => handleChange('industry_sector', e.target.value)}
+                                                error={!!validationErrors.industry_sector}
+                                                inputRef={inputRefs.current.industry_sector}
+                                            >
+                                                {selectData.industry_sector.map((val) => (
+                                                    <MenuItem key={val} value={val}>
+                                                        {val}
+                                                    </MenuItem>
+                                                ))}
                                             </Select>
                                         <FormHelperText>{validationErrors.industry_sector}</FormHelperText>
                                     </FormControl>
+
                             </Grid>
                             <Grid item xs={12} className='company_message_field' sx={{ mb:1 }}>
                                 <Typography sx={{ mb:1 }} fontWeight={600} fontSize={'16px'} color={'#7C7C7C'}>Please describe what your company does in less than 100 words</Typography>

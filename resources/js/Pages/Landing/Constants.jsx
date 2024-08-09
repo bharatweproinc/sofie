@@ -37,10 +37,17 @@ const initCompanyDetailForm = {
     'phone' : 0,
     'position' : [],
     'founded_year' : 0,
-    'team_size' : [],
-    'current_revenue' : [],
-    'current_customers_base_size': [],
-    'industry_sector': [],
+
+    'team_size' : '',
+    'current_revenue' : '',
+    'current_customers_base_size': '',
+    'industry_sector': '',
+
+    // 'team_size' : [],
+    // 'current_revenue' : [],
+    // 'current_customers_base_size': [],
+    // 'industry_sector': [],
+
     'company_description': '',
     'functional_area_1' : '',
     'functional_area_2' : '',
@@ -93,6 +100,7 @@ const initMentorForm = {
     'qualifications' : '',
     'industry_sector' : [],
     'functional_area' : '',
+    //'functional_area' : [],
     'hear_about_us' : [],
     'number_of_companies' : 0,
     'additional_information' : '',
@@ -127,6 +135,7 @@ const mentorSchema = [{
     qualifications : Joi.string().label("Qulaifications").required(),
     industry_sector : Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
     functional_area : Joi.string().label("Functional Area").required(),
+    //functional_area : Joi.array().items(Joi.string()).min(1).label("Functional Area").required(),
     hear_about_us : Joi.array().items(Joi.string()).min(1).label("Hear About Us").required(),
     number_of_companies : Joi.number().label("Number of Companies").required(),
     experience : Joi.number().label("Experience").required(),
@@ -143,10 +152,17 @@ const companySchema = [{
     phone : Joi.optional(),
     position: Joi.array().items(Joi.string()).min(1).label('Position in Company').required(),
     founded_year : Joi.number().label("Year Founded").required(),
-    team_size : Joi.array().items(Joi.string()).min(1).label("Time size, Number Of Employees").required(),
-    current_revenue: Joi.array().items(Joi.string()).min(1).label("Current Revenue").required(),
-    current_customers_base_size : Joi.array().items(Joi.string()).min(1).label('Current Customer Base Size').required(),
-    industry_sector:  Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
+
+    team_size : Joi.string().label("Time size, Number Of Employees").required(),
+    current_revenue: Joi.string().label("Current Revenue").required(),
+    current_customers_base_size : Joi.string().label("Current Customer Base Size").required(),
+
+    // team_size : Joi.array().items(Joi.string()).min(1).label("Time size, Number Of Employees").required(),
+    // current_revenue: Joi.array().items(Joi.string()).min(1).label("Current Revenue").required(),
+    // current_customers_base_size : Joi.array().items(Joi.string()).min(1).label('Current Customer Base Size').required(),
+    //industry_sector:  Joi.array().items(Joi.string()).min(1).label("Industry Sector").required(),
+
+    industry_sector: Joi.string().label("Industry Sector").required(),
     company_description:  Joi.string().label("Description").required(),
     functional_area_1: Joi.string().label("Functional Area 1").required(),
     functional_area_2: Joi.string().label("Functional Area 2").required(),
@@ -246,13 +262,22 @@ const industrySectorOptions = [
 ]
 
 
+// const industrySMESectorOptions = [
+//     {name : 'Manufacturing', value : 'Manufacturing', description : 'Manufacturing (includes Energy and Chemicals, Precision Engineering, Marine and Offshore, AeroSpace, Electronics)'},
+//     {name : 'Build Environment', value : 'Build Environment', description : 'Build Environment (includes Construction, Architecture, Engineering, Real Estate, Cleaning, Security)'},
+//     {name : 'Trade and Connectivity', value : 'Trade and Connectivity', description : 'Trade and Connectivity (includes Logistics, Air Transport, Sea Transport, Land Transport, Public Transport, Wholesale Trade)'},
+//     {name : 'Essential Domestic Services', value : 'Essential Domestic Services', description : 'Essential Domestic Services (includes Healthcare, Early Childhood Education, Private Education)'},
+//     {name : 'Professional Services', value : 'Professional Services', description : 'Professional Services (includes Professional Services, ICT and Media, Financial Services)'},
+//     {name : 'Lifestyle', value : 'Lifestyle', description : 'Lifestyle (includes Food Services, F & B, Retail, Hotels, Food Manufacturing)'}
+// ]
+
 const industrySMESectorOptions = [
-    {name : 'Manufacturing', value : 'Manufacturing', description : 'Manufacturing (includes Energy and Chemicals, Precision Engineering, Marine and Offshore, AeroSpace, Electronics)'},
-    {name : 'Build Environment', value : 'Build Environment', description : 'Build Environment (includes Construction, Architecture, Engineering, Real Estate, Cleaning, Security)'},
-    {name : 'Trade and Connectivity', value : 'Trade and Connectivity', description : 'Trade and Connectivity (includes Logistics, Air Transport, Sea Transport, Land Transport, Public Transport, Wholesale Trade)'},
-    {name : 'Essential Domestic Services', value : 'Essential Domestic Services', description : 'Essential Domestic Services (includes Healthcare, Early Childhood Education, Private Education)'},
-    {name : 'Professional Services', value : 'Professional Services', description : 'Professional Services (includes Professional Services, ICT and Media, Financial Services)'},
-    {name : 'Lifestyle', value : 'Lifestyle', description : 'Lifestyle (includes Food Services, F & B, Retail, Hotels, Food Manufacturing)'}
+    'Manufacturing',
+    'Build Environment',
+    'Trade and Connectivity',
+    'Essential Domestic Services',
+    'Professional Services',
+    'Lifestyle'
 ]
 
 const functionalAreaOptions = [

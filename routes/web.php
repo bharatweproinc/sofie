@@ -69,6 +69,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::post('/saveSectionTwo', [DashboardController::class, 'saveSectionTwo'])->name('saveSectionTwo');
     Route::post('/saveSectionThree', [DashboardController::class, 'saveSectionThree'])->name('saveSectionThree');
 
+    //Featured Section
+    Route::post('/featured-mentor/{id}', [DashboardController::class, 'addFeaturedMentor'])->name('addFeaturedMentor');
+    Route::post('/featured-sme/{id}', [DashboardController::class, 'addFeaturedSme'])->name('addFeaturedSme');
+
     Route::prefix('company')->name('company.')->group(function(){
         Route::post('/saveData', [CompanyController::class, 'saveData'])->name('saveData');
         Route::get('/list', [CompanyController::class, 'getList'])->name('getList');

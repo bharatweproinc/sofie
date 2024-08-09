@@ -365,7 +365,10 @@ const Reviewdata = ({detail}) => {
                             >
                                 Team Size, Number Of Employees
                             </Typography>
-                                {detail.team_size.map((item) => (<Typography key={item} fontSize={"14px"}>{item}</Typography>))}
+                                {/* {detail.team_size.map((item) => (<Typography key={item} fontSize={"14px"}>{item}</Typography>))} */}
+                                <Typography fontSize={"14px"}>
+                                {detail.team_size}
+                            </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
                             <Typography
@@ -375,7 +378,11 @@ const Reviewdata = ({detail}) => {
                             >
                                 Current Revenue Size
                             </Typography>
-                                {detail.current_revenue.map((item) => (<Typography key={item} fontSize={"14px"}>{item}</Typography>))}
+                                {/* {detail.current_revenue.map((item) => (<Typography key={item} fontSize={"14px"}>{item}
+                                </Typography>))} */}
+                                <Typography fontSize={"14px"}>
+                                {detail.current_revenue}
+                            </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
                             <Typography
@@ -385,7 +392,10 @@ const Reviewdata = ({detail}) => {
                             >
                                 Current Customers Base Size
                             </Typography>
-                                {detail.current_customers_base_size.map((item) => (<Typography key={item} fontSize={"14px"}>{item}</Typography>))}
+                            <Typography fontSize={"14px"}>
+                                {detail.current_customers_base_size}
+                            </Typography>
+                                {/* {detail.current_customers_base_size.map((item) => (<Typography key={item} fontSize={"14px"}>{item}</Typography>))} */}
                         </Grid>
 
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
@@ -396,7 +406,10 @@ const Reviewdata = ({detail}) => {
                             >
                                 Industry sector
                             </Typography>
-                                {detail.industry_sector.map((item)=> (<Typography key={item} fontSize={"14px"}>{item}</Typography>))}
+                                {/* {detail.industry_sector.map((item)=> (<Typography key={item} fontSize={"14px"}>{item}</Typography>))} */}
+                                <Typography fontSize={"14px"}>
+                            {detail.industry_sector}
+                            </Typography>
                         </Grid>
                         <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
                             <Typography

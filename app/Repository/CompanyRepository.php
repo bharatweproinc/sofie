@@ -26,7 +26,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
             $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
             $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
         });
-        // dd($company);
+        //dd($company);
         return ["list" => [
             "user" => $user,
             "company" => $company
@@ -35,7 +35,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function getListLimit(){
         $user = Auth::user();
-        $company = Company::with('user')->take(6)->get()->each(function($m) {
+        $company = Company::with('user')->take(5)->where('featured_sme','yes')->get()->each(function($m) {
             $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
             $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
             $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);

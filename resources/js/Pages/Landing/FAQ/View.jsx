@@ -1,4 +1,5 @@
 import { Landing } from '@/Layouts/Landing';
+import { Link } from '@inertiajs/react';
 import { Box, Typography, Button } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
@@ -22,7 +23,8 @@ function FAQ() {
           <div className="col-md-12 mt-5">
             <Typography component="div">
             <div className='text-center'><strong>FAQs</strong></div>
-            <em> Announcement:  upcie launches formally on 9 August 2024.  If you enter your information between 9th - 31st August, 2024, upcie will run the match for you starting 1st September 2024. If you enter your information beginning 1st September onwards, your information will be matched 2nd September 2024 thereafter.</em>
+            <em>Announcement:  upcie launches formally on 9 August 2024.  If you enter your information between 9 - 31 August, 2024, upcie will run the match for you starting 5 September 2024. If you enter your information beginning 1 September onwards, your information will be matched 6 September 2024 thereafter.</em>
+
             <br/><br/>
             <strong className='justify-center h-10'>SMALL & MEDIUM ENTERPRISES (SME)</strong><br/><br />
               <ol>
@@ -33,7 +35,12 @@ function FAQ() {
                     <br /> 1) have a valid, LIVE Singapore UEN status
                     <br /> 2) meet the criteria of being a valid Singapore SME: revenue of less than SGD$100 million annual turnover, employ less than 200 people, have minimum 30% local shareholding, and be registered and operating in Singapore.
                     <br />
-                    If you meet the 2 criteria above, please click to sign up. Or, go to the upcie homepage and just click on "Sign up as SME" to lead you to the steps to sign up.
+                    If you meet the 2 criteria above, please click <Button component={Link} variant="contained" href={route('landing.signup', { role: 'entrepreneur' })} onClick={() => setSelectedRole('entrepreneur')}>
+					Sign Up
+					</Button><br/>
+                     Or, go to the upcie homepage and just click on "Sign up as SME" to lead you to the steps to sign up.
+
+
                   </p>
                 </li><br/>
                 <li>
@@ -122,7 +129,9 @@ function FAQ() {
                 <ol>
                     <li>
                         <strong>Q.1 How can I join upcie as a Mentor?</strong>
-                        <p>First of all, thank you so much for your interest!  We are looking for Mentors from local and international who can help provide business consultation to our Singaporean SMEs.  To register, please click here. Or you can go to our upcie homepage, and click on the "Sign up as Mentor" button.  It will lead you to the next steps in registration.</p>
+                        <p>First of all, thank you so much for your interest!  We are looking for Mentors from local and international who can help provide business consultation to our Singaporean SMEs.  To register, please click <Button component={Link} variant="contained" href={route('landing.signup', { role: 'mentor' })} onClick={() => setSelectedRole('mentor')}>
+					Sign Up
+					</Button><br/> Or you can go to our upcie homepage, and click on the "Sign up as Mentor" button.  It will lead you to the next steps in registration.</p>
                     </li><br/>
                     <li>
                         <strong>Q.2 Do I have to fill out all the information requested? </strong>
