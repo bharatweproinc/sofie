@@ -319,7 +319,7 @@ class DashboardController extends Controller
                 $company->featured_sme = "yes";
                 $company->save();
             }else if($company && $company->featured_sme == "yes"){
-                $company->featured_mentor = "no";
+                $company->featured_sme = "no";
                 $company->save();
             }
             return Redirect::back();

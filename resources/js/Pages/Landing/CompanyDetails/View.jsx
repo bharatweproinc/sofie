@@ -166,13 +166,10 @@ function CompanyDetail({detail}) {
                                     <Typography fontWeight={600} fontSize="18px">Upload Founder Photo</Typography>
                                     <Typography fontWeight={400} color={'#7C7C7C'} fontSize="16px" py={1} pt={2}>Please upload your company's founder photo that meets the following criteria:</Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
-                                        1. Clear/White Background: Ensure the background of the logo is clean and white or unobtrusive.
+                                        1. Image Format: Use common image formats such as JPEG, PNG, or SVG.
                                     </Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
-                                        2. Image Format: Use common image formats such as JPEG, PNG, or SVG.
-                                    </Typography>
-                                    <Typography py={1} color={'#7C7C7C'}>
-                                        3. High Resolution: Ensure the image is high resolution so that the logo appears clear and professional.
+                                        2. High Resolution: Ensure the image is high resolution so that the logo appears clear and professional.
                                     </Typography>
                                 </Grid>
                             </Grid>
