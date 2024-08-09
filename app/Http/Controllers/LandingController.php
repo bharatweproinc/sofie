@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Mail\ContactUsMail;
+use App\Mail\DeclinedSME;
 use App\Mail\ForgetPasswordEmail;
 use App\Models\BannerSection;
 use App\Models\Company;
@@ -341,6 +342,13 @@ class LandingController extends Controller
         ]);
     }
 
+    // public function pressContent(){
+    //     $user = Auth::user();
+    //     return Inertia::render('Landing/Press/Create',[
+    //         'user' => $user
+    //     ]);
+    // }
+
     public function forgetPassword(Request $request){
         try{
             //dd($request->all());
@@ -449,6 +457,7 @@ class LandingController extends Controller
             'decline_type' => "Mentee(SME) rejected by Mentor",
             'decline_message' => $request->reason
         ];
+        $declined_user = User::where('user_role','entrepreneur')->where('functional_id', $request->company->id)->first();
         $decline = DeclinedMentorsSme::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('decline_type', 'Mentee(SME) rejected by Mentor')->first();
         if($decline){
             $decline->update($data);
@@ -456,7 +465,11 @@ class LandingController extends Controller
             $decline2 = new DeclinedMentorsSme();
             $decline2->create($data);
         }
-        //mail to sme
+        if($request->reason == "Lack of experience in mentoring" || $request->reason == "Conflict of interest"){
+            //mail to sme
+            //Mail::to($declined_user->email)->send(new DeclinedSME());
+        }
+
         //dd('success');
         return Redirect::route('landing.home');
     }

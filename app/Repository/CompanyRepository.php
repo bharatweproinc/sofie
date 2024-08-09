@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Mail\NewUserSignupMail;
 use App\Mail\PendingProfileMail;
 use App\Repository\Interface\CompanyRepositoryInterface;
 use Illuminate\Http\Request;
@@ -130,6 +131,8 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $user->save();
                 $user_type = "Mentee";
                 Mail::to($user->email)->send(new PendingProfileMail($user_type));
+                Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
+
             }
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
                 $company->profile_photo = $fileName;

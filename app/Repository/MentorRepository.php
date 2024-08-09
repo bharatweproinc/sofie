@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Mail\NewUserSignupMail;
 use App\Mail\PendingProfileMail;
 use App\Mail\RecommendedMentorMail;
 use App\Repository\Interface\MentorRepositoryInterface;
@@ -141,6 +142,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 $user->save();
                 $user_type = "Mentor";
                 Mail::to($user->email)->send(new PendingProfileMail($user_type));
+                Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
             }
 
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
