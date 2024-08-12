@@ -20,7 +20,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const MatchingStatus = ({list, handleViewAll, section, setViewSection }) => {
     let matchingStatus = list.companies.list.company;
-    console.log('list45454', matchingStatus)
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
     const rowsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);

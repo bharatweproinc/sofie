@@ -37,11 +37,11 @@ export default function ImageCard({item}) {
                 <Box className="flex" gap={.5}>
                     <Experience/>
                     <Typography pb={1} fontWeight={500} variant='body1' component="div">
-                        Expert Area: {item.functional_area}
+                        Expert Area:
                     </Typography>
-                    {/* <Typography pb={1} fontWeight={500} variant='body1' component="div">
-                    {item.industry_sector.map(String).join(', ')}
-                    </Typography> */}
+                    <Typography pb={1} fontWeight={500} variant='body1' component="div">
+                    {item.functional_area.map(String).slice(0,1).join(', ')}
+                    </Typography>
                 </Box>
 
                 {/* <Box className="flex" gap={1}>

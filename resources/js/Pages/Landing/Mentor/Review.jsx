@@ -262,7 +262,7 @@ console.log("datetewt",detail)
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Functional</Typography>
-                            <Typography fontSize="14px">{detail.functional_area}</Typography>
+                            <Typography fontSize="14px">{detail?.functional_area?.map(item => (<Typography key={item} fontSize="14px">{item}</Typography>))}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Companies willing to mentor</Typography>

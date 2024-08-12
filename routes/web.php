@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\MentorController;
 use App\Http\Controllers\Company\CompanyController;
@@ -139,13 +138,17 @@ Route::name('landing.')->group(function() {
     Route::post('/decline-mentor-reason',[LandingController::class,'declineMentorReason'])->name('declineMentorReason');
     Route::post('/decline-mentee-reason',[LandingController::class,'declineSmeReason'])->name('declineSmeReason');
 
+    Route::post('/remove-mentor-reason',[LandingController::class,'removeMentorReason'])->name('removeMentorReason');
+    Route::post('/remove-sme-reason',[LandingController::class,'removeSmeReason'])->name('removeSmeReason');
+
+
     Route::post('/{id}/delete', [DashboardController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/{id}/delete-mentor', [DashboardController::class, 'deleteMentorUser'])->name('deleteMentorUser');
     Route::post('/{id}/delete-company', [DashboardController::class, 'deleteCompanyUser'])->name('deleteCompanyUser');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
-    Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
+    // Route::get('/signup', [MentorController::class, 'signup'])->name('signup');
     Route::post('/saveDetail/{id}', [MentorController::class, 'saveDetail'])->name('saveDetail');
     Route::get('/{id}/detail', [MentorController::class, 'get'])->name('detail');
     Route::post('/reset-password/{id}', [MentorController::class, 'resetPassword'])->name('resetPassword');
@@ -153,10 +156,12 @@ Route::prefix('mentor')->name('mentor.')->group(function() {
 });
 
 Route::prefix('company')->name('company.')->group(function(){
-    Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
+    // Route::get('/signup', [CompanyController::class, 'signup'])->name('signup');
     Route::post('/saveData/{id}', [CompanyController::class, 'saveData'])->name('saveData');
     Route::get('/detail/{id}', [CompanyController::class, 'get'])->name('detail');
     Route::post('/reset-password/{id}', [CompanyController::class, 'resetPassword'])->name('resetPassword');
+    Route::get('/remove/{mentor_id}', [CompanyController::class, 'removeCompany'])->name('removeCompany');
+
 });
 
 // Email Verify

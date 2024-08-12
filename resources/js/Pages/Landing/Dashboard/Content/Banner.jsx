@@ -26,7 +26,6 @@ function Banner ({list}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("data12121", data)
         post(route('admin.saveSectionOne'),{
             onSuccess:(success) => {
                 notify.success('Banner Data has been updated successfully')

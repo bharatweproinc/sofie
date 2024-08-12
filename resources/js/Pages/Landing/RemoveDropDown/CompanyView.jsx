@@ -24,7 +24,7 @@ const BackgroundImageContainer = styled('div')({
   backgroundPosition: 'right top !important',
 });
 
-function MentorView({ details }) {
+function CompanyView({ details }) {
 
   const { data, setData, post, processing } = useForm({...Constants.initDeclineDropdown, ...details});
   const [validationErrors, setValidationErrors] = React.useState({});
@@ -52,7 +52,7 @@ const handleSubmit = (e) => {
     if (isError) {
         return;
     }
-    post(route("landing.declineMentorReason"),{
+    post(route("landing.removeSmeReason"),{
         onSuccess:(success) => {
             console.log(success, "sucesss");
             notify.success('Reason sent successfully');
@@ -77,11 +77,11 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We see that you no want to end the match with your mentor. We understand your requirement and would like you to take out time for the feedback regarding the same.
+                            We see that you have ended the match with one of your mentee. We understand your concern and would like you to share your feedback regarding this.
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            Also We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
+                            We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
                         </Typography>
 
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
@@ -90,21 +90,22 @@ const handleSubmit = (e) => {
 
                         <Box mt={2} class="custom_input_field">
                             <FormControl sx={{width : "100%"}} error={!!validationErrors.reason}>
-                                <Select
-                                    value={data.reason}
-                                    onChange={(e)=> handleChange("reason", e.target.value)}
-                                    fullWidth
-                                    size='small'
-                                    error={!!validationErrors.reason}
-                                    helperText={validationErrors.reason}
-                                >
-                                    <MenuItem value="Mismatch of specific expertise">Mismatch of specific expertise</MenuItem>
-                                    <MenuItem value='Personality fit and communication style'>Personality fit and communication style</MenuItem>
-                                        <Button class="btn px-4" onClick={() => setShowField(true)}>
-                                        Add Other Reason
-                                        </Button>
-                                </Select>
-                                <FormHelperText>{validationErrors.reason}</FormHelperText>
+                                    <Select
+                                        value={data.reason}
+                                        onChange={(e)=> handleChange("reason", e.target.value)}
+                                        fullWidth
+                                        size='small'
+                                        error={!!validationErrors.reason}
+                                        helperText={validationErrors.reason}
+                                    >
+                                    <MenuItem value="Goal/set target has been achieved">Goal/set target has been achieved</MenuItem>
+                                    <MenuItem value='Difference in personalities, no chemistry'>Difference in personalities, no chemistry</MenuItem>
+                                    <MenuItem value='Lack of commitment/lack of progress'>Lack of commitment/lack of progress</MenuItem>
+                                            <Button class="btn px-4" onClick={() => setShowField(true)}>
+                                            Add Other Reason
+                                            </Button>
+                                    </Select>
+                                    <FormHelperText>{validationErrors.reason}</FormHelperText>
                             </FormControl>
                                 {showField === true && (
                                     <TextField
@@ -120,7 +121,7 @@ const handleSubmit = (e) => {
                         </Box>
                         <Box mt={2} display='flex' justifyContent='center' class="custom_btn text-center p-4">
                             <Button variant='contained' disabled={processing} color='primary' onClick={handleSubmit}>
-                                Submit
+                                 Submit
                             </Button>
                         </Box>
                     </Grid>
@@ -131,4 +132,4 @@ const handleSubmit = (e) => {
   );
 }
 
-export default MentorView;
+export default CompanyView;

@@ -25,7 +25,6 @@ function BrowseCompanies ({list}) {
         setIsReadMore(key === isReadMore ? null : key)
     };
 
-    console.log('list.company',list.company)
 
     return (
         <Landing>

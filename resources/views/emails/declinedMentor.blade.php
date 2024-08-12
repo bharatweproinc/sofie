@@ -44,9 +44,9 @@
 <body>
     <div class="container">
         <h2>Hello {{ $data['username'] }}</h2>
-        <p>The mentor has declined to mentor your firm due to the following reason:</p>
+        <p>The mentee has declined to continue with the mentorship due to the following reason:</p>
         <p>{{ $data['reason'] }}<p>
-        <p>Rest assured Your next matching process will begin shortly. Should there be a suitable match for a Mentor, we will notify you via email as soon as we can. </p>
+        <p>Rest assured Your next matching process will begin shortly. Should there be a suitable match for a Mentee, we will notify you via email as soon as we can. </p>
         <div class="footer">
             <p>Stay tuned!</p>
             <p>Team upcie</p>

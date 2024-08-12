@@ -60,7 +60,7 @@ function FindMentors ({list}) {
                                     </Typography>
 
                                     <Typography pb={1} fontWeight={500} variant='body1' component="div">
-                                    {item.industry_sector.map(String).join(', ')}
+                                    {item.functional_area.map(String).join(', ')}
                                     </Typography>
 
                                     {/* <Box className="flex" gap={.5}>

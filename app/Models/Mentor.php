@@ -28,7 +28,8 @@ class Mentor extends Model
         'mentored_company' => 'array',
         'hear_about_us' => 'array',
         'number_of_companies' => 'array',
-        'additional_information' => 'array'
+        'additional_information' => 'array',
+        'functional_area' => 'array'
     ];
 
     /**

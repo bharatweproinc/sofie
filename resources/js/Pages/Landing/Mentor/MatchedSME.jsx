@@ -89,7 +89,7 @@ function MatchedSME ({companies,id}) {
                                                         </a>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <a href={route("mentor.removeMentor", id)} target="_blank">
+                                                        <a href={route("company.removeCompany", id)} target="_blank">
                                                             <DeleteIcon/>
                                                         </a>
                                                     </TableCell>

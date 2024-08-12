@@ -70,25 +70,11 @@ class MentorController extends Controller
     }
     public function removeMentor($mentor_id){
         $matched_sme = MatchingMentorSme::where('mentor_id', $mentor_id)->first();
-        $matched_area = $matched_sme->functional_area;
         $company = Company::where('id', $matched_sme->company_id)->first();
-        if($company->functional_area_1 == $matched_area){
-            $company->assigned_mentor_1 = null;
-            $company->save();
-        }else if($company->functional_area_2 == $matched_area){
-            $company->assigned_mentor_2 = null;
-            $company->save();
-        }else if($company->functional_area_3 == $matched_area){
-            $company->assigned_mentor_3 = null;
-            $company->save();
-        }
-        $matched_table = MatchingMentorSme::where('mentor_id', $mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
-        $matchingqueue = MatchingQueue::where('mentor_id', $mentor_id)->where('status', 'matched')->first();
-        $matched_table->delete();
-        $matchingqueue->status = 'not matched';
-        $matchingqueue->save();
-
-       return Redirect::back();
+        return Inertia::render('Landing/RemoveDropDown/MentorView',[
+            'details' =>[
+                'mentor_id' =>$mentor_id,
+                'company_id' => $company->id
+            ]]);
     }
-
 }

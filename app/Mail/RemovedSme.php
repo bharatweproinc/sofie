@@ -9,9 +9,10 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DeclinedSME extends Mailable
+class RemovedSme extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $data;
     public function __construct($data)
     {
@@ -19,8 +20,6 @@ class DeclinedSME extends Mailable
     }
     public function build()
     {
-        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.declinedSme')->subject("Stay up for the next match!");
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.removedSme')->subject("Stay up for the next match!");
     }
-
-
 }

@@ -39,7 +39,6 @@ const DetailBox = styled('div')(() => ({
 
 
 function Mentor({detail}) {
-    console.log('detail', detail )
     const { data, setData, post, processing} = useForm({...Constants.initMentorForm, ...detail.mentor, ...detail.user});
     const [validationErrors, setValidationErrors] = useState({});
     const inputRefs = useRef(Constants.mentorInputRefs());
@@ -104,7 +103,6 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
-            console.log('data87787', data)
             post(route('mentor.saveDetail', detail.user.id),{
             onSuccess:(success) => {
                 console.log(success, "sucesss")
@@ -270,7 +268,8 @@ function Mentor({detail}) {
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>
                             <Typography mb={1} fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Which Functional Area are you willing to mentor in?</Typography>
                             <FormControl sx={{ width : '100%' }} error={!!validationErrors.functional_area}>
-                                <Select
+                                {/* <Select
+
                                     labelId="functionalArea-label"
                                     fullWidth
                                     variant="outlined"
@@ -284,29 +283,7 @@ function Mentor({detail}) {
                                             {val}
                                         </MenuItem>
                                     ))}
-                                </Select>
-                                <FormHelperText>{validationErrors.functional_area}</FormHelperText>
-                            </FormControl>
-                            {/* <FormControl sx={{width : "100%"}} error={!!validationErrors.functional_area}>
-                                <Select
-                                    labelId="functionalArea-label"
-                                    // multiple
-                                    fullWidth
-                                    variant="outlined"
-                                    value={data.functional_area}
-                                    onChange={(e) => handleChange('functional_area', e.target.value,'select')}
-                                    input={<OutlinedInput  />}
-                                    error={!!validationErrors.functional_area}
-                                    inputRef={inputRefs.current.functional_area}
-                                    //renderValue={(selected) => selected.join(', ')}
-                                >
-                                    {selectData.functional_area.map((val) => (
-                                        <MenuItem key={val} value={val}>
-                                            <Checkbox checked={data.functional_area.includes(val)} />
-                                            <ListItemText primary={val} />
-                                        </MenuItem>
-                                    ))}
-                                </Select>
+                                </Select> */}
                                 <Select
                                     labelId="functionalArea-label"
                                     multiple
@@ -325,10 +302,9 @@ function Mentor({detail}) {
                                             <ListItemText primary={val} />
                                         </MenuItem>
                                     ))}
-
                                 </Select>
                                 <FormHelperText>{validationErrors.functional_area}</FormHelperText>
-                            </FormControl> */}
+                            </FormControl>
 
                         </Grid>
                         <Grid item="true" xs={12} md={6} sx={{mb:1}}>

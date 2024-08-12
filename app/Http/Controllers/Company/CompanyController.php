@@ -117,7 +117,13 @@ class CompanyController extends Controller
         }
     }
 
-    public function removeMentor($id){
-        //dd($id); //company ->user->id
+    public function removeCompany($mentor_id){
+        $matched_sme = MatchingMentorSme::where('mentor_id', $mentor_id)->first();
+        $company = Company::where('id', $matched_sme->company_id)->first();
+        return Inertia::render('Landing/RemoveDropDown/CompanyView',[
+            'details' =>[
+                'mentor_id' =>$mentor_id,
+                'company_id' => $company->id
+            ]]);
     }
 }

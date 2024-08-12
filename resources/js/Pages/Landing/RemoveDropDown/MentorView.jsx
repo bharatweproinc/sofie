@@ -52,7 +52,7 @@ const handleSubmit = (e) => {
     if (isError) {
         return;
     }
-    post(route("landing.declineMentorReason"),{
+    post(route("landing.removeMentorReason"),{
         onSuccess:(success) => {
             console.log(success, "sucesss");
             notify.success('Reason sent successfully');
@@ -77,11 +77,15 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We see that you no want to end the match with your mentor. We understand your requirement and would like you to take out time for the feedback regarding the same.
+                            We sent an email with a matching mentee to one of the expert areas where you wanted to offer mentorship.
+                        </Typography>
+
+                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
+                            We can see that you have declined the initiation and hence we need to know your feedback regarding the same.
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            Also We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
+                            We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
                         </Typography>
 
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
@@ -98,8 +102,9 @@ const handleSubmit = (e) => {
                                     error={!!validationErrors.reason}
                                     helperText={validationErrors.reason}
                                 >
-                                    <MenuItem value="Mismatch of specific expertise">Mismatch of specific expertise</MenuItem>
-                                    <MenuItem value='Personality fit and communication style'>Personality fit and communication style</MenuItem>
+                                    <MenuItem value="Goal/set target has been achieved">Goal/set target has been achieved</MenuItem>
+                                    <MenuItem value='Difference in personalities, no chemistry'>Difference in personalities, no chemistry</MenuItem>
+                                    <MenuItem value='Lack of commitment/lack of progress'>Lack of commitment/lack of progress</MenuItem>
                                         <Button class="btn px-4" onClick={() => setShowField(true)}>
                                         Add Other Reason
                                         </Button>

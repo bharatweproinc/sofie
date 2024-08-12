@@ -28,7 +28,6 @@ function CompanyView({ details }) {
 
   const { data, setData, post, processing } = useForm({...Constants.initDeclineDropdown, ...details});
   const [validationErrors, setValidationErrors] = React.useState({});
-  console.log('details', data);
 
   const [showField, setShowField] = useState(false);
 
@@ -53,7 +52,6 @@ const handleSubmit = (e) => {
     if (isError) {
         return;
     }
-    console.log('data', data);
     post(route("landing.declineSmeReason"),{
         onSuccess:(success) => {
             console.log(success, "sucesss");
