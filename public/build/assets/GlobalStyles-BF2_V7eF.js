@@ -1,1 +1,0 @@
-import{K as l,_ as n,w as m,v as u}from"./Typography-DoIvtada.js";import{j as s}from"./app-DFh_S5pj.js";import{a as f}from"./Box-CmaVRIZX.js";function p({styles:e,themeId:o,defaultTheme:a={}}){const t=f(a),r=typeof e=="function"?e(o&&t[o]||t):e;return s.jsx(l,{styles:r})}function b(e){return s.jsx(p,n({},e,{defaultTheme:m,themeId:u}))}export{b as G};
