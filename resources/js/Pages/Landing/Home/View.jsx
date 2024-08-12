@@ -285,7 +285,7 @@ function DrawerAppBar({list}) {
 						<FeatureCard type="company" item={list.companies.list?.company[0]} />
 					</Box>
 					) : (
-					<Slider {...settings}>
+					<Slider {...settingsCompany}>
 						{list && list.companies.list?.company.map((item, index) => (
 						<Box key={index} sx={{ px: 2, py: { sm: 2 } }}>
 							<FeatureCard type="company"  item={item} />
