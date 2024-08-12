@@ -17,6 +17,7 @@ import '../style.scss';
 import { notify } from '@/Components/Notifier';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SubmitPopup from '@/Components/SubmitPopup';
 
 const multiSelectData = {
     mentored_in_company : Constants.mentoredCompanyOptions,
@@ -45,6 +46,7 @@ function Mentor({detail}) {
     const [open, setOpen] = React.useState(false);
     const [addMoreId, setAddMoreId] = useState("");
     const [selectData, setSelectData] = useState(multiSelectData);
+    const [openSubmitModal, setOpenSubmitModal] = useState(false)
     const addButton = Constants.addButton;
     const [selectPopup, setSelectPopup] = useState({
         title:"",
@@ -61,7 +63,6 @@ function Mentor({detail}) {
 
 
     const handleChange = (key, value, type) => {
-
         if(type && type === "select"){
             if(value?.includes(undefined)){
                 return;
@@ -103,18 +104,39 @@ function Mentor({detail}) {
           setValidationErrors(err);
           return;
         } else {
-            post(route('mentor.saveDetail', detail.user.id),{
-            onSuccess:(success) => {
-                console.log(success, "sucesss")
-                notify.success("Mentor data successfully sent for deletion")
-            },
-            onError:(error) => {
-                console.log(error,"error")
-                notify.error("Error while updating Mentor")
-            },
-        })}
-        }
-
+            if(data.functional_id === null){
+                setOpenSubmitModal(true)
+            }
+            else{
+                post(route('mentor.saveDetail', detail.user.id),{
+                    onSuccess:(success) => {
+                        console.log(success, "sucesss");
+                        setOpenSubmitModal(false)
+                        notify.success("Mentor data successfully sent for deletion")
+                    },
+                    onError:(error) => {
+                        console.log(error,"error")
+                        notify.error("Error while updating Mentor")
+                    },
+                    })
+                }
+             }
+         }
+   const handleSubmitModal =(e)=>{
+       e.preventDefault();
+        post(route('mentor.saveDetail', detail.user.id),{
+        onSuccess:(success) => {
+            console.log(success, "sucesss");
+            setOpenSubmitModal(false)
+            notify.success("Mentor data successfully sent for deletion")
+        },
+        onError:(error) => {
+            console.log(error,"error")
+            notify.error("Error while updating Mentor")
+        },
+        })
+    console.log("data")
+ }
   return (
     <Landing auth={detail.logged_user !== null ? detail.logged_user : detail.user}>
         <Popup
@@ -396,6 +418,7 @@ function Mentor({detail}) {
                 </Grid>
             </form>
         </Box>
+        <SubmitPopup type="mentor" handleSubmit={handleSubmitModal} open={openSubmitModal} setOpen={setOpenSubmitModal}/>
     </Landing>
   );
 }

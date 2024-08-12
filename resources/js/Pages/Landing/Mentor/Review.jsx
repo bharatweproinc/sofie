@@ -241,10 +241,6 @@ console.log("datetewt",detail)
                             <Typography fontSize="14px">{detail.user.name}</Typography>
                         </Grid>
                         <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
-                            <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Mobile Number</Typography>
-                            <Typography fontSize="14px">{detail.user.phone}</Typography>
-                        </Grid>
-                        <Grid item px={8} xs={12} md={4} lg={3} sm={6}>
                             <Typography fontWeight={600} fontSize="18px" textAlign="left" color={'#7C7C7C'}>Email</Typography>
                             <Typography fontSize="14px">{detail.user.email}</Typography>
                         </Grid>

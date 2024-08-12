@@ -349,18 +349,6 @@ const Reviewdata = ({detail}) => {
                                 fontWeight={600}
                                 color={"#7C7C7C"}
                             >
-                                Mobile Number
-                            </Typography>
-                            <Typography fontSize={"14px"}>
-                                {detail.user.phone}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} md={4} lg={3} sm={6} my={2}>
-                            <Typography
-                                fontSize={"18px"}
-                                fontWeight={600}
-                                color={"#7C7C7C"}
-                            >
                                 Position In Company
                             </Typography>
                                 {detail.position.map((item) => ( <Typography key={item} fontSize={"14px"}>{item}</Typography>))}

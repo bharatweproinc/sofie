@@ -77,6 +77,9 @@ function DrawerAppBar({list}) {
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore)
     };
+    const isSingleItem = list && list.mentors && list.mentors.list && list.mentors.list.mentor && list.mentors.list.mentor.length === 1;
+    const isSingleSme = list && list.companies && list.companies.list && list.companies.list.company && list.companies.list.company.length === 1;
+
 	return (
 		<>
 			<Landing>
@@ -212,19 +215,24 @@ function DrawerAppBar({list}) {
 						</Typography>
 					</Grid>
 				</Grid>
+                    <Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+                    <Box sx={{ width: isSingleItem ? '25%' : "100%", pl: 2, py: 4 }}>
+                        {isSingleItem ? (
+                        <Box sx={{ px: 2, py: { sm: 2 } }}>
+                            <ImageCard type="mentor" item={list.mentors.list.mentor[0]} />
+                        </Box>
+                        ) : (
+                        <Slider {...settings}>
+                            {list && list.mentors.list.mentor.map((item, index) => (
+                            <Box key={index} sx={{ px: 2, py: { sm: 2 } }}>
+                                <ImageCard type="mentor" item={item} />
+                            </Box>
+                            ))}
+                        </Slider>
+                        )}
+                    </Box>
+                    </Grid>
 
-				 <Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
-					<Box sx={{ width: '100%', pl: 2, py: 4 }}>
-						<Slider {...settings}>
-						{list && list.mentors.list.mentor.map((item, index) => {
-							return	<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-							<ImageCard item={item} />
-							</Box>
-						}
-						)}
-						</Slider>
-					</Box>
-				</Grid>
 				<Grid container bgcolor={theme.color[import.meta.env.VITE_SELECTED_THEME].primary}
 					py={{ lg: 10, md: 5, xs: 2 }}
 					px={{ lg: 15, md: 6, xs: 3 }}
@@ -270,19 +278,23 @@ function DrawerAppBar({list}) {
 						</Typography>
 					</Grid>
 				</Grid>
-
-				<Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
-					<Box sx={{ width: '100%', pl: 2, py: 4 }}>
-						<Slider {...settingsCompany}>
-						{list && list.companies.list.company.map((item, index) => {
-							return	<Box key={index} sx={{ px: 2 }} py={{ sm: 2 }}>
-							<FeatureCard item={item}  />
-							</Box>
-						}
-						)}
-						</Slider>
+                <Grid container spacing={2} pl={{ lg: 5, md: 2, sm: 1 }}>
+				<Box sx={{ width: isSingleSme ? '25%' : "100%", pl: 2, py: 4 }}>
+					{isSingleSme ? (
+					<Box sx={{ px: 2, py: { sm: 2 } }}>
+						<FeatureCard type="company" item={list.companies.list?.company[0]} />
 					</Box>
-				</Grid>
+					) : (
+					<Slider {...settings}>
+						{list && list.companies.list?.company.map((item, index) => (
+						<Box key={index} sx={{ px: 2, py: { sm: 2 } }}>
+							<FeatureCard type="company"  item={item} />
+						</Box>
+						))}
+					</Slider>
+					)}
+				</Box>
+   				 </Grid>
 
 				<Box className="relative">
 					<img

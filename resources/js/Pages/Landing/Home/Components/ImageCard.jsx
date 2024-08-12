@@ -7,7 +7,8 @@ import { Box } from '@mui/material';
 import Experience from '@/Components/SVGIcons/Home/Experience';
 import Group from '@/Components/SVGIcons/Home/Group';
 
-export default function ImageCard({item}) {
+export default function ImageCard({item, type=""}) {
+    console.log(item,"item")
     return (
         <Card sx={{
             height:'100%',

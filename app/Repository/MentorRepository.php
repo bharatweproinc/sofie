@@ -21,10 +21,11 @@ class MentorRepository implements MentorRepositoryInterface {
     public function getList(){
         $user = Auth::user();
         $mentor = Mentor::with('user')->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
-            'number_of_companies', 'additional_information', 'experience', 'profile_photo')
-            ->where('featured_mentor','yes')->get()->each(function($m) {
-                $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
-            });
+        'number_of_companies', 'additional_information', 'experience', 'profile_photo')
+        ->get()->each(function($m) {
+            $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
+        });
+        //dd('test', $mentor);
         return ["list" => [
             "user" => $user,
             "mentor" => $mentor
@@ -157,7 +158,9 @@ class MentorRepository implements MentorRepositoryInterface {
                 $user->save();
                 $user_type = "Mentor";
                 Mail::to($user->email)->send(new PendingProfileMail($user_type));
-                Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
+                //Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
+                Mail::to("abcd@yopmail.com")->send(new NewUserSignupMail($user_type));
+
             }
 
             if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){

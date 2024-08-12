@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Joi from '@/utility/JoiValidator';
 import { notify } from '@/Components/Notifier';
 import "../style.scss";
+import SubmitPopup from '@/Components/SubmitPopup';
 
 const addButton = Constants.addButton;
 const multiSelectData = {
@@ -38,6 +39,8 @@ function CompanyDetail({detail}) {
     const [addMoreId, setAddMoreId] = useState("");
     const [selectData, setSelectData] = useState(multiSelectData);
     const years = Array.from({ length: 2024 - 1990 + 1 }, (_, index) => 1990 + index);
+    const [openSubmitModal, setOpenSubmitModal] = useState(false)
+
     const [selectPopup, setSelectPopup] = useState({
         title:"",
         desc:""
@@ -98,8 +101,25 @@ function CompanyDetail({detail}) {
           setValidationErrors(err);
           return;
         } else {
-            console.log('data121212',data)
-
+            if(data.functional_id === null){
+                setOpenSubmitModal(true)
+            }
+            else{
+                post(route('company.saveData', detail?.user.id),{
+                    onSuccess:(success) => {
+                        notify.success('Company Data successfully sent for deletion')
+                        console.log(success, "sucesss");
+                    },
+                    onError:(error) => {
+                        notify.error("Error in Company Data");
+                        console.log(error,"error");
+                    },
+                })
+            }
+    }
+    }
+    const handleSubmitModal = (e)=>{
+        e.preventDefault();
         post(route('company.saveData', detail?.user.id),{
             onSuccess:(success) => {
                 notify.success('Company Data successfully sent for deletion')
@@ -110,7 +130,6 @@ function CompanyDetail({detail}) {
                 console.log(error,"error");
             },
         })
-    }
     }
 
     return (
@@ -650,6 +669,7 @@ function CompanyDetail({detail}) {
                         </Grid>
                     </form>
             </div>
+            <SubmitPopup type="company" handleSubmit={handleSubmitModal} open={openSubmitModal} setOpen={setOpenSubmitModal}/>
         </Landing>
     );
 }
