@@ -77,19 +77,15 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We sent an email with a matching mentor to one of the functional areas where you needed mentorship.
-                        </Typography>
-
-                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We can see that you have declined the initiation and hence we need to know your feedback regarding the same.
+                            We see that you want to decline the match with this mentee. We understand your requirement and would like you to submit the feedback regarding the same.
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
+                            We will be sending you better matches in the future. If you have any queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
                         </Typography>
 
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
-                            Select the reason from the dropdown
+                            Select the reason for decline
                         </Typography>
 
                         <Box mt={2} class="custom_input_field">
@@ -117,6 +113,8 @@ const handleSubmit = (e) => {
                                         fullWidth
                                         margin='normal'
                                         size='small'
+                                        multiline
+                                        placeholder='Please mention reason of decline.'
                                         error={!!validationErrors.reason}
                                         helperText={validationErrors.reason}
                                     />

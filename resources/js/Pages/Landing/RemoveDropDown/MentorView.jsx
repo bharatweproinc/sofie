@@ -77,11 +77,7 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We sent an email with a matching mentee to one of the expert areas where you wanted to offer mentorship.
-                        </Typography>
-
-                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We can see that you have declined the initiation and hence we need to know your feedback regarding the same.
+                        We see that you have ended the match with one of your mentor. We understand your concern and would like you to share your feedback regarding this.
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>

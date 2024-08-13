@@ -34,8 +34,8 @@ class MentorController extends Controller
         return Inertia::render('Landing/Mentor/Review',$response);
     }
 
-    public function connectedSme($company_id, $mentor_id){
-        $response = $this->mentorRepository->connectedSme($company_id, $mentor_id);
+    public function connectedSme($company_id, $mentor_id,$area){
+        $response = $this->mentorRepository->connectedSme($company_id, $mentor_id,$area);
         return Redirect::back();
     }
 

@@ -117,7 +117,7 @@ function matched ({list =[]}) {
                                     </Box>
                                 </Paper>
                             </Grid>
-                    </Grid> : <NoDataFound message="No Matched SMEs and Mentors available" />
+                    </Grid> : <NoDataFound message="No Completely Matched SMEs and Mentors available yet" />
                     }
                 </Box>
             </Box>

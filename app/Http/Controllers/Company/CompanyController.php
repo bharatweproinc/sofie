@@ -67,25 +67,25 @@ class CompanyController extends Controller
      ]);
      }
 
-     public function sendMentorDetails($company_id, $mentor_id){
+     public function sendMentorDetails($company_id, $mentor_id, $area){
         $mentor = Mentor::with('user')->where('id', $mentor_id)->first();
         $company = Company::findOrFail($company_id);
         $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
         $matches = new MatchSmeMentor();
-        $data = $matches->sendMentorDetails($company_id, $mentor_id);
+        $data = $matches->sendMentorDetails($company_id, $mentor_id,$area);
         if($company && $user && $mentor){
-            $existing_match = MatchingMentorSme::where('mentor_id', $mentor_id)->where('company_id', $company_id)->where('functional_area', $mentor->functional_area)->first();
+            $existing_match = MatchingMentorSme::where('mentor_id', $mentor_id)->where('company_id', $company_id)->where('functional_area', $area)->first();
             if($existing_match){
                 $existing_match->update([
                     'mentor_id' =>$mentor_id,
                     'company_id' => $company_id,
-                    'functional_area' => $mentor->functional_area
+                    'functional_area' => $area
                 ]);
             }else{
                 MatchingMentorSme::create([
                     'mentor_id' =>$mentor_id,
                     'company_id' => $company_id,
-                    'functional_area' => $mentor->functional_area
+                    'functional_area' => $area
                 ]);
             }
             $not_matched_mentor = MatchingQueue::where('mentor_id',$mentor_id)->where('status', 'not matched')->first();

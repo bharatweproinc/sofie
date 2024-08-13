@@ -188,7 +188,7 @@ function CompanyDetail({detail}) {
                                         1. Image Format: Use common image formats such as JPEG, PNG, or SVG.
                                     </Typography>
                                     <Typography py={1} color={'#7C7C7C'}>
-                                        2. High Resolution: Ensure the image is high resolution so that the logo appears clear and professional.
+                                        2. High Resolution: Ensure the image is high resolution so that it appears clear and professional.
                                     </Typography>
                                 </Grid>
                             </Grid>

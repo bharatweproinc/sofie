@@ -38,10 +38,7 @@ export default function ImageCard({item, type=""}) {
                 <Box className="flex" gap={.5}>
                     <Experience/>
                     <Typography pb={1} fontWeight={500} variant='body1' component="div">
-                        Expert Area:
-                    </Typography>
-                    <Typography pb={1} fontWeight={500} variant='body1' component="div">
-                    {item.functional_area.map(String).slice(0,1).join(', ')}
+                    {item.functional_area.map(String).slice(0,2).join(', ')}
                     </Typography>
                 </Box>
 

@@ -41,14 +41,14 @@ const Cards = ({list}) => {
                                         fill="#0ECB81"
                                     />
                                 </svg>
-                                <p sx={{ color: "#0ECB81" }}>+28</p>
+                                <p sx={{ color: "#0ECB81" }}>+1</p>
                                 <Typography
                                     variant="body1"
                                     className="text-gray-400"
                                     sx={{ fontSize: "12px !important" }}
                                     ml={1}
                                 >
-                                    Since last Weeks
+                                    Since last week
                                 </Typography>
                             </Box>
                         </div>
@@ -112,14 +112,14 @@ const Cards = ({list}) => {
                                         fill="#DB1E2A"
                                     />
                                 </svg>
-                                <p sx={{ color: "#0ECB81" }}>+12</p>
+                                <p sx={{ color: "#0ECB81" }}>-1</p>
                                 <Typography
                                     variant="body1"
                                     className="text-gray-400"
                                     sx={{ fontSize: "12px !important" }}
                                     ml={1}
                                 >
-                                    Since last Weeks
+                                    Since last week
                                 </Typography>
                             </Box>
                         </div>

@@ -89,14 +89,15 @@ class MentorRepository implements MentorRepositoryInterface {
         }
     }
 
-    public function connectedSme($company_id, $mentor_id) {
+    public function connectedSme($company_id, $mentor_id, $area) {
         try {
+            //dd('connectedsme');
             $data = [];
             $company = Company::findOrFail($company_id);
             $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
             $matches = new MatchSmeMentor();
             $data =  $matches->recommendedMentor($company_id, $mentor_id);
-            //dd($data);
+            $data['matched_area'] = $area;
             if($company && $user){
                 Mail::to($user->email)->send(new RecommendedMentorMail($data));
             }

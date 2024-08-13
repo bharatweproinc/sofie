@@ -77,15 +77,15 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We see that you no want to end the match with your mentor. We understand your requirement and would like you to take out time for the feedback regarding the same.
+                            We see that you want to decline the match with this mentor. We understand your requirement and would like you to submit the feedback regarding the same.
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            Also We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
+                            Also We will be sending you better matches in the future. If you have any queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
                         </Typography>
 
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
-                            Select the reason from the dropdown
+                            Select the reason for match decline
                         </Typography>
 
                         <Box mt={2} class="custom_input_field">
@@ -111,6 +111,8 @@ const handleSubmit = (e) => {
                                         value={data.reason}
                                         onChange={(e)=> handleChange('reason', e.target.value)}
                                         fullWidth
+                                        multiline
+                                        placeholder='Please mention reason of decline.'
                                         margin='normal'
                                         size='small'
                                         error={!!validationErrors.reason}

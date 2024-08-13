@@ -151,7 +151,7 @@ function MentorList({list = []}) {
                                                         color="#212121"
                                                         fontWeight="600"
                                                     >
-                                                        Mobile Number
+                                                        Years of experience
                                                     </Typography>
                                                     <div
                                                         className="grid"
@@ -237,7 +237,7 @@ function MentorList({list = []}) {
                                                         color="#212121"
                                                         fontWeight="600"
                                                     >
-                                                        Functional
+                                                        Functional Areas
                                                     </Typography>
                                                     <div
                                                         className="grid"
@@ -315,9 +315,10 @@ function MentorList({list = []}) {
                                                         <Chip label="new" color="primary" variant="outlined" sx={{ ml : 2, p : 0 }} />
                                                     }
                                                 </TableCell>
-                                                <TableCell align="left">{row.user.phone}</TableCell>
+                                                <TableCell align="left">{row.experience}</TableCell>
                                                 <TableCell align="left">{row.user.email} </TableCell>
-                                                <TableCell align="left">{row.functional_area}</TableCell>
+                                                {/* <TableCell align="left">{row.functional_area}</TableCell> */}
+                                                <TableCell align="left">{row.functional_area.map(String).join(', ')}</TableCell>
                                                 <TableCell align="left">
                                                 <Chip label={row.user.status === 1 ? "Active" : "Inactive"} color={row.user.status === 1 ? 'success' : 'error'} />
                                                 </TableCell>

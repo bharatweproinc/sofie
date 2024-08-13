@@ -106,10 +106,10 @@
                 <tr>
                     <td><img src="{{ $data['mentor']->profile_photo }}" alt="Profile"></td>
                     <td>{{ $data['mentor']->name }}</td>
-                    <td>{{ $data['mentor']->functional_area }}</td>
+                    <td>{{ $data['matched_area'] }}</td>
                     <td>{{ $data['mentor']->experience }}</td>
                     <td>
-                        <a href="{{ route('connect.sendMentorDetails', ['company_id' => $data['company_id'], 'mentor_id' => urlencode($data['mentor']['id'])]) }}" class="button">Accept</a>
+                        <a href="{{ route('connect.sendMentorDetails', ['company_id' => $data['company_id'], 'mentor_id' => $data['mentor']['id'], 'area' => $data['matched_area'] ])}}" class="button">Accept</a>
                     </td>
                     <td><a href="{{ route('landing.declineMentor', ['mentor_id' => $data['mentor']['id'], 'company_id' => $data['company_id']]) }}" class="button decline-button">Decline</a></td>
                 </tr>

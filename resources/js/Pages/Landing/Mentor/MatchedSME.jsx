@@ -12,7 +12,7 @@ import CheckIcon from '@/Components/SVGIcons/Home/CheckIcon';
 import DeleteIcon from "@/Components/SVGIcons/Home/DeleteIcon";
 
 const Headers = [
-   "Profile Photo", "Company Name", "Company UEN", "User Name", "User Email" ,"User Phone", "Review", "Remove"
+   "Profile Photo", "Company Name", "Company UEN", "Contact Person", "Email" ,"Industry Sector", "Review", "Remove"
 ]
 
 function MatchedSME ({companies,id}) {
@@ -82,7 +82,7 @@ function MatchedSME ({companies,id}) {
                                                     <TableCell align="left">{row.company_uen}</TableCell>
                                                     <TableCell align="left">{row.user.name}</TableCell>
                                                     <TableCell align="left">{row.user.email}</TableCell>
-                                                    <TableCell align="left">{row.user.phone}</TableCell>
+                                                    <TableCell align="left">{row.industry_sector}</TableCell>
                                                     <TableCell>
                                                         <a href={route('company.detail', row.id)} target="_blank">
                                                             <CheckIcon/>

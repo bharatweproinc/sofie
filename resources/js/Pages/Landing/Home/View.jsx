@@ -46,7 +46,7 @@ function DrawerAppBar({list}) {
 		// speed: 500,
 		slidesToShow: isMobile ? 1 : 4,
 		slidesToScroll: 1,
-		autoplay: false,
+		autoplay: true,
 		autoplaySpeed: 2000,
 		arrows: false,
 	};

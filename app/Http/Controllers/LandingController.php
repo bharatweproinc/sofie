@@ -349,12 +349,12 @@ class LandingController extends Controller
         ]);
     }
 
-    // public function pressContent(){
-    //     $user = Auth::user();
-    //     return Inertia::render('Landing/Press/Create',[
-    //         'user' => $user
-    //     ]);
-    // }
+    public function pressContent(){
+        $user = Auth::user();
+        return Inertia::render('Landing/Press/Create',[
+            'user' => $user
+        ]);
+    }
 
     public function forgetPassword(Request $request){
         try{
@@ -400,6 +400,18 @@ class LandingController extends Controller
     public function declineSme($mentor_id, $company_id){
         try{
             return Inertia::render('Landing/DeclineDropDown/CompanyView',[
+                'details' =>[
+                    'mentor_id' =>$mentor_id,
+                    'company_id' => $company_id
+                ]
+            ]);
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }
+    public function declineMentor($mentor_id, $company_id){
+        try{
+            return Inertia::render('Landing/DeclineDropDown/MentorView',[
                 'details' =>[
                     'mentor_id' =>$mentor_id,
                     'company_id' => $company_id

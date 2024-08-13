@@ -12,7 +12,7 @@ import CheckIcon from "@/Components/SVGIcons/Home/CheckIcon";
 import DeleteIcon from "@/Components/SVGIcons/Home/DeleteIcon";
 
 const Headers = [
-    "Profile Photo", "Contact Name", "Contact Number", "Contact Email" ,"Functional Area", "Review", "Remove"
+    "Profile Photo", "Contact Name", "Experience in years", "Contact Email" ,"Functional Area", "Review", "Remove"
 ]
 
 function MatchedMentors ({mentors}) {
@@ -79,9 +79,9 @@ function MatchedMentors ({mentors}) {
                                                     <TableCell align="left" component="th" scope="row">
                                                         {row.user.name}
                                                     </TableCell>
-                                                    <TableCell align="left">{row.user.phone}</TableCell>
+                                                    <TableCell align="left">{row.experience}</TableCell>
                                                     <TableCell align="left">{row.user.email}</TableCell>
-                                                    <TableCell align="left">{row.functional_area}</TableCell>
+                                                    <TableCell align="left">{row.functional_area.map(String).join(', ')}</TableCell>
                                                     <TableCell align="left">
                                                         <a href={route("mentor.detail", row.id)} target="_blank">
                                                             <CheckIcon/>

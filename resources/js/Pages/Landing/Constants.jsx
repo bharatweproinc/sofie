@@ -190,10 +190,18 @@ const initTestimonial = {
     "description" : "",
     "profile_photo" : '',
 }
-
+const initPress = {
+    "title" : '',
+    "date" : ""
+}
 const testmionialSchema = [{
     name : Joi.string().label("Testimonial Name").required(),
     description : Joi.string().label("Testimonial Description").required()
+}]
+
+const pressSchema = [{
+    title : Joi.string().label("Press Title").required(),
+    date : Joi.string().label("Press Date").required()
 }]
 
 const resetPasswordSchema = [{
@@ -307,7 +315,7 @@ const Constants = {
     companyInputRefs, mentorInputRefs, icons, positionInCompanyOptions, currentRevenueSizeOptions,
     currentCustomersBaseSize, teamSizeOptions, industrySectorOptions, functionalAreaOptions,
     hearAboutUsOptions, mentoredCompanyOptions, addButton, initResetPasswordField, resetPasswordSchema,
-    initTestimonial, testmionialSchema,industrySMESectorOptions
+    initTestimonial, testmionialSchema,industrySMESectorOptions,pressSchema, initPress
 }
 
 export default Constants;

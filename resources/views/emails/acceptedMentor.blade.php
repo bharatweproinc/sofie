@@ -95,6 +95,7 @@
                         <th>Functional Area</th>
                         <th>Current Problems</th>
                         <th>Approve</th>
+                        <th></th>
                         <th>Disapprove</th>
                     </tr>
                 </thead>
@@ -104,12 +105,13 @@
                             <td><img src="{{ $company->profile_photo }}" alt="Profile Photo"></td>
                             <td>{{ $company->company_name }}</td>
                             <td>{{ $company->contact_name }}</td>
-                            <td>{{ $data['functional'] }}</td>
+                            <td>{{$company->matched_area }}</td>
                             <td>{{ $company->current_problem }}</td>
                             <td>
                                 {{-- <a href="{{route('connect.connectedSme', ['company_id' => $company->id, 'mentor_id' => urlencode($data['mentor_id'])]) }}" class="button">Accept</a> --}}
                                 <a href={{ $company->link }} class="button">Accept</a>
                             </td>
+                        <td>Or </td>
                             <td>   <a href="{{ route('landing.declineSme', ['mentor_id' => $data['mentor_id'], 'company_id' => $company->id]) }}" class="button decline-button">Decline</a></td>
                         </tr>
                     @endforeach

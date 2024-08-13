@@ -4,6 +4,7 @@ use App\Http\Controllers\Mentor\MentorController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PressContentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Foundation\Application;
@@ -95,6 +96,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
         Route::get('/view/{id}', [TestimonialController::class, 'get'])->name('get');
         Route::post('/{id}/delete', [TestimonialController::class, 'deleteTestimonial'])->name('deleteTestimonial');
     });
+
+    //press component
+    Route::prefix('press')->name('press.')->group(function() {
+        Route::get('/list', [PressContentController::class, 'getList'])->name('list');
+        Route::post('/saveData', [PressContentController::class, 'saveData'])->name('saveData');
+        Route::post('/updateData/{id}', [PressContentController::class, 'updateData'])->name('updateData');
+        Route::get('/detail/{id}', [PressContentController::class, 'pressDetail'])->name('detail');
+        Route::get('/view/{id}', [PressContentController::class, 'get'])->name('get');
+        Route::post('/{id}/delete', [PressContentController::class, 'delete'])->name('delete');
+    });
 });
 
 // Route::get('/dashboard', function () {
@@ -132,6 +143,8 @@ Route::name('landing.')->group(function() {
     Route::get('/find-companies', [LandingController::class,'findCompanies'])->name('findcompanies');
     Route::post('/forget-password', [LandingController::class,'forgetPassword'])->name('forgetPassword');
     Route::post('/contact', [LandingController::class,'contact'])->name('contact');
+    Route::get('/press', [LandingController::class, 'pressContent'])->name('pressContent');
+
 
     Route::get('/decline/{mentor_id}/request/{company_id}',[LandingController::class,'declineMentor'])->name('declineMentor');
     Route::get('/sme-decline/{mentor_id}/request/{company_id}',[LandingController::class,'declineSme'])->name('declineSme');
@@ -171,9 +184,9 @@ Route::prefix('verify')->group(function(){
 });
 
 Route::prefix('connect')->name('connect.')->group(function(){
-    Route::get('/{company_id}/and/{mentor_id}', [MentorController::class, 'connectedSme'])->name('connectedSme');
+    Route::get('/{company_id}/and/{mentor_id}/{area}', [MentorController::class, 'connectedSme'])->name('connectedSme');
     Route::get('/{company_id}/matched/{mentor_id}', [MentorController::class, 'recommendedMentor'])->name('recommendedMentor');
-    Route::get('/{company_id}/{mentor_id}', [CompanyController::class, 'sendMentorDetails'])->name('sendMentorDetails');
+    Route::get('/{company_id}/{mentor_id}/{area}', [CompanyController::class, 'sendMentorDetails'])->name('sendMentorDetails');
 });
 
 require __DIR__.'/auth.php';

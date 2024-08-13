@@ -62,13 +62,26 @@ export default function SubmitPopup({type ,open, setOpen,handleSubmit}) {
             </Grid>
             <Grid item xs={12} mb={3} className='custom_privacy'>
             <FormControlLabel required control={<Checkbox />}
-                label="I agree to provide up to 10 hours of free consultation hours to each of my selected SME/Mentee for one year, starting from the first mutually agreed-upon meeting." />
+                //label={`${type==="mentor"}`}
+                label = {type==="mentor" ? "I agree to provide up to 10 hours of free consultation hours to each of my selected SME/Mentee for one year, starting from the first mutually agreed-upon meeting."
+                :"I acknowledge that should I get paired up with a Mentor, I will be provided with up to 10 hours of free consultation hours from my designated Mentor for one year, starting from the first mutually agreed-upon meeting."}
+                />
             </Grid>
             <Grid
              item xs={12} mb={3} className='custom_privacy'>
             <FormControlLabel required control={<Checkbox />}
-                label="Should I choose to continue my mentorship with my SME/Mentee after 10 hours of consultation, I can discuss the arrangement directly with my SME/Mentee.  I acknowledge that upcie will not be involved in any deals between my SME/Mentee and I thereafter" />
+                //label="Should I choose to continue my mentorship with my SME/Mentee after 10 hours of consultation, I can discuss the arrangement directly with my SME/Mentee.  I acknowledge that upcie will not be involved in any deals between my SME/Mentee and I thereafter"
+                label = {type==="mentor" ? "Should I choose to continue my mentorship with my SME/Mentee after 10 hours of consultation, I can discuss the arrangement directly with my SME/Mentee.  I acknowledge that upcie will not be involved in any deals between my SME/Mentee and I thereafter"
+                :"I promise to respect my Mentor's volunteered time and as such, I will put forth my best effort to work with my Mentor."}
+                />
             </Grid>
+            {type === "mentor" ? <Grid></Grid> :
+            <Grid
+             item xs={12} mb={3} className='custom_privacy'>
+            <FormControlLabel required control={<Checkbox />}
+                label = "Should I choose to continue my mentorship with my Mentor after 10 hours of consultation, I can discuss the arrangement directly with my Mentor.  I acknowledge that upcie will not be involved in any deals between my Mentor and I thereafter." />
+            </Grid>
+            }
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ justifyContent:'center', display:'flex' }}>

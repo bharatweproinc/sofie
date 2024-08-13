@@ -97,7 +97,7 @@
                         <tr>
                             <td><img src="{{ $data['mentor']->profile_photo }}" alt="Profile Photo"></td>
                             <td>{{ $data['mentor']->name }}</td>
-                            <td>{{ $data['mentor']->functional_area }}</td>
+                            <td>{{ $data['matched_area'] }}</td>
                             <td>{{ $data['mentor']->email}}</td>
                         </tr>
                 </tbody>
