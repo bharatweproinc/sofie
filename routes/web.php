@@ -39,6 +39,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/profile-setting', [LandingController::class, 'profileSetting'])->name('profileSetting');
     Route::get('/account-setting', [LandingController::class, 'accountSetting'])->name('accountSetting');
 
+    //Declined Custom Emails
+    Route::get('/{id}/send-custom-mail', [DashboardController::class, 'sendCustomDeclineMail'])->name('sendCustomDeclineMail');
+    Route::get('/{id}/delete-custom-mail', [DashboardController::class, 'deleteCustomDeclineMail'])->name('deleteCustomDeclineMail');
+
+    //Removed (End of match) Custom Emails
+    Route::get('/{id}/send-mail', [DashboardController::class, 'sendCustomRemoveMail'])->name('sendCustomRemoveMail');
+    Route::get('/{id}/delete-mail', [DashboardController::class, 'deleteCustomRemoveMail'])->name('deleteCustomRemoveMail');
+
     //delete a user
     Route::post('/{id}/delete', [DashboardController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/{id}/delete-mentor', [DashboardController::class, 'deleteMentorUser'])->name('deleteMentorUser');
@@ -144,6 +152,10 @@ Route::name('landing.')->group(function() {
     Route::post('/forget-password', [LandingController::class,'forgetPassword'])->name('forgetPassword');
     Route::post('/contact', [LandingController::class,'contact'])->name('contact');
     Route::get('/press', [LandingController::class, 'pressContent'])->name('pressContent');
+    Route::get('/press-content', [LandingController::class, 'pressRelease'])->name('pressRelease');
+
+    Route::get('/declined-mails', [LandingController::class, 'declineEmails'])->name('declineEmails');
+    Route::get('/match-end-mails', [LandingController::class, 'removeEmails'])->name('removeEmails');
 
 
     Route::get('/decline/{mentor_id}/request/{company_id}',[LandingController::class,'declineMentor'])->name('declineMentor');

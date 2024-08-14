@@ -109,7 +109,7 @@ function CompanyList({list = []}) {
                                                 color="#212121"
                                                 fontWeight="600"
                                             >
-                                                Contact Name
+                                                Company Name
                                             </Typography>
                                             <div
                                                 className="grid"
@@ -152,7 +152,7 @@ function CompanyList({list = []}) {
                                                 color="#212121"
                                                 fontWeight="600"
                                             >
-                                                Mobile Number
+                                                Industry Sector
                                             </Typography>
                                             <div
                                                 className="grid"
@@ -288,7 +288,7 @@ function CompanyList({list = []}) {
                                                 <Chip label="new" color="primary" variant="outlined" sx={{ ml : 2, p : 0 }} />
                                             }
                                         </TableCell>
-                                        <TableCell align="left">{row.user.phone}</TableCell>
+                                        <TableCell align="left">{row.industry_sector}</TableCell>
                                         <TableCell align="left">{row.user.name}</TableCell>
                                         <TableCell align="left">{row.user.email}</TableCell>
                                         <TableCell align="left">

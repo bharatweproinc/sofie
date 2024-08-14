@@ -20,6 +20,7 @@ use App\Models\MatchingMentorSme;
 use App\Models\MatchingQueue;
 use App\Models\Mentor;
 use App\Models\MissionStatementSection;
+use App\Models\PressContent;
 use App\Models\RemovedMentorsSmes;
 use App\Models\Testimonial;
 use App\Repository\{MentorRepository, CompanyRepository, TestimonialRepository};
@@ -422,18 +423,47 @@ class LandingController extends Controller
         }
     }
 
-    // public function removeMentor($mentor_id, $company_id){
-    //     try{
-    //         return Inertia::render('Landing/RemoveDropDown/MentorView',[
-    //             'details' =>[
-    //                 'mentor_id' =>$mentor_id,
-    //                 'company_id' => $company_id
-    //             ]
-    //         ]);
-    //     }catch(\Exception $e){
-    //         return $e->getMessage();
-    //     }
-    // }
+    public function pressRelease(){
+        $press = PressContent::get();
+        return Inertia::render('Landing/PressContent/View',['list' => $press]);
+    }
+
+    public function declineEmails(){
+        $accepted_msg = [
+            'Conflict of interest',
+            'Mismatch of specific expertise',
+            'Personality fit and communication style',
+            'Lack of experience in mentoring'
+        ];
+        $mails = DeclinedMentorsSme::whereNotIn('decline_message', $accepted_msg)->get();
+        $user = Auth::user();
+        //dd($mails);
+        return Inertia::render('Landing/DeclineEmails/List',
+            [
+                'list' => [
+                    'mails' => $mails,
+                    'user' => $user
+            ]]);
+    }
+
+    public function removeEmails(){
+        $accepted_msg = [
+            'Lack of commitment/lack of progress',
+            'Goal/set target has been achieved',
+            'Difference in personalities, no chemistry'
+        ];
+        $mails = RemovedMentorsSmes::whereNotIn('match_end_reason', $accepted_msg)->get();
+        $user = Auth::user();
+        //dd($mails);
+        return Inertia::render('Landing/RemovedEmails/List',
+            [
+                'list' => [
+                    'mails' => $mails,
+                    'user' => $user
+            ]]);
+    }
+
+
 
     public function declineMentorReason(Request $request){
         $data = [
@@ -477,11 +507,13 @@ class LandingController extends Controller
             $company->assigned_mentor_3 = null;
             $company->save();
         }
-        $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
-        $matched_table->delete();
+        // $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
+        // $matched_table->delete();
         $matchingqueue = MatchingQueue::where('mentor_id', $request->mentor_id)->where('status', 'matched')->first();
-        $matchingqueue->status = 'not matched';
-        $matchingqueue->save();
+        if($matchingqueue){
+            $matchingqueue->status = 'not matched';
+            $matchingqueue->save();
+        }
 
         $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "Mentor removed by SME")->first();
         if($removeTable){
@@ -504,6 +536,8 @@ class LandingController extends Controller
 
         if($removed_user && ($request->reason == "Goal/set target has been achieved" || $request->reason == "Difference in personalities, no chemistry" || $request->reason == "Lack of commitment/lack of progress")){
             Mail::to($removed_user->email)->send(new RemovedMentor($data));
+            $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
+            $matched_table->delete();
         }
     }
 
@@ -523,11 +557,13 @@ class LandingController extends Controller
             $company->assigned_mentor_3 = null;
             $company->save();
         }
-        $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
-        $matched_table->delete();
+        // $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
+        // $matched_table->delete();
         $matchingqueue = MatchingQueue::where('mentor_id', $request->mentor_id)->where('status', 'matched')->first();
-        $matchingqueue->status = 'not matched';
-        $matchingqueue->save();
+        if($matchingqueue){
+            $matchingqueue->status = 'not matched';
+            $matchingqueue->save();
+        }
         $data = [
             'username' => $removed_user->name,
             'mentor_name' => $mentor->name,
@@ -537,6 +573,8 @@ class LandingController extends Controller
 
         if($removed_user && ($request->reason == "Goal/set target has been achieved" || $request->reason == "Difference in personalities, no chemistry" || $request->reason == "Lack of commitment/lack of progress")){
             Mail::to($removed_user->email)->send(new RemovedSme($data));
+            $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
+            $matched_table->delete();
         }
         $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "SME removed by Mentor")->first();
         if($removeTable){

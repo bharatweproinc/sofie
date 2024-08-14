@@ -47,6 +47,9 @@ export const Footer = () => {
                         <br /> */}
                         <Link style={linkStyle} href={route('landing.faq')}>FAQs</Link>
                         <br />
+                        <Tooltip title="Press" placement="right-start">
+                            <Link style={linkStyle} href={route("landing.pressRelease")}>Press</Link>
+                        </Tooltip>
                     </Typography>
                     </box>
                 </Grid>

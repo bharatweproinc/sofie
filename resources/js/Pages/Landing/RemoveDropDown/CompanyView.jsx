@@ -94,6 +94,8 @@ const handleSubmit = (e) => {
                                         value={data.reason}
                                         onChange={(e)=> handleChange("reason", e.target.value)}
                                         fullWidth
+                                        multiline
+                                        placeholder="Please mention reason"
                                         size='small'
                                         error={!!validationErrors.reason}
                                         helperText={validationErrors.reason}

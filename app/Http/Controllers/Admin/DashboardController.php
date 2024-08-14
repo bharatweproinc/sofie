@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Mail\AcceptedMentorProfileMail;
 use App\Mail\AcceptedSmeProfileMail;
 use App\Mail\ApprovedMentorProfileMail;
+use App\Mail\DeclinedMentor;
+use App\Mail\DeclinedSME;
 use App\Mail\RejectedProfileMail;
-use App\Models\{BannerSection,Company, Deletion, JoinOurCommunitySection, MatchingQueue, Mentor, MissionStatementSection, User};
+use App\Mail\RemovedMentor;
+use App\Mail\RemovedSme;
+use App\Models\{BannerSection,Company, DeclinedMentorsSme, Deletion, JoinOurCommunitySection, MatchingMentorSme, MatchingQueue, Mentor, MissionStatementSection, RemovedMentorsSmes, User};
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repository\CompanyRepository;
@@ -327,6 +331,108 @@ class DashboardController extends Controller
         }catch(\Exception $e){
             return $e->getMessage();
         }
+    }
+
+    public function sendCustomDeclineMail($id){
+        try{
+            $mail = DeclinedMentorsSme::where('id',$id)->first();
+            if($mail){
+                $type = $mail->decline_type;
+                if($type == "Mentee(SME) rejected by Mentor"){
+                    $user = User::where('user_role', 'entrepreneur')->where('functional_id',$mail->company_id)->first();
+                    if($user){
+                        $data = [
+                            'username' => $user->name,
+                            'reason' => $mail->decline_message
+                        ];
+                        //mail
+                        Mail::to($user->email)->send(new DeclinedSME($data));
+                        $mail->delete();
+                        return Redirect::route('landing.declineEmails')->with(['msg' => 'Email sent']);
+                        //delete entry
+                    }
+                }else{
+                    $user = User::where('user_role', 'mentor')->where('functional_id',$mail->mentor_id)->first();
+                    if($user){
+                        $data = [
+                            'username' => $user->name,
+                            'reason' => $mail->decline_message
+                        ];
+                        //mail
+                        Mail::to($user->email)->send(new DeclinedMentor($data));
+                        $mail->delete();
+                        return Redirect::route('landing.declineEmails')->with(['msg' => 'Email sent']);
+                        //delete entry
+                    }
+                }
+            }
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }
+    public function sendCustomRemoveMail($id){
+        try{
+            $mail = RemovedMentorsSmes::where('id',$id)->first();
+            $match = MatchingMentorSme::where('mentor_id', $mail->mentor_id)->where('company_id', $mail->company_id)->first();
+            $mentor = User::where('user_role', 'mentor')->where('functional_id',$mail->mentor_id)->first();
+            if($mail && $match && $mentor){
+                $type = $mail->match_end_type;
+                if($type == "SME removed by Mentor"){
+                    $user = User::where('user_role', 'entrepreneur')->where('functional_id',$mail->company_id)->first();
+                    if($user){
+                        $data = [
+                            'username' => $user->name,
+                            'reason' => $mail->match_end_reason,
+                            'mentor_name' => $mentor->name,
+                            'functional' => $match->functional_area
+                        ];
+                        //mail
+                        Mail::to($user->email)->send(new RemovedSme($data));
+                        $mail->delete();
+                        $match->delete();
+                        return Redirect::route('landing.removeEmails')->with(['msg' => 'Email sent']);
+                        //delete entry
+                    }
+                }else{
+                    $user = User::where('user_role', 'mentor')->where('functional_id',$mail->mentor_id)->first();
+                    $match = MatchingMentorSme::where('mentor_id', $mail->mentor_id)->where('company_id', $mail->company_id)->first();
+                    $company = User::where('user_role', 'mentor')->where('functional_id',$mail->mentor_id)->first();
+                    if($user){
+                        $data = [
+                            'username' => $user->name,
+                            'reason' => $mail->match_end_reason,
+                            'mentee_name' => $company->name,
+                            'functional' => $match->functional_area
+                        ];
+                        //mail
+                        Mail::to($user->email)->send(new RemovedMentor($data));
+                        $mail->delete();
+                        $match->delete();
+                        return Redirect::route('landing.declineEmails')->with(['msg' => 'Email sent']);
+                        //delete entry
+                    }
+                }
+            }
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function deleteCustomDeclineMail($id){
+        $mail = DeclinedMentorsSme::where('id',$id)->first();
+        if($mail){
+            $mail->delete();
+            return Redirect::route('landing.declineEmails')->with(['msg' => 'Success']);
+        }
+        return Redirect::route('landing.declineEmails')->with(['msg' => 'Error deleting']);
+    }
+    public function deleteCustomRemoveMail($id){
+        $mail = RemovedMentorsSmes::where('id',$id)->first();
+        if($mail){
+            $mail->delete();
+            return Redirect::route('landing.removeEmails')->with(['msg' => 'Success']);
+        }
+        return Redirect::route('landing.removeEmails')->with(['msg' => 'Error deleting']);
     }
 
 }
