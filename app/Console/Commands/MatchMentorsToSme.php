@@ -42,10 +42,15 @@ class MatchMentorsToSme extends Command
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($mentor_id);
                 $user = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->first();
-                if(count($data['matched_smes']) == 0){
+                if($data['limit'] == 0){
+                     $not_matched_mentor->status = "matched";
+                     $this->saveLog($mentor_id, 'Matching limit reached');
+                }
+                else if(count($data['matched_smes']) == 0){
                     $not_matched_mentor->status = "not matched";
                     $this->saveLog($mentor_id, 'Not Matched with existing SMEs');
-                }else{
+                }
+                else{
                     $not_matched_mentor->status = "matched";
                     Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
                     $this->saveLog($mentor_id, 'Matched with existing SMEs');

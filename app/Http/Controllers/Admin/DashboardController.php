@@ -178,7 +178,9 @@ class DashboardController extends Controller
                 Mail::to($user->email)->send(new ApprovedMentorProfileMail());
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($mentor_id);
-                if(count($data['matched_smes']) == 0){
+                if($data['limit' == 0]){
+                    return Redirect::back()->with(['message' => 'Match limit reached']);
+                }else if(count($data['matched_smes']) == 0){
                     MatchingQueue::create([
                         'mentor_id' => $mentor_id,
                         'status' => 'not matched'

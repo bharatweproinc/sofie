@@ -17,29 +17,32 @@ class MatchSmeMentor{
             if($mentor){
                 $mentor_id = $id;
                 $mentor_functional = $mentor->functional_area;
-               // $limit = $mentor->number_of_companies;
+                $limit = $mentor->number_of_companies;
+                $currently_mentoring = MatchingMentorSme::where('mentor_id',$mentor_id)->get();
+                if($limit == count($currently_mentoring)){
+                    $data = ['limit' => 0];
+                    return $data;
+                }else{
+                    $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
+                    $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
 
-                $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
-                $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
+                        $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->whereIn('functional_area_1' , $mentor_functional)
+                        ->orWhere('assigned_mentor_2',null)->whereIn('functional_area_2', $mentor_functional)
+                        ->orWhere('assigned_mentor_3',null)->whereIn('functional_area_3', $mentor_functional)
+                        ->get()->each(function($sme) use ($mentor_id) {
+                                $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
+                                // $sme->link = url("/connect/company/".$sme->id);
+                                $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
+                                $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
+                            });
 
-                    $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->whereIn('functional_area_1' , $mentor_functional)
-                    ->orWhere('assigned_mentor_2',null)->whereIn('functional_area_2', $mentor_functional)
-                    ->orWhere('assigned_mentor_3',null)->whereIn('functional_area_3', $mentor_functional)
-                    ->get()->each(function($sme) use ($mentor_id) {
-                            $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
-                            // $sme->link = url("/connect/company/".$sme->id);
-                            $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
-                            $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
-                        });
-
-                $data = [
-                    'matched_smes' => $companies,
-                    'user_name' => $user->name,
-                    'mentor_id' => $id,
-                    //'functional' => $mentor_functional
-                ];
-                return $data;
-
+                    $data = [
+                        'matched_smes' => $companies,
+                        'user_name' => $user->name,
+                        'mentor_id' => $id,
+                    ];
+                    return $data;
+                }
                 //how many companies he want to mentor? (limit), if already matched to his limited companies
                 //then dont run another match
             }else{
