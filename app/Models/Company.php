@@ -46,7 +46,9 @@ class Company extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'functional_id', 'id');
+        //return $this->hasOne(User::class, 'functional_id', 'id');
+        return $this->belongsTo(User::class, 'id', 'functional_id')
+                ->where('user_role', 'entrepreneur');
     }
 
 }

@@ -20,7 +20,9 @@ class CompanyRepository implements CompanyRepositoryInterface {
 
     public function getList(){
         $user = Auth::user();
-        $company = Company::with('user')->get()->each(function($m) {
+        $company = Company::whereHas('user', function ($query) {
+            $query->where('user_role', 'entrepreneur');
+        })->with('user')->get()->each(function($m) {
             $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
             $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
             $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);
@@ -32,6 +34,21 @@ class CompanyRepository implements CompanyRepositoryInterface {
             "user" => $user,
             "company" => $company
         ]];
+
+
+        // $user = Auth::user();
+        // $company = Company::with('user')->get()->each(function($m) {
+        //     $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
+        //     $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
+        //     $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);
+        //     $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
+        //     $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
+        // });
+        // //dd($company);
+        // return ["list" => [
+        //     "user" => $user,
+        //     "company" => $company
+        // ]];
     }
 
     public function getListBrowseCompanies(){

@@ -15,7 +15,6 @@ function FindMentors ({list}) {
     const toggleReadMore = (key) => {
         setIsReadMore(key === isReadMore ? null : key)
     };
-
     return (
       <Landing>
             <Typography sx={{ height: '95px' }}></Typography>
@@ -81,9 +80,9 @@ function FindMentors ({list}) {
                                     </Typography>
 
                                     <Typography variant="body2" color="text.secondary">
-                                        {isReadMore === key ? item.additional_information : item.additional_information.slice(0, 600)}
+                                    {item?.additional_information && isReadMore === key ? item?.additional_information : item?.additional_information?.slice(0, 600)}
                                         {
-                                            item.additional_information.length > 600 &&
+                                            item.additional_information?.length > 600 &&
                                             <span
                                                 onClick={() => toggleReadMore(key)}
                                                 style={{ color: "#232424", cursor : 'pointer'}}
