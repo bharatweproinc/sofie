@@ -169,7 +169,7 @@ class DashboardController extends Controller
 
     // Accepting / Rejecting Mentors Or SME
     public function acceptedMentorProfile($mentor_id){
-        try{
+        //try{
             $user = User::where('user_role', 'mentor')->where('functional_id', $mentor_id)->first();
             if($user){
                 $user->is_accepted = 1;
@@ -178,7 +178,9 @@ class DashboardController extends Controller
                 Mail::to($user->email)->send(new ApprovedMentorProfileMail());
                 $matches = new MatchSmeMentor();
                 $data =  $matches->matchingSme($mentor_id);
-                if($data['limit' == 0]){
+
+
+                if($data['limit'] == 0){
                     return Redirect::back()->with(['message' => 'Match limit reached']);
                 }else if(count($data['matched_smes']) == 0){
                     MatchingQueue::create([
@@ -191,9 +193,9 @@ class DashboardController extends Controller
             }else{
                 return Redirect::back()->withErrors(['message' => 'Error Sending Email']);
             }
-        }catch (\Exception $e) {
+        /*}catch (\Exception $e) {
             return $e->getMessage();
-        }
+        }*/
     }
     public function acceptedCompanyProfile($sme_id){
         try{

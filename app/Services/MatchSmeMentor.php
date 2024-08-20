@@ -37,6 +37,7 @@ class MatchSmeMentor{
                             });
 
                     $data = [
+                        'limit'=> 1,
                         'matched_smes' => $companies,
                         'user_name' => $user->name,
                         'mentor_id' => $id,
