@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('press_contents', function (Blueprint $table) {
             $table->id();
             $table->text('title')->nullable();
-            $table->date('date')->nullable();
+            $table->dateTime('date')->nullable();
             $table->timestamps();
         });
     }

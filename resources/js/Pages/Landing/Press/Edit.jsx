@@ -9,6 +9,11 @@ import Constants from "../Constants";
 import Joi from "@/utility/JoiValidator";
 import { notify } from "@/Components/Notifier";
 import { ToastContainer } from 'react-toastify';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from "dayjs";
 
 
 const Edit = ({detail}) => {
@@ -82,18 +87,11 @@ const Edit = ({detail}) => {
                         </Grid>
                         <Grid px={3} pt={4} xs={12} className='press_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Date of the post</Typography>
-                            <TextField
-                                size='small'
-                                sx={{  mt: 1, width: '100%' }}
-                                fullWidth
-                                variant='outlined'
-                                placeholder='Please mention date'
-                                multiline
-                                value={data?.date}
-                                onChange={(e) => handleChange("date", e.target.value)}
-                                error={!!validationErrors.date}
-                                helperText={validationErrors.date}
-                            />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker sx={{ width:"100%" }}   value={data?.date ? dayjs(data.date) : null} label="" onChange={(e)=>handleChange("date", e.$d)}/>
+                                </DemoContainer>
+                                </LocalizationProvider>
                         </Grid>
                         <Grid xs={12} m={4} textAlign={"center"} className='custom_btn'>
                             <Button type='submit' variant="contained" disabled={processing}>Save</Button>

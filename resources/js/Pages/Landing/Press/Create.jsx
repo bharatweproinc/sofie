@@ -16,8 +16,8 @@ const Create = ({user}) => {
 
     const { data, setData, post, processing} = useForm(Constants.initPress)
     const [validationErrors, setValidationErrors] = useState({});
-
     const handleChange = (key, value) => {
+
 
         setValidationErrors({
             ...validationErrors,
@@ -79,21 +79,6 @@ const Create = ({user}) => {
                                 helperText={validationErrors.title}
                             />
                         </Grid>
-                        {/* <Grid px={3} pt={4} xs={12} className='press_input_fields'>
-                            <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Date of the post</Typography>
-                            <TextField
-                                size='small'
-                                sx={{  mt: 1, width: '100%' }}
-                                fullWidth
-                                variant='outlined'
-                                placeholder='Please mention date'
-                                multiline
-                                value={data.description}
-                                onChange={(e) => handleChange("date", e.target.value)}
-                                error={!!validationErrors.date}
-                                helperText={validationErrors.date}
-                            />
-                        </Grid> */}
                         <Grid px={3} pt={4} xs={12} className='press_input_fields'>
                             <Typography fontWeight={600} fontSize="16px" textAlign="left" color={'#7C7C7C'}>Add Date</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -201,7 +201,7 @@ const testmionialSchema = [{
 
 const pressSchema = [{
     title : Joi.string().label("Press Title").required(),
-    date : Joi.string().label("Press Date").required()
+    date: Joi.date().label("Press Date").required()
 }]
 
 const resetPasswordSchema = [{

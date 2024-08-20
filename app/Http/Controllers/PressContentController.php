@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PressContent;
 use App\Models\Testimonial;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -25,9 +26,11 @@ class PressContentController extends Controller
     }
     public function saveData(Request $request){
         try{
+            $date = Carbon::parse($request->date);
+
             $data = [
                 'title' => $request->title,
-                'date' => $request->date
+                'date' => $date
             ];
 
             $press = PressContent::create($data);
@@ -44,9 +47,10 @@ class PressContentController extends Controller
 
     public function updateData(Request $request, $id){
         try{
+            $date = Carbon::parse($request->date);
             $data = [
                 'title' => $request->title,
-                'date' => $request->date
+                'date' => $date
             ];
 
             $press = PressContent::where('id', $id)->first();
