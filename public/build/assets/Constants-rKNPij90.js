@@ -1,0 +1,1 @@
+import{J as o}from"./JoiValidator-B4r2zdhv.js";import"./app-DftAc4KJ.js";const n={reason:""},e=[{reason:o.string().label("Reason").required()}],t={initDeclineDropdown:n,declineDropdownSchema:e};export{t as default};
