@@ -493,10 +493,12 @@ class LandingController extends Controller
     }
 
     public function removeMentorReason(Request $request){
+        //dd($request->all()); //mentor,company,reason
         $match = MatchingMentorSme::where('mentor_id', $request->mentor_id)->first();
         $removed_user = User::where('user_role', 'mentor')->where('functional_id', $request->mentor_id)->first();
         $matched_area = $match->functional_area;
         $company = Company::where('id', $request->company_id)->first();
+        //dd($company);
         if($company && $company->functional_area_1 == $matched_area){
             $company->assigned_mentor_1 = null;
             $company->save();
@@ -538,6 +540,7 @@ class LandingController extends Controller
             Mail::to($removed_user->email)->send(new RemovedMentor($data));
             $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
             $matched_table->delete();
+            return Redirect::route('landing.home');
         }
     }
 
@@ -575,6 +578,7 @@ class LandingController extends Controller
             Mail::to($removed_user->email)->send(new RemovedSme($data));
             $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
             $matched_table->delete();
+            return Redirect::route('landing.home');
         }
         $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "SME removed by Mentor")->first();
         if($removeTable){

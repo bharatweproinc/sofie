@@ -81,9 +81,8 @@ class MatchSmeMentor{
         $recomm_mentor = Mentor::findOrFail($mentor_id);
         if($recomm_mentor && $recomm_mentor->profile_photo != null){
             $recomm_mentor->profile_photo = url("storage/mentor_profile/{$recomm_mentor->profile_photo}");
-            $recomm_mentor->name = $this->getName($mentor_id);
         }
-
+        $recomm_mentor->name = $this->getName($mentor_id);
         $data = [
             'mentor' => $recomm_mentor,
             'user_name' => $user->name,
@@ -98,10 +97,10 @@ class MatchSmeMentor{
         $user = User::where('user_role','entrepreneur')->where('functional_id',$company_id)->select('name')->first();
         if($recomm_mentor && $recomm_mentor->profile_photo != null){
             $recomm_mentor->profile_photo = url("storage/mentor_profile/{$recomm_mentor->profile_photo}");
-            $recomm_mentor->name = $this->getName($mentor_id);
-            $recomm_mentor->email = $recomm_mentor->user->email;
-            $recomm_mentor->phone = $recomm_mentor->user->phone;
         }
+        $recomm_mentor->name = $this->getName($mentor_id);
+        $recomm_mentor->email = $recomm_mentor->user->email;
+        $recomm_mentor->phone = $recomm_mentor->user->phone;
 
         $data = [
             'mentor' => $recomm_mentor,
@@ -117,11 +116,11 @@ class MatchSmeMentor{
         $recomm_sme = Company::findOrFail($company_id);
         if($recomm_sme && $recomm_sme->profile_photo != null){
             $recomm_sme->profile_photo = url("storage/company_profile/{$recomm_sme->profile_photo}");
-            $recomm_sme->name = $recomm_sme->user->name;
+        }
+        $recomm_sme->name = $recomm_sme->user->name;
             $recomm_sme->email = $recomm_sme->user->email;
             $recomm_sme->phone = $recomm_sme->user->phone;
             $recomm_sme->company_name = $recomm_sme->company_name;
-        }
         $data = [
             'company' => $recomm_sme,
             'user_name' => $mentor->user->name,
