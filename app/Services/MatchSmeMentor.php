@@ -17,6 +17,7 @@ class MatchSmeMentor{
             if($mentor){
                 $mentor_id = $id;
                 $mentor_functional = $mentor->functional_area;
+                $mentor_industry = $mentor->industry_sector;
                 $limit = $mentor->number_of_companies;
                 $currently_mentoring = MatchingMentorSme::where('mentor_id',$mentor_id)->get();
                 if($limit == count($currently_mentoring)){
@@ -25,7 +26,9 @@ class MatchSmeMentor{
                 }else{
                     $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
                     $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
+                    //dd($accepted_sme);
 
+                    if(in_array('Open to Any Industry', $mentor_industry)){
                         $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->whereIn('functional_area_1' , $mentor_functional)
                         ->orWhere('assigned_mentor_2',null)->whereIn('functional_area_2', $mentor_functional)
                         ->orWhere('assigned_mentor_3',null)->whereIn('functional_area_3', $mentor_functional)
@@ -35,6 +38,29 @@ class MatchSmeMentor{
                                 $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
                                 $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
                             });
+                    }else{
+                        $companies = Company::whereIn('id', $accepted_sme)
+                            ->whereIn('industry_sector', $mentor_industry)
+                            ->where(function($query) use ($mentor_functional) {
+                                $query->where(function($q) use ($mentor_functional) {
+                                    $q->whereNull('assigned_mentor_1')
+                                    ->whereIn('functional_area_1', $mentor_functional);
+                                })->orWhere(function($q) use ($mentor_functional) {
+                                    $q->whereNull('assigned_mentor_2')
+                                    ->whereIn('functional_area_2', $mentor_functional);
+                                })->orWhere(function($q) use ($mentor_functional) {
+                                    $q->whereNull('assigned_mentor_3')
+                                    ->whereIn('functional_area_3', $mentor_functional);
+                                });
+                            })
+                        ->get()
+                        ->each(function($sme) use ($mentor_id) {
+                            $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
+                            $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
+                            $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
+                        });
+
+                    }
 
                     $data = [
                         'limit'=> 1,
@@ -44,8 +70,6 @@ class MatchSmeMentor{
                     ];
                     return $data;
                 }
-                //how many companies he want to mentor? (limit), if already matched to his limited companies
-                //then dont run another match
             }else{
                 return [
                     'msg' => 'No mentor found',
