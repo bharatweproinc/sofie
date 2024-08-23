@@ -18,7 +18,7 @@ class AcceptedMentorProfileMail extends Mailable
     }
     public function build()
     {
-        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.acceptedMentor')->subject("We are delighted to have you onboard as our Mentor!");
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.acceptedMentor2')->subject("We are delighted to have you onboard as our Mentor!");
     }
 
 

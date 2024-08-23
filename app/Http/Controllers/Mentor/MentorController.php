@@ -36,7 +36,7 @@ class MentorController extends Controller
 
     public function connectedSme($company_id, $mentor_id,$area){
         $response = $this->mentorRepository->connectedSme($company_id, $mentor_id,$area);
-        return Redirect::back();
+        return Redirect::route("landing.acceptedMailSme");
     }
 
     public function getList() {

@@ -77,15 +77,14 @@ const handleSubmit = (e) => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We see that you want to decline the match with this mentee. We understand your requirement and would like you to submit the feedback regarding the same.
+                        Thank you for your response! 
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            We will be sending you better matches in the future. If you have any queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
-                        </Typography>
+                        We are so sorry to hear that you have declined this match. We would like to request that you fill in this feedback dropdown indicating the reason why you have declined.                         </Typography>
 
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
-                            Select the reason for decline
+                        If you have any questions, please feel free to contact us at hello@upcie.net
                         </Typography>
 
                         <Box mt={2} class="custom_input_field">

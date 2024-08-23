@@ -101,6 +101,10 @@ class MentorRepository implements MentorRepositoryInterface {
             if($company && $user){
                 Mail::to($user->email)->send(new RecommendedMentorMail($data));
             }
+            return [
+                'success' => true,
+                'message' => 'Email sent!'
+            ];
             //Show a notifier that company has been notified about the connect request
         }catch (\Exception $e) {
             return [
@@ -118,8 +122,15 @@ class MentorRepository implements MentorRepositoryInterface {
             $fileName = null;
             $diff_in_days = 0;
             $user = User::findOrfail($id);
+            
+            $qualifications = $request->qualifications;
+            $words = explode(' ', $qualifications);
+            if (count($words) > 40) {
+                $words = array_slice($words, 0, 40);
+                $qualifications = implode(' ', $words);
+            }
             $data = [
-                'qualifications' => $request->qualifications,
+                'qualifications' => $qualifications,
                 'industry_sector' => $request->industry_sector,
                 'functional_area' => $request->functional_area,
                 'mentored_company' => $request->mentored_company,

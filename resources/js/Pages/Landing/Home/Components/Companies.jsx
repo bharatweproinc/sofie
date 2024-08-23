@@ -65,13 +65,14 @@ function BrowseCompanies ({list}) {
                                         borderRadius: { xs: '0 0 16px 16px', md: '0 16px 16px 0' },
                                     }}
                                 >
-                                    <Typography pb={.5} variant='body1' component="div">
-                                        {/* {item.industry_sector.map(String).join(' , ')} */}
-                                        {item.industry_sector}
-                                    </Typography>
 
                                     <Typography fontWeight={600} gutterBottom variant="h5" component="div">
                                         {item.company_name}
+                                    </Typography>
+
+                                    <Typography pb={1.5} variant='body1' component="div">
+                                        {/* {item.industry_sector.map(String).join(' , ')} */}
+                                        {item.industry_sector}
                                     </Typography>
 
                                     <Typography variant="body2" color="text.secondary">

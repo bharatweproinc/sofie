@@ -103,8 +103,10 @@
                 </tbody>
             </table>
         <div class="footer">
-            <p>Please initiate contact first via email to your Mentor within the next 5 working days. Please kindly remember to respect your Mentor and their time.</p>
-            <p>Wishing you a fruitful Mentorship journey!<br>Team upcie</p>
+            <p>Please initiate contact first via email to your Mentor within the next 5 working days.</p><br/>
+            <p>Please kindly remember to respect your Mentor and their time.</p><br/>
+            <p>Wishing you a fruitful Mentorship journey!
+            <br>Team upcie</p>
         </div>
     </div>
 

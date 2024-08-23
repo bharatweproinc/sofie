@@ -170,6 +170,10 @@ Route::name('landing.')->group(function() {
     Route::post('/{id}/delete', [DashboardController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/{id}/delete-mentor', [DashboardController::class, 'deleteMentorUser'])->name('deleteMentorUser');
     Route::post('/{id}/delete-company', [DashboardController::class, 'deleteCompanyUser'])->name('deleteCompanyUser');
+
+    //accepted mails pop up
+    Route::get('/accepted-mail-sme', [LandingController::class, 'acceptedMailSme'])->name('acceptedMailSme');
+    Route::get('/accepted-mail-mentor', [LandingController::class, 'acceptedMailMentor'])->name('acceptedMailMentor');
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {

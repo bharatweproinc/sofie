@@ -18,7 +18,7 @@ class MentorDetailsMail extends Mailable
     }
     public function build()
     {
-        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.detailsMentor')->subject("Connect with your accepted mentor NOW!");
+        return  $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->view('emails.detailsMentor')->subject("Connect with your accepted mentor now!");
     }
 
 }

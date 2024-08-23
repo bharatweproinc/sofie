@@ -621,4 +621,11 @@ class LandingController extends Controller
         return Redirect::route('landing.home');
     }
 
+    public function acceptedMailSme(){
+        return Inertia::render('Landing/AcceptedMailPopup/view',[]);
+    }
+
+    public function acceptedMailMentor(){
+        return Inertia::render('Landing/AcceptedMailPopup/Mentorview',[]);
+    }
 }

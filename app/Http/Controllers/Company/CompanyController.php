@@ -111,9 +111,8 @@ class CompanyController extends Controller
             }else{
                 $company->update(['assigned_mentor_3' => $mentor_id]);
             }
-            return Redirect::route("company.detail",[
-                'id' => $company_id
-            ]);
+        
+            return Redirect::route("landing.acceptedMailMentor");
         }
     }
 

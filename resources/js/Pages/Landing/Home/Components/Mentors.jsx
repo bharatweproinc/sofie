@@ -75,10 +75,9 @@ function FindMentors ({list}) {
                                         </Typography>
                                     </Box> */}
 
-                                    <Typography pt={2} variant="body2" color="text.secondary">
-                                        {item.qualifications}
+                                    <Typography pt={1} mb={1} variant="body2" color="text.secondary">
+                                    {item.qualifications}
                                     </Typography>
-
                                     <Typography variant="body2" color="text.secondary">
                                     {item?.additional_information && isReadMore === key ? item?.additional_information : item?.additional_information?.slice(0, 600)}
                                         {

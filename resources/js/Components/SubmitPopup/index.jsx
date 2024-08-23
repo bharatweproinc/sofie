@@ -40,7 +40,7 @@ export default function SubmitPopup({type ,open, setOpen,handleSubmit}) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle textAlign={'center'} fontWeight={600}>{`Guidlines for ${type ==="mentor" ? "Mentor" : "Mentee"} Detail Submission`}</DialogTitle>
+        <DialogTitle textAlign={'center'} fontWeight={600}>{`Guidelines for ${type ==="mentor" ? "Mentor" : "Mentee"} Detail Submission`}</DialogTitle>
         <form method={"post"} onSubmit={handleSubmit}>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -49,7 +49,7 @@ export default function SubmitPopup({type ,open, setOpen,handleSubmit}) {
               label={
               <>
                 I acknowledge that I have read and accept upcie's{" "}
-                <Link style={linkStyle} href={route("landing.termsconditions")}>
+                <Link style={linkStyle} href={route("landing.privacy")}>
                     <em>Privacy and Policy</em>
                 </Link>{" "}
                 and{" "}
