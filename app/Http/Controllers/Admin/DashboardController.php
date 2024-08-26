@@ -439,5 +439,8 @@ class DashboardController extends Controller
         return Redirect::route('landing.removeEmails')->with(['msg' => 'Error deleting']);
     }
 
+    public function resetAdminPassword(Request $request){
+       // dd($request->all(), Auth::id());
+    }
 }
 

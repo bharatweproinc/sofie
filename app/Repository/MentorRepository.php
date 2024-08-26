@@ -16,6 +16,8 @@ use App\Services\MatchSmeMentor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+
 class MentorRepository implements MentorRepositoryInterface {
 
     public function getList(){
@@ -91,20 +93,29 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function connectedSme($company_id, $mentor_id, $area) {
         try {
-            //dd('connectedsme');
-            $data = [];
-            $company = Company::findOrFail($company_id);
-            $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
-            $matches = new MatchSmeMentor();
-            $data =  $matches->recommendedMentor($company_id, $mentor_id);
-            $data['matched_area'] = $area;
-            if($company && $user){
-                Mail::to($user->email)->send(new RecommendedMentorMail($data));
+            $mentor = Mentor::findOrFail($mentor_id);
+            if($mentor){
+                $limit = $mentor->number_of_companies;
+                $currently_mentoring = MatchingMentorSme::where('mentor_id',$mentor_id)->get();
+                //mentor is already mentoring enough sme
+                if($limit == count($currently_mentoring)){
+                  return Redirect::route('landing.home');
+                }
+            }else{
+                $data = [];
+                $company = Company::findOrFail($company_id);
+                $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
+                $matches = new MatchSmeMentor();
+                $data =  $matches->recommendedMentor($company_id, $mentor_id);
+                $data['matched_area'] = $area;
+                if($company && $user){
+                    Mail::to($user->email)->send(new RecommendedMentorMail($data));
+                }
+                return [
+                    'success' => true,
+                    'message' => 'Email sent!'
+                ];
             }
-            return [
-                'success' => true,
-                'message' => 'Email sent!'
-            ];
             //Show a notifier that company has been notified about the connect request
         }catch (\Exception $e) {
             return [

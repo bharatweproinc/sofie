@@ -96,7 +96,7 @@ const AdminmenuItem = [
       </svg>
     ),
     subItems: [
-      { id: 1, label: 'Profile Settings', link: '/admin/profile-setting' },
+      // { id: 1, label: 'Profile Settings', link: '/admin/profile-setting' },
       { id: 2, label: 'Account Settings', link: '/admin/account-setting' },
     ],
   },

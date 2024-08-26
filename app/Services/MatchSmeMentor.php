@@ -26,7 +26,6 @@ class MatchSmeMentor{
                 }else{
                     $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
                     $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
-                    //dd($accepted_sme);
 
                     if(in_array('Open to Any Industry', $mentor_industry)){
                         $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->whereIn('functional_area_1' , $mentor_functional)
@@ -40,28 +39,26 @@ class MatchSmeMentor{
                             });
                     }else{
                         $companies = Company::whereIn('id', $accepted_sme)
-                            ->whereIn('industry_sector', $mentor_industry)
-                            ->where(function($query) use ($mentor_functional) {
-                                $query->where(function($q) use ($mentor_functional) {
-                                    $q->whereNull('assigned_mentor_1')
-                                    ->whereIn('functional_area_1', $mentor_functional);
-                                })->orWhere(function($q) use ($mentor_functional) {
-                                    $q->whereNull('assigned_mentor_2')
-                                    ->whereIn('functional_area_2', $mentor_functional);
-                                })->orWhere(function($q) use ($mentor_functional) {
-                                    $q->whereNull('assigned_mentor_3')
-                                    ->whereIn('functional_area_3', $mentor_functional);
-                                });
-                            })
+                        ->whereIn('industry_sector', $mentor_industry)
+                        ->where(function($query) use ($mentor_functional) {
+                            $query->where(function($q) use ($mentor_functional) {
+                                $q->whereNull('assigned_mentor_1')
+                                ->whereIn('functional_area_1', $mentor_functional);
+                            })->orWhere(function($q) use ($mentor_functional) {
+                                $q->whereNull('assigned_mentor_2')
+                                ->whereIn('functional_area_2', $mentor_functional);
+                            })->orWhere(function($q) use ($mentor_functional) {
+                                $q->whereNull('assigned_mentor_3')
+                                ->whereIn('functional_area_3', $mentor_functional);
+                            });
+                        })
                         ->get()
                         ->each(function($sme) use ($mentor_id) {
                             $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
                             $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
                             $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
                         });
-
                     }
-
                     $data = [
                         'limit'=> 1,
                         'matched_smes' => $companies,

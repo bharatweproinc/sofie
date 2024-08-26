@@ -33,6 +33,8 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/reset-password', [DashboardController::class, 'resetAdminPassword'])->name('resetAdminPassword');
+
     Route::get('/partial-matched', [LandingController::class, 'partialMatched'])->name('partialMatched');
     Route::get('/matched', [LandingController::class, 'matched'])->name('matched');
 
@@ -174,6 +176,8 @@ Route::name('landing.')->group(function() {
     //accepted mails pop up
     Route::get('/accepted-mail-sme', [LandingController::class, 'acceptedMailSme'])->name('acceptedMailSme');
     Route::get('/accepted-mail-mentor', [LandingController::class, 'acceptedMailMentor'])->name('acceptedMailMentor');
+
+
 });
 
 Route::prefix('mentor')->name('mentor.')->group(function() {
