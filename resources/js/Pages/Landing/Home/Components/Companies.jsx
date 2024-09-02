@@ -8,23 +8,17 @@ import Group from '@/Components/SVGIcons/Home/Group';
 import Experience from '@/Components/SVGIcons/Home/Experience';
 import { Box, Grid } from '@mui/material';
 import moment from "moment";
-import User3 from '../../../../Assets/Images/Karen-Lee.png'
+import NoProfile from '../../../../Assets/Images/default-sme1630.jpg'
+import NoFounder from '../../../../Assets/Images/default-profile.jpg'
+
 import NoDataFound from '@/Components/NoDataFound';
-
-// import t1 from "../../../../Assets/Images/joyc.jpg"
-// import t2 from "../../../../Assets/Images/aron.jpg"
-// import t3 from "../../../../Assets/Images/tingbel.jpg"
-
-// const founderImages = [
-//     t1, t2, t3
-// ]
 
 function BrowseCompanies ({list}) {
     const [isReadMore, setIsReadMore] = React.useState(null);
     const toggleReadMore = (key) => {
         setIsReadMore(key === isReadMore ? null : key)
     };
-
+    const currentUrl = window.location.origin;
 
     return (
         <Landing>
@@ -42,7 +36,7 @@ function BrowseCompanies ({list}) {
                                     marginBottom: '20px',
                                     borderRadius: '16px',
                                 }}
-                            >
+                                > 
                                 <CardMedia
                                     component="img"
                                     sx={{
@@ -51,9 +45,15 @@ function BrowseCompanies ({list}) {
                                         objectFit: 'contain',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
-                                    image={item.profile_photo}
-                                    alt="mentor img"
+                                   
+                                    image={
+                                        item.profile_photo && item.profile_photo !== currentUrl + "/storage/company_profile"
+                                          ? item.profile_photo
+                                          : NoProfile
+                                      }
+                                    alt="sme_img"
                                 />
+                               
                                 <CardContent
                                     sx={{
                                         display: 'flex',
@@ -85,10 +85,14 @@ function BrowseCompanies ({list}) {
                                                 {isReadMore === key  ? " show less" : "... read more"}
                                             </span>
                                         }
+                                      
                                     </Typography>
-
                                     <Box mt={4} className="flex gap-2 items-center">
-                                        <img src={item.founder_photo} style={{borderRadius : '50%', height : "50px", width : '50px', objectFit : 'cover'}}/>
+                                        <img alt="founder" src={
+                                            item.founder_photo && item.founder_photo !== currentUrl + "/storage/company_founder"
+                                            ? item.founder_photo
+                                            : NoFounder
+                                        } style={{borderRadius : '50%', height : "50px", width : '50px', objectFit : 'cover'}}/>
 
                                         <Box className="block">
                                             <Typography sx={{ fontWeight: 'bold !important'}}>

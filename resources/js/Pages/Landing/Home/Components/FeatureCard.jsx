@@ -5,9 +5,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, Button, CardActionArea, CardActions } from '@mui/material';
 import moment from "moment";
+import NoProfile from '../../../../Assets/Images/default-sme1630.jpg'
+import NoFounder from '../../../../Assets/Images/default-profile.jpg'
 
 
 export default function FeatureCard({ item, src }) {
+const currentUrl = window.location.origin;
+
     return (
         <Card sx={{
             // bgcolor:'red',
@@ -23,8 +27,12 @@ export default function FeatureCard({ item, src }) {
                         height : 345,
                         objectFit : 'contain'
                     }}
-                    image={item.profile_photo}
-                    alt="green iguana"
+                    image={
+                        item.profile_photo && item.profile_photo !== currentUrl + "/storage/company_profile"
+                          ? item.profile_photo
+                          : NoProfile
+                      }
+                    alt="featured_sme"
 
                 />
                 <CardContent>
@@ -52,7 +60,12 @@ export default function FeatureCard({ item, src }) {
                     </Typography>
 
                     <Box className="flex gap-2 items-center mt-3">
-                        <img src={item.founder_photo} style={{borderRadius : '50%', height : "45px", width : '45px', objectFit : 'cover'}}/>
+                        <img alt="founder" 
+                        src={
+                            item.founder_photo && item.founder_photo !== currentUrl + "/storage/company_founder"
+                            ? item.founder_photo
+                            : NoFounder
+                        }style={{borderRadius : '50%', height : "45px", width : '45px', objectFit : 'cover'}}/>
                         <Box className="block">
                             <Typography sx={{ fontWeight: 'bold !important'}}>
                                 {item.user.name}

@@ -8,6 +8,8 @@ import Experience from '@/Components/SVGIcons/Home/Experience';
 import { Box, Grid, Typography } from '@mui/material';
 import NoDataFound from '@/Components/NoDataFound';
 import Button from '@/Components/Singleton/Button';
+import NoProfile from '../../../../Assets/Images/default-profile.jpg'
+
 
 function FindMentors ({list}) {
 
@@ -15,6 +17,7 @@ function FindMentors ({list}) {
     const toggleReadMore = (key) => {
         setIsReadMore(key === isReadMore ? null : key)
     };
+    const currentUrl = window.location.origin;
     return (
       <Landing>
             <Typography sx={{ height: '95px' }}></Typography>
@@ -40,8 +43,10 @@ function FindMentors ({list}) {
                                         objectFit: 'cover',
                                         borderRadius: { xs: '16px 16px 0 0', md: '16px 0 0 16px' },
                                     }}
-                                    image={item.profile_photo}
-                                    alt="mentor img"
+                                    image={ item.profile_photo && item.profile_photo !== currentUrl + "/storage/mentor_profile"
+                                        ? item.profile_photo
+                                        : NoProfile}
+                                    alt="mentor_img"
                                 />
                                 <CardContent
                                     sx={{

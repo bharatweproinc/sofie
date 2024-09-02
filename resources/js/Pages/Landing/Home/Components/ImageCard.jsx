@@ -6,8 +6,10 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import Experience from '@/Components/SVGIcons/Home/Experience';
 import Group from '@/Components/SVGIcons/Home/Group';
+import NoProfile from '../../../../Assets/Images/default-profile.jpg'
 
 export default function ImageCard({item, type=""}) {
+    const currentUrl = window.location.origin;
     return (
         <Card sx={{
             height:'100%',
@@ -22,8 +24,10 @@ export default function ImageCard({item, type=""}) {
             <CardMedia
                 component="img"
                 sx={{borderRadius : '8px', height : '345px'}}
-                image={item.profile_photo}
-                alt="mentor_img"
+                image={ item.profile_photo && item.profile_photo !== currentUrl + "/storage/mentor_profile"
+                    ? item.profile_photo
+                    : NoProfile}
+                alt="featured_mentor"
             />
             <CardContent sx={{pl:0}}>
                 <Typography gutterBottom variant="subtitle1" component="div" color={'#000'}>
