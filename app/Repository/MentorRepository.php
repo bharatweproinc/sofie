@@ -93,6 +93,7 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function connectedSme($company_id, $mentor_id, $area) {
         try {
+            //dd('test');
             $mentor = Mentor::findOrFail($mentor_id);
             if($mentor){
                 $limit = $mentor->number_of_companies;
@@ -100,8 +101,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 //mentor is already mentoring enough sme
                 if($limit == count($currently_mentoring)){
                   return Redirect::route('landing.home');
-                }
-            }else{
+                }else{
                 $data = [];
                 $company = Company::findOrFail($company_id);
                 $user= User::where('functional_id',$company_id)->where('user_role', 'entrepreneur')->first();
@@ -115,6 +115,7 @@ class MentorRepository implements MentorRepositoryInterface {
                     'success' => true,
                     'message' => 'Email sent!'
                 ];
+            }
             }
             //Show a notifier that company has been notified about the connect request
         }catch (\Exception $e) {

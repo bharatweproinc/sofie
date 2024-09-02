@@ -19,6 +19,7 @@ use App\Repository\MentorRepository;
 use App\Services\MatchSmeMentor;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
@@ -440,7 +441,13 @@ class DashboardController extends Controller
     }
 
     public function resetAdminPassword(Request $request){
-       // dd($request->all(), Auth::id());
+        $admin = User::findOrfail(Auth::id());
+        //$admin->username = $request->new_password;
+        if($admin && $admin->user_role == "admin"){
+            $admin->password = Hash::make($request->new_password);
+            $admin->save();
+        }
+        return Redirect::back();
     }
 }
 
