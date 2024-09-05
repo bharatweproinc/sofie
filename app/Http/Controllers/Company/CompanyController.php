@@ -10,6 +10,7 @@ use App\Models\Deletion;
 use App\Models\MatchingMentorSme;
 use App\Models\MatchingQueue;
 use App\Models\Mentor;
+use App\Models\PartialMatch;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -87,6 +88,14 @@ class CompanyController extends Controller
                     'company_id' => $company_id,
                     'functional_area' => $area
                 ]);
+
+                $pmatch = PartialMatch::where('mentor_id',$mentor_id)
+                ->where('company_id', $company_id)
+                ->where('functional_area', $area)->first();
+
+                if($pmatch){
+                    $pmatch->delete();
+                }
             }
             $not_matched_mentor = MatchingQueue::where('mentor_id',$mentor_id)->where('status', 'not matched')->first();
             if(!$not_matched_mentor){

@@ -33,7 +33,7 @@ class MatchSmeMentor{
                         ->orWhere('assigned_mentor_3',null)->whereIn('functional_area_3', $mentor_functional)
                         ->get()->each(function($sme) use ($mentor_id) {
                                 $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
-                                // $sme->link = url("/connect/company/".$sme->id);
+                                //$sme->link = url('connect/' . $sme->id . '/and/' . $mentor_id . '/' . $sme->matched_area);
                                 $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
                                 $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
                             });
@@ -57,6 +57,7 @@ class MatchSmeMentor{
                             $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
                             $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
                             $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
+                            //$sme->link = url('connect/' . $sme->id . '/and/' . $mentor_id . '/' . $sme->matched_area);
                         });
                     }
                     $data = [

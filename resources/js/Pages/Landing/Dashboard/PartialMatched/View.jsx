@@ -13,7 +13,7 @@ import CheckIcon from "@/Components/SVGIcons/Home/CheckIcon";
 import "../../style.scss"
 
 const Headers = [
-    "Company Profile Photo", "Company Name", "Company UEN", "Mentor 1", "Mentor 2" ,"Mentor 3", "Action"
+    "Mentor", "ID","Name", "SME", "ID","Name", "Contact Name" ,"Matched Functional Area"
 ]
 
 function partialMatched ({list = []}) {
@@ -22,12 +22,11 @@ function partialMatched ({list = []}) {
 
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = list.company.slice(indexOfFirstRow, indexOfLastRow);
+    const currentRows = list.matched.slice(indexOfFirstRow, indexOfLastRow);
 
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
-
     return (
         <Landing auth={list.user}>
             <Typography sx={{ height: {xs : '65px', sm : '0px'} }}></Typography>
@@ -37,7 +36,7 @@ function partialMatched ({list = []}) {
                 </Box>
                 <Box>
                 {
-                    list.company.length > 0 ?
+                    list.matched.length > 0 ?
                     <Grid container>
                             <Grid
                                 item
@@ -85,23 +84,31 @@ function partialMatched ({list = []}) {
                                                     >
                                                         <TableCell>
                                                             <Avatar
-                                                                alt={'company_photo'}
-                                                                src={row.profile_photo}
+                                                                alt={'_photo'}
+                                                                src={row.mentor.profile_photo}
                                                             />
                                                         </TableCell>
                                                         <TableCell align="left" component="th" scope="row">
-                                                            {row.company_name}
+                                                            {row.mentor_id}
                                                         </TableCell>
-                                                        <TableCell align="left">{row.company_uen}</TableCell>
-                                                        <TableCell align="left">{row.assigned_mentor_1 == null ? <em>{"Unassigned"}</em>: row.assigned_mentor_1}</TableCell>
-                                                        <TableCell align="left">{row.assigned_mentor_2 == null ? <em>{"Unassigned"}</em> : row.assigned_mentor_2}</TableCell>
-                                                        <TableCell align="left">{row.assigned_mentor_3 == null ? <em>{"Unassigned"}</em> : row.assigned_mentor_3}</TableCell>
+                                                        <TableCell align="left">{row.mentor.name}</TableCell>
                                                         <TableCell>
-                                                        {/* href={route('admin.company.get',row.id)} */}
+                                                            <Avatar
+                                                                alt={'_photo'}
+                                                                src={row.sme.profile_photo}
+                                                            />
+                                                        </TableCell> 
+                                                        <TableCell align="left">{row.sme.id}</TableCell>
+                                                        
+                                                        <TableCell align="left">{row.sme.company_name}</TableCell>
+                                                        <TableCell align="left">{row.sme.contact_name}</TableCell>
+                                                        <TableCell align="left">{row.functional_area}</TableCell>
+                                                       
+                                                        {/* <TableCell>
                                                             <a href={route('admin.company.get',row.id)} target="_blank">
                                                                 <CheckIcon/>
                                                             </a>
-                                                        </TableCell>
+                                                        </TableCell> */}
                                                     </TableRow>
                                                 ))}
                                             </TableBody>

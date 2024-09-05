@@ -20,6 +20,7 @@ use App\Models\MatchingMentorSme;
 use App\Models\MatchingQueue;
 use App\Models\Mentor;
 use App\Models\MissionStatementSection;
+use App\Models\PartialMatch;
 use App\Models\PressContent;
 use App\Models\RemovedMentorsSmes;
 use App\Models\Testimonial;
@@ -176,25 +177,41 @@ class LandingController extends Controller
         return Inertia::render('Landing/Mentor/Review',[]);
     }
     public function partialMatched() {
-        $response = $this->companyRepository->getList();
+        $user = Auth::user();
+        $pmatched = PartialMatch::get();
+        foreach($pmatched as $match){
+            $mentor_user = User::where('user_role','mentor')->where('functional_id',$match->mentor_id)->select('name', 'functional_id')->first();
+            $mentor = Mentor::where('id', $match->mentor_id)->select('profile_photo')->first();
+            $mentor_user->profile_photo = url("storage/mentor_profile/{$mentor->profile_photo}");
+            $sme = Company::where('id',$match->company_id)->first();
+            if($sme->profile_photo != null){
+                $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
+            }
+            $match->mentor = $mentor_user;
+            $match->sme = $sme;
+        }
+        $response =  ["list" => [
+            "user" => $user,
+            "matched" => $pmatched
+        ]];
         return Inertia::render('Landing/Dashboard/PartialMatched/View', $response);
     }
     public function matched() {
-        $response = $this->companyRepository->getList();
-       // $response['list']['company']
-
-        $matched = Company::with('user')->whereNotNull('assigned_mentor_1')
-        ->whereNotNull('assigned_mentor_2')
-        ->whereNotNull('assigned_mentor_3')
-        ->get()
-        ->each(function($m) {
-            $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
-            $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
-            $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);
-            $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
-            $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
-        });
-        $response['list']['company'] = $matched;
+        $user = Auth::user();
+        $matched = MatchingMentorSme::get();
+        foreach($matched as $match){
+            $mentor = User::where('user_role','mentor')->where('functional_id',$match->mentor_id)->select('name', 'functional_id')->first();
+            $sme = Company::where('id',$match->company_id)->first();
+            if($sme->profile_photo != null){
+                $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
+            }
+            $match->mentor = $mentor;
+            $match->sme = $sme;
+        }
+        $response =  ["list" => [
+            "user" => $user,
+            "matched" => $matched
+        ]];
         return Inertia::render('Landing/Dashboard/Matched/View', $response);
     }
 

@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\{
     Company,
     MatchingMentorSme,
-    User,Mentor
+    User,Mentor,
+    PartialMatch
 };
 use App\Services\MatchSmeMentor;
 use Carbon\Carbon;
@@ -93,7 +94,6 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function connectedSme($company_id, $mentor_id, $area) {
         try {
-            //dd('test');
             $mentor = Mentor::findOrFail($mentor_id);
             if($mentor){
                 $limit = $mentor->number_of_companies;
@@ -110,6 +110,16 @@ class MentorRepository implements MentorRepositoryInterface {
                 $data['matched_area'] = $area;
                 if($company && $user){
                     Mail::to($user->email)->send(new RecommendedMentorMail($data));
+                    $pmatch = PartialMatch::where('mentor_id',$mentor_id)
+                    ->where('company_id', $company_id)
+                    ->where('functional_area', $area)->first();
+                    if(!$pmatch){
+                        PartialMatch::create([
+                            "mentor_id" => $mentor_id,
+                            "company_id" => $company_id,
+                            "functional_area" => $area
+                        ]);
+                    }
                 }
                 return [
                     'success' => true,

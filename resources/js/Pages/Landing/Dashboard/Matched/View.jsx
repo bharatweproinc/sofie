@@ -13,7 +13,7 @@ import CheckIcon from "@/Components/SVGIcons/Home/CheckIcon";
 import "../../style.scss"
 
 const Headers = [
-    "Company Profile Photo", "Company Name", "Company UEN", "Mentor 1", "Mentor 2" ,"Mentor 3", "Action"
+    "SME", "SME Name", "SME - UEN", "Mentor ID","Mentor Name", "Matched Area"
 ]
 
 function matched ({list =[]}) {
@@ -22,12 +22,11 @@ function matched ({list =[]}) {
 
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-    const currentRows = list.company.slice(indexOfFirstRow, indexOfLastRow);
+    const currentRows = list.matched.slice(indexOfFirstRow, indexOfLastRow);
 
     const handlePageChange = (event, page) => {
         setCurrentPage(page);
     };
-
     return (
         <Landing auth={list.user}>
             <Typography sx={{ height: {xs : '65px', sm : '0px'} }}></Typography>
@@ -37,7 +36,7 @@ function matched ({list =[]}) {
                 </Box>
                 <Box>
                 {
-                    list.company.length > 0 ?
+                    list.matched.length > 0 ?
                     <Grid container>
                             <Grid
                                 item
@@ -86,21 +85,21 @@ function matched ({list =[]}) {
                                                         <TableCell>
                                                             <Avatar
                                                                 alt={'company_photo'}
-                                                                src={row.profile_photo}
+                                                                src={row.sme.profile_photo}
                                                             />
                                                         </TableCell>
                                                         <TableCell align="left" component="th" scope="row">
-                                                            {row.company_name}
+                                                            {row.sme.company_name}
                                                         </TableCell>
-                                                        <TableCell align="left">{row.company_uen}</TableCell>
-                                                        <TableCell align="left">{row.assigned_mentor_1}</TableCell>
-                                                        <TableCell align="left">{row.assigned_mentor_2}</TableCell>
-                                                        <TableCell align="left">{row.assigned_mentor_3}</TableCell>
-                                                        <TableCell>
+                                                        <TableCell align="left">{row.sme.company_uen}</TableCell>
+                                                        <TableCell align="left">{row.mentor_id}</TableCell>
+                                                        <TableCell align="left">{row.mentor.name}</TableCell>
+                                                        <TableCell align="left">{row.functional_area}</TableCell>
+                                                        {/* <TableCell>
                                                             <a href={route('admin.company.get',row.id)} target="_blank">
                                                                 <CheckIcon/>
                                                             </a>
-                                                        </TableCell>
+                                                        </TableCell> */}
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
