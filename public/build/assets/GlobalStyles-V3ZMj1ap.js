@@ -1,1 +1,0 @@
-import{K as r,_ as l,o as m,n as u}from"./Typography-BG8jcK8T.js";import{j as s}from"./app-C9WTy_v2.js";import{a as f}from"./Box-BsIaLjZV.js";function p({styles:e,themeId:t,defaultTheme:a={}}){const o=f(a),n=typeof e=="function"?e(t&&o[t]||o):e;return s.jsx(r,{styles:n})}function b(e){return s.jsx(p,l({},e,{defaultTheme:m,themeId:u}))}export{b as G};
