@@ -10,6 +10,8 @@ class PressContent extends Model
     use HasFactory;
     protected $fillable =[
         'title',
-        'date'
+        'description',
+        'date',
+        'image'
     ];
 }

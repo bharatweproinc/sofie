@@ -441,8 +441,10 @@ class LandingController extends Controller
     }
 
     public function pressRelease(){
-        $press = PressContent::get();
-        return Inertia::render('Landing/PressContent/View',['list' => $press]);
+        $press = PressContent::get()->each(function($m) {
+            $m->profile_photo = url("storage/testimonial/{$m->image}");
+         });
+        return Inertia::render('Landing/PressContent/Viewtwo',['list' => $press]);
     }
 
     public function declineEmails(){
