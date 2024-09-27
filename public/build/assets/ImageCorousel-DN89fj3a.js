@@ -1,0 +1,1 @@
+import{r as n,j as l}from"./app-DOc4npJV.js";const u=({images:r,interval:s=3e3})=>{const[e,a]=n.useState(0),o=()=>{const t=(e+1)%r.length;a(t)};return n.useEffect(()=>{const t=setInterval(o,s);return()=>clearInterval(t)},[e,s]),l.jsx("img",{className:"w-full h-full object-cover",style:{maxWidth:"100"},src:r[e],alt:`image ${e}`})};export{u as default};
