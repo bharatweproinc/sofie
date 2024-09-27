@@ -233,7 +233,7 @@ class LandingController extends Controller
     }
 
     public function privacy() {
-        return Inertia::render('Landing/Privacy/View',[]);
+        return Inertia::render('Landing/Privacy/Viewtwo',[]);
     }
     public function faq() {
         return Inertia::render('Landing/FAQ/View',[]);
