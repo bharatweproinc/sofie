@@ -203,12 +203,12 @@ console.log("datetewt",detail)
                                 }
                                 <Tooltip
                                     placement="top"
-                                    title="Edit will be enable after 7 days"
-                                    disableHoverListener={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}
+                                    //title="Edit will be enable after 7 days"
+                                    disableHoverListener={detail.logged_user.user_role === "admin" || detail.logged_user.user_role === "mentor" || currentDate.isAfter(enableDate)}
                                  >
                                     <span>
                                         <Button
-                                            disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true}
+                                            disabled={detail.logged_user.user_role === "admin" || detail.logged_user.user_role === "mentor" || currentDate.isAfter(enableDate) ? false : true}
                                             component={Link}
                                             href={route('landing.mentordetail', detail.user.id)}
                                             variant="contained"

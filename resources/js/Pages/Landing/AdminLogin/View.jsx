@@ -121,7 +121,7 @@ function Login() {
               </div>
             </div>
         </BackgroundImageContainer>
-        <ForgetPassword open={open} setOpen={setOpen} routeLink={""}/>
+        <ForgetPassword open={open} setOpen={setOpen} routeLink={('landing.forgetPassword')}/>
     </Landing>
   );
 }

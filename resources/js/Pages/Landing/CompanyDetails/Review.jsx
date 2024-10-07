@@ -219,11 +219,11 @@ const Reviewdata = ({detail}) => {
                             <Tooltip
                                 placement="top"
                                 title="Edit will be enabled after 7 days"
-                                disableHoverListener={ detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate)}
+                                disableHoverListener={ detail.logged_user.user_role === "admin" || detail.logged_user.user_role === "entrepreneur" ||currentDate.isAfter(enableDate)}
                             >
                                 <span>
                                     <Button
-                                        disabled={detail.logged_user.user_role === "admin" || currentDate.isAfter(enableDate) ? false : true }
+                                        disabled={detail.logged_user.user_role === "admin" || detail.logged_user.user_role === "entrepreneur" || currentDate.isAfter(enableDate) ? false : true }
                                         component={Link}
                                         href={route('landing.companydetail', detail.user.id)}
                                         type="submit"

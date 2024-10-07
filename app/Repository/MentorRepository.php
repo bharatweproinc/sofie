@@ -177,7 +177,7 @@ class MentorRepository implements MentorRepositoryInterface {
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($mentor->updated_at);
                 $diff_in_days = $updated_at->diffInDays($current_day);
-                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin")){
+                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin") || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
                     $mentor->update($data);
                     $user->update($user_data);
                 }
@@ -192,12 +192,12 @@ class MentorRepository implements MentorRepositoryInterface {
                 $user->save();
                 $user_type = "Mentor";
                 Mail::to($user->email)->send(new PendingProfileMail($user_type));
-                //Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
-                Mail::to("abcd@yopmail.com")->send(new NewUserSignupMail($user_type));
+                Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
+                //Mail::to("abcd@yopmail.com")->send(new NewUserSignupMail($user_type));
 
             }
 
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")  || (Auth::user() && Auth::user()->user_role =="mentor")){
                 $mentor->profile_photo = $fileName;
                 $mentor->save();
             }

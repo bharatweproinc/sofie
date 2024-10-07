@@ -147,7 +147,7 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($company->updated_at);
                 $diff_in_days = $updated_at->diffInDays($current_day);
-                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin")){
+                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin") || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
                     $company->update($data);
                     $user->update($user_data);
                 }
@@ -169,11 +169,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
 
             }
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")  || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
                 $company->profile_photo = $fileName;
                 $company->save();
             }
-            if(($founderImage != null && $diff_in_days >= 7) || ($founderImage != null && Auth::user() && Auth::user()->user_role =="admin")){
+            if(($founderImage != null && $diff_in_days >= 7) || ($founderImage != null && Auth::user() && Auth::user()->user_role =="admin")  || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
                 $company->founder_image = $founderImage;
                 $company->save();
             }
