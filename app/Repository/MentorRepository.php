@@ -28,7 +28,6 @@ class MentorRepository implements MentorRepositoryInterface {
         ->get()->each(function($m) {
             $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
         });
-        //dd('test', $mentor);
         return ["list" => [
             "user" => $user,
             "mentor" => $mentor
@@ -65,7 +64,6 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function get($id) {
         try {
-            //dd('review', Auth::user());
             if(Auth::user()){
                 $logged_user = Auth::user();
             }else{
@@ -80,7 +78,6 @@ class MentorRepository implements MentorRepositoryInterface {
                 $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
             });
             $data->companies = $companies;
-            //dd($data);
             return [
                 'detail' => $data
             ];
@@ -139,7 +136,6 @@ class MentorRepository implements MentorRepositoryInterface {
 
     public function saveData(Request $request, $id)
     {
-        //dd($request->experience);
         try{
             $fileName = null;
             $diff_in_days = 0;
@@ -177,9 +173,13 @@ class MentorRepository implements MentorRepositoryInterface {
                 $current_day = Carbon::now();
                 $updated_at = Carbon::parse($mentor->updated_at);
                 $diff_in_days = $updated_at->diffInDays($current_day);
-                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin") || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
+                if($diff_in_days >= 7 || (Auth::user() && Auth::user()->user_role =="admin") || (Auth::user() && Auth::user()->user_role =="mentor" && Auth::id() == $id)){
                     $mentor->update($data);
                     $user->update($user_data);
+                    
+                    //phone not showing up!
+                    $user->phone = $request->phone;
+                    $user->save();
                 }
             }else {
                 $mentor = Mentor::create($data);
@@ -193,11 +193,10 @@ class MentorRepository implements MentorRepositoryInterface {
                 $user_type = "Mentor";
                 Mail::to($user->email)->send(new PendingProfileMail($user_type));
                 Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
-                //Mail::to("abcd@yopmail.com")->send(new NewUserSignupMail($user_type));
 
             }
 
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")  || (Auth::user() && Auth::user()->user_role =="mentor")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")  || ($fileName != null && Auth::user() && Auth::user()->user_role =="mentor" && Auth::id() == $id)){
                 $mentor->profile_photo = $fileName;
                 $mentor->save();
             }

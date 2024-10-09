@@ -29,26 +29,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
             $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
             $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
         });
-        //dd($company);
         return ["list" => [
             "user" => $user,
             "company" => $company
         ]];
 
-
-        // $user = Auth::user();
-        // $company = Company::with('user')->get()->each(function($m) {
-        //     $m->profile_photo = url("storage/company_profile/{$m->profile_photo}");
-        //     $m->founder_photo = url("storage/company_founder/{$m->founder_image}");
-        //     $m->assigned_mentor_1 = $this->getMentorName($m->assigned_mentor_1);
-        //     $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
-        //     $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
-        // });
-        // //dd($company);
-        // return ["list" => [
-        //     "user" => $user,
-        //     "company" => $company
-        // ]];
     }
 
     public function getListBrowseCompanies(){
@@ -169,11 +154,11 @@ class CompanyRepository implements CompanyRepositoryInterface {
                 Mail::to("hello@upcie.net")->send(new NewUserSignupMail($user_type));
 
             }
-            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")  || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
+            if(($fileName != null && $diff_in_days >= 7) || ($fileName != null && Auth::user() && Auth::user()->user_role =="admin")  || ($fileName != null && Auth::user() && Auth::user()->user_role =="entrepreneur")){
                 $company->profile_photo = $fileName;
                 $company->save();
             }
-            if(($founderImage != null && $diff_in_days >= 7) || ($founderImage != null && Auth::user() && Auth::user()->user_role =="admin")  || (Auth::user() && Auth::user()->user_role =="entrepreneur")){
+            if(($founderImage != null && $diff_in_days >= 7) || ($founderImage != null && Auth::user() && Auth::user()->user_role =="admin")  || ($founderImage != null && Auth::user() && Auth::user()->user_role =="entrepreneur")){
                 $company->founder_image = $founderImage;
                 $company->save();
             }
