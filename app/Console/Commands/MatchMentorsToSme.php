@@ -8,6 +8,8 @@ use App\Models\MatchingQueue;
 use App\Models\User;
 use App\Services\MatchSmeMentor;
 use Illuminate\Console\Command;
+use App\Models\{MatchingMentorSme,Mentor};
+
 use Illuminate\Support\Facades\Mail;
 
 class MatchMentorsToSme extends Command
@@ -54,6 +56,14 @@ class MatchMentorsToSme extends Command
                     $not_matched_mentor->status = "matched";
                     Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
                     $this->saveLog($mentor_id, 'Matched with existing SMEs');
+                    $mentor = Mentor::where('id', $mentor_id)->first();
+                    $count = count(MatchingMentorSme::where('mentor_id', $mentor_id)->get());
+                    if($mentor && $mentor->number_of_companies > $count){
+                        MatchingQueue::create([
+                            'mentor_id' => $mentor_id,
+                            'status' => 'not matched'
+                       ]);
+                    }
                 }
                 $not_matched_mentor->save();
             }

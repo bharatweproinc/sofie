@@ -189,7 +189,14 @@ class DashboardController extends Controller
                         'status' => 'not matched'
                    ]);
                 }else{
-                    Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+                   Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+                    $limit = (int)$data['limit'];
+                    if($limit > 0){
+                        MatchingQueue::create([
+                            'mentor_id' => $mentor_id,
+                            'status' => 'not matched'
+                       ]);
+                    }
                 }
             }else{
                 return Redirect::back()->withErrors(['message' => 'Error Sending Email']);

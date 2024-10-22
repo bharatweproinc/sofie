@@ -25,15 +25,43 @@ class MatchSmeMentor{
                     return $data;
                 }else{
                     $user = User::where('user_role','mentor')->where('functional_id',$id)->select('name')->first();
-                    $accepted_sme = User::where('user_role', 'entrepreneur')->where('is_accepted',1)->pluck('functional_id')->toArray();
-
-                    if(in_array('Open to Any Industry', $mentor_industry)){
-                        $companies = Company::whereIn('id', $accepted_sme)->where('assigned_mentor_1', null)->whereIn('functional_area_1' , $mentor_functional)
-                        ->orWhere('assigned_mentor_2',null)->whereIn('functional_area_2', $mentor_functional)
-                        ->orWhere('assigned_mentor_3',null)->whereIn('functional_area_3', $mentor_functional)
-                        ->get()->each(function($sme) use ($mentor_id) {
+                    //ids of already matched company
+                    $prev_matched = $currently_mentoring->pluck('company_id')->toArray();
+                    if(count($prev_matched) > 0){
+                        $accepted_sme = User::where('user_role', 'entrepreneur')->where('status',1)->where('is_accepted',1)->whereNotIn('functional_id',$prev_matched)->pluck('functional_id')->toArray();
+                    }else{
+                        $accepted_sme = User::where('user_role', 'entrepreneur')->where('status',1)->where('is_accepted',1)->pluck('functional_id')->toArray();
+                    }
+                    // if(in_array('Open to Any Industry', $mentor_industry)){
+                    //     $companies = Company::whereIn('id', $accepted_sme); // only 1 company with id 27 is in array acceptedsme
+                    //     $companies = $companies->where('assigned_mentor_1', null)->whereIn('functional_area_1' , $mentor_functional)
+                    //     ->orWhere('assigned_mentor_2',null)->whereIn('functional_area_2', $mentor_functional)
+                    //     ->orWhere('assigned_mentor_3',null)->whereIn('functional_area_3', $mentor_functional)
+                    //     ->get()->each(function($sme) use ($mentor_id) {
+                    //             $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
+                    //             //$sme->link = url('connect/' . $sme->id . '/and/' . $mentor_id . '/' . $sme->matched_area);
+                    //             $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
+                    //             $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
+                    //         });
+                    if (in_array('Open to Any Industry', $mentor_industry)) {
+                        $companies = Company::whereIn('id', $accepted_sme) 
+                            ->where(function ($query) use ($mentor_functional) {
+                                $query->where(function ($q) use ($mentor_functional) {
+                                    $q->where('assigned_mentor_1', null)
+                                      ->whereIn('functional_area_1', $mentor_functional);
+                                })
+                                ->orWhere(function ($q) use ($mentor_functional) {
+                                    $q->where('assigned_mentor_2', null)
+                                      ->whereIn('functional_area_2', $mentor_functional);
+                                })
+                                ->orWhere(function ($q) use ($mentor_functional) {
+                                    $q->where('assigned_mentor_3', null)
+                                      ->whereIn('functional_area_3', $mentor_functional);
+                                });
+                            })
+                            ->get()
+                            ->each(function ($sme) use ($mentor_id) {
                                 $sme->profile_photo = url("storage/company_profile/{$sme->profile_photo}");
-                                //$sme->link = url('connect/' . $sme->id . '/and/' . $mentor_id . '/' . $sme->matched_area);
                                 $sme->matched_area = $this->matchedArea($sme->id, $mentor_id);
                                 $sme->link = route('connect.connectedSme', ['company_id' => $sme->id, 'mentor_id' => $mentor_id, 'area' => $sme->matched_area]);
                             });
@@ -61,7 +89,7 @@ class MatchSmeMentor{
                         });
                     }
                     $data = [
-                        'limit'=> 1,
+                        'limit'=> $mentor->number_of_companies,
                         'matched_smes' => $companies,
                         'user_name' => $user->name,
                         'mentor_id' => $id,

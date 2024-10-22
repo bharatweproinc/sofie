@@ -53,7 +53,7 @@ class MentorRepository implements MentorRepositoryInterface {
         $user = Auth::user();
         $mentor = Mentor::with('user')->where('featured_mentor','yes')->select('id', 'qualifications','industry_sector','mentored_company','functional_area', 'hear_about_us',
             'number_of_companies', 'additional_information', 'experience', 'profile_photo','featured_mentor')
-            ->take(5)->get()->each(function($m) {
+            ->take(6)->get()->each(function($m) {
                 $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
             });
         return ["list" => [

@@ -113,9 +113,9 @@ class CompanyController extends Controller
             $sme_data = $matches->sendSmeDetails($company_id, $mentor_id);
             Mail::to($mentorEmail)->send(new SmeDetailsMail($sme_data));
 
-            if($company->functional_area_1 == $mentor->functional_area){
+            if($company->functional_area_1 == $area){
                 $company->update(['assigned_mentor_1' => $mentor_id]);
-            }else if($company->functional_area_2 == $mentor->functional_area){
+            }else if($company->functional_area_2 == $area){
                 $company->update(['assigned_mentor_2' => $mentor_id]);
             }else{
                 $company->update(['assigned_mentor_3' => $mentor_id]);
