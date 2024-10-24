@@ -30,6 +30,7 @@ function CompanyView({ details }) {
   const [validationErrors, setValidationErrors] = React.useState({});
 
   const [showField, setShowField] = useState(false);
+  const [showSelect, setShowSelect] = useState(true);
 
     const handleChange = (key, value) => {
         setValidationErrors({
@@ -41,8 +42,14 @@ function CompanyView({ details }) {
             [key]:value
         }));
     };
+    
+    const handleBehavior = () => {
+        setShowField(true);
+        setShowSelect(false);
+      };
 
-const handleSubmit = (e) => {
+    console.log("data::", data);
+    const handleSubmit = (e) => {
     e.preventDefault();
     let validationErrors = Joi.validateToPlainErrors(data, Constants.declineDropdownSchema);
     setValidationErrors(validationErrors);
@@ -75,40 +82,47 @@ const handleSubmit = (e) => {
         <BackgroundImageContainer sx={{ paddingToo: '65px' }}>
             <CenteredPaper sx={{ width: '650px !important', margin: '60px' }} elevation={4}>
                 <Grid container>
-                    <Grid item xs={12}>
+                <Grid item xs={12}>
                         <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                            We see that you have ended the match with one of your mentee. We understand your concern and would like you to share your feedback regarding this.
+                        Thank you for your response! 
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
-                        </Typography>
+                        We are so sorry to hear that you have removed this match. We would like to request that you fill in this feedback dropdown indicating the reason why you have removed this SME.                         </Typography>
 
+                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
+                        If you have any questions, please feel free to contact us at hello@upcie.net
+                        </Typography>
+                        
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
-                            Select the reason from the dropdown
+                        Select a reason from dropdown or add your custom reason below:
                         </Typography>
 
                         <Box mt={2} class="custom_input_field">
+                        {
+                            showSelect === true &&
                             <FormControl sx={{width : "100%"}} error={!!validationErrors.reason}>
-                                    <Select
-                                        value={data.reason}
-                                        onChange={(e)=> handleChange("reason", e.target.value)}
-                                        fullWidth
-                                        multiline
-                                        placeholder="Please mention reason"
-                                        size='small'
-                                        error={!!validationErrors.reason}
-                                        helperText={validationErrors.reason}
-                                    >
-                                    <MenuItem value="Goal/set target has been achieved">Goal/set target has been achieved</MenuItem>
-                                    <MenuItem value='Difference in personalities, no chemistry'>Difference in personalities, no chemistry</MenuItem>
-                                    <MenuItem value='Lack of commitment/lack of progress'>Lack of commitment/lack of progress</MenuItem>
-                                            <Button class="btn px-4" onClick={() => setShowField(true)}>
-                                            Add Other Reason
-                                            </Button>
-                                    </Select>
-                                    <FormHelperText>{validationErrors.reason}</FormHelperText>
-                            </FormControl>
+                                        <Select
+                                            value={data.reason}
+                                            onChange={(e)=> handleChange("reason", e.target.value)}
+                                            fullWidth
+                                            multiline
+                                            placeholder="Please mention reason"
+                                            size='small'
+                                            error={!!validationErrors.reason}
+                                            helperText={validationErrors.reason}
+                                        >
+                                        <MenuItem value="Goal/set target has been achieved" onClick={() => setShowField(false)}>Goal/set target has been achieved</MenuItem>
+                                        <MenuItem value='Difference in personalities, no chemistry' onClick={() => setShowField(false)}>Difference in personalities, no chemistry</MenuItem>
+                                        <MenuItem value='Lack of commitment/lack of progress' onClick={() => setShowField(false)}>Lack of commitment/lack of progress</MenuItem>
+                                        <MenuItem value='Add Other Reason' onClick={() => handleBehavior()}>Add Other Reason</MenuItem>
+                                                {/* <Button class="btn px-4" onClick={() => handleBehavior()}> */}
+                                                {/* Add Other Reason */}
+                                                {/* </Button> */}
+                                        </Select>
+                                        <FormHelperText>{validationErrors.reason}</FormHelperText>
+                                </FormControl>
+                        }
                                 {showField === true && (
                                     <TextField
                                         value={data.reason}

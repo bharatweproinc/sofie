@@ -512,12 +512,12 @@ class LandingController extends Controller
     }
 
     public function removeMentorReason(Request $request){
-        //dd($request->all()); //mentor,company,reason
-        $match = MatchingMentorSme::where('mentor_id', $request->mentor_id)->first();
+        // dd($request->all()); //mentor,company,reason
+        $match = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id',$request->company_id)->first();
+        // dd($match);
         $removed_user = User::where('user_role', 'mentor')->where('functional_id', $request->mentor_id)->first();
         $matched_area = $match->functional_area;
         $company = Company::where('id', $request->company_id)->first();
-        //dd($company);
         if($company && $company->functional_area_1 == $matched_area){
             $company->assigned_mentor_1 = null;
             $company->save();
@@ -535,19 +535,7 @@ class LandingController extends Controller
             $matchingqueue->status = 'not matched';
             $matchingqueue->save();
         }
-
-        $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "Mentor removed by SME")->first();
-        if($removeTable){
-            $removeTable->match_end_reason = $request->reason;
-            $removeTable->save();
-        }else{
-            $removeTable = new RemovedMentorsSmes();
-            $removeTable->mentor_id = $request->mentor_id;
-            $removeTable->company_id = $request->company_id;
-            $removeTable->match_end_type = "Mentor removed by SME";
-            $removeTable->match_end_reason = $request->reason;
-            $removeTable->save();
-        }
+        
         $data = [
             'username' => $removed_user->name,
             'mentee_name' => $company->company_name,
@@ -560,11 +548,27 @@ class LandingController extends Controller
             $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
             $matched_table->delete();
             return Redirect::route('landing.home');
+        }else{
+            $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "Mentor removed by SME")->first();
+            if($removeTable){
+                $removeTable->match_end_reason = $request->reason;
+                $removeTable->save();
+            }else{
+                $removeTable = new RemovedMentorsSmes();
+                $removeTable->mentor_id = $request->mentor_id;
+                $removeTable->company_id = $request->company_id;
+                $removeTable->match_end_type = "Mentor removed by SME";
+                $removeTable->match_end_reason = $request->reason;
+                $removeTable->save();
+            } 
+            return Redirect::route('landing.home');
         }
+
     }
 
     public function removeSmeReason(Request $request){
-        $match = MatchingMentorSme::where('mentor_id', $request->mentor_id)->first();
+      
+        $match = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->first();
         $mentor = User::where('user_role', 'mentor')->where('functional_id', $request->mentor_id)->first();
         $removed_user = User::where('user_role', 'entrepreneur')->where('functional_id', $request->company_id)->first();
         $matched_area = $match->functional_area;
@@ -598,18 +602,20 @@ class LandingController extends Controller
             $matched_table = MatchingMentorSme::where('mentor_id', $request->mentor_id)->where('company_id', $company->id)->where('functional_area', $matched_area)->first();
             $matched_table->delete();
             return Redirect::route('landing.home');
-        }
-        $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "SME removed by Mentor")->first();
-        if($removeTable){
-            $removeTable->match_end_reason = $request->reason;
-            $removeTable->save();
         }else{
-            $removeTable = new RemovedMentorsSmes();
-            $removeTable->mentor_id = $request->mentor_id;
-            $removeTable->company_id = $request->company_id;
-            $removeTable->match_end_type = "SME removed by Mentor";
-            $removeTable->match_end_reason = $request->reason;
-            $removeTable->save();
+            $removeTable = RemovedMentorsSmes::where('mentor_id', $request->mentor_id)->where('company_id', $request->company_id)->where('match_end_type', "SME removed by Mentor")->first();
+            if($removeTable){
+                $removeTable->match_end_reason = $request->reason;
+                $removeTable->save();
+            }else{
+                $removeTable = new RemovedMentorsSmes();
+                $removeTable->mentor_id = $request->mentor_id;
+                $removeTable->company_id = $request->company_id;
+                $removeTable->match_end_type = "SME removed by Mentor";
+                $removeTable->match_end_reason = $request->reason;
+                $removeTable->save();
+            }
+            return Redirect::route('landing.home');
         }
     }
     public function declineSmeReason(Request $request){
@@ -628,15 +634,12 @@ class LandingController extends Controller
             $decline2->create($data);
         }
         if($declined_user && ($request->reason == "Lack of experience in mentoring" || $request->reason == "Conflict of interest")){
-            //mail to sme
             $data = [
                 'username' => $declined_user->name,
                 'reason' => $request->reason
             ];
-            //dd($declined_user->email);
             Mail::to($declined_user->email)->send(new DeclinedSME($data));
         }
-        //dd('success');
         return Redirect::route('landing.home');
     }
 

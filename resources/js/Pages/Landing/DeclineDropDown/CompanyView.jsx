@@ -30,6 +30,7 @@ function CompanyView({ details }) {
   const [validationErrors, setValidationErrors] = React.useState({});
 
   const [showField, setShowField] = useState(false);
+  const [showSelect, setShowSelect] = useState(true);
 
     const handleChange = (key, value) => {
         setValidationErrors({
@@ -41,6 +42,11 @@ function CompanyView({ details }) {
             [key]:value
         }));
     };
+    
+    const handleBehavior = () => {
+        setShowField(true);
+        setShowSelect(false);
+      };
 
 const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,11 +89,17 @@ const handleSubmit = (e) => {
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
                         We are so sorry to hear that you have declined this match. We would like to request that you fill in this feedback dropdown indicating the reason why you have declined.                         </Typography>
 
-                        <Typography fontWeight={600} textAlign={'center'} py={2}>
+                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
                         If you have any questions, please feel free to contact us at hello@upcie.net
+                        </Typography>
+                        
+                        <Typography fontWeight={600} textAlign={'center'} py={2}>
+                        Select a reason from dropdown or add your custom reason below:
                         </Typography>
 
                         <Box mt={2} class="custom_input_field">
+                        {
+                            showSelect === true &&
                             <FormControl sx={{width : "100%"}} error={!!validationErrors.reason}>
                                     <Select
                                         value={data.reason}
@@ -99,12 +111,13 @@ const handleSubmit = (e) => {
                                     >
                                         <MenuItem value="Lack of experience in mentoring">Lack of experience in mentoring</MenuItem>
                                         <MenuItem value='Conflict of interest'>Conflict of interest</MenuItem>
-                                            <Button class="btn px-4" onClick={() => setShowField(true)}>
+                                            <Button class="btn px-4" onClick={() => handleBehavior()}>
                                             Add Other Reason
                                             </Button>
                                     </Select>
                                     <FormHelperText>{validationErrors.reason}</FormHelperText>
                             </FormControl>
+                        }
                                 {showField === true && (
                                     <TextField
                                         value={data.reason}

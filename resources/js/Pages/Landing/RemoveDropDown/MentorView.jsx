@@ -30,6 +30,7 @@ function MentorView({ details }) {
   const [validationErrors, setValidationErrors] = React.useState({});
 
   const [showField, setShowField] = useState(false);
+  const [showSelect, setShowSelect] = useState(true);
 
     const handleChange = (key, value) => {
         setValidationErrors({
@@ -41,6 +42,12 @@ function MentorView({ details }) {
             [key]:value
         }));
     };
+    
+    const handleBehavior = () => {
+        setShowField(true);
+        setShowSelect(false);
+      };
+
 
 const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,19 +83,25 @@ const handleSubmit = (e) => {
             <CenteredPaper sx={{ width: '650px !important', margin: '60px' }} elevation={4}>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
-                        We see that you have ended the match with one of your mentor. We understand your concern and would like you to share your feedback regarding this.
+                    <Typography fontSize={'16px'} color={'#7C7C7C'}>
+                        Thank you for your response! 
                         </Typography>
 
                         <Typography fontSize={'16px'} color={'#7C7C7C'} py={2}>
-                            We will be sending you better matches in the future. If you have any further queries please feel free to let us know about them by <Link href={route('landing.contactus')}><Typography color={'#448EE2'}>contacting us</Typography></Link>
+                        We are so sorry to hear that you have removed this match. We would like to request that you fill in this feedback indicating the reason why you have removed this mentor.
+                        </Typography>
+                        
+                        <Typography fontSize={'16px'} color={'#7C7C7C'}>
+                        If you have any questions, please feel free to contact us at hello@upcie.net
                         </Typography>
 
                         <Typography fontWeight={600} textAlign={'center'} py={2}>
-                            Select the reason from the dropdown
+                        Select a reason from dropdown or add your custom reason below:
                         </Typography>
 
                         <Box mt={2} class="custom_input_field">
+                        {
+                            showSelect === true &&
                             <FormControl sx={{width : "100%"}} error={!!validationErrors.reason}>
                                 <Select
                                     value={data.reason}
@@ -101,12 +114,14 @@ const handleSubmit = (e) => {
                                     <MenuItem value="Goal/set target has been achieved">Goal/set target has been achieved</MenuItem>
                                     <MenuItem value='Difference in personalities, no chemistry'>Difference in personalities, no chemistry</MenuItem>
                                     <MenuItem value='Lack of commitment/lack of progress'>Lack of commitment/lack of progress</MenuItem>
-                                        <Button class="btn px-4" onClick={() => setShowField(true)}>
+                                        <Button class="btn px-4" onClick={() => handleBehavior()}>
                                         Add Other Reason
                                         </Button>
                                 </Select>
                                 <FormHelperText>{validationErrors.reason}</FormHelperText>
                             </FormControl>
+                        }
+                            
                                 {showField === true && (
                                     <TextField
                                         value={data.reason}
