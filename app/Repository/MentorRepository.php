@@ -28,9 +28,21 @@ class MentorRepository implements MentorRepositoryInterface {
         ->get()->each(function($m) {
             $m->profile_photo = url("storage/mentor_profile/{$m->profile_photo}");
         });
+        
+        $today = Carbon::now();
+        $month_ago = $today->copy()->subMonth()->format('Y-m-d');
+        $end_of_month = $today->format('Y-m-d');
+        
+        $count = Company::with('user')
+            ->whereBetween('created_at', [$month_ago, $end_of_month])
+            ->whereHas('user', function ($query) {
+                $query->where('status', 1);
+            })
+            ->count();
         return ["list" => [
             "user" => $user,
-            "mentor" => $mentor
+            "mentor" => $mentor,
+            "m_count" => $count
         ]];
     }
 

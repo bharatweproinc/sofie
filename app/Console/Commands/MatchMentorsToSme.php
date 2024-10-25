@@ -58,12 +58,12 @@ class MatchMentorsToSme extends Command
                     $this->saveLog($mentor_id, 'Matched with existing SMEs');
                     $mentor = Mentor::where('id', $mentor_id)->first();
                     $count = count(MatchingMentorSme::where('mentor_id', $mentor_id)->get());
-                    if($mentor && $mentor->number_of_companies > $count){
-                        MatchingQueue::create([
-                            'mentor_id' => $mentor_id,
-                            'status' => 'not matched'
-                       ]);
-                    }
+                    // if($mentor && $mentor->number_of_companies > $count){
+                    //     MatchingQueue::create([
+                    //         'mentor_id' => $mentor_id,
+                    //         'status' => 'not matched'
+                    //    ]);
+                    // }
                 }
                 $not_matched_mentor->save();
             }

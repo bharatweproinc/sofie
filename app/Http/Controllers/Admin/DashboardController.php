@@ -192,10 +192,10 @@ class DashboardController extends Controller
                    Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
                     $limit = (int)$data['limit'];
                     if($limit > 0){
-                        MatchingQueue::create([
-                            'mentor_id' => $mentor_id,
-                            'status' => 'not matched'
-                       ]);
+                    //     MatchingQueue::create([
+                    //         'mentor_id' => $mentor_id,
+                    //         'status' => 'not matched'
+                    //    ]);
                     }
                 }
             }else{

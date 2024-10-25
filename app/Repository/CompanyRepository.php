@@ -29,9 +29,22 @@ class CompanyRepository implements CompanyRepositoryInterface {
             $m->assigned_mentor_2 = $this->getMentorName($m->assigned_mentor_2);
             $m->assigned_mentor_3 = $this->getMentorName($m->assigned_mentor_3);
         });
+        
+        $today = Carbon::now();
+        $month_ago = $today->copy()->subMonth()->format('Y-m-d');
+        $end_of_month = $today->format('Y-m-d');
+        
+        $count = Company::with('user')
+            ->whereBetween('created_at', [$month_ago, $end_of_month])
+            ->whereHas('user', function ($query) {
+                $query->where('status', 1);
+            })
+            ->count();
+        
         return ["list" => [
             "user" => $user,
-            "company" => $company
+            "company" => $company,
+            "sme_count" => $count
         ]];
 
     }
