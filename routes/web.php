@@ -176,6 +176,7 @@ Route::name('landing.')->group(function() {
     //accepted mails pop up
     Route::get('/accepted-mail-sme', [LandingController::class, 'acceptedMailSme'])->name('acceptedMailSme');
     Route::get('/accepted-mail-mentor', [LandingController::class, 'acceptedMailMentor'])->name('acceptedMailMentor');
+    Route::get('/not-accepted-mail-mentor', [LandingController::class, 'notAcceptedMailMentor'])->name('not.acceptedMailMentor');
 
 
 });

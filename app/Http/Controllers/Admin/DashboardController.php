@@ -192,10 +192,10 @@ class DashboardController extends Controller
                     Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
                     $limit = (int)$data['limit'];
                     if($limit > 0){
-                        MatchingQueue::create([
-                            'mentor_id' => $mentor_id,
-                            'status' => 'matched'
-                        ]);
+                        // MatchingQueue::create([
+                        //     'mentor_id' => $mentor_id,
+                        //     'status' => 'matched'
+                        // ]);
                     }
                 }
             }else{
@@ -214,13 +214,13 @@ class DashboardController extends Controller
                 $user->save();
                 Mail::to($user->email)->send(new AcceptedSmeProfileMail($user));
 
-                $not_matched_or_limit_pending = MatchingQueue::get()->filter(function ($Mqueue) {
-                    return ($Mqueue->status == "not matched" || $this->isLimitPending($Mqueue->mentor_id));
+                $limitPendingMentor = Mentor::get()->filter(function ($Mqueue) {
+                    return $this->isLimitPending($Mqueue->id);
                 });
 
                 $matchSmeMentor = new MatchSmeMentor();
-                foreach ($not_matched_or_limit_pending as $key => $mentorSme) {
-                    $data = $matchSmeMentor->matchingSme($mentorSme->mentor_id);
+                foreach ($limitPendingMentor as $mentorSme) {
+                    $data = $matchSmeMentor->matchingSme($mentorSme->id);
                     $data["matched_smes"] = $data["matched_smes"]->where('id', $sme_id);
                     if (count($data["matched_smes"])) {
                         $userData = User::where('user_role', 'mentor')->where('functional_id', $mentorSme->mentor_id)->first();

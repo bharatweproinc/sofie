@@ -650,4 +650,8 @@ class LandingController extends Controller
     public function acceptedMailMentor(){
         return Inertia::render('Landing/AcceptedMailPopup/Mentorview',[]);
     }
+
+    public function notAcceptedMailMentor(){
+        return Inertia::render('Landing/AcceptedMailPopup/NotAcceptedMentor',[]);
+    }
 }

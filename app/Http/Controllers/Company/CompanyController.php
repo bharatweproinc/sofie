@@ -84,18 +84,25 @@ class CompanyController extends Controller
                 ]);
             }else{
                 // limit validation for create mentor
-                MatchingMentorSme::create([
-                    'mentor_id' =>$mentor_id,
-                    'company_id' => $company_id,
-                    'functional_area' => $area
-                ]);
+                // $mentor = Mentor::find($mentor_id);
+                $matchingMentorSme = MatchingMentorSme::where("mentor_id", $mentor_id)->get();
 
-                $pmatch = PartialMatch::where('mentor_id',$mentor_id)
-                ->where('company_id', $company_id)
-                ->where('functional_area', $area)->first();
-
-                if($pmatch){
-                    $pmatch->delete();
+                if (count($matchingMentorSme) >= (int) $mentor->number_of_companies) {
+                    return Redirect::route("landing.not.acceptedMailMentor");
+                } else {
+                    MatchingMentorSme::create([
+                        'mentor_id' =>$mentor_id,
+                        'company_id' => $company_id,
+                        'functional_area' => $area
+                    ]);
+    
+                    $pmatch = PartialMatch::where('mentor_id',$mentor_id)
+                    ->where('company_id', $company_id)
+                    ->where('functional_area', $area)->first();
+    
+                    if($pmatch){
+                        $pmatch->delete();
+                    }
                 }
             }
             $not_matched_mentor = MatchingQueue::where('mentor_id',$mentor_id)->where('status', 'not matched')->first();
