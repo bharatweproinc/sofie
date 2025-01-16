@@ -83,6 +83,7 @@ class CompanyController extends Controller
                     'functional_area' => $area
                 ]);
             }else{
+                // limit validation for create mentor
                 MatchingMentorSme::create([
                     'mentor_id' =>$mentor_id,
                     'company_id' => $company_id,
@@ -98,12 +99,13 @@ class CompanyController extends Controller
                 }
             }
             $not_matched_mentor = MatchingQueue::where('mentor_id',$mentor_id)->where('status', 'not matched')->first();
-            if(!$not_matched_mentor){
-               MatchingQueue::create([
+            if (!$not_matched_mentor) {
+                MatchingQueue::where('mentor_id', $mentor_id)->delete();
+                MatchingQueue::create([
                     'mentor_id' => $mentor_id,
-                    'status' => 'matched'
-               ]);
-            }else{
+                    'status' => 'not matched'
+                ]);
+            } else {
                 $not_matched_mentor->update(['status' => 'matched']);
             }
             Mail::to($user->email)->send(new MentorDetailsMail($data));

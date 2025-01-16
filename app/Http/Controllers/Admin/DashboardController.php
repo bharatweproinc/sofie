@@ -187,15 +187,15 @@ class DashboardController extends Controller
                     MatchingQueue::create([
                         'mentor_id' => $mentor_id,
                         'status' => 'not matched'
-                   ]);
+                    ]);
                 }else{
-                   Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
+                    Mail::to($user->email)->send(new AcceptedMentorProfileMail($data));
                     $limit = (int)$data['limit'];
                     if($limit > 0){
-                    //     MatchingQueue::create([
-                    //         'mentor_id' => $mentor_id,
-                    //         'status' => 'not matched'
-                    //    ]);
+                        MatchingQueue::create([
+                            'mentor_id' => $mentor_id,
+                            'status' => 'matched'
+                        ]);
                     }
                 }
             }else{
@@ -213,6 +213,20 @@ class DashboardController extends Controller
                 $user->status = 1;
                 $user->save();
                 Mail::to($user->email)->send(new AcceptedSmeProfileMail($user));
+
+                $not_matched_or_limit_pending = MatchingQueue::get()->filter(function ($Mqueue) {
+                    return ($Mqueue->status == "not matched" || $this->isLimitPending($Mqueue->mentor_id));
+                });
+
+                $matchSmeMentor = new MatchSmeMentor();
+                foreach ($not_matched_or_limit_pending as $key => $mentorSme) {
+                    $data = $matchSmeMentor->matchingSme($mentorSme->mentor_id);
+                    $data["matched_smes"] = $data["matched_smes"]->where('id', $sme_id);
+                    if (count($data["matched_smes"])) {
+                        $userData = User::where('user_role', 'mentor')->where('functional_id', $mentorSme->mentor_id)->first();
+                        Mail::to($userData->email)->send(new AcceptedMentorProfileMail($data));
+                    }
+                }
             }else{
                 return Redirect::back()->withErrors(['message' => 'Error Sending Email']);
             }
@@ -455,6 +469,15 @@ class DashboardController extends Controller
             $admin->save();
         }
         return Redirect::back();
+    }
+
+    public function isLimitPending($menterId) {
+        $mentor = Mentor::find($menterId);
+        $matchingMentorSme = MatchingMentorSme::where("mentor_id", $menterId)->get();
+        if (count($matchingMentorSme) >= (int) $mentor->number_of_companies) {
+            return false;
+        }
+        return true;
     }
 }
 
